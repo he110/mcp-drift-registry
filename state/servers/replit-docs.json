@@ -103,7 +103,7 @@
   "toolCount": 3,
   "fingerprint": "5d3d77bc216a78f6",
   "lastGood": {
-    "at": "2026-09-09T11:54:07.335Z",
+    "at": "2026-09-09T11:56:17.632Z",
     "tools": [
       {
         "name": "query_docs_filesystem_replit",
@@ -199,8 +199,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-09T11:54:07.335Z",
-  "lastOkAt": "2026-09-09T11:54:07.335Z",
+  "lastCheckedAt": "2026-09-09T11:56:17.632Z",
+  "lastOkAt": "2026-09-09T11:56:17.632Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

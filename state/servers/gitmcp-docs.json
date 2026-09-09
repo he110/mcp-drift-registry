@@ -156,7 +156,7 @@
   "toolCount": 5,
   "fingerprint": "d8dd5bda4e623a65",
   "lastGood": {
-    "at": "2026-09-09T11:54:07.335Z",
+    "at": "2026-09-09T11:56:17.632Z",
     "tools": [
       {
         "name": "fetch_generic_documentation",
@@ -302,8 +302,8 @@
     "protocolVersion": "2025-03-26"
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-09T11:54:07.335Z",
-  "lastOkAt": "2026-09-09T11:54:07.335Z",
+  "lastCheckedAt": "2026-09-09T11:56:17.632Z",
+  "lastOkAt": "2026-09-09T11:56:17.632Z",
   "lastChangedAt": null,
   "changeCount": 0
 }
