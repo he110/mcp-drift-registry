@@ -24,7 +24,7 @@ import { esc, inlineCode, isUnstable, platformFamilies, publish } from "../src/p
 import { noteFacts, SIGNATURE } from "../src/publish/note.js";
 import { fleetCensus } from "../src/publish/fleet.js";
 import { DIRECT, WELL_KNOWN, buildProvenance, describeProvenance, isCardObservation, isObservation } from "../src/lib/provenance.js";
-import { readCard, cardUrlFor, OFFICIAL_SCHEMA } from "../src/sources/card.js";
+import { readCard, cardUrlFor, cardsUrlFor, pickFromCards, OFFICIAL_SCHEMA } from "../src/sources/card.js";
 import { advertisedCensus, compareCard } from "../src/lib/advertised.js";
 import { Store } from "../src/lib/store.js";
 
@@ -1439,4 +1439,66 @@ test("rows collected before provenance existed are neither vouched for nor fault
   const page = publishFleet([clean, tenant("a")]).read("notes/fleet.html");
   assert.ok(!page.includes("Every row on this page is a contract this registry actually read"));
   assert.ok(page.includes("neither vouched for nor faulted"));
+});
+
+// --- the plural well-known document -----------------------------------------
+//
+// A site with an authenticated endpoint alongside its public one publishes both
+// at `/.well-known/mcp/server-cards.json`. Reading it is only safe if the entry
+// is selected by endpoint and never guessed at, so most of these tests are about
+// what the reader refuses to do.
+
+test("pickFromCards selects the entry naming this endpoint, not the first one", () => {
+  const doc = {
+    servers: [
+      { name: "Public", url: "https://docs.example.invalid/mcp", tools: [{ name: "search" }] },
+      { name: "Authenticated", url: "https://docs.example.invalid/authed/mcp", tools: [] },
+    ],
+  };
+  assert.equal(pickFromCards(doc, "https://docs.example.invalid/mcp").name, "Public");
+  // The row that would have been silently mis-filed by a "take the first" reader.
+  assert.equal(pickFromCards(doc, "https://docs.example.invalid/authed/mcp").name, "Authenticated");
+});
+
+test("pickFromCards ignores a trailing slash but not a different path", () => {
+  const doc = { servers: [{ name: "Public", url: "https://docs.example.invalid/mcp/" }, { name: "Other", url: "https://docs.example.invalid/v2/mcp" }] };
+  assert.equal(pickFromCards(doc, "https://docs.example.invalid/mcp").name, "Public");
+  assert.equal(pickFromCards(doc, "https://docs.example.invalid/v3/mcp"), null);
+});
+
+test("pickFromCards returns null rather than guessing when several entries and none match", () => {
+  const doc = { servers: [{ name: "A", url: "https://a.invalid/mcp" }, { name: "B", url: "https://b.invalid/mcp" }] };
+  assert.equal(pickFromCards(doc, "https://docs.example.invalid/mcp"), null);
+});
+
+test("pickFromCards accepts a lone entry that names the build host", () => {
+  // The common real shape: one endpoint, and its `url` points at the generator's
+  // build host rather than the site's own domain. That mismatch is the finding —
+  // refusing to match on it would drop exactly the rows worth reporting.
+  const doc = { servers: [{ name: "Solo", url: "https://tenant.mintlify.me/mcp", tools: [{ name: "search" }] }] };
+  assert.equal(pickFromCards(doc, "https://docs.example.invalid/mcp").name, "Solo");
+  assert.equal(pickFromCards({ servers: [] }, "https://docs.example.invalid/mcp"), null);
+  assert.equal(pickFromCards({}, "https://docs.example.invalid/mcp"), null);
+});
+
+test("a plural entry reads into the same card shape as a singular document", () => {
+  const card = readCard({
+    name: "Docs MCP",
+    url: "https://tenant.mintlify.me/mcp",
+    tools: [{ name: "search", description: "Search", inputSchema: { type: "object" } }],
+  });
+  assert.equal(card.toolCount, 1);
+  assert.deepEqual(card.endpoints, ["https://tenant.mintlify.me/mcp"]);
+  // `tools: []` is a claim ("this server has none"); a missing `tools` is not.
+  // Only the first one can be wrong about a server that serves three, and the
+  // census depends on telling them apart.
+  assert.deepEqual(readCard({ tools: [] }).tools, []);
+  assert.equal(readCard({ tools: [] }).toolCount, 0);
+  assert.equal(readCard({}).tools, null);
+  assert.equal(readCard({}).toolCount, null);
+});
+
+test("cardsUrlFor derives the plural path from the origin", () => {
+  assert.equal(cardsUrlFor("https://docs.example.invalid/mcp"), "https://docs.example.invalid/.well-known/mcp/server-cards.json");
+  assert.equal(cardsUrlFor("not a url"), null);
 });
