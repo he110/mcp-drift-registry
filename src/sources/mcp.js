@@ -24,6 +24,11 @@ export async function collectMcpServer(server) {
     name: server.name ?? server.id,
     url: server.url,
     homepage: server.homepage ?? null,
+    // Declared, never inferred. Two endpoints on different vendor domains can
+    // be the same hosted generator, and then they are one observation wearing
+    // two names — the registry has to be able to say so out loud. `null` means
+    // "unknown", which is not the same as "independent".
+    platform: server.platform ?? null,
     transport: "streamable-http",
   };
 

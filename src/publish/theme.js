@@ -97,6 +97,29 @@ code, .mono { font-family: inherit; }
   color: var(--ink-soft);
 }
 .masthead__lede strong { color: var(--ink); font-weight: 600; }
+/* Set as a margin note, not as a warning: a sampling caveat earns a rule and a
+   smaller size, not the red the page saves for broken contracts. */
+.masthead__caveat {
+  margin: 0.9rem 0 0;
+  max-width: 46ch;
+  padding-left: 0.9rem;
+  border-left: 2px solid var(--operational);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.masthead__caveat strong { color: var(--operational); font-weight: 600; }
+.notice {
+  margin: 1.1rem 0 0;
+  max-width: 62ch;
+  padding-left: 0.9rem;
+  border-left: 2px solid var(--operational);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.notice strong { color: var(--ink); font-weight: 600; }
+.notice .flag { margin: 0 0.35rem 0 0; }
 .masthead__grid { display: grid; gap: clamp(1.25rem, 4vw, 4rem); align-items: end; }
 @media (min-width: 62rem) {
   .masthead__grid { grid-template-columns: minmax(0, 1.35fr) minmax(16rem, 0.65fr); }
@@ -134,6 +157,8 @@ code, .mono { font-family: inherit; }
   color: var(--ink-faint);
 }
 .readout__cell--alarm .readout__value { color: var(--breaking); }
+/* Red is spent only on contract damage. Sampling caveats read in slate. */
+.readout__cell--aside .readout__value { color: var(--operational); }
 
 /* --- sections ------------------------------------------------------------ */
 
@@ -250,6 +275,25 @@ h2 .num {
 .dot--ok { background: var(--additive); }
 .dot--error { background: var(--breaking); }
 .dot--auth_required { background: var(--cosmetic); }
+/* Hollow, not filled: the state is "we cannot say", which is neither of the
+   two solid answers on either side of it. */
+.dot--unstable { background: transparent; box-shadow: inset 0 0 0 1.5px var(--operational); }
+
+/* A quarantined host is a caveat about the instrument, not an alarm about a
+   contract. It gets slate, lower case and a dotted rule — intermittent by
+   drawing, and deliberately quieter than the red reserved for real breakage. */
+.flag {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--operational);
+  border-bottom: 1.5px dotted var(--operational);
+  padding-bottom: 0.1em;
+  margin-left: 0.35rem;
+  white-space: nowrap;
+}
+.ledger__row--quarantined .ledger__name a { color: var(--ink-soft); }
 
 /* --- prose + panels ------------------------------------------------------ */
 

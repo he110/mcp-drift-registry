@@ -1,11 +1,16 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 
 import { canonicalJson, fingerprint } from "../src/lib/canonical.js";
 import { deepDiff, diffTool, classifyChange, worstSeverity } from "../src/lib/diff.js";
 import { buildEvents } from "../src/lib/events.js";
+import { trackReachability, FLAP_THRESHOLD, FLAP_WINDOW_MS } from "../src/lib/flap.js";
 import { parseRpc } from "../src/sources/mcp.js";
-import { esc, inlineCode } from "../src/publish/render.js";
+import { esc, inlineCode, isUnstable, platformFamilies, publish } from "../src/publish/render.js";
+import { Store } from "../src/lib/store.js";
 
 const AT = "2026-01-01T00:00:00.000Z";
 
@@ -294,4 +299,231 @@ test("a record predating lastGood still diffs against its own snapshot", () => {
 test("recovery with no contract ever recorded is a baseline, not a hundred additions", () => {
   const types = buildEvents(down(), server([tool(), tool({ name: "fetch" })]), AT).map((e) => e.type);
   assert.deepEqual(types, ["server_recovered", "server_baselined"]);
+});
+
+// --- flap quarantine --------------------------------------------------------
+//
+// At 79 endpoints, two hosts that bounce every other pulse produce more feed
+// entries than every real contract change combined. These cover the deal:
+// availability chatter from a proven-unreliable host is dropped, its contract
+// is not.
+
+const NOW = "2026-03-15T00:00:00.000Z";
+const daysAgo = (d) => new Date(Date.parse(NOW) - d * 24 * 60 * 60 * 1000).toISOString();
+const flips = (...days) => days.map((d, i) => ({ at: daysAgo(d), to: i % 2 === 0 ? "error" : "ok" }));
+
+test("four ok<->error transitions in seven days quarantine the server", () => {
+  // Three already on record, and this pulse supplies the fourth.
+  const prev = server([tool()], { reachability: flips(5, 4, 2) });
+  const { transitions, unstable } = trackReachability(prev, down(), NOW);
+  assert.equal(transitions.length, FLAP_THRESHOLD);
+  assert.equal(unstable, true);
+  assert.equal(transitions.at(-1).to, "error");
+});
+
+test("three transitions are still published — the threshold is not a hair trigger", () => {
+  const prev = server([tool()], { reachability: flips(5, 4) });
+  const { transitions, unstable } = trackReachability(prev, down(), NOW);
+  assert.equal(transitions.length, 3);
+  assert.equal(unstable, false);
+
+  const [e] = buildEvents(prev, down(), NOW, { quarantined: unstable });
+  assert.equal(e.type, "server_unreachable");
+});
+
+test("a quarantined server publishes neither unreachable nor recovered", () => {
+  const up = server([tool()]);
+  const goingDown = buildEvents(up, down(), NOW, { quarantined: true });
+  assert.deepEqual(goingDown, []);
+
+  const whileDown = down({
+    lastGood: { at: NOW, tools: up.tools, fingerprint: up.fingerprint, protocolVersion: up.protocolVersion },
+  });
+  const comingBack = buildEvents(whileDown, up, NOW, { quarantined: true });
+  assert.deepEqual(comingBack, []);
+});
+
+test("quarantine covers availability only — a contract change is still recorded", () => {
+  const before = server([tool(), tool({ name: "fetch" })]);
+
+  // Recovering from an outage while a tool went missing.
+  const whileDown = down({
+    lastGood: { at: NOW, tools: before.tools, fingerprint: before.fingerprint, protocolVersion: before.protocolVersion },
+  });
+  const onRecovery = buildEvents(whileDown, server([tool()]), NOW, { quarantined: true });
+  const removal = onRecovery.find((e) => e.type === "tool_removed");
+  assert.ok(removal, "the drift must survive quarantine");
+  assert.equal(removal.tool, "fetch");
+  assert.equal(removal.severity, "breaking");
+  assert.ok(!onRecovery.some((e) => e.type === "server_recovered"));
+
+  // And on an ordinary up-to-up pulse.
+  const changed = tool();
+  changed.inputSchema.required = ["query", "limit"];
+  const steady = buildEvents(server([tool()]), server([changed]), NOW, { quarantined: true });
+  assert.equal(steady.length, 1);
+  assert.equal(steady[0].type, "tool_silent_schema_change");
+  assert.equal(steady[0].severity, "breaking");
+});
+
+test("transitions older than the window fall out and quarantine lifts by itself", () => {
+  const stale = [
+    { at: daysAgo(30), to: "error" },
+    { at: daysAgo(29), to: "ok" },
+    { at: daysAgo(8), to: "error" },
+    { at: daysAgo(7.5), to: "ok" },
+    { at: daysAgo(2), to: "error" },
+    { at: daysAgo(1), to: "ok" },
+  ];
+  const prev = server([tool()], { reachability: stale, stability: "unstable" });
+  const { transitions, unstable } = trackReachability(prev, server([tool()]), NOW);
+
+  assert.equal(transitions.length, 2, "only the two inside the 7-day window survive");
+  assert.equal(unstable, false);
+  assert.ok(transitions.every((t) => Date.parse(NOW) - Date.parse(t.at) < FLAP_WINDOW_MS));
+});
+
+test("a record predating the flap tracker is not treated as a flapping server", () => {
+  // Exactly what the 79 files on disk look like today: no `reachability` key.
+  const legacy = server([tool()]);
+  assert.equal("reachability" in legacy, false);
+
+  const steady = trackReachability(legacy, server([tool()]), NOW);
+  assert.deepEqual(steady, { transitions: [], unstable: false });
+
+  // A single outage against a legacy record is one transition, not a flap.
+  const firstOutage = trackReachability(legacy, down(), NOW);
+  assert.equal(firstOutage.transitions.length, 1);
+  assert.equal(firstOutage.unstable, false);
+  assert.equal(buildEvents(legacy, down(), NOW, { quarantined: false })[0].type, "server_unreachable");
+
+  // A brand-new server has no previous status at all.
+  assert.deepEqual(trackReachability(null, server([tool()]), NOW), { transitions: [], unstable: false });
+});
+
+test("a corrupt or hand-edited reachability list does not stop the pulse", () => {
+  const prev = server([tool()], { reachability: [null, "nonsense", { to: "ok" }, { at: "not-a-date", to: "ok" }] });
+  const { transitions, unstable } = trackReachability(prev, server([tool()]), NOW);
+  assert.deepEqual(transitions, []);
+  assert.equal(unstable, false);
+});
+
+test("steady state records nothing — the history cannot grow without transitions", () => {
+  let prev = server([tool()]);
+  for (let i = 0; i < 50; i += 1) {
+    const { transitions } = trackReachability(prev, server([tool()]), NOW);
+    prev = server([tool()], transitions.length ? { reachability: transitions } : {});
+  }
+  assert.equal(prev.reachability, undefined);
+});
+
+test("stability defaults to stable for every record that predates the field", () => {
+  assert.equal(isUnstable(server([tool()])), false);
+  assert.equal(isUnstable({ stability: "unstable" }), true);
+  assert.equal(isUnstable(undefined), false);
+});
+
+// --- 79 rows are not 79 observations ----------------------------------------
+
+test("platform families collapse a shared generator and never assume independence", () => {
+  const fleet = [
+    { id: "a", platform: "mintlify-docs" },
+    { id: "b", platform: "mintlify-docs" },
+    { id: "c", platform: "mintlify-docs" },
+    { id: "d", platform: "openapi-explorer" },
+    { id: "e" },
+    { id: "f", platform: null },
+  ];
+  const f = platformFamilies(fleet);
+
+  // 2 declared platforms + 2 endpoints of unknown provenance, each its own.
+  assert.equal(f.platformFamilies, 4);
+  assert.equal(f.unlabelledPlatform, 2);
+  assert.deepEqual(f.platforms, { "mintlify-docs": 3, "openapi-explorer": 1 });
+  assert.deepEqual(f.largestPlatform, { platform: "mintlify-docs", servers: 3 });
+});
+
+test("with no platform declared anywhere, families equal servers — no free credit", () => {
+  const f = platformFamilies([{ id: "a" }, { id: "b" }, { id: "c" }]);
+  assert.equal(f.platformFamilies, 3);
+  assert.equal(f.largestPlatform, null);
+});
+
+test("the shipped registry declares fewer families than it has rows", () => {
+  const config = JSON.parse(readFileSync(new URL("../servers.json", import.meta.url), "utf8"));
+  const f = platformFamilies(config.servers);
+  assert.ok(f.platformFamilies < config.servers.length, "otherwise the caveat on the site is a lie");
+  assert.ok(f.largestPlatform.servers > 1);
+});
+
+// --- what a consumer of the JSON API actually receives ----------------------
+
+test("the API publishes platform and stability for every server", () => {
+  const dir = mkdtempSync(join(tmpdir(), "drift-"));
+  try {
+    const store = new Store(join(dir, "state"));
+    store.writeServer({
+      ...server([tool()]),
+      id: "shared",
+      name: "Shared",
+      platform: "mintlify-docs",
+      firstSeenAt: AT,
+      lastCheckedAt: AT,
+      changeCount: 0,
+    });
+    store.writeServer({
+      ...server([tool()]),
+      id: "flappy",
+      name: "Flappy",
+      stability: "unstable",
+      reachability: flips(5, 4, 2, 1),
+      firstSeenAt: AT,
+      lastCheckedAt: AT,
+      changeCount: 0,
+    });
+    store.writeServer({ ...server([tool()]), id: "lonely", name: "Lonely", firstSeenAt: AT, lastCheckedAt: AT, changeCount: 0 });
+
+    const outDir = join(dir, "site");
+    publish({
+      store,
+      outDir,
+      at: AT,
+      config: {
+        site: { title: "T", tagline: "t", url: "https://example.invalid", repo: "he110/mcp-drift-registry" },
+        servers: [{ id: "shared", platform: "mintlify-docs" }, { id: "flappy" }, { id: "lonely" }],
+      },
+    });
+
+    const registry = JSON.parse(readFileSync(join(outDir, "api/registry.json"), "utf8"));
+    const byId = Object.fromEntries(registry.servers.map((s) => [s.id, s]));
+
+    assert.equal(byId.shared.platform, "mintlify-docs");
+    assert.equal(byId.lonely.platform, null, "unlabelled stays null — we do not invent a platform");
+    assert.equal(byId.shared.stability, "stable");
+    assert.equal(byId.flappy.stability, "unstable");
+    assert.equal(byId.flappy.flapCount, 4);
+
+    // Three servers, one shared platform, two unknown: 1 + 2 families.
+    assert.equal(registry.counts.platformFamilies, 3);
+    assert.equal(registry.counts.servers, 3);
+
+    // A quarantined host answered, but it is not counted as a healthy endpoint.
+    assert.equal(registry.counts.unstable, 1);
+    assert.equal(registry.counts.ok, 2);
+    assert.equal(registry.counts.answered, 3);
+
+    const one = JSON.parse(readFileSync(join(outDir, "api/servers/flappy.json"), "utf8"));
+    assert.equal(one.stability, "unstable");
+    assert.equal(one.platform, null);
+
+    // And the reader is told, in words, which of the two claims is being made.
+    const html = readFileSync(join(outDir, "servers/flappy.html"), "utf8");
+    assert.match(html, /statement about the host, not about its contract/);
+    assert.ok(!html.includes("sev--breaking"), "quarantine must not borrow the breaking-change styling");
+
+    const index = readFileSync(join(outDir, "index.html"), "utf8");
+    assert.match(index, /3 independent contract families/);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
 });

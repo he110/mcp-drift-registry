@@ -16,10 +16,14 @@ import { sanitize } from "../lib/store.js";
 export function publish({ store, outDir, config, at }) {
   const site = config.site ?? {};
   const base = (site.url ?? "").replace(/\/$/, "");
-  const servers = store.listServers();
   const history = store.readHistory();
   const meta = store.readMeta();
   const declared = new Map((config.servers ?? []).map((s) => [s.id, s]));
+  // Records written before `platform` existed do not carry it; fall back to the
+  // declaration so `--publish-only` tells the truth without waiting for a pulse.
+  const servers = store
+    .listServers()
+    .map((s) => ({ ...s, platform: s.platform ?? declared.get(s.id)?.platform ?? null }));
 
   const events = [...history].reverse();
   const ctx = { site, base, servers, events, meta, declared, at };
@@ -51,6 +55,11 @@ export function publish({ store, outDir, config, at }) {
     writeJson(join(outDir, "api/servers", `${sanitize(server.id)}.json`), {
       generatedAt: at,
       ...server,
+      // Always explicit in the API even though the state file omits the default,
+      // so a consumer never has to know that a missing key means "stable".
+      stability: stability(server),
+      flapCount: (server.reachability ?? []).length,
+      platform: server.platform ?? null,
       events: events.filter((e) => e.server === server.id).slice(0, 200),
     });
   }
@@ -82,10 +91,19 @@ function renderIndex(ctx) {
           <code>tools/list</code> from ${c.servers} of them on a schedule, canonicalises every
           schema and records the difference. <strong>Deterministic, no model in the loop.</strong>
         </p>
+        <p class="masthead__caveat">
+          Read the row count with its caveat: those ${c.servers} endpoints resolve to
+          <strong>${c.platformFamilies} independent contract families</strong>${
+            c.largestPlatform
+              ? `, because ${c.largestPlatform.servers} of them are served by a single hosted platform (<code>${esc(c.largestPlatform.platform)}</code>)`
+              : ""
+          }. One template change there moves dozens of rows on the same day, and that is one event, not dozens.
+        </p>
         <div class="key">
           <div class="key__row"><span class="sev sev--breaking">breaking</span><span>a parameter or enum value disappeared, a type changed, or a field became required</span></div>
           <div class="key__row"><span class="sev sev--additive">additive</span><span>something was added that existing callers can ignore</span></div>
           <div class="key__row"><span class="sev sev--cosmetic">cosmetic</span><span>wording, titles, examples — no change to the wire contract</span></div>
+          <div class="key__row"><span class="sev sev--operational">unstable</span><span>the <em>host</em> went up and down four times in seven days. Says nothing about its contract, which is still diffed and reported</span></div>
         </div>
       </div>
     </div>
@@ -95,9 +113,11 @@ function renderIndex(ctx) {
 <div class="wrap">
   <div class="readout">
     <div class="readout__cell"><span class="readout__value">${c.servers}</span><span class="readout__label">Servers tracked</span></div>
+    <div class="readout__cell readout__cell--aside"><span class="readout__value">${c.platformFamilies}</span><span class="readout__label">Independent families</span></div>
     <div class="readout__cell"><span class="readout__value">${c.tools}</span><span class="readout__label">Tools observed</span></div>
     <div class="readout__cell${c.breaking ? " readout__cell--alarm" : ""}"><span class="readout__value">${c.breaking}</span><span class="readout__label">Breaking changes</span></div>
     <div class="readout__cell${c.silent ? " readout__cell--alarm" : ""}"><span class="readout__value">${c.silent}</span><span class="readout__label">Silent drifts</span></div>
+    <div class="readout__cell readout__cell--aside"><span class="readout__value">${c.unstable}</span><span class="readout__label">Quarantined hosts</span></div>
     <div class="readout__cell"><span class="readout__value">${meta.runs ?? 0}</span><span class="readout__label">Pulses recorded</span></div>
   </div>
 
@@ -113,13 +133,16 @@ function renderIndex(ctx) {
   <section>
     <div class="section__head">
       <h2><span class="num">02</span>The ledger</h2>
-      <p class="section__note">Fingerprint is a SHA-256 over the canonicalised tool set. Identical fingerprint, identical contract.</p>
+      <p class="section__note">Fingerprint is a SHA-256 over the canonicalised tool set. Identical fingerprint, identical contract.
+      Rows sharing a <em>platform</em> are not independent observations. Rows marked <span class="flag">unstable</span> are under
+      reachability quarantine: their up/down events are withheld, their contract is still diffed.</p>
     </div>
     <table class="ledger">
       <thead>
         <tr>
           <th>Server</th>
           <th class="ledger__hide">Vendor</th>
+          <th class="ledger__hide">Platform</th>
           <th class="ledger__num">Tools</th>
           <th class="ledger__num">Changes</th>
           <th class="ledger__hide">Last change</th>
@@ -172,7 +195,25 @@ GET ${esc(base)}/api/servers/&lt;id&gt;.json</pre>
       </div>
       <div class="panel">
         <div class="panel__title">Coverage</div>
-        <p>${c.ok} of ${c.servers} endpoints answered on the last pulse.${c.unreachable ? ` ${c.unreachable} did not — recorded as an event, not swallowed.` : ""}</p>
+        <p>${c.servers} endpoints checked on the last pulse: ${c.ok} counted healthy, ${c.unstable} in reachability
+        quarantine, ${c.unreachable} unreachable${c.unreachable ? " — recorded as an event, not swallowed" : ""}.</p>
+        <p>${
+          c.unstable
+            ? `${c.unstable === 1 ? "One host has" : `${c.unstable} hosts have`} gone up and down four or more times in seven days, so ${c.unstable === 1 ? "its" : "their"} availability events are withheld as noise and ${c.unstable === 1 ? "it does" : "they do"} not count toward the healthy total. ${c.unstable === 1 ? "Its contract is" : "Their contracts are"} still read and still diffed — an unreliable host is not a broken contract.`
+            : "No host is flapping; the quarantine is empty. It fills at four up/down transitions in seven days and empties on its own."
+        }</p>
+      </div>
+      <div class="panel">
+        <div class="panel__title">Sample concentration</div>
+        <p>${c.servers} endpoints, ${c.platformFamilies} independent contract families. Each declared platform counts once; each
+        endpoint with no identified platform counts as its own, since an unlabelled server is unproven, not proven independent.</p>
+        ${
+          Object.keys(c.platforms).length
+            ? `<ul class="tool__params">${Object.entries(c.platforms)
+                .map(([p, n]) => `<li><span class="tool__param"><code>${esc(p)}</code></span><span class="tool__type">${n} endpoints</span></li>`)
+                .join("")}<li><span class="tool__param">unlabelled</span><span class="tool__type">${c.unlabelledPlatform} endpoints</span></li></ul>`
+            : ""
+        }
       </div>
       <div class="panel">
         <div class="panel__title">Schedule</div>
@@ -206,7 +247,8 @@ function renderServer(server, ctx) {
   <div class="wrap">
     <div class="masthead__kicker">
       <span>${esc(declared.vendor ?? "Unknown vendor")}</span>
-      <span>${esc(server.status)}</span>
+      <span>${esc(server.status)}${isUnstable(server) ? " · unstable" : ""}</span>
+      <span>${server.platform ? esc(server.platform) : "platform unidentified"}</span>
       <span>${tools.length} tools</span>
       <span>${own.length} recorded changes</span>
     </div>
@@ -217,6 +259,22 @@ function renderServer(server, ctx) {
       last checked ${esc(shortDate(server.lastCheckedAt))}${server.lastChangedAt ? ` · last change ${esc(shortDate(server.lastChangedAt))}` : ""}.
       ${declared.homepage ? `<a href="${esc(declared.homepage)}">Vendor documentation</a>.` : ""}
     </p>
+    ${
+      isUnstable(server)
+        ? `<p class="notice"><span class="flag">unstable</span> This host recorded
+          ${(server.reachability ?? []).length} up/down transitions in the last seven days, so it is under reachability
+          quarantine: its <em>unreachable</em> and <em>recovered</em> events are withheld from the feed and it is not counted
+          as a healthy endpoint. <strong>This is a statement about the host, not about its contract.</strong> Tool additions,
+          removals and schema changes below are recorded exactly as for any other server. Quarantine lifts on its own once
+          the transitions age out of the window.</p>`
+        : ""
+    }
+    ${
+      server.platform
+        ? `<p class="notice">Contract generated by the <code>${esc(server.platform)}</code> platform, which also serves other
+          endpoints in this registry. A change here is likely to appear on all of them at once — count it as one event.</p>`
+        : ""
+    }
   </div>
 </header>
 
@@ -289,9 +347,13 @@ function renderEvent(e) {
 
 function renderLedgerRow(s, ctx) {
   const declared = ctx.declared.get(s.id) ?? {};
-  return `<tr>
-  <td class="ledger__name"><span class="dot dot--${esc(s.status)}"></span><a href="servers/${esc(sanitize(s.id))}.html">${esc(s.name)}</a></td>
+  const unstable = isUnstable(s);
+  return `<tr${unstable ? ' class="ledger__row--quarantined"' : ""}>
+  <td class="ledger__name"><span class="dot dot--${unstable ? "unstable" : esc(s.status)}"></span><a href="servers/${esc(sanitize(s.id))}.html">${esc(s.name)}</a>${
+    unstable ? ` <span class="flag" title="Reachability quarantine: ${(s.reachability ?? []).length} up/down transitions in the last 7 days">unstable</span>` : ""
+  }</td>
   <td class="ledger__vendor ledger__hide">${esc(declared.vendor ?? "—")}</td>
+  <td class="ledger__vendor ledger__hide">${s.platform ? `<code>${esc(s.platform)}</code>` : "—"}</td>
   <td class="ledger__num">${s.toolCount ?? 0}</td>
   <td class="ledger__num">${s.changeCount ?? 0}</td>
   <td class="ledger__hide">${esc(s.lastChangedAt ? shortDate(s.lastChangedAt) : "—")}</td>
@@ -404,12 +466,23 @@ ${urls.map((u) => `  <url><loc>${esc(u)}</loc><lastmod>${esc(ctx.at.slice(0, 10)
 
 // --- helpers ----------------------------------------------------------------
 
+/**
+ * `ok`, `unstable` and `unreachable` partition the registry — every server
+ * lands in exactly one. A quarantined host is deliberately not counted as ok
+ * even on the pulses where it answers: "78 of 79 healthy" is a lie when one of
+ * those 78 has bounced four times this week.
+ */
 function counts(ctx) {
   const { servers, events } = ctx;
+  const unstable = servers.filter(isUnstable);
+  const families = platformFamilies(servers);
   return {
     servers: servers.length,
-    ok: servers.filter((s) => s.status === "ok").length,
-    unreachable: servers.filter((s) => s.status !== "ok").length,
+    ...families,
+    ok: servers.filter((s) => s.status === "ok" && !isUnstable(s)).length,
+    unstable: unstable.length,
+    unreachable: servers.filter((s) => s.status !== "ok" && !isUnstable(s)).length,
+    answered: servers.filter((s) => s.status === "ok").length,
     tools: servers.reduce((n, s) => n + (s.toolCount ?? 0), 0),
     events: events.length,
     // Reachability events are operational noise about a host, not contract
@@ -419,12 +492,57 @@ function counts(ctx) {
   };
 }
 
+/**
+ * Quarantine state, defaulting for every record written before it existed.
+ *
+ * `status` stays what it always was — the outcome of the last fetch — because
+ * half the pipeline keys off it. Stability is a separate axis: `status` answers
+ * "did it answer just now", `stability` answers "can you rely on it answering".
+ */
+/**
+ * How many genuinely independent contract sources are behind the row count.
+ *
+ * 79 endpoints is not 79 observations. A hosted docs platform serving fifty
+ * vendor domains ships one template change and fifty "servers" move on the same
+ * day; a headline that reads fifty breaking changes would be describing one
+ * event. So: every declared platform collapses to a single family, and every
+ * unlabelled server counts as its own — because "we have not identified a
+ * shared generator" is not evidence of independence, and rounding it the other
+ * way would flatter the number.
+ */
+export function platformFamilies(servers) {
+  const platforms = {};
+  let unlabelled = 0;
+  for (const s of servers) {
+    if (s?.platform) platforms[s.platform] = (platforms[s.platform] ?? 0) + 1;
+    else unlabelled += 1;
+  }
+  const sorted = Object.entries(platforms).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+  return {
+    platformFamilies: sorted.length + unlabelled,
+    platforms: Object.fromEntries(sorted),
+    unlabelledPlatform: unlabelled,
+    largestPlatform: sorted.length ? { platform: sorted[0][0], servers: sorted[0][1] } : null,
+  };
+}
+
+export function isUnstable(s) {
+  return s?.stability === "unstable";
+}
+
+function stability(s) {
+  return isUnstable(s) ? "unstable" : "stable";
+}
+
 function summarize(s) {
   return {
     id: s.id,
     name: s.name,
     url: s.url,
     status: s.status,
+    stability: stability(s),
+    flapCount: (s.reachability ?? []).length,
+    platform: s.platform ?? null,
     toolCount: s.toolCount,
     fingerprint: s.fingerprint,
     firstSeenAt: s.firstSeenAt,

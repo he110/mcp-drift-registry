@@ -6,6 +6,7 @@ import { mapLimit } from "../src/lib/http.js";
 import { collectMcpServer } from "../src/sources/mcp.js";
 import { checkCanary } from "../src/sources/canary.js";
 import { buildEvents } from "../src/lib/events.js";
+import { trackReachability } from "../src/lib/flap.js";
 import { publish } from "../src/publish/render.js";
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -39,6 +40,7 @@ async function main() {
 
   const allEvents = [];
   let okCount = 0;
+  let unstableCount = 0;
 
   for (const [index, result] of results.entries()) {
     const declared = config.servers[index];
@@ -48,6 +50,7 @@ async function main() {
           id: declared.id,
           name: declared.name ?? declared.id,
           url: declared.url,
+          platform: declared.platform ?? null,
           transport: "streamable-http",
           status: "error",
           error: String(result.error?.message ?? result.error).slice(0, 200),
@@ -59,7 +62,11 @@ async function main() {
         };
 
     const prev = store.readServer(next.id);
-    const events = buildEvents(prev, next, at);
+    // Decide quarantine before the diff runs: a host that has bounced four
+    // times in a week gets its up/down chatter dropped, its contract diffed as
+    // usual, and its "ok" taken away from the headline count.
+    const { transitions, unstable } = trackReachability(prev, next, at);
+    const events = buildEvents(prev, next, at, { quarantined: unstable });
     allEvents.push(...events);
 
     // Establishing a baseline is not a change to the contract.
@@ -82,12 +89,19 @@ async function main() {
       lastOkAt: next.status === "ok" ? at : (prev?.lastOkAt ?? null),
       lastChangedAt: changed ? at : (prev?.lastChangedAt ?? null),
       changeCount: (prev?.changeCount ?? 0) + (changed ? 1 : 0),
+      // Written only when there is something to say. A server that simply
+      // answers every pulse keeps the same bytes on disk, so the state commit
+      // stays readable instead of touching all 79 files for nothing.
+      ...(transitions.length ? { reachability: transitions } : {}),
+      ...(unstable ? { stability: "unstable" } : {}),
     };
 
     if (next.status === "ok") okCount += 1;
-    const mark = next.status === "ok" ? "ok " : "ERR";
+    if (unstable) unstableCount += 1;
+    const mark = unstable ? "FLP" : next.status === "ok" ? "ok " : "ERR";
     console.log(
       `  ${mark} ${next.id.padEnd(28)} tools=${String(next.toolCount).padStart(3)} events=${events.length}` +
+        (transitions.length ? ` flips=${transitions.length}` : "") +
         (next.error ? ` (${next.error.slice(0, 60)})` : ""),
     );
 
@@ -102,6 +116,7 @@ async function main() {
     runs: (meta.runs ?? 0) + 1,
     serversTotal: config.servers.length,
     serversOk: okCount,
+    serversUnstable: unstableCount,
     canary,
   };
 
@@ -109,7 +124,7 @@ async function main() {
     `  canary ${canary.healthy ? "healthy" : "UNHEALTHY"}` +
       (canary.error ? ` — ${canary.error}` : ` (last change ${canary.lastChangeAt})`),
   );
-  console.log(`  ${allEvents.length} events this pulse`);
+  console.log(`  ${allEvents.length} events this pulse` + (unstableCount ? ` — ${unstableCount} server(s) quarantined for flapping` : ""));
 
   if (DRY_RUN) {
     for (const e of allEvents) console.log(`    [${e.severity}] ${e.server}: ${e.summary}`);

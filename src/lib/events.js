@@ -6,9 +6,16 @@ import { diffTool, formatPath, worstSeverity } from "./diff.js";
  * site, the JSON API and the Atom feed all render. One function, so those three
  * surfaces can never disagree about what happened.
  */
-export function buildEvents(prev, next, at) {
+export function buildEvents(prev, next, at, options = {}) {
   const events = [];
   const push = (e) => events.push({ ...e, id: eventId(e), at, server: next.id, serverName: next.name });
+
+  // A quarantined host has already proven it cannot hold a connection. Its
+  // up/down pairs are the noise this registry filters, not the signal it sells,
+  // so they are dropped before they reach the feed. Everything below the
+  // reachability section still runs: the quarantine is about availability, not
+  // about the contract.
+  const quarantined = options.quarantined === true;
 
   // --- reachability ---------------------------------------------------------
   //
@@ -32,20 +39,24 @@ export function buildEvents(prev, next, at) {
     // Reachability is an operational fact about a host, not a change to a
     // contract. Filing it as `breaking` would let a sleeping free-tier demo
     // inflate the one number this registry exists to report.
-    push({
-      type: "server_unreachable",
-      severity: "operational",
-      summary: `${next.name} became unreachable: ${next.error}`,
-    });
+    if (!quarantined) {
+      push({
+        type: "server_unreachable",
+        severity: "operational",
+        summary: `${next.name} became unreachable: ${next.error}`,
+      });
+    }
     return events; // never diff tools against a failed fetch
   }
   if (!isOk) return events;
   if (!wasOk) {
-    push({
-      type: "server_recovered",
-      severity: "operational",
-      summary: `${next.name} is reachable again`,
-    });
+    if (!quarantined) {
+      push({
+        type: "server_recovered",
+        severity: "operational",
+        summary: `${next.name} is reachable again`,
+      });
+    }
     // Downtime must not launder a contract change. The naive version re-based
     // here and reported nothing, so a server that slept and woke up without a
     // tool erased the removal from the record permanently — the registry would
@@ -53,11 +64,17 @@ export function buildEvents(prev, next, at) {
     // last snapshot that actually carried a contract instead.
     const baseline = lastGoodContract(prev);
     if (!baseline) {
-      push({
-        type: "server_baselined",
-        severity: "operational",
-        summary: `${next.name} baseline established with ${plural(next.tools.length, "tool")}`,
-      });
+      // Also on the availability path, and it repeats for the nastiest case
+      // there is: a host that flaps *and* answers with an empty tool list, so
+      // no contract is ever banked. One such server would emit a baseline event
+      // on every single recovery.
+      if (!quarantined) {
+        push({
+          type: "server_baselined",
+          severity: "operational",
+          summary: `${next.name} baseline established with ${plural(next.tools.length, "tool")}`,
+        });
+      }
       return events;
     }
     pushContractEvents(baseline, next, push);
