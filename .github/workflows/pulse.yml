@@ -46,7 +46,10 @@ jobs:
         run: |
           git config user.name "mcp-drift-registry[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add state
+          # servers.json too: a candidate that cleared the admission gate is
+          # promoted into it by the pulse, and an uncommitted promotion would be
+          # re-decided from scratch on every run.
+          git add state servers.json
           git diff --staged --quiet || git commit -m "pulse: $(date -u +%Y-%m-%dT%H:%MZ)"
           git push
 

@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { Store, readJson } from "../src/lib/store.js";
+import { Store, readJson, writeJson } from "../src/lib/store.js";
 import { mapLimit } from "../src/lib/http.js";
 import { collectMcpServer } from "../src/sources/mcp.js";
 import { checkCanary } from "../src/sources/canary.js";
 import { buildEvents } from "../src/lib/events.js";
 import { trackReachability } from "../src/lib/flap.js";
+import { abandoned, applyAdmissions, describeProgress, foldProbe } from "../src/lib/admission.js";
 import { publish } from "../src/publish/render.js";
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -26,7 +27,8 @@ const PUBLISH_ONLY = args.has("--publish-only");
 async function main() {
   const at = new Date().toISOString();
   const store = new Store(join(ROOT, "state"));
-  const config = readJson(join(ROOT, "servers.json"), { servers: [] });
+  const configPath = join(ROOT, "servers.json");
+  let config = readJson(configPath, { servers: [] });
 
   if (PUBLISH_ONLY) {
     publish({ store, outDir: join(ROOT, "site"), config, at });
@@ -108,6 +110,24 @@ async function main() {
     if (!DRY_RUN) store.writeServer(record);
   }
 
+  // --- candidates on trial ---------------------------------------------------
+  //
+  // Probed through the same collector as the registry itself, and kept strictly
+  // out of it: no record under state/servers/, no event, no row, no place in any
+  // count. A candidate is a claim we have not verified long enough to publish.
+  const admitted = await runTrials(store, config, at);
+  if (admitted.length) {
+    const promoted = applyAdmissions(config, admitted);
+    if (promoted !== config) {
+      config = promoted;
+      // Written only on an actual admission. A pulse with nothing to promote
+      // does not rewrite this file, so the servers already listed in it cannot
+      // be reordered or reserialised by a run that had no reason to touch them.
+      if (!DRY_RUN) writeJson(configPath, config);
+      console.log(`  admitted ${admitted.length}: ${admitted.join(", ")} — tracked from the next pulse`);
+    }
+  }
+
   const meta = store.readMeta();
   const canary = await checkCanary(meta.canary, at);
   const nextMeta = {
@@ -136,6 +156,47 @@ async function main() {
   store.writeMeta(nextMeta);
   publish({ store, outDir: join(ROOT, "site"), config, at });
   console.log("state written, site published");
+}
+
+/**
+ * One probe of every candidate still on trial, folded into the ledger.
+ *
+ * Returns the ids that cleared the gate on this pulse. Everything else stays a
+ * candidate: no snapshot, no event, no row. Candidates that have been on trial
+ * for a fortnight without clearing it stop being probed — they answered once at
+ * nomination and have not held up since, which is the whole finding.
+ */
+async function runTrials(store, config, at) {
+  const declared = config.candidates ?? [];
+  if (declared.length === 0) return [];
+
+  const ledger = store.readCandidates();
+  const onTrial = declared.filter((c) => {
+    const record = ledger[c.id];
+    return !record?.admittedAt && !abandoned(record, at);
+  });
+
+  if (onTrial.length === 0) return [];
+  console.log(`  ${onTrial.length} candidate(s) on trial`);
+
+  const results = await mapLimit(onTrial, 6, (c) => collectMcpServer(c));
+  const admitted = [];
+
+  for (const [index, result] of results.entries()) {
+    const candidate = onTrial[index];
+    const record = foldProbe(
+      ledger[candidate.id],
+      candidate,
+      result.ok ? result.value : { status: "error", error: String(result.error?.message ?? result.error), toolCount: 0 },
+      at,
+    );
+    ledger[candidate.id] = record;
+    if (record.admittedAt === at) admitted.push(candidate.id);
+    console.log(`  try ${candidate.id.padEnd(28)} ${describeProgress(record, at)}`);
+  }
+
+  if (!DRY_RUN) store.writeCandidates(ledger);
+  return admitted;
 }
 
 main().catch((err) => {

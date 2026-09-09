@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
@@ -8,6 +8,15 @@ import { canonicalJson, fingerprint } from "../src/lib/canonical.js";
 import { deepDiff, diffTool, classifyChange, worstSeverity } from "../src/lib/diff.js";
 import { buildEvents } from "../src/lib/events.js";
 import { trackReachability, FLAP_THRESHOLD, FLAP_WINDOW_MS } from "../src/lib/flap.js";
+import {
+  ADMISSION_PROBES,
+  ADMISSION_SPAN_MS,
+  abandoned,
+  admits,
+  applyAdmissions,
+  describeProgress,
+  foldProbe,
+} from "../src/lib/admission.js";
 import { parseRpc } from "../src/sources/mcp.js";
 import { httpJson } from "../src/lib/http.js";
 import { createServer } from "node:http";
@@ -746,4 +755,210 @@ test("a method-changing redirect is refused, a method-preserving one is followed
   } finally {
     server.close();
   }
+});
+
+// --- admission gate ---------------------------------------------------------
+//
+// The invariants here are the ones that break silently. Nothing in the pipeline
+// fails loudly if the gate quietly starts admitting on the first probe again,
+// or if a promotion drops a row that was already in the registry — the site
+// still renders, the tests still pass, and the only symptom is a number on the
+// front page that is no longer true.
+
+const HOUR = 3600 * 1000;
+const CANDIDATE = { id: "newcomer", name: "Newcomer", url: "https://example.invalid/mcp" };
+const okProbe = { status: "ok", toolCount: 3 };
+const failedProbe = { status: "error", error: "HTTP 502", toolCount: 0 };
+
+/** Fold n probes spaced `spacingMs` apart, starting at `startMs`. */
+function probeSeries(n, spacingMs, { start = Date.parse(AT), outcomes = null } = {}) {
+  let record = null;
+  const stamps = [];
+  for (let i = 0; i < n; i++) {
+    const at = new Date(start + i * spacingMs).toISOString();
+    stamps.push(at);
+    record = foldProbe(record, CANDIDATE, outcomes ? outcomes(i) : okProbe, at);
+  }
+  return { record, stamps };
+}
+
+test("eight good probes inside two hours do not admit a candidate", () => {
+  const { record } = probeSeries(ADMISSION_PROBES, (2 * HOUR) / (ADMISSION_PROBES - 1));
+  assert.equal(record.consecutiveOk, ADMISSION_PROBES);
+  assert.equal(record.admittedAt, null, "the probe count alone must not open the gate");
+});
+
+test("eight good probes spanning fifty hours admit the candidate", () => {
+  const { record, stamps } = probeSeries(ADMISSION_PROBES, (50 * HOUR) / (ADMISSION_PROBES - 1));
+  assert.equal(record.consecutiveOk, ADMISSION_PROBES);
+  assert.equal(record.admittedAt, stamps.at(-1));
+});
+
+test("the real cron cadence needs a ninth probe, and gets there", () => {
+  // Eight pulses six hours apart cover 42h of wall clock, not 48. Both clauses
+  // of the gate bind; that is the design, not an off-by-one.
+  const eight = probeSeries(8, 6 * HOUR).record;
+  assert.equal(eight.admittedAt, null);
+  const nine = probeSeries(9, 6 * HOUR).record;
+  assert.equal(nine.admittedAt, nine.lastProbeAt);
+});
+
+test("one failed probe resets the streak and the clock with it", () => {
+  // Seven days of good probes, one 502, then eight good probes in two hours.
+  // Measuring the span from first sighting would admit this host; measuring it
+  // across the streak — which is what the gate does — does not.
+  const long = probeSeries(7, 24 * HOUR).record;
+  assert.equal(long.consecutiveOk, 7);
+
+  const afterFailure = foldProbe(long, CANDIDATE, failedProbe, new Date(Date.parse(long.lastProbeAt) + HOUR).toISOString());
+  assert.equal(afterFailure.consecutiveOk, 0);
+  assert.equal(afterFailure.streakStartedAt, null);
+  assert.equal(afterFailure.failures, 1);
+  assert.match(afterFailure.lastError, /502/);
+
+  let record = afterFailure;
+  for (let i = 1; i <= ADMISSION_PROBES; i++) {
+    record = foldProbe(record, CANDIDATE, okProbe, new Date(Date.parse(afterFailure.lastProbeAt) + i * 900_000).toISOString());
+  }
+  assert.equal(record.consecutiveOk, ADMISSION_PROBES);
+  assert.equal(record.admittedAt, null, "a broken streak must restart the 48h clock, not resume it");
+  assert.equal(record.probes, 16);
+});
+
+test("a server that answers with an empty tool list is a failed probe", () => {
+  // No tools means no contract, and a row that can never drift is a row that
+  // only dilutes the family counts.
+  const { record } = probeSeries(ADMISSION_PROBES, 8 * HOUR, {
+    outcomes: (i) => (i === 4 ? { status: "ok", toolCount: 0 } : okProbe),
+  });
+  assert.equal(record.admittedAt, null);
+  assert.equal(record.failures, 1);
+  assert.equal(record.consecutiveOk, 3, "the empty answer broke the streak like any other failure");
+
+  const emptyOnly = foldProbe(null, CANDIDATE, { status: "ok", toolCount: 0 }, AT);
+  assert.equal(emptyOnly.consecutiveOk, 0);
+  assert.match(emptyOnly.lastError, /no tools/);
+});
+
+test("admission is granted once and does not re-fire on later probes", () => {
+  const { record } = probeSeries(9, 6 * HOUR);
+  const admittedAt = record.admittedAt;
+  assert.ok(admittedAt);
+  const later = foldProbe(record, CANDIDATE, okProbe, new Date(Date.parse(record.lastProbeAt) + 6 * HOUR).toISOString());
+  assert.equal(later.admittedAt, admittedAt, "re-stamping admission would promote the same server twice");
+});
+
+test("a candidate on trial for a fortnight without clearing the gate is dropped", () => {
+  const record = probeSeries(3, 24 * HOUR, { outcomes: (i) => (i % 2 ? failedProbe : okProbe) }).record;
+  const at = new Date(Date.parse(record.firstProbeAt) + 15 * 24 * HOUR).toISOString();
+  assert.equal(abandoned(record, at), true);
+  assert.equal(abandoned(record, record.lastProbeAt), false);
+  const admittedRecord = probeSeries(9, 6 * HOUR).record;
+  assert.equal(abandoned(admittedRecord, at), false, "an admitted server is never abandoned");
+});
+
+test("promotion appends and never disturbs the servers already in the registry", () => {
+  // The regression that would cost the most and announce itself the least:
+  // rewriting servers.json in a way that drops or reorders the existing cohort
+  // resets every frozen baseline the registry's own headline claim rests on.
+  const servers = Array.from({ length: 79 }, (_, i) => ({ id: `server-${i}`, name: `Server ${i}`, url: `https://s${i}.invalid/mcp` }));
+  const config = {
+    site: { title: "MCP Drift Registry" },
+    servers,
+    candidates: [
+      { id: "newcomer", name: "Newcomer", vendor: "Acme", url: "https://example.invalid/mcp", homepage: "https://example.invalid" },
+      { id: "still-trying", name: "Still Trying", url: "https://other.invalid/mcp" },
+    ],
+  };
+
+  const after = applyAdmissions(config, ["newcomer"]);
+  assert.equal(after.servers.length, 80);
+  assert.deepEqual(after.servers.slice(0, 79), servers, "the existing 79 must survive byte for byte, in order");
+  assert.deepEqual(after.servers[79], {
+    id: "newcomer",
+    name: "Newcomer",
+    vendor: "Acme",
+    url: "https://example.invalid/mcp",
+    homepage: "https://example.invalid",
+  });
+  assert.deepEqual(after.candidates.map((c) => c.id), ["still-trying"]);
+  assert.deepEqual(after.site, config.site);
+});
+
+test("a pulse with nothing to admit hands back the very same config", () => {
+  // Identity, not equality: the caller skips the write on this, so any pulse
+  // without an admission leaves servers.json untouched on disk.
+  const config = { servers: [{ id: "a", url: "https://a.invalid/mcp" }], candidates: [{ id: "b", url: "https://b.invalid/mcp" }] };
+  assert.equal(applyAdmissions(config, []), config);
+  assert.equal(applyAdmissions(config, ["never-nominated"]), config);
+});
+
+test("a config with no candidates key is untouched by the gate", () => {
+  // This is the state of the repository today: 79 servers, no candidates. The
+  // gate must be a no-op for them, now and after any future refactor.
+  const config = { servers: [{ id: "a", url: "https://a.invalid/mcp" }] };
+  assert.equal(applyAdmissions(config, ["a"]), config);
+});
+
+test("promoting a candidate that is somehow already a server does not duplicate the row", () => {
+  const config = {
+    servers: [{ id: "dupe", name: "Dupe", url: "https://dupe.invalid/mcp" }],
+    candidates: [{ id: "dupe", name: "Dupe", url: "https://dupe.invalid/mcp" }],
+  };
+  const after = applyAdmissions(config, ["dupe"]);
+  assert.equal(after.servers.length, 1);
+  assert.deepEqual(after.candidates, []);
+});
+
+test("the candidate ledger survives a missing, truncated or hand-edited file", () => {
+  const dir = mkdtempSync(join(tmpdir(), "drift-admission-"));
+  try {
+    const store = new Store(join(dir, "state"));
+    assert.deepEqual(store.readCandidates(), {}, "no file yet is an empty ledger, not a crash");
+
+    const record = foldProbe(null, CANDIDATE, okProbe, AT);
+    store.writeCandidates({ newcomer: record });
+    assert.deepEqual(store.readCandidates(), { newcomer: record });
+
+    writeFileSync(join(dir, "state", "candidates.json"), "[]");
+    assert.deepEqual(store.readCandidates(), {}, "an array is not a ledger");
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("candidates never reach the published registry", () => {
+  // Belt and braces on the separation: publish reads state/servers/, and the
+  // trial ledger writes nowhere near it.
+  const dir = mkdtempSync(join(tmpdir(), "drift-admission-site-"));
+  try {
+    const store = new Store(join(dir, "state"));
+    store.writeServer(server([tool()], { id: "admitted", name: "Admitted", lastCheckedAt: AT, lastOkAt: AT, firstSeenAt: AT, changeCount: 0 }));
+    store.writeCandidates({ newcomer: foldProbe(null, CANDIDATE, okProbe, AT) });
+
+    const outDir = join(dir, "site");
+    publish({
+      store,
+      outDir,
+      config: {
+        site: { title: "T", url: "https://example.invalid" },
+        servers: [{ id: "admitted" }],
+        candidates: [CANDIDATE],
+      },
+      at: AT,
+    });
+
+    const registry = JSON.parse(readFileSync(join(outDir, "api/registry.json"), "utf8"));
+    assert.deepEqual(registry.servers.map((s) => s.id), ["admitted"]);
+    assert.ok(!readFileSync(join(outDir, "index.html"), "utf8").includes("Newcomer"));
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("the trial log line says what is still owed", () => {
+  const { record } = probeSeries(3, 12 * HOUR);
+  assert.equal(admits(record, record.lastProbeAt), false);
+  assert.equal(describeProgress(record, record.lastProbeAt), `3/${ADMISSION_PROBES} ok, 24h/${ADMISSION_SPAN_MS / 3600000}h`);
+  assert.equal(describeProgress(probeSeries(9, 6 * HOUR).record, AT), "admitted");
 });

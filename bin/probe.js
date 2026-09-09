@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Verifies candidate MCP endpoints before they are allowed into servers.json.
+ * Nominates candidate MCP endpoints for the trial that precedes the registry.
  *
  * Coverage is the only lever we have on how fast real drift shows up, so
  * candidates arrive in bulk and mostly wrong: dead hosts, stdio-only packages
@@ -8,11 +8,15 @@
  * blind would fill the registry with permanent `error` rows that drown the
  * signal we exist to publish.
  *
- * A candidate is accepted only if it answers tools/list anonymously with at
- * least one tool, through exactly the same collector the pipeline uses — so
- * "it probed fine" and "it collects fine" cannot diverge.
+ * This is a first filter, not the decision. One anonymous tools/list answer with
+ * at least one tool — through exactly the same collector the pipeline uses, so
+ * "it probed fine" and "it collects fine" cannot diverge — buys a place in
+ * `candidates`, nothing more. Admission into `servers` is earned over 8
+ * consecutive successful pulses spanning at least 48 hours, and is granted by
+ * the pulse (see src/lib/admission.js). This script can no longer put a row in
+ * the registry, which is the point: there is exactly one door.
  *
- *   node bin/probe.js candidates.json  [--out accepted.json] [--concurrency 8]
+ *   node bin/probe.js candidates.json  [--out nominated.json] [--concurrency 8] [--dry-run]
  *
  * Candidates: [{ id?, name?, vendor?, url, homepage? }, ...]
  */
@@ -21,7 +25,8 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { mapLimit } from "../src/lib/http.js";
 import { collectMcpServer } from "../src/sources/mcp.js";
-import { readJson } from "../src/lib/store.js";
+import { readJson, writeJson } from "../src/lib/store.js";
+import { ADMISSION_PROBES, ADMISSION_SPAN_MS } from "../src/lib/admission.js";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(here, "..");
@@ -34,16 +39,19 @@ const flag = (name, fallback) => {
 };
 
 if (!file) {
-  console.error("usage: node bin/probe.js <candidates.json> [--out accepted.json] [--concurrency 8]");
+  console.error("usage: node bin/probe.js <candidates.json> [--out nominated.json] [--concurrency 8] [--dry-run]");
   process.exit(2);
 }
 
 const concurrency = Number(flag("concurrency", 8));
 const outFile = flag("out", null);
+const dryRun = argv.includes("--dry-run");
 
-const config = readJson(join(ROOT, "servers.json"), { servers: [] });
-const knownUrls = new Set(config.servers.map((s) => s.url));
-const knownIds = new Set(config.servers.map((s) => s.id));
+const configPath = join(ROOT, "servers.json");
+const config = readJson(configPath, { servers: [] });
+const existing = [...config.servers, ...(config.candidates ?? [])];
+const knownUrls = new Set(existing.map((s) => s.url));
+const knownIds = new Set(existing.map((s) => s.id));
 
 const raw = JSON.parse(readFileSync(file, "utf8"));
 const candidates = [];
@@ -76,20 +84,20 @@ console.error(`probing ${candidates.length} candidates (${(Array.isArray(raw) ? 
 
 const results = await mapLimit(candidates, concurrency, (c) => collectMcpServer(c));
 
-const accepted = [];
+const nominated = [];
 const rejected = [];
 
 for (const [i, r] of results.entries()) {
   const c = candidates[i];
   const v = r.ok ? r.value : null;
   if (v && v.status === "ok" && v.toolCount > 0) {
-    accepted.push({
+    nominated.push({
       id: c.id,
       name: c.name ?? v.serverInfo?.name ?? c.id,
-      vendor: c.vendor ?? null,
+      ...(c.vendor ? { vendor: c.vendor } : {}),
       url: c.url,
-      homepage: c.homepage ?? null,
-      toolCount: v.toolCount,
+      ...(c.homepage ? { homepage: c.homepage } : {}),
+      ...(c.platform ? { platform: c.platform } : {}),
     });
     console.error(`  ok   ${c.id.padEnd(34)} tools=${String(v.toolCount).padStart(3)}  ${c.url}`);
   } else {
@@ -98,9 +106,22 @@ for (const [i, r] of results.entries()) {
   }
 }
 
-console.error(`\naccepted ${accepted.length} / ${candidates.length}`);
+console.error(`\nnominated ${nominated.length} / ${candidates.length}`);
 if (outFile) {
-  writeFileSync(outFile, JSON.stringify(accepted, null, 2));
+  writeFileSync(outFile, JSON.stringify(nominated, null, 2));
   console.error(`wrote ${outFile}`);
 }
 writeFileSync(join(ROOT, "probe-rejected.json"), JSON.stringify(rejected, null, 2));
+
+// The nomination is appended to `candidates`, never to `servers`. From here the
+// pulse takes over: ADMISSION_PROBES consecutive good probes spanning
+// ADMISSION_SPAN_MS before any of these becomes a row.
+if (nominated.length && !dryRun) {
+  writeJson(configPath, { ...config, candidates: [...(config.candidates ?? []), ...nominated] });
+  console.error(
+    `added to candidates in servers.json — each needs ${ADMISSION_PROBES} consecutive ok probes` +
+      ` spanning ${ADMISSION_SPAN_MS / 3600000}h before it joins the registry`,
+  );
+} else if (nominated.length) {
+  console.error("dry run — servers.json not touched");
+}

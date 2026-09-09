@@ -16,6 +16,26 @@ export class Store {
     this.serversDir = join(root, "servers");
     this.historyPath = join(root, "history.jsonl");
     this.metaPath = join(root, "meta.json");
+    this.candidatesPath = join(root, "candidates.json");
+  }
+
+  /**
+   * The trial ledger for servers that have not been admitted yet, keyed by id.
+   *
+   * Deliberately a separate file from `servers/`: a candidate is not a row in
+   * the registry and must not be readable as one. Admitted candidates stay here
+   * with their `admittedAt` and their probe counts, because "this server earned
+   * its place over N probes and M hours" is the evidence for the claim the
+   * registry makes, and throwing it away the moment it becomes true is how a
+   * gate quietly turns back into a rubber stamp.
+   */
+  readCandidates() {
+    const raw = readJson(this.candidatesPath, {});
+    return raw && typeof raw === "object" && !Array.isArray(raw) ? raw : {};
+  }
+
+  writeCandidates(ledger) {
+    writeJson(this.candidatesPath, ledger);
   }
 
   readServer(id) {

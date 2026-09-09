@@ -75,6 +75,16 @@ Open an issue with the endpoint URL. The only requirement is that it answers `to
 without credentials. A server that later starts demanding auth is recorded as such rather
 than removed — losing anonymous access is itself a contract change.
 
+Answering once buys a place in `candidates`, not a row. A candidate is probed by every
+pulse through the same collector as the registry, and is admitted only after **8
+consecutive successful probes spanning at least 48 hours**. A single failure resets both
+the count and the clock. At a six-hour cadence that is a little over two days.
+
+The bar exists because the headline this registry publishes is *how many contract families
+actually moved*, and one endpoint admitted on a single lucky response is enough to move it
+by going down. Candidates have no snapshot, no events, no page and no place in any count
+until they clear the gate; the trial itself is on the record in `state/candidates.json`.
+
 ## Scope
 
 This publishes a record. It does not notify anyone, and nothing here should be treated as
