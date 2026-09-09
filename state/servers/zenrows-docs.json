@@ -99,7 +99,7 @@
   "toolCount": 3,
   "fingerprint": "225d65f3b4147fbe",
   "lastGood": {
-    "at": "2026-09-09T11:16:05.667Z",
+    "at": "2026-09-09T11:16:52.889Z",
     "tools": [
       {
         "name": "query_docs_filesystem_zenrows_docs",
@@ -191,8 +191,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-09T11:16:05.667Z",
-  "lastOkAt": "2026-09-09T11:16:05.667Z",
+  "lastCheckedAt": "2026-09-09T11:16:52.889Z",
+  "lastOkAt": "2026-09-09T11:16:52.889Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

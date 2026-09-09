@@ -32,7 +32,7 @@
   "toolCount": 1,
   "fingerprint": "735f98312187b691",
   "lastGood": {
-    "at": "2026-09-09T11:16:05.667Z",
+    "at": "2026-09-09T11:16:52.889Z",
     "tools": [
       {
         "name": "search-documentation",
@@ -57,8 +57,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-09T11:16:05.667Z",
-  "lastOkAt": "2026-09-09T11:16:05.667Z",
+  "lastCheckedAt": "2026-09-09T11:16:52.889Z",
+  "lastOkAt": "2026-09-09T11:16:52.889Z",
   "lastChangedAt": null,
   "changeCount": 0
 }
