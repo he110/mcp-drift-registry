@@ -1,7 +1,7 @@
 {
   "id": "trigger-docs",
   "name": "Trigger.dev Docs",
-  "url": "https://docs.trigger.dev/mcp",
+  "url": "https://trigger.dev/docs/mcp",
   "homepage": "https://trigger.dev",
   "platform": "mintlify-docs",
   "transport": "streamable-http",
@@ -24,31 +24,43 @@
         },
         "required": [
           "command"
-        ]
+        ],
+        "additionalProperties": false
       },
       "outputSchema": null,
-      "annotations": null,
-      "schemaFingerprint": "47e356fc7363323f"
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "schemaFingerprint": "ab203162be885ac7"
     },
     {
       "name": "search_trigger_dev",
-      "title": null,
+      "title": "Search documentation",
       "description": "Search across the Trigger.dev knowledge base to find relevant information, code examples, API references, and guides. Use this tool when you need to answer questions about Trigger.dev, find specific documentation, understand how features work, or locate implementation details. The search returns contextual content with titles and direct links to the documentation pages. If you need the full content of a specific page, use the query_docs_filesystem tool to `head` or `cat` the page path (append `.mdx` to the path returned from search — e.g. `head -200 /api-reference/create-customer.mdx`).",
       "inputSchema": {
         "type": "object",
         "properties": {
           "query": {
             "type": "string",
-            "description": "A query to search the content with."
+            "description": "Search query"
           }
         },
         "required": [
           "query"
-        ]
+        ],
+        "additionalProperties": false
       },
       "outputSchema": null,
-      "annotations": null,
-      "schemaFingerprint": "9b6089c7b4d9ecc2"
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "schemaFingerprint": "cb69ec950d34e626"
     },
     {
       "name": "submit_feedback",
@@ -71,17 +83,23 @@
         "required": [
           "path",
           "feedback"
-        ]
+        ],
+        "additionalProperties": false
       },
       "outputSchema": null,
-      "annotations": null,
-      "schemaFingerprint": "ca9e0c363f3b9d88"
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": true
+      },
+      "schemaFingerprint": "7faf8b71ae053b91"
     }
   ],
   "toolCount": 3,
-  "fingerprint": "a72d31aa07a06045",
+  "fingerprint": "bef412a18207be85",
   "lastGood": {
-    "at": "2026-09-09T11:49:23.034Z",
+    "at": "2026-09-09T11:54:07.335Z",
     "tools": [
       {
         "name": "query_docs_filesystem_trigger_dev",
@@ -97,31 +115,43 @@
           },
           "required": [
             "command"
-          ]
+          ],
+          "additionalProperties": false
         },
         "outputSchema": null,
-        "annotations": null,
-        "schemaFingerprint": "47e356fc7363323f"
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "schemaFingerprint": "ab203162be885ac7"
       },
       {
         "name": "search_trigger_dev",
-        "title": null,
+        "title": "Search documentation",
         "description": "Search across the Trigger.dev knowledge base to find relevant information, code examples, API references, and guides. Use this tool when you need to answer questions about Trigger.dev, find specific documentation, understand how features work, or locate implementation details. The search returns contextual content with titles and direct links to the documentation pages. If you need the full content of a specific page, use the query_docs_filesystem tool to `head` or `cat` the page path (append `.mdx` to the path returned from search — e.g. `head -200 /api-reference/create-customer.mdx`).",
         "inputSchema": {
           "type": "object",
           "properties": {
             "query": {
               "type": "string",
-              "description": "A query to search the content with."
+              "description": "Search query"
             }
           },
           "required": [
             "query"
-          ]
+          ],
+          "additionalProperties": false
         },
         "outputSchema": null,
-        "annotations": null,
-        "schemaFingerprint": "9b6089c7b4d9ecc2"
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "schemaFingerprint": "cb69ec950d34e626"
       },
       {
         "name": "submit_feedback",
@@ -144,19 +174,25 @@
           "required": [
             "path",
             "feedback"
-          ]
+          ],
+          "additionalProperties": false
         },
         "outputSchema": null,
-        "annotations": null,
-        "schemaFingerprint": "ca9e0c363f3b9d88"
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "schemaFingerprint": "7faf8b71ae053b91"
       }
     ],
-    "fingerprint": "a72d31aa07a06045",
+    "fingerprint": "bef412a18207be85",
     "protocolVersion": null
   },
-  "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-09T11:49:23.034Z",
-  "lastOkAt": "2026-09-09T11:49:23.034Z",
+  "firstSeenAt": "2026-09-09T11:54:07.335Z",
+  "lastCheckedAt": "2026-09-09T11:54:07.335Z",
+  "lastOkAt": "2026-09-09T11:54:07.335Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

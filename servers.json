@@ -569,7 +569,7 @@
       "id": "trigger-docs",
       "name": "Trigger.dev Docs",
       "vendor": "Trigger.dev",
-      "url": "https://docs.trigger.dev/mcp",
+      "url": "https://trigger.dev/docs/mcp",
       "homepage": "https://trigger.dev",
       "platform": "mintlify-docs"
     },

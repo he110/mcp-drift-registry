@@ -156,5 +156,17 @@ export function parseRpc(text) {
     err.detail = JSON.stringify(payload.error);
     throw err;
   }
-  return payload.result ?? payload;
+
+  // The envelope is checked, not assumed. A JSON-RPC response carries `result`
+  // or `error` and nothing else counts; falling back to the whole document —
+  // which this used to do — accepts any JSON that happens to have a `tools`
+  // key, including a static discovery manifest served to a plain GET. That is
+  // exactly how one such manifest entered the registry as a tool contract.
+  if (payload.jsonrpc !== undefined && payload.jsonrpc !== "2.0") {
+    throw new Error(`not JSON-RPC 2.0: jsonrpc=${JSON.stringify(payload.jsonrpc)}`);
+  }
+  if (!Object.prototype.hasOwnProperty.call(payload, "result")) {
+    throw new Error("not a JSON-RPC response: no `result` member");
+  }
+  return payload.result;
 }

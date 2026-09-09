@@ -76,7 +76,7 @@
   "toolCount": 2,
   "fingerprint": "9a6f737773d0d09b",
   "lastGood": {
-    "at": "2026-09-09T11:49:23.034Z",
+    "at": "2026-09-09T11:54:07.335Z",
     "tools": [
       {
         "name": "query-docs",
@@ -145,8 +145,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-09T11:49:23.034Z",
-  "lastOkAt": "2026-09-09T11:49:23.034Z",
+  "lastCheckedAt": "2026-09-09T11:54:07.335Z",
+  "lastOkAt": "2026-09-09T11:54:07.335Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

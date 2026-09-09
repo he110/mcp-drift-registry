@@ -78,3 +78,4 @@
 {"type":"server_added","severity":"additive","summary":"Weights and Biases Docs added to the registry — baseline recorded with 3 tools","id":"198085b13ab4","at":"2026-09-09T10:55:17.881Z","server":"wandb-docs","serverName":"Weights and Biases Docs"}
 {"type":"server_added","severity":"additive","summary":"Zapier Docs added to the registry — baseline recorded with 3 tools","id":"11b764a4ea54","at":"2026-09-09T10:55:17.881Z","server":"zapier-docs","serverName":"Zapier Docs"}
 {"type":"server_added","severity":"additive","summary":"ZenRows Docs added to the registry — baseline recorded with 3 tools","id":"2347e0b845fe","at":"2026-09-09T10:55:17.881Z","server":"zenrows-docs","serverName":"ZenRows Docs"}
+{"type":"server_added","severity":"additive","summary":"Trigger.dev Docs added to the registry — baseline recorded with 3 tools","id":"6495398cd598","at":"2026-09-09T11:54:07.335Z","server":"trigger-docs","serverName":"Trigger.dev Docs"}

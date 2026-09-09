@@ -296,11 +296,16 @@ ${rows}
       </table>
     </figure>
 
-    <p>The split is not noise. Most of the strata are the cross-product of a small number of optional
-    parameters that appear only where the tenant switched the matching feature on — documentation
-    versioning, localisation — and the remainder differ somewhere the parameter list does not reach at all:
-    a property description, a constraint like <code>additionalProperties</code>. One generator, one nominal
-    tool, and the contract still varies by tenant with no user, session or credential involved anywhere.</p>
+    <p>The split is not noise. ${
+      ambiguous.length
+        ? `Most of the strata are the cross-product of optional parameters that appear only where the tenant
+    switched the matching feature on; the rest differ somewhere a parameter list does not reach at all —
+    a property description, a constraint like <code>additionalProperties</code>.`
+        : `Every stratum is a distinct combination of optional parameters that appear only where the tenant
+    switched the matching feature on, with no remainder: the strata are the cross-product, not a cross-product
+    plus anomalies.`
+    } One generator, one nominal tool, and the contract still varies by tenant — with no user,
+    no session and no credential involved anywhere in the sample.</p>
     <p>What a single pulse cannot say is whether that is a rollout caught mid-flight or permanent
     divergence that will look identical next year. <strong>A single snapshot structurally cannot distinguish
     those two.</strong> That is the entire argument for keeping the series instead of recounting: in a few

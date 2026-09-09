@@ -99,7 +99,7 @@
   "toolCount": 3,
   "fingerprint": "cad1201ab3790f59",
   "lastGood": {
-    "at": "2026-09-09T11:49:23.034Z",
+    "at": "2026-09-09T11:54:07.335Z",
     "tools": [
       {
         "name": "query_docs_filesystem_turso",
@@ -191,8 +191,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-09T11:49:23.034Z",
-  "lastOkAt": "2026-09-09T11:49:23.034Z",
+  "lastCheckedAt": "2026-09-09T11:54:07.335Z",
+  "lastOkAt": "2026-09-09T11:54:07.335Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

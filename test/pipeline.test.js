@@ -9,6 +9,8 @@ import { deepDiff, diffTool, classifyChange, worstSeverity } from "../src/lib/di
 import { buildEvents } from "../src/lib/events.js";
 import { trackReachability, FLAP_THRESHOLD, FLAP_WINDOW_MS } from "../src/lib/flap.js";
 import { parseRpc } from "../src/sources/mcp.js";
+import { httpJson } from "../src/lib/http.js";
+import { createServer } from "node:http";
 import { esc, inlineCode, isUnstable, platformFamilies, publish } from "../src/publish/render.js";
 import { noteFacts } from "../src/publish/note.js";
 import { Store } from "../src/lib/store.js";
@@ -694,5 +696,54 @@ test("a hostile server id reaches the note escaped", () => {
     assert.ok(!note.includes("<script>alert(1)</script>"));
   } finally {
     rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+// --- the probe must reach the endpoint it says it reached -------------------
+
+test("a JSON-RPC response without a result member is not a result", () => {
+  // The exact shape that got in: a static discovery manifest, served to a plain
+  // GET, carrying a `tools` array and no JSON-RPC envelope at all.
+  const manifest = JSON.stringify({
+    server: { name: "Docs", version: "1.0.0" },
+    instructions: "…",
+    tools: [{ name: "search_docs", inputSchema: { type: "object" } }],
+  });
+  assert.throws(() => parseRpc(manifest), /no `result` member/);
+  assert.throws(() => parseRpc(JSON.stringify({ jsonrpc: "1.0", result: {} })), /not JSON-RPC 2\.0/);
+  assert.deepEqual(parseRpc(JSON.stringify({ jsonrpc: "2.0", id: 1, result: { tools: [] } })), { tools: [] });
+});
+
+test("a method-changing redirect is refused, a method-preserving one is followed", async () => {
+  const seen = [];
+  const server = createServer((req, res) => {
+    seen.push({ url: req.url, method: req.method });
+    if (req.url === "/moved-301") return res.writeHead(301, { location: "/target" }).end();
+    if (req.url === "/moved-308") return res.writeHead(308, { location: "/target" }).end();
+    res.writeHead(200, { "content-type": "application/json" }).end(JSON.stringify({ method: req.method }));
+  });
+  await new Promise((r) => server.listen(0, "127.0.0.1", r));
+  const base = `http://127.0.0.1:${server.address().port}`;
+
+  try {
+    // 308 keeps POST, so the probe still reaches an MCP endpoint.
+    const kept = await httpJson(`${base}/moved-308`, { method: "POST", body: "{}", retries: 0 });
+    assert.equal(JSON.parse(kept.text).method, "POST");
+
+    // 301 would turn the probe into a page request. Refused, and the message
+    // names the target so the fix is to correct the declared URL.
+    await assert.rejects(() => httpJson(`${base}/moved-301`, { method: "POST", body: "{}", retries: 0 }), (err) => {
+      assert.equal(err.status, 301);
+      assert.match(err.message, /would change POST to GET/);
+      assert.match(err.detail, /\/target/);
+      return true;
+    });
+    assert.ok(!seen.some((r) => r.method === "GET"), "no GET may be issued on behalf of a POST probe");
+
+    // A GET is idempotent; following it changes nothing.
+    const got = await httpJson(`${base}/moved-301`, { retries: 0 });
+    assert.equal(JSON.parse(got.text).method, "GET");
+  } finally {
+    server.close();
   }
 });
