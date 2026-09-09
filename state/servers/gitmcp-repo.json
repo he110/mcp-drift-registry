@@ -13,7 +13,7 @@
     "version": "1.1.0"
   },
   "provenance": {
-    "at": "2026-09-09T16:42:51.560Z",
+    "at": "2026-09-09T20:58:37.774Z",
     "declaredUrl": "https://gitmcp.io/modelcontextprotocol/servers",
     "observedUrl": "https://gitmcp.io/modelcontextprotocol/servers",
     "urlMatchesDeclared": true,
@@ -149,7 +149,7 @@
   "toolCount": 4,
   "fingerprint": "fd0ead00efcfdb90",
   "lastGood": {
-    "at": "2026-09-09T16:42:51.560Z",
+    "at": "2026-09-09T20:58:37.774Z",
     "tools": [
       {
         "name": "fetch_generic_url_content",
@@ -276,20 +276,20 @@
     "protocolVersion": "2025-03-26"
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-09T16:42:51.560Z",
-  "lastOkAt": "2026-09-09T16:42:51.560Z",
+  "lastCheckedAt": "2026-09-09T20:58:37.774Z",
+  "lastOkAt": "2026-09-09T20:58:37.774Z",
   "lastChangedAt": null,
   "changeCount": 0,
   "card": {
     "id": "gitmcp-repo",
     "cardUrl": "https://gitmcp.io/.well-known/mcp/server-card.json",
-    "at": "2026-09-09T16:42:51.560Z",
+    "at": "2026-09-09T20:58:37.774Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "not_json",
     "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON",
     "card": null,
     "provenance": {
-      "at": "2026-09-09T16:42:51.560Z",
+      "at": "2026-09-09T20:58:37.774Z",
       "declaredUrl": "https://gitmcp.io/.well-known/mcp/server-card.json",
       "observedUrl": "https://gitmcp.io/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,

@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-09-09T16:42:51.560Z",
+    "at": "2026-09-09T20:58:37.774Z",
     "declaredUrl": "https://mcp.deepwiki.com/mcp",
     "observedUrl": "https://mcp.deepwiki.com/mcp",
     "urlMatchesDeclared": true,
@@ -134,7 +134,7 @@
   "toolCount": 3,
   "fingerprint": "18cc2015befaea38",
   "lastGood": {
-    "at": "2026-09-09T16:42:51.560Z",
+    "at": "2026-09-09T20:58:37.774Z",
     "tools": [
       {
         "name": "ask_question",
@@ -249,20 +249,20 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-09T16:42:51.560Z",
-  "lastOkAt": "2026-09-09T16:42:51.560Z",
+  "lastCheckedAt": "2026-09-09T20:58:37.774Z",
+  "lastOkAt": "2026-09-09T20:58:37.774Z",
   "lastChangedAt": null,
   "changeCount": 0,
   "card": {
     "id": "deepwiki",
     "cardUrl": "https://mcp.deepwiki.com/.well-known/mcp/server-card.json",
-    "at": "2026-09-09T16:42:51.560Z",
+    "at": "2026-09-09T20:58:37.774Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-09-09T16:42:51.560Z",
+      "at": "2026-09-09T20:58:37.774Z",
       "declaredUrl": "https://mcp.deepwiki.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://mcp.deepwiki.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
