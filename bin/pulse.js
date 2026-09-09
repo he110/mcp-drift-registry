@@ -1,0 +1,118 @@
+#!/usr/bin/env node
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
+import { Store, readJson } from "../src/lib/store.js";
+import { mapLimit } from "../src/lib/http.js";
+import { collectMcpServer } from "../src/sources/mcp.js";
+import { checkCanary } from "../src/sources/canary.js";
+import { buildEvents } from "../src/lib/events.js";
+import { publish } from "../src/publish/render.js";
+
+const here = dirname(fileURLToPath(import.meta.url));
+const ROOT = join(here, "..");
+
+const args = new Set(process.argv.slice(2));
+const DRY_RUN = args.has("--dry-run");
+const PUBLISH_ONLY = args.has("--publish-only");
+
+/**
+ * One pulse of the pipeline: collect -> diff -> record -> publish.
+ *
+ * Idempotent by construction. The baseline is the last committed snapshot, so a
+ * skipped or delayed cron firing costs latency and nothing else. Running twice
+ * in a row produces no events the second time.
+ */
+async function main() {
+  const at = new Date().toISOString();
+  const store = new Store(join(ROOT, "state"));
+  const config = readJson(join(ROOT, "servers.json"), { servers: [] });
+
+  if (PUBLISH_ONLY) {
+    publish({ store, outDir: join(ROOT, "site"), config, at });
+    console.log("published from existing state");
+    return;
+  }
+
+  console.log(`pulse ${at} — ${config.servers.length} servers`);
+
+  const results = await mapLimit(config.servers, 6, (s) => collectMcpServer(s));
+
+  const allEvents = [];
+  let okCount = 0;
+
+  for (const [index, result] of results.entries()) {
+    const declared = config.servers[index];
+    const next = result.ok
+      ? result.value
+      : {
+          id: declared.id,
+          name: declared.name ?? declared.id,
+          url: declared.url,
+          transport: "streamable-http",
+          status: "error",
+          error: String(result.error?.message ?? result.error).slice(0, 200),
+          tools: [],
+          toolCount: 0,
+          fingerprint: null,
+          protocolVersion: null,
+          serverInfo: null,
+        };
+
+    const prev = store.readServer(next.id);
+    const events = buildEvents(prev, next, at);
+    allEvents.push(...events);
+
+    // Establishing a baseline is not a change to the contract.
+    const changed = events.some((e) => e.type !== "server_added");
+    const record = {
+      ...next,
+      firstSeenAt: prev?.firstSeenAt ?? at,
+      lastCheckedAt: at,
+      lastOkAt: next.status === "ok" ? at : (prev?.lastOkAt ?? null),
+      lastChangedAt: changed ? at : (prev?.lastChangedAt ?? null),
+      changeCount: (prev?.changeCount ?? 0) + (changed ? 1 : 0),
+    };
+
+    if (next.status === "ok") okCount += 1;
+    const mark = next.status === "ok" ? "ok " : "ERR";
+    console.log(
+      `  ${mark} ${next.id.padEnd(28)} tools=${String(next.toolCount).padStart(3)} events=${events.length}` +
+        (next.error ? ` (${next.error.slice(0, 60)})` : ""),
+    );
+
+    if (!DRY_RUN) store.writeServer(record);
+  }
+
+  const meta = store.readMeta();
+  const canary = await checkCanary(meta.canary, at);
+  const nextMeta = {
+    firstRunAt: meta.firstRunAt ?? at,
+    lastRunAt: at,
+    runs: (meta.runs ?? 0) + 1,
+    serversTotal: config.servers.length,
+    serversOk: okCount,
+    canary,
+  };
+
+  console.log(
+    `  canary ${canary.healthy ? "healthy" : "UNHEALTHY"}` +
+      (canary.error ? ` — ${canary.error}` : ` (last change ${canary.lastChangeAt})`),
+  );
+  console.log(`  ${allEvents.length} events this pulse`);
+
+  if (DRY_RUN) {
+    for (const e of allEvents) console.log(`    [${e.severity}] ${e.server}: ${e.summary}`);
+    console.log("dry run — nothing written");
+    return;
+  }
+
+  store.appendEvents(allEvents);
+  store.writeMeta(nextMeta);
+  publish({ store, outDir: join(ROOT, "site"), config, at });
+  console.log("state written, site published");
+}
+
+main().catch((err) => {
+  console.error("pulse failed:", err);
+  process.exit(1);
+});

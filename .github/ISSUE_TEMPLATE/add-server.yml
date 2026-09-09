@@ -1,0 +1,26 @@
+name: Add a server to the registry
+description: Propose a public MCP server whose tool contract should be tracked.
+title: "Add server: "
+labels: ["server-request"]
+body:
+  - type: input
+    id: endpoint
+    attributes:
+      label: Endpoint URL
+      description: The MCP endpoint itself, not the marketing page. It must answer tools/list without credentials.
+      placeholder: https://mcp.example.com/mcp
+    validations:
+      required: true
+  - type: input
+    id: homepage
+    attributes:
+      label: Documentation or homepage
+    validations:
+      required: false
+  - type: textarea
+    id: why
+    attributes:
+      label: Why track it
+      description: Who breaks when this server changes its tool schemas?
+    validations:
+      required: false

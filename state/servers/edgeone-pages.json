@@ -1,0 +1,40 @@
+{
+  "id": "edgeone-pages",
+  "name": "EdgeOne Pages",
+  "url": "https://mcp-on-edge.edgeone.site/mcp-server",
+  "homepage": "https://edgeone.ai/document/162227908259442688",
+  "transport": "streamable-http",
+  "status": "ok",
+  "error": null,
+  "protocolVersion": null,
+  "serverInfo": null,
+  "tools": [
+    {
+      "name": "deploy-html",
+      "title": null,
+      "description": "Deploy HTML content to EdgeOne Pages, return the public URL",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "HTML or text content to deploy. Provide complete HTML or text content you want to publish, and the system will return a public URL where your content can be accessed."
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": null,
+      "schemaFingerprint": "5523d679fbe3b22c"
+    }
+  ],
+  "toolCount": 1,
+  "fingerprint": "a6b33b20e918b4b4",
+  "firstSeenAt": "2026-09-09T10:24:48.004Z",
+  "lastCheckedAt": "2026-09-09T10:24:48.004Z",
+  "lastOkAt": "2026-09-09T10:24:48.004Z",
+  "lastChangedAt": null,
+  "changeCount": 0
+}

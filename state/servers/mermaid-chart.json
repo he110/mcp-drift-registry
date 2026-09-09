@@ -1,0 +1,1121 @@
+{
+  "id": "mermaid-chart",
+  "name": "Mermaid Chart",
+  "url": "https://mcp.mermaidchart.com/mcp",
+  "homepage": "https://www.mermaidchart.com",
+  "transport": "streamable-http",
+  "status": "ok",
+  "error": null,
+  "protocolVersion": null,
+  "serverInfo": null,
+  "tools": [
+    {
+      "name": "create_issue",
+      "title": null,
+      "description": "Create an issue in a GitHub repository. REQUIRES: `Github-Token` (HTTP) or GITHUB_TOKEN with issues write if creating issues in private repos.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string"
+          },
+          "repo": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "body": {
+            "description": "Issue body in markdown.",
+            "type": "string"
+          },
+          "labels": {
+            "description": "Label names (must already exist in the repository).",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "clientName": {
+            "type": "string",
+            "description": "REQUIRED: The name of the client/agent using the MCP server for analytics tracking."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "title",
+          "clientName"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": false
+      },
+      "schemaFingerprint": "7d79dd80bcd7452d"
+    },
+    {
+      "name": "create_pr",
+      "title": null,
+      "description": "Create a new branch (git ref), one commit from the base tree with your file changes, then open a pull request in the same repository. REQUIRES: `Github-Token` (HTTP) or GITHUB_TOKEN with `contents: write` (and no existing branch with the same `headBranch` name).",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string"
+          },
+          "repo": {
+            "type": "string"
+          },
+          "headBranch": {
+            "type": "string",
+            "description": "Name of the new branch (must not already exist on the remote)."
+          },
+          "baseBranch": {
+            "description": "Branch to base the PR on (e.g. main). Defaults to the repo default branch.",
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string",
+            "description": "PR description (markdown)."
+          },
+          "commitMessage": {
+            "type": "string",
+            "description": "Single commit message for the file changes."
+          },
+          "files": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "description": "Repo-relative file path."
+                },
+                "content": {
+                  "type": "string",
+                  "description": "Full UTF-8 file content."
+                }
+              },
+              "required": [
+                "path",
+                "content"
+              ]
+            },
+            "description": "Files to add or update."
+          },
+          "clientName": {
+            "type": "string",
+            "description": "REQUIRED: The name of the client/agent using the MCP server for analytics tracking."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "headBranch",
+          "title",
+          "body",
+          "commitMessage",
+          "files",
+          "clientName"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": false
+      },
+      "schemaFingerprint": "a57baa12736f7f56"
+    },
+    {
+      "name": "generate_jira_kanban_board",
+      "title": null,
+      "description": "Generate a Mermaid kanban board from Jira issues. Issues are grouped into columns by their current status and ordered by workflow stage (To Do → In Progress → Done). Each card shows the issue summary and is a clickable link to the ticket, with optional assignee and priority badges.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "projectKey": {
+            "type": "string",
+            "minLength": 1,
+            "description": "REQUIRED: Jira project key, e.g. 'PROJ' or 'MYTEAM'."
+          },
+          "sprint": {
+            "description": "Filter by sprint name or numeric ID, e.g. 'Sprint 12' or '42'.",
+            "type": "string"
+          },
+          "assignee": {
+            "description": "Filter by assignee — Jira account ID, display name, or 'currentUser()'.",
+            "type": "string"
+          },
+          "issueType": {
+            "description": "Filter by issue type, e.g. 'Story', 'Bug', 'Task'.",
+            "type": "string"
+          },
+          "maxResults": {
+            "default": 50,
+            "description": "Maximum number of issues to fetch (1–100, default 50).",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "clientName": {
+            "type": "string",
+            "minLength": 1,
+            "description": "REQUIRED: The name of the client/agent using the MCP server for analytics tracking."
+          }
+        },
+        "required": [
+          "projectKey",
+          "clientName"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true
+      },
+      "schemaFingerprint": "d12cf6204de55e82"
+    },
+    {
+      "name": "generate_ticket_dependency_tree",
+      "title": null,
+      "description": "Generate a Mermaid flowchart that visualises Jira issue dependency links for a project. Each node shows the ticket key, summary, and status, and is a clickable link to the ticket. Dashed nodes represent issues linked from outside the current filter set.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "projectKey": {
+            "type": "string",
+            "minLength": 1,
+            "description": "REQUIRED: Jira project key, e.g. 'PROJ' or 'MYTEAM'. Used as the base JQL project filter."
+          },
+          "status": {
+            "description": "Filter by issue status, e.g. 'In Progress', 'To Do', 'Done'.",
+            "type": "string"
+          },
+          "assignee": {
+            "description": "Filter by assignee — Jira account ID, display name, or 'currentUser()'.",
+            "type": "string"
+          },
+          "reporter": {
+            "description": "Filter by reporter — Jira account ID or display name.",
+            "type": "string"
+          },
+          "sprint": {
+            "description": "Filter by sprint name or numeric ID, e.g. 'Sprint 12' or '42'.",
+            "type": "string"
+          },
+          "createdAfter": {
+            "description": "Include only issues created on or after this date, ISO format: '2024-01-15'.",
+            "type": "string"
+          },
+          "createdBefore": {
+            "description": "Include only issues created on or before this date, ISO format: '2024-03-31'.",
+            "type": "string"
+          },
+          "maxResults": {
+            "default": 50,
+            "description": "Target number of issues to render in the tree (1–100, default 50).",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "useUrlShortener": {
+            "default": true,
+            "description": "Shorten the preview/edit URL via Short.io. Disable to get the full unshortened URL (default true).",
+            "type": "boolean"
+          },
+          "colorMode": {
+            "default": "light",
+            "description": "Color scheme for the diagram: 'light' (default pastel fills), 'dark' (deep fills for dark backgrounds), or 'none' (no fill/stroke overrides, inherits the Mermaid theme).",
+            "type": "string",
+            "enum": [
+              "light",
+              "dark",
+              "none"
+            ]
+          },
+          "clientName": {
+            "type": "string",
+            "minLength": 1,
+            "description": "REQUIRED: The name of the client/agent using the MCP server for analytics tracking."
+          }
+        },
+        "required": [
+          "projectKey",
+          "clientName"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true
+      },
+      "schemaFingerprint": "4998db62fabca937"
+    },
+    {
+      "name": "generate_ticket_diagram",
+      "title": null,
+      "description": "Generate a Mermaid flowchart centred on a single Jira ticket. Fetches the ticket's subtasks, parent, issue links, and recent comments in one call. The focal ticket is highlighted in indigo; subtasks are grouped in a subgraph; issue links use colour-coded arrows (red thick = blocks, cyan dashed = relates to); comments appear in a rose subgraph.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "ticketKey": {
+            "type": "string",
+            "minLength": 1,
+            "description": "REQUIRED: Jira issue key, e.g. 'MC-123' or 'PROJ-42'."
+          },
+          "colorMode": {
+            "default": "light",
+            "description": "Color scheme for the diagram: 'light' (default pastel fills), 'dark' (deep fills for dark backgrounds), or 'none' (no fill/stroke overrides, inherits the Mermaid theme).",
+            "type": "string",
+            "enum": [
+              "light",
+              "dark",
+              "none"
+            ]
+          },
+          "clientName": {
+            "type": "string",
+            "minLength": 1,
+            "description": "REQUIRED: The name of the client/agent using the MCP server for analytics tracking."
+          }
+        },
+        "required": [
+          "ticketKey",
+          "clientName"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true
+      },
+      "schemaFingerprint": "e7426b4736bdad62"
+    },
+    {
+      "name": "generate_ticket_timeline",
+      "title": null,
+      "description": "Generate a Mermaid diagram showing the history of a single Jira ticket using its changelog. Two views are available:\n- **state**: stateDiagram-v2 showing all status transitions with dates and authors, nodes coloured by status category.\n- **timeline** (default): Mermaid timeline grouped by month, showing status changes, assignee changes, priority changes, sprint moves, and resolutions.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "ticketKey": {
+            "type": "string",
+            "minLength": 1,
+            "description": "REQUIRED: Jira issue key, e.g. 'MC-123' or 'PROJ-42'."
+          },
+          "view": {
+            "default": "timeline",
+            "description": "Diagram view to generate. 'state' shows status transitions; 'timeline' shows all field changes over time.",
+            "type": "string",
+            "enum": [
+              "state",
+              "timeline"
+            ]
+          },
+          "clientName": {
+            "type": "string",
+            "minLength": 1,
+            "description": "REQUIRED: The name of the client/agent using the MCP server for analytics tracking."
+          }
+        },
+        "required": [
+          "ticketKey",
+          "clientName"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true
+      },
+      "schemaFingerprint": "7a37ce6859e6e05b"
+    },
+    {
+      "name": "get_diagram_summary",
+      "title": null,
+      "description": "Generate a concise summary for a Mermaid diagram based on its content. This tool provides prompts for the LLM to generate a brief summary (2-4 sentences) highlighting the primary flow, key decisions, and outcomes.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "diagramContent": {
+            "type": "string",
+            "description": "The Mermaid diagram content/code for which to generate a summary."
+          },
+          "contextHint": {
+            "description": "Optional: Context hint to help generate a more accurate summary.",
+            "type": "string"
+          },
+          "clientName": {
+            "type": "string",
+            "description": "REQUIRED: The name of the client/agent using the MCP server (e.g., 'claude', 'cursor', 'vscode', 'chatgpt', 'copilot') for analytics tracking."
+          }
+        },
+        "required": [
+          "diagramContent",
+          "clientName"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true
+      },
+      "schemaFingerprint": "2e44cd434a42e533"
+    },
+    {
+      "name": "get_diagram_title",
+      "title": null,
+      "description": "Generate a descriptive title for a Mermaid diagram based on its content. This tool analyzes the diagram structure and content to suggest an appropriate title.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "diagramContent": {
+            "type": "string",
+            "description": "The Mermaid diagram content/code for which to generate a title."
+          },
+          "diagramType": {
+            "description": "Optional: The type of Mermaid diagram (e.g., 'flowchart', 'sequenceDiagram', 'gantt') for better context in title generation.",
+            "type": "string"
+          },
+          "currentTitle": {
+            "description": "Optional: The current title of the diagram, if any, for context.",
+            "type": "string"
+          },
+          "clientName": {
+            "type": "string",
+            "description": "REQUIRED: The name of the client/agent using the MCP server (e.g., 'claude', 'cursor', 'vscode', 'chatgpt', 'copilot') for analytics tracking."
+          }
+        },
+        "required": [
+          "diagramContent",
+          "clientName"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true
+      },
+      "schemaFingerprint": "d0554e233edc5291"
+    },
+    {
+      "name": "get_issue_comments",
+      "title": null,
+      "description": "List comments on an issue by issue number. REQUIRES: `Github-Token` (HTTP) or GITHUB_TOKEN / GH_TOKEN.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string"
+          },
+          "repo": {
+            "type": "string"
+          },
+          "issue_number": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991,
+            "description": "Issue number (not a PR number unless the PR is also addressed as an issue on GitHub)."
+          },
+          "per_page": {
+            "default": 30,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "page": {
+            "default": 1,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "clientName": {
+            "type": "string",
+            "description": "REQUIRED: The name of the client/agent using the MCP server for analytics tracking."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "issue_number",
+          "clientName"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true
+      },
+      "schemaFingerprint": "186f2337ef8a7049"
+    },
+    {
+      "name": "get_mermaid_syntax_document",
+      "title": null,
+      "description": "Get comprehensive syntax documentation and examples for a specific Mermaid diagram type. Returns the official Mermaid.js documentation with syntax rules, examples, and usage instructions for the requested diagram type.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "diagramType": {
+            "type": "string",
+            "description": "The type of Mermaid diagram to get syntax documentation for (e.g., 'flowchart', 'sequenceDiagram', 'architecture-beta', 'gantt', 'gitgraph', 'classDiagram', 'stateDiagram', etc.)."
+          },
+          "clientName": {
+            "type": "string",
+            "description": "REQUIRED: The name of the client/agent using the MCP server (e.g., 'claude', 'cursor', 'vscode', 'chatgpt', 'copilot') for analytics tracking."
+          }
+        },
+        "required": [
+          "diagramType",
+          "clientName"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true
+      },
+      "schemaFingerprint": "ea423da742058107"
+    },
+    {
+      "name": "get_notion_mermaid_diagram_by_block_id",
+      "title": null,
+      "description": "Retrieve a single Mermaid diagram block by its block ID. Returns the diagram code and optional caption.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "blockId": {
+            "type": "string",
+            "description": "The Notion block ID of the mermaid code block (e.g. from get_notion_page_mermaid_diagrams)."
+          },
+          "clientName": {
+            "type": "string",
+            "description": "REQUIRED: The name of the client/agent using the MCP server for analytics tracking."
+          }
+        },
+        "required": [
+          "blockId",
+          "clientName"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true
+      },
+      "schemaFingerprint": "97a454c1555375f6"
+    },
+    {
+      "name": "get_notion_page_mermaid_diagrams",
+      "title": null,
+      "description": "Extract all Mermaid code blocks from a Notion page. Returns block ID, diagram code, and optional caption for each block.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "pageUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of the Notion page (e.g. https://www.notion.so/My-Page-abc123...)."
+          },
+          "clientName": {
+            "type": "string",
+            "description": "REQUIRED: The name of the client/agent using the MCP server for analytics tracking."
+          }
+        },
+        "required": [
+          "pageUrl",
+          "clientName"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true
+      },
+      "schemaFingerprint": "624ea92aed2a90b5"
+    },
+    {
+      "name": "get_pull_comments",
+      "title": null,
+      "description": "Get all pull request comments: both issue/PR thread comments and inline review comments, with a `type` of `issue_thread` or `review` per item. REQUIRES: `Github-Token` (HTTP) or GITHUB_TOKEN / GH_TOKEN.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string"
+          },
+          "repo": {
+            "type": "string"
+          },
+          "pull_number": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991,
+            "description": "Pull request number."
+          },
+          "per_page": {
+            "default": 30,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "page": {
+            "default": 1,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "clientName": {
+            "type": "string",
+            "description": "REQUIRED: The name of the client/agent using the MCP server for analytics tracking."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "pull_number",
+          "clientName"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true
+      },
+      "schemaFingerprint": "718e548e174cb4a2"
+    },
+    {
+      "name": "insert_notion_mermaid_diagram",
+      "title": null,
+      "description": "Append a Mermaid diagram as a code block to a Notion page. The block is added at the end of the page content.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "pageUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of the Notion page to insert the diagram into."
+          },
+          "code": {
+            "type": "string",
+            "description": "Mermaid diagram source code."
+          },
+          "caption": {
+            "description": "Optional caption displayed below the code block.",
+            "type": "string"
+          },
+          "clientName": {
+            "type": "string",
+            "description": "REQUIRED: The name of the client/agent using the MCP server for analytics tracking."
+          }
+        },
+        "required": [
+          "pageUrl",
+          "code",
+          "clientName"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": false
+      },
+      "schemaFingerprint": "5ce41914f84289c2"
+    },
+    {
+      "name": "list_branches",
+      "title": null,
+      "description": "List or resolve branch names. **List mode (default):** one `GET /repos/.../branches?per_page=100&page=1` — at most 100 names, A–Z sorted in the response; `has_more` if a full page was returned. **Resolve mode:** set `branch_name` for a single `GET` branch (404 if missing). At most one GitHub API call. REQUIRES: `Github-Token` (HTTP) or GITHUB_TOKEN / GH_TOKEN.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string"
+          },
+          "repo": {
+            "type": "string"
+          },
+          "branch_name": {
+            "description": "Exact branch name. When non-empty, returns that branch only. Omit to fetch the first 100 branches only.",
+            "type": "string"
+          },
+          "clientName": {
+            "type": "string",
+            "description": "REQUIRED: The name of the client/agent using the MCP server for analytics tracking."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "clientName"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true
+      },
+      "schemaFingerprint": "512657e7de1d68d3"
+    },
+    {
+      "name": "list_issues",
+      "title": null,
+      "description": "List issues for a repository (excludes pull requests). REQUIRES: `Github-Token` (HTTP) or GITHUB_TOKEN / GH_TOKEN.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string"
+          },
+          "repo": {
+            "type": "string"
+          },
+          "state": {
+            "default": "open",
+            "type": "string",
+            "enum": [
+              "open",
+              "closed",
+              "all"
+            ]
+          },
+          "labels": {
+            "description": "Comma-separated label names (GitHub API format).",
+            "type": "string"
+          },
+          "sort": {
+            "default": "created",
+            "type": "string",
+            "enum": [
+              "created",
+              "updated",
+              "comments"
+            ]
+          },
+          "direction": {
+            "default": "desc",
+            "type": "string",
+            "enum": [
+              "asc",
+              "desc"
+            ]
+          },
+          "since": {
+            "description": "ISO 8601: only issues updated at or after this time.",
+            "type": "string"
+          },
+          "per_page": {
+            "default": 30,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "page": {
+            "default": 1,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "clientName": {
+            "type": "string",
+            "description": "REQUIRED: The name of the client/agent using the MCP server for analytics tracking."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "clientName"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true
+      },
+      "schemaFingerprint": "f191fd69ecabaa62"
+    },
+    {
+      "name": "list_mermaid_files",
+      "title": null,
+      "description": "List .mmd Mermaid files in a GitHub repository (code search with tree fallback). REQUIRES: `Github-Token` header (HTTP) or GITHUB_TOKEN / GH_TOKEN.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string",
+            "description": "Repository owner (user or organization)."
+          },
+          "repo": {
+            "type": "string",
+            "description": "Repository name."
+          },
+          "ref": {
+            "description": "Optional branch, tag, or commit for tree fallback when code search is unavailable.",
+            "type": "string"
+          },
+          "clientName": {
+            "type": "string",
+            "description": "REQUIRED: The name of the client/agent using the MCP server for analytics tracking."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "clientName"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true
+      },
+      "schemaFingerprint": "2bb9988367aab757"
+    },
+    {
+      "name": "list_pulls",
+      "title": null,
+      "description": "List pull requests for a GitHub repository. REQUIRES: `Github-Token` (HTTP) or GITHUB_TOKEN / GH_TOKEN.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string"
+          },
+          "repo": {
+            "type": "string"
+          },
+          "state": {
+            "default": "open",
+            "type": "string",
+            "enum": [
+              "open",
+              "closed",
+              "all"
+            ]
+          },
+          "per_page": {
+            "default": 30,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "page": {
+            "default": 1,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "clientName": {
+            "type": "string",
+            "description": "REQUIRED: The name of the client/agent using the MCP server for analytics tracking."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "clientName"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true
+      },
+      "schemaFingerprint": "25365a45f80ea648"
+    },
+    {
+      "name": "list_repos",
+      "title": null,
+      "description": "List GitHub repositories for the authenticated user, or for an organization when `org` is set. REQUIRES: `Github-Token` header (HTTP) or `GITHUB_TOKEN` / `GH_TOKEN` in the server environment.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "org": {
+            "description": "Optional: organization login. If set, lists that org's repositories; otherwise lists repos for the authenticated user.",
+            "type": "string"
+          },
+          "per_page": {
+            "default": 30,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "page": {
+            "default": 1,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "type": {
+            "default": "all",
+            "description": "User repo filter; ignored when `org` is set.",
+            "type": "string",
+            "enum": [
+              "all",
+              "owner",
+              "member",
+              "public",
+              "private"
+            ]
+          },
+          "clientName": {
+            "type": "string",
+            "description": "REQUIRED: The name of the client/agent using the MCP server for analytics tracking."
+          }
+        },
+        "required": [
+          "clientName"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true
+      },
+      "schemaFingerprint": "6eb3af6d262e4180"
+    },
+    {
+      "name": "list_tools",
+      "title": null,
+      "description": "Lists all available MCP servers and their tools in the workspace.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "clientName": {
+            "description": "OPTIONAL: The name of the client/agent using the MCP server (e.g., 'claude', 'cursor', 'vscode', 'chatgpt', 'copilot') for analytics tracking.",
+            "type": "string"
+          }
+        }
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true
+      },
+      "schemaFingerprint": "25a63fb273b576cb"
+    },
+    {
+      "name": "push_file",
+      "title": null,
+      "description": "Create or update a single file on a given branch in a GitHub repository. REQUIRES: `Github-Token` (HTTP) or GITHUB_TOKEN with contents write access.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string"
+          },
+          "repo": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string",
+            "description": "Full file content."
+          },
+          "branch": {
+            "type": "string",
+            "description": "Branch to commit to."
+          },
+          "message": {
+            "type": "string",
+            "description": "Commit message."
+          },
+          "sha": {
+            "description": "Existing blob SHA to update; omit to create or to let the service detect.",
+            "type": "string"
+          },
+          "clientName": {
+            "type": "string",
+            "description": "REQUIRED: The name of the client/agent using the MCP server for analytics tracking."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "path",
+          "content",
+          "branch",
+          "message",
+          "clientName"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": false
+      },
+      "schemaFingerprint": "d24423996f95344f"
+    },
+    {
+      "name": "read_mermaid_file",
+      "title": null,
+      "description": "Read a single .mmd file from a GitHub repository. Only paths ending in .mmd are allowed. REQUIRES: `Github-Token` header (HTTP) or GITHUB_TOKEN / GH_TOKEN.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string"
+          },
+          "repo": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string",
+            "description": "Path to the .mmd file in the repository."
+          },
+          "ref": {
+            "description": "Optional: branch, tag, or commit SHA; defaults to the default branch.",
+            "type": "string"
+          },
+          "clientName": {
+            "type": "string",
+            "description": "REQUIRED: The name of the client/agent using the MCP server for analytics tracking."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "path",
+          "clientName"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true
+      },
+      "schemaFingerprint": "6f1b72713855087f"
+    },
+    {
+      "name": "search_mermaid_icons",
+      "title": null,
+      "description": "Search for available Mermaid icons by provider or name. Returns icons in ready-to-use format with provider prefixes (e.g., 'aws:arch-amazon-ec2'). PERFORMANCE TIP: For faster searches, start with limit=10 and specific queries. If no suitable icons found, increase limit and retry. Supports AWS, Azure, GCP, and FontAwesome icon sets.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search query for icons (e.g., 'aws', 'azure', 'gcp', 'fa', 'lambda', 's3', 'database'). Use specific terms for better results."
+          },
+          "provider": {
+            "description": "Optional: Filter by specific provider ('aws', 'azure', 'gcp', 'fa'). If not provided, searches all providers.",
+            "type": "string"
+          },
+          "limit": {
+            "default": 10,
+            "description": "Optional: Maximum number of results to return per provider. Defaults to 10 for performance. Increase if needed.",
+            "type": "number"
+          },
+          "clientName": {
+            "type": "string",
+            "description": "REQUIRED: The name of the client/agent using the MCP server (e.g., 'claude', 'cursor', 'vscode', 'chatgpt', 'copilot') for analytics tracking."
+          }
+        },
+        "required": [
+          "query",
+          "clientName"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true
+      },
+      "schemaFingerprint": "c575e3fa0791fda2"
+    },
+    {
+      "name": "update_notion_mermaid_diagram",
+      "title": null,
+      "description": "Update the Mermaid source code (and optional caption) of an existing mermaid code block by its block ID.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "blockId": {
+            "type": "string",
+            "description": "The Notion block ID of the mermaid code block to update."
+          },
+          "code": {
+            "type": "string",
+            "description": "New Mermaid diagram source code."
+          },
+          "caption": {
+            "description": "Optional new caption. Omit to clear the existing caption.",
+            "type": "string"
+          },
+          "clientName": {
+            "type": "string",
+            "description": "REQUIRED: The name of the client/agent using the MCP server for analytics tracking."
+          }
+        },
+        "required": [
+          "blockId",
+          "code",
+          "clientName"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": false
+      },
+      "schemaFingerprint": "52ae853439f70a05"
+    },
+    {
+      "name": "validate_and_render_mermaid_diagram",
+      "title": null,
+      "description": "SIMPLE RENDER TOOL - Renders Mermaid diagrams directly (Mermaid automatically validates during rendering). If successful, returns diagram image. If Mermaid validation fails, returns error details for fixing. One tool, one call, simple workflow.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "description": "A text description of the diagram to generate."
+          },
+          "mermaidCode": {
+            "type": "string",
+            "description": "Mermaid code to render. Mermaid validates automatically during rendering - if invalid, tool returns error details for fixing."
+          },
+          "diagramType": {
+            "type": "string",
+            "description": "The type of Mermaid diagram (e.g., 'flowchart', 'sequenceDiagram', 'gantt')."
+          },
+          "clientName": {
+            "type": "string",
+            "description": "REQUIRED: The name of the client/agent using the MCP server (e.g., 'claude', 'cursor', 'vscode', 'chatgpt', 'copilot') for analytics tracking."
+          },
+          "useUrlShortener": {
+            "default": true,
+            "description": "Whether to use URL shortening for the Mermaid link. Defaults to true, set to false to disable shortening.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "prompt",
+          "mermaidCode",
+          "diagramType",
+          "clientName"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true
+      },
+      "schemaFingerprint": "6cfe2a2f5f2c29df"
+    }
+  ],
+  "toolCount": 25,
+  "fingerprint": "712ac35479ceda6b",
+  "firstSeenAt": "2026-09-09T10:24:48.004Z",
+  "lastCheckedAt": "2026-09-09T10:24:48.004Z",
+  "lastOkAt": "2026-09-09T10:24:48.004Z",
+  "lastChangedAt": null,
+  "changeCount": 0
+}

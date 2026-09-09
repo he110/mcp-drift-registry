@@ -1,0 +1,58 @@
+name: pulse
+
+# The whole product runs here: collect -> diff -> commit state -> publish.
+#
+# GitHub's scheduler is best-effort; a run can be late or dropped entirely.
+# That is survivable by design — every pulse diffs against the last committed
+# snapshot, so a missed run costs latency and nothing else.
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pulse
+  cancel-in-progress: false
+
+jobs:
+  pulse:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # A broken diff engine must never reach the site: a monitoring product
+      # that reports drift that did not happen is worse than one that is down.
+      - name: Test
+        run: node --test test/
+
+      - name: Pulse
+        run: node bin/pulse.js
+
+      - name: Commit snapshot
+        run: |
+          git config user.name "mcp-drift-registry[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state
+          git diff --staged --quiet || git commit -m "pulse: $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deploy
+        uses: actions/deploy-pages@v4

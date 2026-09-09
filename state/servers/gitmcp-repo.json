@@ -1,0 +1,143 @@
+{
+  "id": "gitmcp-repo",
+  "name": "GitMCP (repo mode)",
+  "url": "https://gitmcp.io/modelcontextprotocol/servers",
+  "homepage": "https://gitmcp.io",
+  "transport": "streamable-http",
+  "status": "ok",
+  "error": null,
+  "protocolVersion": "2025-03-26",
+  "serverInfo": {
+    "name": "GitMCP",
+    "version": "1.1.0"
+  },
+  "tools": [
+    {
+      "name": "fetch_generic_url_content",
+      "title": null,
+      "description": "Generic tool to fetch content from any absolute URL, respecting robots.txt rules. Use this to retrieve referenced urls (absolute urls) that were mentioned in previously fetched documentation.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "The URL of the document or page to fetch"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "outputSchema": null,
+      "annotations": null,
+      "schemaFingerprint": "fc03f6e0be0505e6"
+    },
+    {
+      "name": "fetch_servers_documentation",
+      "title": null,
+      "description": "Fetch entire documentation file from GitHub repository: modelcontextprotocol/servers. Useful for general questions. Always call this tool first if asked about modelcontextprotocol/servers.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": null,
+      "annotations": {
+        "_def": {
+          "options": [
+            {
+              "_def": {
+                "unknownKeys": "strip",
+                "catchall": {
+                  "_def": {
+                    "typeName": "ZodNever"
+                  },
+                  "~standard": {
+                    "version": 1,
+                    "vendor": "zod"
+                  }
+                },
+                "typeName": "ZodObject"
+              },
+              "~standard": {
+                "version": 1,
+                "vendor": "zod"
+              },
+              "_cached": null
+            },
+            {
+              "_def": {
+                "typeName": "ZodNull"
+              },
+              "~standard": {
+                "version": 1,
+                "vendor": "zod"
+              }
+            }
+          ],
+          "typeName": "ZodUnion"
+        },
+        "~standard": {
+          "version": 1,
+          "vendor": "zod"
+        }
+      },
+      "schemaFingerprint": "a2c799262a3ce3c1"
+    },
+    {
+      "name": "search_servers_code",
+      "title": null,
+      "description": "Search for code within the GitHub repository: \"modelcontextprotocol/servers\" using the GitHub Search API (exact match). Returns matching files for you to query further if relevant.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "The search query to find relevant code files"
+          },
+          "page": {
+            "type": "number",
+            "description": "Page number to retrieve (starting from 1). Each page contains 30 results."
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "outputSchema": null,
+      "annotations": null,
+      "schemaFingerprint": "f13be70c50047a96"
+    },
+    {
+      "name": "search_servers_documentation",
+      "title": null,
+      "description": "Semantically search within the fetched documentation from GitHub repository: modelcontextprotocol/servers. Useful for specific queries.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "The search query to find relevant documentation"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "outputSchema": null,
+      "annotations": null,
+      "schemaFingerprint": "5cb8f51b1f8abfeb"
+    }
+  ],
+  "toolCount": 4,
+  "fingerprint": "fd0ead00efcfdb90",
+  "firstSeenAt": "2026-09-09T10:24:48.004Z",
+  "lastCheckedAt": "2026-09-09T10:24:48.004Z",
+  "lastOkAt": "2026-09-09T10:24:48.004Z",
+  "lastChangedAt": null,
+  "changeCount": 0
+}

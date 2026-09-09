@@ -1,0 +1,42 @@
+{
+  "id": "astro-docs",
+  "name": "Astro Docs",
+  "url": "https://mcp.docs.astro.build/mcp",
+  "homepage": "https://docs.astro.build",
+  "transport": "streamable-http",
+  "status": "ok",
+  "error": null,
+  "protocolVersion": null,
+  "serverInfo": null,
+  "tools": [
+    {
+      "name": "search_astro_docs",
+      "title": "Search Astro Docs",
+      "description": "Search the official Astro framework docs",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search query"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "outputSchema": null,
+      "annotations": null,
+      "schemaFingerprint": "ea362241e5455e0f"
+    }
+  ],
+  "toolCount": 1,
+  "fingerprint": "6b20ffb7f6d44ad1",
+  "firstSeenAt": "2026-09-09T10:24:48.004Z",
+  "lastCheckedAt": "2026-09-09T10:24:48.004Z",
+  "lastOkAt": "2026-09-09T10:24:48.004Z",
+  "lastChangedAt": null,
+  "changeCount": 0
+}

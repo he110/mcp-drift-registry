@@ -1,0 +1,165 @@
+{
+  "$comment": "Public MCP servers that answer tools/list without credentials. Every entry here was verified live before being added; a server that starts demanding auth is recorded as such rather than dropped, because losing anonymous access IS a contract change.",
+  "site": {
+    "title": "MCP Drift Registry",
+    "tagline": "A deterministic record of how public MCP servers change their tool contracts.",
+    "url": "https://he110.github.io/mcp-drift-registry",
+    "repo": "he110/mcp-drift-registry"
+  },
+  "servers": [
+    {
+      "id": "deepwiki",
+      "name": "DeepWiki",
+      "vendor": "Cognition",
+      "url": "https://mcp.deepwiki.com/mcp",
+      "homepage": "https://deepwiki.com"
+    },
+    {
+      "id": "context7",
+      "name": "Context7",
+      "vendor": "Upstash",
+      "url": "https://mcp.context7.com/mcp",
+      "homepage": "https://context7.com"
+    },
+    {
+      "id": "huggingface",
+      "name": "Hugging Face",
+      "vendor": "Hugging Face",
+      "url": "https://huggingface.co/mcp",
+      "homepage": "https://huggingface.co/settings/mcp"
+    },
+    {
+      "id": "microsoft-learn",
+      "name": "Microsoft Learn",
+      "vendor": "Microsoft",
+      "url": "https://learn.microsoft.com/api/mcp",
+      "homepage": "https://learn.microsoft.com/training/support/mcp"
+    },
+    {
+      "id": "cloudflare-docs",
+      "name": "Cloudflare Docs",
+      "vendor": "Cloudflare",
+      "url": "https://docs.mcp.cloudflare.com/mcp",
+      "homepage": "https://developers.cloudflare.com/agents/model-context-protocol/mcp-servers-for-cloudflare/"
+    },
+    {
+      "id": "aws-knowledge",
+      "name": "AWS Knowledge",
+      "vendor": "Amazon Web Services",
+      "url": "https://knowledge-mcp.global.api.aws",
+      "homepage": "https://awslabs.github.io/mcp/"
+    },
+    {
+      "id": "gitmcp-docs",
+      "name": "GitMCP (docs)",
+      "vendor": "GitMCP",
+      "url": "https://gitmcp.io/docs",
+      "homepage": "https://gitmcp.io"
+    },
+    {
+      "id": "gitmcp-repo",
+      "name": "GitMCP (repo mode)",
+      "vendor": "GitMCP",
+      "url": "https://gitmcp.io/modelcontextprotocol/servers",
+      "homepage": "https://gitmcp.io"
+    },
+    {
+      "id": "svelte",
+      "name": "Svelte",
+      "vendor": "Svelte",
+      "url": "https://mcp.svelte.dev/mcp",
+      "homepage": "https://svelte.dev/docs/mcp"
+    },
+    {
+      "id": "astro-docs",
+      "name": "Astro Docs",
+      "vendor": "Astro",
+      "url": "https://mcp.docs.astro.build/mcp",
+      "homepage": "https://docs.astro.build"
+    },
+    {
+      "id": "chakra-ui",
+      "name": "Chakra UI",
+      "vendor": "Chakra UI",
+      "url": "https://mcp.chakra-ui.com/mcp",
+      "homepage": "https://chakra-ui.com/docs/get-started/ai/mcp-server"
+    },
+    {
+      "id": "exa",
+      "name": "Exa",
+      "vendor": "Exa",
+      "url": "https://mcp.exa.ai/mcp",
+      "homepage": "https://exa.ai"
+    },
+    {
+      "id": "firecrawl",
+      "name": "Firecrawl",
+      "vendor": "Firecrawl",
+      "url": "https://mcp.firecrawl.dev/mcp",
+      "homepage": "https://firecrawl.dev"
+    },
+    {
+      "id": "jina",
+      "name": "Jina AI",
+      "vendor": "Jina AI",
+      "url": "https://mcp.jina.ai/sse",
+      "homepage": "https://jina.ai"
+    },
+    {
+      "id": "mermaid-chart",
+      "name": "Mermaid Chart",
+      "vendor": "Mermaid Chart",
+      "url": "https://mcp.mermaidchart.com/mcp",
+      "homepage": "https://www.mermaidchart.com"
+    },
+    {
+      "id": "browserbase",
+      "name": "Browserbase",
+      "vendor": "Browserbase",
+      "url": "https://mcp.browserbase.com/mcp",
+      "homepage": "https://browserbase.com"
+    },
+    {
+      "id": "edgeone-pages",
+      "name": "EdgeOne Pages",
+      "vendor": "Tencent",
+      "url": "https://mcp-on-edge.edgeone.site/mcp-server",
+      "homepage": "https://edgeone.ai/document/162227908259442688"
+    },
+    {
+      "id": "resend-docs",
+      "name": "Resend Docs",
+      "vendor": "Resend",
+      "url": "https://resend.com/docs/mcp",
+      "homepage": "https://resend.com/docs"
+    },
+    {
+      "id": "trigger-docs",
+      "name": "Trigger.dev Docs",
+      "vendor": "Trigger.dev",
+      "url": "https://docs.trigger.dev/mcp",
+      "homepage": "https://trigger.dev"
+    },
+    {
+      "id": "dub-docs",
+      "name": "Dub Docs",
+      "vendor": "Dub",
+      "url": "https://dub.co/docs/mcp",
+      "homepage": "https://dub.co"
+    },
+    {
+      "id": "novu-docs",
+      "name": "Novu Docs",
+      "vendor": "Novu",
+      "url": "https://docs.novu.co/mcp",
+      "homepage": "https://novu.co"
+    },
+    {
+      "id": "together-docs",
+      "name": "Together AI Docs",
+      "vendor": "Together AI",
+      "url": "https://docs.together.ai/mcp",
+      "homepage": "https://together.ai"
+    }
+  ]
+}

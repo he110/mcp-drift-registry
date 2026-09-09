@@ -1,0 +1,16 @@
+{
+  "firstRunAt": "2026-09-09T10:24:48.004Z",
+  "lastRunAt": "2026-09-09T10:24:48.004Z",
+  "runs": 1,
+  "serversTotal": 22,
+  "serversOk": 22,
+  "canary": {
+    "url": "https://api.github.com/zen",
+    "lastCheckAt": "2026-09-09T10:24:48.004Z",
+    "lastChangeAt": "2026-09-09T10:24:48.004Z",
+    "consecutiveNoChange": 0,
+    "healthy": true,
+    "error": null,
+    "fingerprint": "176e603eeacf670a"
+  }
+}

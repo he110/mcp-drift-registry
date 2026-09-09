@@ -1,0 +1,31 @@
+name: I would want to be notified
+description: Tell us what a useful notification would look like. Nothing is being promised here.
+title: "Notification: "
+labels: ["notify-interest"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **There is no alerting product.** Today the registry publishes a page, an Atom feed
+        and a static JSON API, and nothing else. This form exists so that interest is
+        recorded in public before anything is built, rather than assumed.
+  - type: textarea
+    id: what
+    attributes:
+      label: What would you want to be told about, and where?
+      placeholder: "Only breaking changes to the servers my agent actually calls, in Slack."
+    validations:
+      required: true
+  - type: input
+    id: servers
+    attributes:
+      label: Which servers do you depend on?
+    validations:
+      required: false
+  - type: textarea
+    id: cost
+    attributes:
+      label: What did the last unannounced schema change cost you?
+      description: Minutes of debugging, a broken deploy, a customer-facing failure — whatever actually happened.
+    validations:
+      required: false

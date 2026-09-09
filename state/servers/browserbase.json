@@ -1,0 +1,167 @@
+{
+  "id": "browserbase",
+  "name": "Browserbase",
+  "url": "https://mcp.browserbase.com/mcp",
+  "homepage": "https://browserbase.com",
+  "transport": "streamable-http",
+  "status": "ok",
+  "error": null,
+  "protocolVersion": "2025-06-18",
+  "serverInfo": {
+    "name": "stagehand-api",
+    "version": "e4bc9849894d3c6907d383584b689cac9f39e37c"
+  },
+  "tools": [
+    {
+      "name": "act",
+      "title": null,
+      "description": "Perform an action on the page",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sessionId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Optional Browserbase session ID. For `start`, pass an existing session ID to reuse it instead of creating a new session. For other tools, pass the sessionId returned by `start` to target or reattach to that session; if omitted, they use the current active session."
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "outputSchema": null,
+      "annotations": null,
+      "schemaFingerprint": "a8ef6a722493fcd6"
+    },
+    {
+      "name": "end",
+      "title": null,
+      "description": "Close the current Browserbase session",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "sessionId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Optional Browserbase session ID. For `start`, pass an existing session ID to reuse it instead of creating a new session. For other tools, pass the sessionId returned by `start` to target or reattach to that session; if omitted, they use the current active session."
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "outputSchema": null,
+      "annotations": null,
+      "schemaFingerprint": "f59e76bb221954bf"
+    },
+    {
+      "name": "extract",
+      "title": null,
+      "description": "Extract data from the page",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instruction": {
+            "type": "string"
+          },
+          "sessionId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Optional Browserbase session ID. For `start`, pass an existing session ID to reuse it instead of creating a new session. For other tools, pass the sessionId returned by `start` to target or reattach to that session; if omitted, they use the current active session."
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "outputSchema": null,
+      "annotations": null,
+      "schemaFingerprint": "239d03de601d9533"
+    },
+    {
+      "name": "navigate",
+      "title": null,
+      "description": "Navigate to a URL",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sessionId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Optional Browserbase session ID. For `start`, pass an existing session ID to reuse it instead of creating a new session. For other tools, pass the sessionId returned by `start` to target or reattach to that session; if omitted, they use the current active session."
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "outputSchema": null,
+      "annotations": null,
+      "schemaFingerprint": "e1a31dd00df7f57e"
+    },
+    {
+      "name": "observe",
+      "title": null,
+      "description": "Observe actionable elements on the page",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instruction": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sessionId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Optional Browserbase session ID. For `start`, pass an existing session ID to reuse it instead of creating a new session. For other tools, pass the sessionId returned by `start` to target or reattach to that session; if omitted, they use the current active session."
+          }
+        },
+        "required": [
+          "instruction"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "outputSchema": null,
+      "annotations": null,
+      "schemaFingerprint": "6042e640be153e29"
+    },
+    {
+      "name": "start",
+      "title": null,
+      "description": "Create or reuse a Browserbase session",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "sessionId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Optional Browserbase session ID. For `start`, pass an existing session ID to reuse it instead of creating a new session. For other tools, pass the sessionId returned by `start` to target or reattach to that session; if omitted, they use the current active session."
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "outputSchema": null,
+      "annotations": null,
+      "schemaFingerprint": "f59e76bb221954bf"
+    }
+  ],
+  "toolCount": 6,
+  "fingerprint": "4b547305ee1263bf",
+  "firstSeenAt": "2026-09-09T10:24:48.004Z",
+  "lastCheckedAt": "2026-09-09T10:24:48.004Z",
+  "lastOkAt": "2026-09-09T10:24:48.004Z",
+  "lastChangedAt": null,
+  "changeCount": 0
+}

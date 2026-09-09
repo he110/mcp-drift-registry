@@ -1,0 +1,16 @@
+{
+  "name": "mcp-drift-registry",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Deterministic drift registry for MCP server tool schemas. Cron -> diff -> publish, zero dependencies.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "pulse": "node bin/pulse.js",
+    "pulse:dry": "node bin/pulse.js --dry-run",
+    "publish": "node bin/pulse.js --publish-only",
+    "test": "node --test test/"
+  }
+}

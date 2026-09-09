@@ -1,0 +1,128 @@
+{
+  "id": "deepwiki",
+  "name": "DeepWiki",
+  "url": "https://mcp.deepwiki.com/mcp",
+  "homepage": "https://deepwiki.com",
+  "transport": "streamable-http",
+  "status": "ok",
+  "error": null,
+  "protocolVersion": null,
+  "serverInfo": null,
+  "tools": [
+    {
+      "name": "ask_question",
+      "title": null,
+      "description": "Ask any question about a GitHub repository and get an AI-powered, context-grounded response.",
+      "inputSchema": {
+        "properties": {
+          "repoName": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            ],
+            "description": "GitHub repository or list of repositories (max 10) in owner/repo format."
+          },
+          "question": {
+            "description": "The question to ask about the repository.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "repoName",
+          "question"
+        ],
+        "type": "object"
+      },
+      "outputSchema": {
+        "properties": {
+          "result": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "type": "object",
+        "x-fastmcp-wrap-result": true
+      },
+      "annotations": null,
+      "schemaFingerprint": "fc67cfc7a6567b5e"
+    },
+    {
+      "name": "read_wiki_contents",
+      "title": null,
+      "description": "View documentation about a GitHub repository.",
+      "inputSchema": {
+        "properties": {
+          "repoName": {
+            "description": "GitHub repository in owner/repo format (e.g. \"facebook/react\").",
+            "type": "string"
+          }
+        },
+        "required": [
+          "repoName"
+        ],
+        "type": "object"
+      },
+      "outputSchema": {
+        "properties": {
+          "result": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "type": "object",
+        "x-fastmcp-wrap-result": true
+      },
+      "annotations": null,
+      "schemaFingerprint": "fe2300899f7b8843"
+    },
+    {
+      "name": "read_wiki_structure",
+      "title": null,
+      "description": "Get a list of documentation topics for a GitHub repository.",
+      "inputSchema": {
+        "properties": {
+          "repoName": {
+            "description": "GitHub repository in owner/repo format (e.g. \"facebook/react\").",
+            "type": "string"
+          }
+        },
+        "required": [
+          "repoName"
+        ],
+        "type": "object"
+      },
+      "outputSchema": {
+        "properties": {
+          "result": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "type": "object",
+        "x-fastmcp-wrap-result": true
+      },
+      "annotations": null,
+      "schemaFingerprint": "fe2300899f7b8843"
+    }
+  ],
+  "toolCount": 3,
+  "fingerprint": "18cc2015befaea38",
+  "firstSeenAt": "2026-09-09T10:24:48.004Z",
+  "lastCheckedAt": "2026-09-09T10:24:48.004Z",
+  "lastOkAt": "2026-09-09T10:24:48.004Z",
+  "lastChangedAt": null,
+  "changeCount": 0
+}
