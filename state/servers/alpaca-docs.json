@@ -1,0 +1,287 @@
+{
+  "id": "alpaca-docs",
+  "name": "Alpaca Docs",
+  "url": "https://docs.alpaca.markets/mcp",
+  "homepage": "https://alpaca.markets",
+  "transport": "streamable-http",
+  "status": "ok",
+  "error": null,
+  "protocolVersion": null,
+  "serverInfo": null,
+  "tools": [
+    {
+      "name": "fetch",
+      "title": "Fetch Documentation Page",
+      "description": "Gets detailed content for documentation by ID returned from the `search` tool.",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The ID of the documentation to retrieve. Must come from the `search` tool. Recipe IDs are prefixed with `recipe:`, reference page IDs with `ref:`."
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false
+      },
+      "schemaFingerprint": "9aca4b22fca560e8"
+    },
+    {
+      "name": "get-endpoint",
+      "title": "Get Endpoint Details",
+      "description": "Gets detailed information about a specific API endpoint, including security schemes and servers",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "The API endpoint path (e.g. /api/v1/users)."
+          },
+          "method": {
+            "type": "string",
+            "description": "The HTTP method (e.g. GET, POST, PUT, DELETE)."
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the OpenAPI spec. Use tool 'list-specs' or 'search-endpoints' to see available specs."
+          }
+        },
+        "required": [
+          "path",
+          "method",
+          "title"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false
+      },
+      "schemaFingerprint": "b3ea3276a3eaf46c"
+    },
+    {
+      "name": "list-endpoints",
+      "title": "List API Endpoints",
+      "description": "Lists all API paths and their HTTP methods with summaries, organized by path. Results can be passed directly into 'get-endpoint'.",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title of the OpenAPI spec. Use tool 'list-specs' or 'search-endpoints' to see available specs."
+          }
+        },
+        "required": [
+          "title"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false
+      },
+      "schemaFingerprint": "7ec291467e49b261"
+    },
+    {
+      "name": "search",
+      "title": "Search Documentation",
+      "description": "Searches through documentation with the given search query, returning a list of results with ID, title, and URL.",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "search query"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false
+      },
+      "schemaFingerprint": "75bbf5108beb6478"
+    },
+    {
+      "name": "search-endpoints",
+      "title": "Search API Endpoints",
+      "description": "Performs a deep search through paths, operations, and parameters to discover relevant API endpoints. Use this tool to find specific API capabilities, required parameters, or data models based on search keywords. Results can be passed directly into 'get-endpoint'.",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "pattern": {
+            "type": "string",
+            "description": "Search pattern (case-insensitive)"
+          }
+        },
+        "required": [
+          "pattern"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false
+      },
+      "schemaFingerprint": "b6566c5b07df4454"
+    }
+  ],
+  "toolCount": 5,
+  "fingerprint": "aeb2e58da33afc98",
+  "lastGood": {
+    "at": "2026-09-09T10:55:17.881Z",
+    "tools": [
+      {
+        "name": "fetch",
+        "title": "Fetch Documentation Page",
+        "description": "Gets detailed content for documentation by ID returned from the `search` tool.",
+        "inputSchema": {
+          "type": "object",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "The ID of the documentation to retrieve. Must come from the `search` tool. Recipe IDs are prefixed with `recipe:`, reference page IDs with `ref:`."
+            }
+          },
+          "required": [
+            "id"
+          ]
+        },
+        "outputSchema": null,
+        "annotations": {
+          "readOnlyHint": true,
+          "openWorldHint": false
+        },
+        "schemaFingerprint": "9aca4b22fca560e8"
+      },
+      {
+        "name": "get-endpoint",
+        "title": "Get Endpoint Details",
+        "description": "Gets detailed information about a specific API endpoint, including security schemes and servers",
+        "inputSchema": {
+          "type": "object",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "properties": {
+            "path": {
+              "type": "string",
+              "description": "The API endpoint path (e.g. /api/v1/users)."
+            },
+            "method": {
+              "type": "string",
+              "description": "The HTTP method (e.g. GET, POST, PUT, DELETE)."
+            },
+            "title": {
+              "type": "string",
+              "description": "Title of the OpenAPI spec. Use tool 'list-specs' or 'search-endpoints' to see available specs."
+            }
+          },
+          "required": [
+            "path",
+            "method",
+            "title"
+          ]
+        },
+        "outputSchema": null,
+        "annotations": {
+          "readOnlyHint": true,
+          "openWorldHint": false
+        },
+        "schemaFingerprint": "b3ea3276a3eaf46c"
+      },
+      {
+        "name": "list-endpoints",
+        "title": "List API Endpoints",
+        "description": "Lists all API paths and their HTTP methods with summaries, organized by path. Results can be passed directly into 'get-endpoint'.",
+        "inputSchema": {
+          "type": "object",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Title of the OpenAPI spec. Use tool 'list-specs' or 'search-endpoints' to see available specs."
+            }
+          },
+          "required": [
+            "title"
+          ]
+        },
+        "outputSchema": null,
+        "annotations": {
+          "readOnlyHint": true,
+          "openWorldHint": false
+        },
+        "schemaFingerprint": "7ec291467e49b261"
+      },
+      {
+        "name": "search",
+        "title": "Search Documentation",
+        "description": "Searches through documentation with the given search query, returning a list of results with ID, title, and URL.",
+        "inputSchema": {
+          "type": "object",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "search query"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        },
+        "outputSchema": null,
+        "annotations": {
+          "readOnlyHint": true,
+          "openWorldHint": false
+        },
+        "schemaFingerprint": "75bbf5108beb6478"
+      },
+      {
+        "name": "search-endpoints",
+        "title": "Search API Endpoints",
+        "description": "Performs a deep search through paths, operations, and parameters to discover relevant API endpoints. Use this tool to find specific API capabilities, required parameters, or data models based on search keywords. Results can be passed directly into 'get-endpoint'.",
+        "inputSchema": {
+          "type": "object",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "properties": {
+            "pattern": {
+              "type": "string",
+              "description": "Search pattern (case-insensitive)"
+            }
+          },
+          "required": [
+            "pattern"
+          ]
+        },
+        "outputSchema": null,
+        "annotations": {
+          "readOnlyHint": true,
+          "openWorldHint": false
+        },
+        "schemaFingerprint": "b6566c5b07df4454"
+      }
+    ],
+    "fingerprint": "aeb2e58da33afc98",
+    "protocolVersion": null
+  },
+  "firstSeenAt": "2026-09-09T10:55:17.881Z",
+  "lastCheckedAt": "2026-09-09T10:55:17.881Z",
+  "lastOkAt": "2026-09-09T10:55:17.881Z",
+  "lastChangedAt": null,
+  "changeCount": 0
+}

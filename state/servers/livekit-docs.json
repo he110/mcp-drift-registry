@@ -1,0 +1,1055 @@
+{
+  "id": "livekit-docs",
+  "name": "LiveKit Docs",
+  "url": "https://docs.livekit.io/mcp",
+  "homepage": "https://livekit.io",
+  "transport": "streamable-http",
+  "status": "ok",
+  "error": null,
+  "protocolVersion": null,
+  "serverInfo": null,
+  "tools": [
+    {
+      "name": "code_search",
+      "title": null,
+      "description": "Search GitHub code in LiveKit repos (scoped allowlist). Returns structured results.\n\nHigh-precision GitHub code search across LiveKit repositories.\nSearch like code, not like English. Use actual class names, function names, method calls - not descriptions.\nGOOD: \"class AgentSession\", \"def on_enter\", \"@function_tool\", \"async def update_activity\", \"session.update_agent\"\nBAD: \"how does handoff work\", \"agent transfer implementation\", \"context preservation strategy\"\nWorkflow: Search class/function name to get snippets, then use returnFullFile=true to get implementation, then use get_pages() for related files.\nParameters: language=\"Python\" (always), returnFullFile=false (exploration), returnFullFile=true (deep dive), scope=\"content\" (default), limit=5-10\nIt's grep not RAG, search for code tokens not descriptions. Regex is not supported.\n\nResults come from default branches; very new code in feature branches may not appear.\nWhen returnFullFile is true, complete file contents are fetched (may be slower for many results, use only with narrow queries)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Search term or phrase for grep search, not a natural language query. Example: \"ConnectOptions\", \"room.connect token\", \"PublishTrack\""
+          },
+          "repo": {
+            "type": "string",
+            "enum": [
+              "ALL",
+              "livekit/client-sdk-swift",
+              "livekit/client-sdk-android",
+              "livekit/client-sdk-js",
+              "livekit/client-sdk-react-native",
+              "livekit/client-sdk-flutter",
+              "livekit/client-sdk-unity",
+              "livekit/client-sdk-unity-web",
+              "livekit/python-sdks",
+              "livekit/node-sdks",
+              "livekit/rust-sdks",
+              "livekit/client-sdk-cpp",
+              "livekit/server-sdk-go",
+              "agence104/livekit-server-sdk-php",
+              "livekit/server-sdk-ruby",
+              "livekit/server-sdk-kotlin",
+              "livekit/components-js",
+              "livekit/components-swift",
+              "livekit/components-android",
+              "livekit/components-flutter",
+              "livekit/track-processors-js",
+              "livekit/agents",
+              "livekit/agents-js",
+              "livekit/protocol"
+            ],
+            "description": "Target repository or \"ALL\" to search across all LiveKit repos. Use specific repo when you know the SDK, use \"ALL\" if unsure where code lives."
+          },
+          "language": {
+            "type": "string",
+            "description": "Optional GitHub language qualifier. Examples: \"Python\", \"TypeScript\", \"JavaScript\". Supports any language recognized by GitHub. Use when question is tied to a specific SDK language."
+          },
+          "scope": {
+            "type": "string",
+            "enum": [
+              "content",
+              "filename",
+              "both"
+            ],
+            "default": "content",
+            "description": "Where to search: \"content\" searches within file contents (typical for code lookups), \"filename\" searches file names/paths (use when hunting a file by name), \"both\" searches both (broader but noisier)."
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50,
+            "default": 20,
+            "description": "Max results to return (1..50)."
+          },
+          "returnFullFile": {
+            "type": "boolean",
+            "default": false,
+            "description": "Return full file content instead of just snippets. Use when you need to see the entire file context"
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "markdown",
+              "json"
+            ],
+            "default": "markdown",
+            "description": "Response format. \"markdown\" (default) returns human-readable markdown optimized for LLM consumption. \"json\" returns structured JSON for programmatic use."
+          },
+          "lkCliVersion": {
+            "type": "string"
+          },
+          "projectId": {
+            "type": "string"
+          },
+          "context": {
+            "type": "string",
+            "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+          }
+        },
+        "required": [
+          "query",
+          "repo",
+          "context"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "outputSchema": null,
+      "annotations": null,
+      "schemaFingerprint": "01d8906e811f5a90"
+    },
+    {
+      "name": "docs_search",
+      "title": null,
+      "description": "Search the docs for a given query.\n      Paged results will be returned, showing page titles, hiearchical placement, and (sometimes) a snippet of the content.\n      You must then use the get_page tool with any provided URL to get the full page content (except for auto-generated SDK reference pages like /reference/client-sdk-js, which must be fetched from the web directly by URL). Python API reference pages (/reference/python/*) are supported natively.\n      The search index is not perfect, as it covers a large amount of content in many different programming languages.\n      Search should usually be used as a complement to browsing the docs directly, rather than as a replacement for it. To browse the docs directly, use the get_docs_overview and get_pages tools.\n      So examine the returned results critically and perform additional searches or fetch individual pages if necessary to find what you're looking for.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search query text"
+          },
+          "queries": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Alternative: array of search queries to run in parallel (overrides query)"
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Page number, starts at 0 (applies to each query when using queries array)"
+          },
+          "hitsPerPage": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50,
+            "description": "Results per page (applies to each query when using queries array)"
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "markdown",
+              "json"
+            ],
+            "default": "markdown",
+            "description": "Response format. \"markdown\" (default) returns human-readable markdown optimized for LLM consumption. \"json\" returns structured JSON for programmatic use."
+          },
+          "lkCliVersion": {
+            "type": "string"
+          },
+          "projectId": {
+            "type": "string"
+          },
+          "context": {
+            "type": "string",
+            "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+          }
+        },
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "required": [
+          "context"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": null,
+      "schemaFingerprint": "b9b8f984453553da"
+    },
+    {
+      "name": "get_changelog",
+      "title": null,
+      "description": "Get recent changelog/releases for a LiveKit repository.\n\nUse for: \"What's new in Python Agents?\", \"Recent Swift SDK updates\", \"Has feature X been added?\"\n\nPrefer using package identifiers (e.g., \"npm:livekit-client\", \"pypi:livekit-agents\", \"cargo:livekit\") over repository IDs. Package identifiers are automatically resolved to their corresponding repository. For monorepos like rust-sdks or python-sdks, package identifiers help disambiguate which specific package you're interested in. Repository IDs (e.g., \"livekit/client-sdk-js\") are also supported but package identifiers are preferred.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "identifier": {
+            "type": "string",
+            "enum": [
+              "livekit/client-sdk-swift",
+              "livekit/client-sdk-android",
+              "livekit/client-sdk-js",
+              "livekit/client-sdk-react-native",
+              "livekit/client-sdk-flutter",
+              "livekit/client-sdk-unity",
+              "livekit/client-sdk-unity-web",
+              "livekit/python-sdks",
+              "livekit/node-sdks",
+              "livekit/rust-sdks",
+              "livekit/client-sdk-cpp",
+              "agence104/livekit-server-sdk-php",
+              "livekit/server-sdk-kotlin",
+              "livekit/components-js",
+              "livekit/components-swift",
+              "livekit/components-android",
+              "livekit/components-flutter",
+              "livekit/track-processors-js",
+              "livekit/agents",
+              "livekit/agents-js",
+              "livekit/protocol",
+              "swift:LiveKit",
+              "maven:io.livekit:livekit-android",
+              "npm:livekit-client",
+              "npm:@livekit/react-native",
+              "pub:livekit_client",
+              "unity:LiveKit",
+              "unity-webgl:LiveKit",
+              "pypi:livekit-api",
+              "pypi:livekit",
+              "npm:livekit-server-sdk",
+              "npm:@livekit/rtc-node",
+              "cargo:livekit-api",
+              "cargo:livekit",
+              "cargo:livekit-ffi",
+              "cargo:livekit-protocol",
+              "github-releases:livekit/client-sdk-cpp",
+              "composer:agence104/livekit-server-sdk",
+              "maven:io.livekit:livekit-server",
+              "npm:@livekit/components-react",
+              "npm:@livekit/components-styles",
+              "npm:@livekit/components-js-docs",
+              "npm:@livekit/components-core",
+              "spm:LiveKitComponents",
+              "maven:io.livekit:livekit-android-compose-components",
+              "pub:livekit_components",
+              "npm:@livekit/track-processors",
+              "pypi:livekit-agents",
+              "npm:@livekit/agents",
+              "npm:@livekit/protocol",
+              "go:livekit/protocol"
+            ],
+            "description": "Repository ID (e.g., \"livekit/client-sdk-js\") or package name (e.g., \"livekit-client\", \"@livekit/react-native\", \"livekit-agents\"). Package names are automatically resolved to repository IDs."
+          },
+          "releasesToFetch": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20,
+            "default": 2,
+            "description": "Number of releases to fetch (if changelog is GitHub releases then this limit will be applied)"
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0,
+            "description": "Number of releases to skip for pagination"
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "markdown",
+              "json"
+            ],
+            "default": "markdown",
+            "description": "Response format. \"markdown\" (default) returns human-readable markdown optimized for LLM consumption. \"json\" returns structured JSON for programmatic use."
+          },
+          "lkCliVersion": {
+            "type": "string"
+          },
+          "projectId": {
+            "type": "string"
+          },
+          "context": {
+            "type": "string",
+            "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+          }
+        },
+        "required": [
+          "identifier",
+          "context"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "outputSchema": null,
+      "annotations": null,
+      "schemaFingerprint": "37fa5d85fff093f0"
+    },
+    {
+      "name": "get_docs_overview",
+      "title": null,
+      "description": "Returns an overview of the docs site: what LiveKit is and one entry per documentation section. Use this to load context for browsing conceptual docs rather than relying solely on search.\n\nCall it again with a section path to get that section's full table of contents, with a description for every page. Sections: /intro, /agents, /frontends, /telephony, /robotics, /transport, /deploy, /reference, /reference/components/react, /reference/components/agents-ui, /reference/components/android, /reference/recipes.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "section": {
+            "type": "string",
+            "description": "Section path (e.g. `/agents`) to get that section's table of contents. Omit for the site overview."
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "markdown",
+              "json"
+            ],
+            "default": "markdown",
+            "description": "Response format. \"markdown\" (default) returns human-readable markdown optimized for LLM consumption. \"json\" returns structured JSON for programmatic use."
+          },
+          "lkCliVersion": {
+            "type": "string"
+          },
+          "projectId": {
+            "type": "string"
+          },
+          "context": {
+            "type": "string",
+            "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+          }
+        },
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "required": [
+          "context"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": null,
+      "schemaFingerprint": "94ae20338e46f05a"
+    },
+    {
+      "name": "get_pages",
+      "title": null,
+      "description": "Render one or more docs pages to markdown, by relative path.\n\nAlso supports fetching code from public LiveKit repositories on GitHub.\n\nTab filtering: Append ?groupKey=label to a path to receive only the matching tab content, reducing output size. Example: /agents/start/voice-ai?agents-sdk=python\n\nA single query param applies to every tab/panel with that group key on the page. Common tab groups: agents-sdk (Python, Node.js), client-sdk (React, Swift, Android, Flutter, etc.), server-api-client (Go, Node, Python, Ruby, etc.), package-manager-js (yarn, npm, pnpm).\n\nLabel matching tries exact match first, then case-insensitive, then normalized slug (punctuation-stripped, e.g. \"nodejs\" matches \"Node.js\", \"react-native\" matches \"React Native\"). If matching is ambiguous or no match is found, all tab content is returned. Only tabs/panels with explicit group keys are filterable.\n\nLimitations:\n- Auto-generated SDK reference pages (e.g. /reference/client-sdk-js) are hosted externally and must be fetched via HTTP URL directly\n- Hand-written reference pages (e.g. /reference/telephony, /reference/components/agents-ui) are supported\n- Python API reference pages are supported via /reference/python/module.path (e.g. /reference/python/livekit/agents/llm). Append ?source=true to include source code\n- GitHub URLs must be from public LiveKit or LiveKit-Examples repositories\n",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "paths": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Page paths (e.g. [`/agents/start/voice-ai`, `/recipes`]) or GitHub URLs. GitHub examples: single file `https://github.com/livekit/agents/blob/main/livekit-agents/livekit/agents/llm/llm.py`, directory `https://github.com/livekit-examples/python-agents-examples/tree/main/complex-agents/drive-thru`, versioned `https://github.com/livekit/agents/blob/v0.8.0/README.md?ref=v0.8.0`"
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "markdown",
+              "json"
+            ],
+            "default": "markdown",
+            "description": "Response format. \"markdown\" (default) returns human-readable markdown optimized for LLM consumption. \"json\" returns structured JSON for programmatic use."
+          },
+          "lkCliVersion": {
+            "type": "string"
+          },
+          "projectId": {
+            "type": "string"
+          },
+          "context": {
+            "type": "string",
+            "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+          }
+        },
+        "required": [
+          "paths",
+          "context"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "outputSchema": null,
+      "annotations": null,
+      "schemaFingerprint": "0e39b60ee7f7d232"
+    },
+    {
+      "name": "get_pricing_info",
+      "title": null,
+      "description": "Get LiveKit Cloud pricing information including plans, feature comparison matrix, inference model pricing, and calculator assumptions.\n\nReturns all pricing information in one call.\n\nUse this tool when users ask about LiveKit pricing, plan features, costs, or model pricing.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "format": {
+            "type": "string",
+            "enum": [
+              "markdown",
+              "json"
+            ],
+            "default": "markdown",
+            "description": "Response format. \"markdown\" (default) returns human-readable markdown optimized for LLM consumption. \"json\" returns structured JSON for programmatic use."
+          },
+          "lkCliVersion": {
+            "type": "string"
+          },
+          "projectId": {
+            "type": "string"
+          },
+          "context": {
+            "type": "string",
+            "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+          }
+        },
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "required": [
+          "context"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": null,
+      "schemaFingerprint": "59393feaa93ce888"
+    },
+    {
+      "name": "get_python_agent_example",
+      "title": null,
+      "description": "DEPRECATED: This tool is deprecated and will be removed in a future release. The underlying livekit-examples/python-agents-examples repository is being archived. For up-to-date examples, use docs_search and get_pages to browse the documentation, or use code_search against the livekit/agents repository instead.\n\nBrowse and retrieve full example source code for various agents built with LiveKit Agents for Python, from the repository at http://github.com/livekit-examples/python-agents-examples\n\nWithout name parameter: Returns index of all 100+ examples with metadata (title, description, tags, difficulty, category).\n\nWith name parameter: Fetches full source code for the specific example directory. Do not use github URLs from another tools, check list of examples first using this tool.\n\nExamples of names: \"complex-agents/avatars/anam/agent-py/src/agent.py\", \"docs/examples/tool_calling/tool_calling.py\", \"complex-agents/drive-thru/drive-thru-agent/src/agent.py\"",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Example file path (e.g., \"docs/examples/tool_calling/tool_calling.py\", \"complex-agents/drive-thru/drive-thru-agent/src/agent.py\"). Omit to get full index."
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "markdown",
+              "json"
+            ],
+            "default": "markdown",
+            "description": "Response format. \"markdown\" (default) returns human-readable markdown optimized for LLM consumption. \"json\" returns structured JSON for programmatic use."
+          },
+          "lkCliVersion": {
+            "type": "string"
+          },
+          "projectId": {
+            "type": "string"
+          },
+          "context": {
+            "type": "string",
+            "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+          }
+        },
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "required": [
+          "context"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": null,
+      "schemaFingerprint": "ac298bc1cd95c51d"
+    },
+    {
+      "name": "get_sdks",
+      "title": null,
+      "description": "List of all LiveKit SDK repositories (client SDKs, server SDKs, and agent frameworks). Each repository includes its package names, allowing you to cross-reference package.json dependencies (e.g., \"livekit-client\") with their corresponding repository IDs (e.g., \"livekit/client-sdk-js\") and changelogs.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "format": {
+            "type": "string",
+            "enum": [
+              "markdown",
+              "json"
+            ],
+            "default": "markdown",
+            "description": "Response format. \"markdown\" (default) returns human-readable markdown optimized for LLM consumption. \"json\" returns structured JSON for programmatic use."
+          },
+          "lkCliVersion": {
+            "type": "string"
+          },
+          "projectId": {
+            "type": "string"
+          },
+          "context": {
+            "type": "string",
+            "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+          }
+        },
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "required": [
+          "context"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": null,
+      "schemaFingerprint": "59393feaa93ce888"
+    },
+    {
+      "name": "submit_docs_feedback",
+      "title": null,
+      "description": "Submit constructive feedback on the LiveKit docs site in general or for a specific page.\n      This feedback will be read by the LiveKit team and used to improve the docs.\n\n      Examples of useful feedback\n      - { 'page': '/agents/models/llm/openai', 'feedback': 'It would be helpful to list more parameters that can be passed to the extra_kwargs parameter.' }\n      - { 'feedback': 'The docs site is missing guides or examples for real-time object detection, and bounding box generation, in a video feed.' }\n\n      Optional agent identification:\n      - To help us understand how this MCP server is being used, and the context of the feedback, you can optionally identify yourself by agent name (e.g. \"Cursor\") and model ID (e.g. \"gpt-5\")\n\n      IMPORTANT: Do not include any personal or proprietary information in the feedback or agent identification.\n      ",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "string",
+            "description": "The page the feedback is for, if any. Use the page path relative to the docs site root (e.g. `/agents/models/llm/openai`)."
+          },
+          "feedback": {
+            "type": "string",
+            "maxLength": 1024,
+            "description": "Open-ended text field for constructive feedback (max 1024 characters)."
+          },
+          "agent": {
+            "type": "string",
+            "description": "The identity of the agent submitting the feedback (e.g. \"Cursor\", \"Claude Code\", \"Codex\", \"Gemini CLI\", etc)."
+          },
+          "model": {
+            "type": "string",
+            "description": "The ID model being used by the agent (e.g. \"gpt-5\", \"claude-4.5-sonnet\", etc"
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "markdown",
+              "json"
+            ],
+            "default": "markdown",
+            "description": "Response format. \"markdown\" (default) returns human-readable markdown optimized for LLM consumption. \"json\" returns structured JSON for programmatic use."
+          },
+          "lkCliVersion": {
+            "type": "string"
+          },
+          "projectId": {
+            "type": "string"
+          },
+          "context": {
+            "type": "string",
+            "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+          }
+        },
+        "required": [
+          "feedback",
+          "context"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "outputSchema": null,
+      "annotations": null,
+      "schemaFingerprint": "5fcd75cd977c6fab"
+    }
+  ],
+  "toolCount": 9,
+  "fingerprint": "de8bd5a9a598fb28",
+  "lastGood": {
+    "at": "2026-09-09T10:55:17.881Z",
+    "tools": [
+      {
+        "name": "code_search",
+        "title": null,
+        "description": "Search GitHub code in LiveKit repos (scoped allowlist). Returns structured results.\n\nHigh-precision GitHub code search across LiveKit repositories.\nSearch like code, not like English. Use actual class names, function names, method calls - not descriptions.\nGOOD: \"class AgentSession\", \"def on_enter\", \"@function_tool\", \"async def update_activity\", \"session.update_agent\"\nBAD: \"how does handoff work\", \"agent transfer implementation\", \"context preservation strategy\"\nWorkflow: Search class/function name to get snippets, then use returnFullFile=true to get implementation, then use get_pages() for related files.\nParameters: language=\"Python\" (always), returnFullFile=false (exploration), returnFullFile=true (deep dive), scope=\"content\" (default), limit=5-10\nIt's grep not RAG, search for code tokens not descriptions. Regex is not supported.\n\nResults come from default branches; very new code in feature branches may not appear.\nWhen returnFullFile is true, complete file contents are fetched (may be slower for many results, use only with narrow queries)",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Search term or phrase for grep search, not a natural language query. Example: \"ConnectOptions\", \"room.connect token\", \"PublishTrack\""
+            },
+            "repo": {
+              "type": "string",
+              "enum": [
+                "ALL",
+                "livekit/client-sdk-swift",
+                "livekit/client-sdk-android",
+                "livekit/client-sdk-js",
+                "livekit/client-sdk-react-native",
+                "livekit/client-sdk-flutter",
+                "livekit/client-sdk-unity",
+                "livekit/client-sdk-unity-web",
+                "livekit/python-sdks",
+                "livekit/node-sdks",
+                "livekit/rust-sdks",
+                "livekit/client-sdk-cpp",
+                "livekit/server-sdk-go",
+                "agence104/livekit-server-sdk-php",
+                "livekit/server-sdk-ruby",
+                "livekit/server-sdk-kotlin",
+                "livekit/components-js",
+                "livekit/components-swift",
+                "livekit/components-android",
+                "livekit/components-flutter",
+                "livekit/track-processors-js",
+                "livekit/agents",
+                "livekit/agents-js",
+                "livekit/protocol"
+              ],
+              "description": "Target repository or \"ALL\" to search across all LiveKit repos. Use specific repo when you know the SDK, use \"ALL\" if unsure where code lives."
+            },
+            "language": {
+              "type": "string",
+              "description": "Optional GitHub language qualifier. Examples: \"Python\", \"TypeScript\", \"JavaScript\". Supports any language recognized by GitHub. Use when question is tied to a specific SDK language."
+            },
+            "scope": {
+              "type": "string",
+              "enum": [
+                "content",
+                "filename",
+                "both"
+              ],
+              "default": "content",
+              "description": "Where to search: \"content\" searches within file contents (typical for code lookups), \"filename\" searches file names/paths (use when hunting a file by name), \"both\" searches both (broader but noisier)."
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "default": 20,
+              "description": "Max results to return (1..50)."
+            },
+            "returnFullFile": {
+              "type": "boolean",
+              "default": false,
+              "description": "Return full file content instead of just snippets. Use when you need to see the entire file context"
+            },
+            "format": {
+              "type": "string",
+              "enum": [
+                "markdown",
+                "json"
+              ],
+              "default": "markdown",
+              "description": "Response format. \"markdown\" (default) returns human-readable markdown optimized for LLM consumption. \"json\" returns structured JSON for programmatic use."
+            },
+            "lkCliVersion": {
+              "type": "string"
+            },
+            "projectId": {
+              "type": "string"
+            },
+            "context": {
+              "type": "string",
+              "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+            }
+          },
+          "required": [
+            "query",
+            "repo",
+            "context"
+          ],
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "01d8906e811f5a90"
+      },
+      {
+        "name": "docs_search",
+        "title": null,
+        "description": "Search the docs for a given query.\n      Paged results will be returned, showing page titles, hiearchical placement, and (sometimes) a snippet of the content.\n      You must then use the get_page tool with any provided URL to get the full page content (except for auto-generated SDK reference pages like /reference/client-sdk-js, which must be fetched from the web directly by URL). Python API reference pages (/reference/python/*) are supported natively.\n      The search index is not perfect, as it covers a large amount of content in many different programming languages.\n      Search should usually be used as a complement to browsing the docs directly, rather than as a replacement for it. To browse the docs directly, use the get_docs_overview and get_pages tools.\n      So examine the returned results critically and perform additional searches or fetch individual pages if necessary to find what you're looking for.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Search query text"
+            },
+            "queries": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Alternative: array of search queries to run in parallel (overrides query)"
+            },
+            "page": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Page number, starts at 0 (applies to each query when using queries array)"
+            },
+            "hitsPerPage": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "description": "Results per page (applies to each query when using queries array)"
+            },
+            "format": {
+              "type": "string",
+              "enum": [
+                "markdown",
+                "json"
+              ],
+              "default": "markdown",
+              "description": "Response format. \"markdown\" (default) returns human-readable markdown optimized for LLM consumption. \"json\" returns structured JSON for programmatic use."
+            },
+            "lkCliVersion": {
+              "type": "string"
+            },
+            "projectId": {
+              "type": "string"
+            },
+            "context": {
+              "type": "string",
+              "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+            }
+          },
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "required": [
+            "context"
+          ]
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "b9b8f984453553da"
+      },
+      {
+        "name": "get_changelog",
+        "title": null,
+        "description": "Get recent changelog/releases for a LiveKit repository.\n\nUse for: \"What's new in Python Agents?\", \"Recent Swift SDK updates\", \"Has feature X been added?\"\n\nPrefer using package identifiers (e.g., \"npm:livekit-client\", \"pypi:livekit-agents\", \"cargo:livekit\") over repository IDs. Package identifiers are automatically resolved to their corresponding repository. For monorepos like rust-sdks or python-sdks, package identifiers help disambiguate which specific package you're interested in. Repository IDs (e.g., \"livekit/client-sdk-js\") are also supported but package identifiers are preferred.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "identifier": {
+              "type": "string",
+              "enum": [
+                "livekit/client-sdk-swift",
+                "livekit/client-sdk-android",
+                "livekit/client-sdk-js",
+                "livekit/client-sdk-react-native",
+                "livekit/client-sdk-flutter",
+                "livekit/client-sdk-unity",
+                "livekit/client-sdk-unity-web",
+                "livekit/python-sdks",
+                "livekit/node-sdks",
+                "livekit/rust-sdks",
+                "livekit/client-sdk-cpp",
+                "agence104/livekit-server-sdk-php",
+                "livekit/server-sdk-kotlin",
+                "livekit/components-js",
+                "livekit/components-swift",
+                "livekit/components-android",
+                "livekit/components-flutter",
+                "livekit/track-processors-js",
+                "livekit/agents",
+                "livekit/agents-js",
+                "livekit/protocol",
+                "swift:LiveKit",
+                "maven:io.livekit:livekit-android",
+                "npm:livekit-client",
+                "npm:@livekit/react-native",
+                "pub:livekit_client",
+                "unity:LiveKit",
+                "unity-webgl:LiveKit",
+                "pypi:livekit-api",
+                "pypi:livekit",
+                "npm:livekit-server-sdk",
+                "npm:@livekit/rtc-node",
+                "cargo:livekit-api",
+                "cargo:livekit",
+                "cargo:livekit-ffi",
+                "cargo:livekit-protocol",
+                "github-releases:livekit/client-sdk-cpp",
+                "composer:agence104/livekit-server-sdk",
+                "maven:io.livekit:livekit-server",
+                "npm:@livekit/components-react",
+                "npm:@livekit/components-styles",
+                "npm:@livekit/components-js-docs",
+                "npm:@livekit/components-core",
+                "spm:LiveKitComponents",
+                "maven:io.livekit:livekit-android-compose-components",
+                "pub:livekit_components",
+                "npm:@livekit/track-processors",
+                "pypi:livekit-agents",
+                "npm:@livekit/agents",
+                "npm:@livekit/protocol",
+                "go:livekit/protocol"
+              ],
+              "description": "Repository ID (e.g., \"livekit/client-sdk-js\") or package name (e.g., \"livekit-client\", \"@livekit/react-native\", \"livekit-agents\"). Package names are automatically resolved to repository IDs."
+            },
+            "releasesToFetch": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 20,
+              "default": 2,
+              "description": "Number of releases to fetch (if changelog is GitHub releases then this limit will be applied)"
+            },
+            "skip": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "description": "Number of releases to skip for pagination"
+            },
+            "format": {
+              "type": "string",
+              "enum": [
+                "markdown",
+                "json"
+              ],
+              "default": "markdown",
+              "description": "Response format. \"markdown\" (default) returns human-readable markdown optimized for LLM consumption. \"json\" returns structured JSON for programmatic use."
+            },
+            "lkCliVersion": {
+              "type": "string"
+            },
+            "projectId": {
+              "type": "string"
+            },
+            "context": {
+              "type": "string",
+              "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+            }
+          },
+          "required": [
+            "identifier",
+            "context"
+          ],
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "37fa5d85fff093f0"
+      },
+      {
+        "name": "get_docs_overview",
+        "title": null,
+        "description": "Returns an overview of the docs site: what LiveKit is and one entry per documentation section. Use this to load context for browsing conceptual docs rather than relying solely on search.\n\nCall it again with a section path to get that section's full table of contents, with a description for every page. Sections: /intro, /agents, /frontends, /telephony, /robotics, /transport, /deploy, /reference, /reference/components/react, /reference/components/agents-ui, /reference/components/android, /reference/recipes.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "section": {
+              "type": "string",
+              "description": "Section path (e.g. `/agents`) to get that section's table of contents. Omit for the site overview."
+            },
+            "format": {
+              "type": "string",
+              "enum": [
+                "markdown",
+                "json"
+              ],
+              "default": "markdown",
+              "description": "Response format. \"markdown\" (default) returns human-readable markdown optimized for LLM consumption. \"json\" returns structured JSON for programmatic use."
+            },
+            "lkCliVersion": {
+              "type": "string"
+            },
+            "projectId": {
+              "type": "string"
+            },
+            "context": {
+              "type": "string",
+              "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+            }
+          },
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "required": [
+            "context"
+          ]
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "94ae20338e46f05a"
+      },
+      {
+        "name": "get_pages",
+        "title": null,
+        "description": "Render one or more docs pages to markdown, by relative path.\n\nAlso supports fetching code from public LiveKit repositories on GitHub.\n\nTab filtering: Append ?groupKey=label to a path to receive only the matching tab content, reducing output size. Example: /agents/start/voice-ai?agents-sdk=python\n\nA single query param applies to every tab/panel with that group key on the page. Common tab groups: agents-sdk (Python, Node.js), client-sdk (React, Swift, Android, Flutter, etc.), server-api-client (Go, Node, Python, Ruby, etc.), package-manager-js (yarn, npm, pnpm).\n\nLabel matching tries exact match first, then case-insensitive, then normalized slug (punctuation-stripped, e.g. \"nodejs\" matches \"Node.js\", \"react-native\" matches \"React Native\"). If matching is ambiguous or no match is found, all tab content is returned. Only tabs/panels with explicit group keys are filterable.\n\nLimitations:\n- Auto-generated SDK reference pages (e.g. /reference/client-sdk-js) are hosted externally and must be fetched via HTTP URL directly\n- Hand-written reference pages (e.g. /reference/telephony, /reference/components/agents-ui) are supported\n- Python API reference pages are supported via /reference/python/module.path (e.g. /reference/python/livekit/agents/llm). Append ?source=true to include source code\n- GitHub URLs must be from public LiveKit or LiveKit-Examples repositories\n",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "paths": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Page paths (e.g. [`/agents/start/voice-ai`, `/recipes`]) or GitHub URLs. GitHub examples: single file `https://github.com/livekit/agents/blob/main/livekit-agents/livekit/agents/llm/llm.py`, directory `https://github.com/livekit-examples/python-agents-examples/tree/main/complex-agents/drive-thru`, versioned `https://github.com/livekit/agents/blob/v0.8.0/README.md?ref=v0.8.0`"
+            },
+            "format": {
+              "type": "string",
+              "enum": [
+                "markdown",
+                "json"
+              ],
+              "default": "markdown",
+              "description": "Response format. \"markdown\" (default) returns human-readable markdown optimized for LLM consumption. \"json\" returns structured JSON for programmatic use."
+            },
+            "lkCliVersion": {
+              "type": "string"
+            },
+            "projectId": {
+              "type": "string"
+            },
+            "context": {
+              "type": "string",
+              "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+            }
+          },
+          "required": [
+            "paths",
+            "context"
+          ],
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "0e39b60ee7f7d232"
+      },
+      {
+        "name": "get_pricing_info",
+        "title": null,
+        "description": "Get LiveKit Cloud pricing information including plans, feature comparison matrix, inference model pricing, and calculator assumptions.\n\nReturns all pricing information in one call.\n\nUse this tool when users ask about LiveKit pricing, plan features, costs, or model pricing.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "format": {
+              "type": "string",
+              "enum": [
+                "markdown",
+                "json"
+              ],
+              "default": "markdown",
+              "description": "Response format. \"markdown\" (default) returns human-readable markdown optimized for LLM consumption. \"json\" returns structured JSON for programmatic use."
+            },
+            "lkCliVersion": {
+              "type": "string"
+            },
+            "projectId": {
+              "type": "string"
+            },
+            "context": {
+              "type": "string",
+              "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+            }
+          },
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "required": [
+            "context"
+          ]
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "59393feaa93ce888"
+      },
+      {
+        "name": "get_python_agent_example",
+        "title": null,
+        "description": "DEPRECATED: This tool is deprecated and will be removed in a future release. The underlying livekit-examples/python-agents-examples repository is being archived. For up-to-date examples, use docs_search and get_pages to browse the documentation, or use code_search against the livekit/agents repository instead.\n\nBrowse and retrieve full example source code for various agents built with LiveKit Agents for Python, from the repository at http://github.com/livekit-examples/python-agents-examples\n\nWithout name parameter: Returns index of all 100+ examples with metadata (title, description, tags, difficulty, category).\n\nWith name parameter: Fetches full source code for the specific example directory. Do not use github URLs from another tools, check list of examples first using this tool.\n\nExamples of names: \"complex-agents/avatars/anam/agent-py/src/agent.py\", \"docs/examples/tool_calling/tool_calling.py\", \"complex-agents/drive-thru/drive-thru-agent/src/agent.py\"",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Example file path (e.g., \"docs/examples/tool_calling/tool_calling.py\", \"complex-agents/drive-thru/drive-thru-agent/src/agent.py\"). Omit to get full index."
+            },
+            "format": {
+              "type": "string",
+              "enum": [
+                "markdown",
+                "json"
+              ],
+              "default": "markdown",
+              "description": "Response format. \"markdown\" (default) returns human-readable markdown optimized for LLM consumption. \"json\" returns structured JSON for programmatic use."
+            },
+            "lkCliVersion": {
+              "type": "string"
+            },
+            "projectId": {
+              "type": "string"
+            },
+            "context": {
+              "type": "string",
+              "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+            }
+          },
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "required": [
+            "context"
+          ]
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "ac298bc1cd95c51d"
+      },
+      {
+        "name": "get_sdks",
+        "title": null,
+        "description": "List of all LiveKit SDK repositories (client SDKs, server SDKs, and agent frameworks). Each repository includes its package names, allowing you to cross-reference package.json dependencies (e.g., \"livekit-client\") with their corresponding repository IDs (e.g., \"livekit/client-sdk-js\") and changelogs.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "format": {
+              "type": "string",
+              "enum": [
+                "markdown",
+                "json"
+              ],
+              "default": "markdown",
+              "description": "Response format. \"markdown\" (default) returns human-readable markdown optimized for LLM consumption. \"json\" returns structured JSON for programmatic use."
+            },
+            "lkCliVersion": {
+              "type": "string"
+            },
+            "projectId": {
+              "type": "string"
+            },
+            "context": {
+              "type": "string",
+              "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+            }
+          },
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "required": [
+            "context"
+          ]
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "59393feaa93ce888"
+      },
+      {
+        "name": "submit_docs_feedback",
+        "title": null,
+        "description": "Submit constructive feedback on the LiveKit docs site in general or for a specific page.\n      This feedback will be read by the LiveKit team and used to improve the docs.\n\n      Examples of useful feedback\n      - { 'page': '/agents/models/llm/openai', 'feedback': 'It would be helpful to list more parameters that can be passed to the extra_kwargs parameter.' }\n      - { 'feedback': 'The docs site is missing guides or examples for real-time object detection, and bounding box generation, in a video feed.' }\n\n      Optional agent identification:\n      - To help us understand how this MCP server is being used, and the context of the feedback, you can optionally identify yourself by agent name (e.g. \"Cursor\") and model ID (e.g. \"gpt-5\")\n\n      IMPORTANT: Do not include any personal or proprietary information in the feedback or agent identification.\n      ",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "page": {
+              "type": "string",
+              "description": "The page the feedback is for, if any. Use the page path relative to the docs site root (e.g. `/agents/models/llm/openai`)."
+            },
+            "feedback": {
+              "type": "string",
+              "maxLength": 1024,
+              "description": "Open-ended text field for constructive feedback (max 1024 characters)."
+            },
+            "agent": {
+              "type": "string",
+              "description": "The identity of the agent submitting the feedback (e.g. \"Cursor\", \"Claude Code\", \"Codex\", \"Gemini CLI\", etc)."
+            },
+            "model": {
+              "type": "string",
+              "description": "The ID model being used by the agent (e.g. \"gpt-5\", \"claude-4.5-sonnet\", etc"
+            },
+            "format": {
+              "type": "string",
+              "enum": [
+                "markdown",
+                "json"
+              ],
+              "default": "markdown",
+              "description": "Response format. \"markdown\" (default) returns human-readable markdown optimized for LLM consumption. \"json\" returns structured JSON for programmatic use."
+            },
+            "lkCliVersion": {
+              "type": "string"
+            },
+            "projectId": {
+              "type": "string"
+            },
+            "context": {
+              "type": "string",
+              "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+            }
+          },
+          "required": [
+            "feedback",
+            "context"
+          ],
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "5fcd75cd977c6fab"
+      }
+    ],
+    "fingerprint": "de8bd5a9a598fb28",
+    "protocolVersion": null
+  },
+  "firstSeenAt": "2026-09-09T10:55:17.881Z",
+  "lastCheckedAt": "2026-09-09T10:55:17.881Z",
+  "lastOkAt": "2026-09-09T10:55:17.881Z",
+  "lastChangedAt": null,
+  "changeCount": 0
+}

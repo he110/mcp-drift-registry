@@ -8,32 +8,103 @@
   },
   "servers": [
     {
-      "id": "deepwiki",
-      "name": "DeepWiki",
-      "vendor": "Cognition",
-      "url": "https://mcp.deepwiki.com/mcp",
-      "homepage": "https://deepwiki.com"
+      "id": "alpaca-docs",
+      "name": "Alpaca Docs",
+      "vendor": "Alpaca",
+      "url": "https://docs.alpaca.markets/mcp",
+      "homepage": "https://alpaca.markets"
     },
     {
-      "id": "context7",
-      "name": "Context7",
-      "vendor": "Upstash",
-      "url": "https://mcp.context7.com/mcp",
-      "homepage": "https://context7.com"
+      "id": "anchor-browser-docs",
+      "name": "Anchor Browser Docs",
+      "vendor": "Anchor Browser",
+      "url": "https://docs.anchorbrowser.io/mcp",
+      "homepage": "https://anchorbrowser.io",
+      "platform": "mintlify-docs"
     },
     {
-      "id": "huggingface",
-      "name": "Hugging Face",
-      "vendor": "Hugging Face",
-      "url": "https://huggingface.co/mcp",
-      "homepage": "https://huggingface.co/settings/mcp"
+      "id": "aryn-docs",
+      "name": "Aryn Docs",
+      "vendor": "Aryn",
+      "url": "https://docs.aryn.ai/mcp",
+      "homepage": "https://aryn.ai",
+      "platform": "mintlify-docs"
     },
     {
-      "id": "microsoft-learn",
-      "name": "Microsoft Learn",
-      "vendor": "Microsoft",
-      "url": "https://learn.microsoft.com/api/mcp",
-      "homepage": "https://learn.microsoft.com/training/support/mcp"
+      "id": "astro-docs",
+      "name": "Astro Docs",
+      "vendor": "Astro",
+      "url": "https://mcp.docs.astro.build/mcp",
+      "homepage": "https://docs.astro.build"
+    },
+    {
+      "id": "aws-knowledge",
+      "name": "AWS Knowledge",
+      "vendor": "Amazon Web Services",
+      "url": "https://knowledge-mcp.global.api.aws",
+      "homepage": "https://awslabs.github.io/mcp/"
+    },
+    {
+      "id": "baseten-docs",
+      "name": "Baseten Docs",
+      "vendor": "Baseten",
+      "url": "https://docs.baseten.co/mcp",
+      "homepage": "https://baseten.co",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "bland-docs",
+      "name": "Bland AI Docs",
+      "vendor": "Bland AI",
+      "url": "https://docs.bland.ai/mcp",
+      "homepage": "https://bland.ai",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "brightdata-docs",
+      "name": "Bright Data Docs",
+      "vendor": "Bright Data",
+      "url": "https://docs.brightdata.com/mcp",
+      "homepage": "https://brightdata.com",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "browserbase",
+      "name": "Browserbase",
+      "vendor": "Browserbase",
+      "url": "https://mcp.browserbase.com/mcp",
+      "homepage": "https://browserbase.com"
+    },
+    {
+      "id": "cartesia-docs",
+      "name": "Cartesia Docs",
+      "vendor": "Cartesia",
+      "url": "https://docs.cartesia.ai/mcp",
+      "homepage": "https://cartesia.ai",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "chakra-ui",
+      "name": "Chakra UI",
+      "vendor": "Chakra UI",
+      "url": "https://mcp.chakra-ui.com/mcp",
+      "homepage": "https://chakra-ui.com/docs/get-started/ai/mcp-server"
+    },
+    {
+      "id": "chroma-docs",
+      "name": "Chroma Docs",
+      "vendor": "Chroma",
+      "url": "https://docs.trychroma.com/mcp",
+      "homepage": "https://trychroma.com",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "chunkr-docs",
+      "name": "Chunkr Docs",
+      "vendor": "Chunkr",
+      "url": "https://docs.chunkr.ai/mcp",
+      "homepage": "https://chunkr.ai",
+      "platform": "mintlify-docs"
     },
     {
       "id": "cloudflare-docs",
@@ -43,11 +114,142 @@
       "homepage": "https://developers.cloudflare.com/agents/model-context-protocol/mcp-servers-for-cloudflare/"
     },
     {
-      "id": "aws-knowledge",
-      "name": "AWS Knowledge",
-      "vendor": "Amazon Web Services",
-      "url": "https://knowledge-mcp.global.api.aws",
-      "homepage": "https://awslabs.github.io/mcp/"
+      "id": "cockroachdb-docs",
+      "name": "CockroachDB Docs",
+      "vendor": "Cockroach Labs",
+      "url": "https://docs.cockroachlabs.com/mcp",
+      "homepage": "https://cockroachlabs.com",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "cognee-docs",
+      "name": "Cognee Docs",
+      "vendor": "Cognee",
+      "url": "https://docs.cognee.ai/mcp",
+      "homepage": "https://cognee.ai",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "cohere-docs",
+      "name": "Cohere Docs",
+      "vendor": "Cohere",
+      "url": "https://docs.cohere.com/mcp",
+      "homepage": "https://cohere.com",
+      "platform": "mintlify-search-only"
+    },
+    {
+      "id": "context7",
+      "name": "Context7",
+      "vendor": "Upstash",
+      "url": "https://mcp.context7.com/mcp",
+      "homepage": "https://context7.com"
+    },
+    {
+      "id": "contextual-docs",
+      "name": "Contextual AI Docs",
+      "vendor": "Contextual AI",
+      "url": "https://docs.contextual.ai/mcp",
+      "homepage": "https://contextual.ai",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "courier-docs",
+      "name": "Courier Docs",
+      "vendor": "Courier",
+      "url": "https://docs.courier.com/mcp",
+      "homepage": "https://courier.com",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "crewai-docs",
+      "name": "CrewAI Docs",
+      "vendor": "CrewAI",
+      "url": "https://docs.crewai.com/mcp",
+      "homepage": "https://crewai.com",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "daily-docs",
+      "name": "Daily Docs",
+      "vendor": "Daily",
+      "url": "https://docs.daily.co/mcp",
+      "homepage": "https://daily.co",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "deepwiki",
+      "name": "DeepWiki",
+      "vendor": "Cognition",
+      "url": "https://mcp.deepwiki.com/mcp",
+      "homepage": "https://deepwiki.com"
+    },
+    {
+      "id": "dub-docs",
+      "name": "Dub Docs",
+      "vendor": "Dub",
+      "url": "https://dub.co/docs/mcp",
+      "homepage": "https://dub.co"
+    },
+    {
+      "id": "dust-docs",
+      "name": "Dust Docs",
+      "vendor": "Dust",
+      "url": "https://docs.dust.tt/mcp",
+      "homepage": "https://dust.tt",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "e2b-docs",
+      "name": "E2B Docs",
+      "vendor": "E2B",
+      "url": "https://docs.e2b.dev/mcp",
+      "homepage": "https://e2b.dev",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "edgeone-pages",
+      "name": "EdgeOne Pages",
+      "vendor": "Tencent",
+      "url": "https://mcp-on-edge.edgeone.site/mcp-server",
+      "homepage": "https://edgeone.ai/document/162227908259442688"
+    },
+    {
+      "id": "exa",
+      "name": "Exa",
+      "vendor": "Exa",
+      "url": "https://mcp.exa.ai/mcp",
+      "homepage": "https://exa.ai"
+    },
+    {
+      "id": "fal-docs",
+      "name": "Fal AI Docs",
+      "vendor": "fal",
+      "url": "https://docs.fal.ai/mcp",
+      "homepage": "https://fal.ai",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "firecrawl",
+      "name": "Firecrawl",
+      "vendor": "Firecrawl",
+      "url": "https://mcp.firecrawl.dev/mcp",
+      "homepage": "https://firecrawl.dev"
+    },
+    {
+      "id": "fireworks-docs",
+      "name": "Fireworks AI Docs",
+      "vendor": "Fireworks AI",
+      "url": "https://docs.fireworks.ai/mcp",
+      "homepage": "https://fireworks.ai",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "galileo-docs",
+      "name": "Galileo Docs",
+      "vendor": "Galileo",
+      "url": "https://docs.galileo.ai/mcp",
+      "homepage": "https://galileo.ai",
+      "platform": "mintlify-docs"
     },
     {
       "id": "gitmcp-docs",
@@ -64,39 +266,58 @@
       "homepage": "https://gitmcp.io"
     },
     {
-      "id": "svelte",
-      "name": "Svelte",
-      "vendor": "Svelte",
-      "url": "https://mcp.svelte.dev/mcp",
-      "homepage": "https://svelte.dev/docs/mcp"
+      "id": "gumlet-docs",
+      "name": "Gumlet Docs",
+      "vendor": "Gumlet",
+      "url": "https://docs.gumlet.com/mcp",
+      "homepage": "https://gumlet.com"
     },
     {
-      "id": "astro-docs",
-      "name": "Astro Docs",
-      "vendor": "Astro",
-      "url": "https://mcp.docs.astro.build/mcp",
-      "homepage": "https://docs.astro.build"
+      "id": "hanko-docs",
+      "name": "Hanko Docs",
+      "vendor": "Hanko",
+      "url": "https://docs.hanko.io/mcp",
+      "homepage": "https://hanko.io",
+      "platform": "mintlify-docs"
     },
     {
-      "id": "chakra-ui",
-      "name": "Chakra UI",
-      "vendor": "Chakra UI",
-      "url": "https://mcp.chakra-ui.com/mcp",
-      "homepage": "https://chakra-ui.com/docs/get-started/ai/mcp-server"
+      "id": "helicone-docs",
+      "name": "Helicone Docs",
+      "vendor": "Helicone",
+      "url": "https://docs.helicone.ai/mcp",
+      "homepage": "https://helicone.ai",
+      "platform": "mintlify-docs"
     },
     {
-      "id": "exa",
-      "name": "Exa",
-      "vendor": "Exa",
-      "url": "https://mcp.exa.ai/mcp",
-      "homepage": "https://exa.ai"
+      "id": "honeycomb-docs",
+      "name": "Honeycomb Docs",
+      "vendor": "Honeycomb",
+      "url": "https://docs.honeycomb.io/mcp",
+      "homepage": "https://honeycomb.io",
+      "platform": "mintlify-docs"
     },
     {
-      "id": "firecrawl",
-      "name": "Firecrawl",
-      "vendor": "Firecrawl",
-      "url": "https://mcp.firecrawl.dev/mcp",
-      "homepage": "https://firecrawl.dev"
+      "id": "hoppscotch-docs",
+      "name": "Hoppscotch Docs",
+      "vendor": "Hoppscotch",
+      "url": "https://docs.hoppscotch.io/mcp",
+      "homepage": "https://hoppscotch.io",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "huggingface",
+      "name": "Hugging Face",
+      "vendor": "Hugging Face",
+      "url": "https://huggingface.co/mcp",
+      "homepage": "https://huggingface.co/settings/mcp"
+    },
+    {
+      "id": "hyperbrowser-docs",
+      "name": "Hyperbrowser Docs",
+      "vendor": "Hyperbrowser",
+      "url": "https://docs.hyperbrowser.ai/mcp",
+      "homepage": "https://hyperbrowser.ai",
+      "platform": "mintlify-docs"
     },
     {
       "id": "jina",
@@ -106,6 +327,85 @@
       "homepage": "https://jina.ai"
     },
     {
+      "id": "labelbox-docs",
+      "name": "Labelbox Docs",
+      "vendor": "Labelbox",
+      "url": "https://docs.labelbox.com/mcp",
+      "homepage": "https://labelbox.com",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "lancedb-docs",
+      "name": "LanceDB Docs",
+      "vendor": "LanceDB",
+      "url": "https://docs.lancedb.com/mcp",
+      "homepage": "https://lancedb.com",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "langchain-docs",
+      "name": "LangChain Docs",
+      "vendor": "LangChain",
+      "url": "https://docs.langchain.com/mcp",
+      "homepage": "https://langchain.com",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "linkup-docs",
+      "name": "Linkup Docs",
+      "vendor": "Linkup",
+      "url": "https://docs.linkup.so/mcp",
+      "homepage": "https://linkup.so",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "lithic-docs",
+      "name": "Lithic Docs",
+      "vendor": "Lithic",
+      "url": "https://docs.lithic.com/mcp",
+      "homepage": "https://lithic.com",
+      "platform": "openapi-explorer"
+    },
+    {
+      "id": "livekit-docs",
+      "name": "LiveKit Docs",
+      "vendor": "LiveKit",
+      "url": "https://docs.livekit.io/mcp",
+      "homepage": "https://livekit.io"
+    },
+    {
+      "id": "mem0-docs",
+      "name": "Mem0 Docs",
+      "vendor": "Mem0",
+      "url": "https://docs.mem0.ai/mcp",
+      "homepage": "https://mem0.ai",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "mercury-docs",
+      "name": "Mercury Docs",
+      "vendor": "Mercury",
+      "url": "https://docs.mercury.com/mcp",
+      "homepage": "https://mercury.com",
+      "platform": "openapi-explorer"
+    },
+    {
+      "id": "merge-docs",
+      "name": "Merge Docs",
+      "vendor": "Merge",
+      "url": "https://docs.merge.dev/mcp",
+      "homepage": "https://merge.dev",
+      "platform": "mintlify-search-only"
+    },
+    {
+      "id": "mergent-docs",
+      "name": "Mergent Docs",
+      "vendor": "Mergent",
+      "url": "https://docs.mergent.co/mcp",
+      "homepage": "https://mergent.co",
+      "platform": "mintlify-docs"
+    },
+    {
       "id": "mermaid-chart",
       "name": "Mermaid Chart",
       "vendor": "Mermaid Chart",
@@ -113,39 +413,27 @@
       "homepage": "https://www.mermaidchart.com"
     },
     {
-      "id": "browserbase",
-      "name": "Browserbase",
-      "vendor": "Browserbase",
-      "url": "https://mcp.browserbase.com/mcp",
-      "homepage": "https://browserbase.com"
+      "id": "microsoft-learn",
+      "name": "Microsoft Learn",
+      "vendor": "Microsoft",
+      "url": "https://learn.microsoft.com/api/mcp",
+      "homepage": "https://learn.microsoft.com/training/support/mcp"
     },
     {
-      "id": "edgeone-pages",
-      "name": "EdgeOne Pages",
-      "vendor": "Tencent",
-      "url": "https://mcp-on-edge.edgeone.site/mcp-server",
-      "homepage": "https://edgeone.ai/document/162227908259442688"
+      "id": "mixpanel-docs",
+      "name": "Mixpanel Docs",
+      "vendor": "Mixpanel",
+      "url": "https://docs.mixpanel.com/mcp",
+      "homepage": "https://mixpanel.com",
+      "platform": "mintlify-docs"
     },
     {
-      "id": "resend-docs",
-      "name": "Resend Docs",
-      "vendor": "Resend",
-      "url": "https://resend.com/docs/mcp",
-      "homepage": "https://resend.com/docs"
-    },
-    {
-      "id": "trigger-docs",
-      "name": "Trigger.dev Docs",
-      "vendor": "Trigger.dev",
-      "url": "https://docs.trigger.dev/mcp",
-      "homepage": "https://trigger.dev"
-    },
-    {
-      "id": "dub-docs",
-      "name": "Dub Docs",
-      "vendor": "Dub",
-      "url": "https://dub.co/docs/mcp",
-      "homepage": "https://dub.co"
+      "id": "modern-treasury-docs",
+      "name": "Modern Treasury Docs",
+      "vendor": "Modern Treasury",
+      "url": "https://docs.moderntreasury.com/mcp",
+      "homepage": "https://moderntreasury.com",
+      "platform": "openapi-explorer"
     },
     {
       "id": "novu-docs",
@@ -155,11 +443,176 @@
       "homepage": "https://novu.co"
     },
     {
+      "id": "perplexity-docs",
+      "name": "Perplexity Docs",
+      "vendor": "Perplexity",
+      "url": "https://docs.perplexity.ai/mcp",
+      "homepage": "https://perplexity.ai",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "pinecone-docs",
+      "name": "Pinecone Docs",
+      "vendor": "Pinecone",
+      "url": "https://docs.pinecone.io/mcp",
+      "homepage": "https://pinecone.io",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "polymarket-docs",
+      "name": "Polymarket Docs",
+      "vendor": "Polymarket",
+      "url": "https://docs.polymarket.com/mcp",
+      "homepage": "https://polymarket.com",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "porter-docs",
+      "name": "Porter Docs",
+      "vendor": "Porter",
+      "url": "https://docs.porter.run/mcp",
+      "homepage": "https://porter.run",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "prefect-docs",
+      "name": "Prefect Docs",
+      "vendor": "Prefect",
+      "url": "https://docs.prefect.io/mcp",
+      "homepage": "https://prefect.io",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "readme-docs",
+      "name": "ReadMe Docs",
+      "vendor": "ReadMe",
+      "url": "https://docs.readme.com/mcp",
+      "homepage": "https://readme.com",
+      "platform": "openapi-explorer"
+    },
+    {
+      "id": "reducto-docs",
+      "name": "Reducto Docs",
+      "vendor": "Reducto",
+      "url": "https://docs.reducto.ai/mcp",
+      "homepage": "https://reducto.ai",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "replit-docs",
+      "name": "Replit Docs",
+      "vendor": "Replit",
+      "url": "https://docs.replit.com/mcp",
+      "homepage": "https://replit.com",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "resend-docs",
+      "name": "Resend Docs",
+      "vendor": "Resend",
+      "url": "https://resend.com/docs/mcp",
+      "homepage": "https://resend.com/docs"
+    },
+    {
+      "id": "retell-docs",
+      "name": "Retell AI Docs",
+      "vendor": "Retell AI",
+      "url": "https://docs.retellai.com/mcp",
+      "homepage": "https://retellai.com",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "runpod-docs",
+      "name": "RunPod Docs",
+      "vendor": "RunPod",
+      "url": "https://docs.runpod.io/mcp",
+      "homepage": "https://runpod.io",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "svelte",
+      "name": "Svelte",
+      "vendor": "Svelte",
+      "url": "https://mcp.svelte.dev/mcp",
+      "homepage": "https://svelte.dev/docs/mcp"
+    },
+    {
+      "id": "synthflow-docs",
+      "name": "Synthflow Docs",
+      "vendor": "Synthflow",
+      "url": "https://docs.synthflow.ai/mcp",
+      "homepage": "https://synthflow.ai",
+      "platform": "mintlify-search-only"
+    },
+    {
+      "id": "tavily-docs",
+      "name": "Tavily Docs",
+      "vendor": "Tavily",
+      "url": "https://docs.tavily.com/mcp",
+      "homepage": "https://tavily.com",
+      "platform": "mintlify-docs"
+    },
+    {
       "id": "together-docs",
       "name": "Together AI Docs",
       "vendor": "Together AI",
       "url": "https://docs.together.ai/mcp",
       "homepage": "https://together.ai"
+    },
+    {
+      "id": "trigger-docs",
+      "name": "Trigger.dev Docs",
+      "vendor": "Trigger.dev",
+      "url": "https://docs.trigger.dev/mcp",
+      "homepage": "https://trigger.dev"
+    },
+    {
+      "id": "turso-docs",
+      "name": "Turso Docs",
+      "vendor": "Turso",
+      "url": "https://docs.turso.tech/mcp",
+      "homepage": "https://turso.tech",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "unstructured-docs",
+      "name": "Unstructured Docs",
+      "vendor": "Unstructured",
+      "url": "https://docs.unstructured.io/mcp",
+      "homepage": "https://unstructured.io",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "vapi-docs",
+      "name": "Vapi Docs",
+      "vendor": "Vapi",
+      "url": "https://docs.vapi.ai/mcp",
+      "homepage": "https://vapi.ai",
+      "platform": "mintlify-search-only"
+    },
+    {
+      "id": "wandb-docs",
+      "name": "Weights and Biases Docs",
+      "vendor": "Weights & Biases",
+      "url": "https://docs.wandb.ai/mcp",
+      "homepage": "https://wandb.ai",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "zapier-docs",
+      "name": "Zapier Docs",
+      "vendor": "Zapier",
+      "url": "https://docs.zapier.com/mcp",
+      "homepage": "https://zapier.com",
+      "platform": "mintlify-docs"
+    },
+    {
+      "id": "zenrows-docs",
+      "name": "ZenRows Docs",
+      "vendor": "ZenRows",
+      "url": "https://docs.zenrows.com/mcp",
+      "homepage": "https://zenrows.com",
+      "platform": "mintlify-docs"
     }
   ]
 }

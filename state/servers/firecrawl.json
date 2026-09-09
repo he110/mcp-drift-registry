@@ -672,7 +672,7 @@
   "toolCount": 3,
   "fingerprint": "e5c15231d80b3ed6",
   "lastGood": {
-    "at": "2026-09-09T10:51:41.540Z",
+    "at": "2026-09-09T10:55:17.881Z",
     "tools": [
       {
         "name": "firecrawl_parse",
@@ -1338,8 +1338,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-09T10:51:41.540Z",
-  "lastOkAt": "2026-09-09T10:51:41.540Z",
+  "lastCheckedAt": "2026-09-09T10:55:17.881Z",
+  "lastOkAt": "2026-09-09T10:55:17.881Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

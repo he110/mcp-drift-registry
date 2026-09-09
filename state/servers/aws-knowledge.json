@@ -182,7 +182,7 @@
   "toolCount": 5,
   "fingerprint": "030caf251233cf8d",
   "lastGood": {
-    "at": "2026-09-09T10:51:41.540Z",
+    "at": "2026-09-09T10:55:17.881Z",
     "tools": [
       {
         "name": "aws___get_regional_availability",
@@ -358,8 +358,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-09T10:51:41.540Z",
-  "lastOkAt": "2026-09-09T10:51:41.540Z",
+  "lastCheckedAt": "2026-09-09T10:55:17.881Z",
+  "lastOkAt": "2026-09-09T10:55:17.881Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

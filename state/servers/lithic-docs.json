@@ -1,0 +1,637 @@
+{
+  "id": "lithic-docs",
+  "name": "Lithic Docs",
+  "url": "https://docs.lithic.com/mcp",
+  "homepage": "https://lithic.com",
+  "transport": "streamable-http",
+  "status": "ok",
+  "error": null,
+  "protocolVersion": null,
+  "serverInfo": null,
+  "tools": [
+    {
+      "name": "execute-request",
+      "title": "Execute API Request",
+      "description": "Executes an API request with a given HAR request object.",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "harRequest": {
+            "type": "object",
+            "properties": {
+              "method": {
+                "type": "string",
+                "description": "options, get, head, patch, post, put, delete"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "description": "full url to call"
+              },
+              "headers": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "value"
+                  ]
+                }
+              },
+              "postData": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "mimeType": {
+                        "type": "string",
+                        "description": "e.g. application/json, text/plain"
+                      },
+                      "text": {
+                        "type": "string",
+                        "description": "Raw request body as a string"
+                      }
+                    },
+                    "required": [
+                      "mimeType",
+                      "text"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "mimeType": {
+                        "type": "string",
+                        "description": "e.g. multipart/form-data, application/x-www-form-urlencoded. Use multipart/form-data for form submissions."
+                      },
+                      "params": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name"
+                          ]
+                        },
+                        "description": "Form parameters. Use this instead of text for multipart/form-data and url-encoded requests."
+                      }
+                    },
+                    "required": [
+                      "mimeType",
+                      "params"
+                    ]
+                  }
+                ]
+              },
+              "queryString": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "value"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "method",
+              "url"
+            ],
+            "description": "HAR request object"
+          }
+        },
+        "required": [
+          "harRequest"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "openWorldHint": true
+      },
+      "schemaFingerprint": "2076fae1e4e81359"
+    },
+    {
+      "name": "fetch",
+      "title": "Fetch Documentation Page",
+      "description": "Gets detailed content for documentation by ID returned from the `search` tool.",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The ID of the documentation to retrieve. Must come from the `search` tool. Recipe IDs are prefixed with `recipe:`, reference page IDs with `ref:`."
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false
+      },
+      "schemaFingerprint": "9aca4b22fca560e8"
+    },
+    {
+      "name": "get-endpoint",
+      "title": "Get Endpoint Details",
+      "description": "Gets detailed information about a specific API endpoint, including security schemes and servers",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "The API endpoint path (e.g. /api/v1/users)."
+          },
+          "method": {
+            "type": "string",
+            "description": "The HTTP method (e.g. GET, POST, PUT, DELETE)."
+          }
+        },
+        "required": [
+          "path",
+          "method"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false
+      },
+      "schemaFingerprint": "2ecc324a18ba3ee8"
+    },
+    {
+      "name": "list-endpoints",
+      "title": "List API Endpoints",
+      "description": "Lists all API paths and their HTTP methods with summaries, organized by path. Results can be passed directly into 'get-endpoint'.",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {}
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false
+      },
+      "schemaFingerprint": "93ab7499dc3c616f"
+    },
+    {
+      "name": "lithic-auth-rule-lifecycle",
+      "title": "Lithic Auth Rule Lifecycle",
+      "description": "Use when creating, editing, or testing Authorization Rules in sandbox. A newly created rule does nothing until it is promoted; this encodes the draft/promote lifecycle and how to confirm a rule takes effect.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false
+      },
+      "schemaFingerprint": "efddc7bd8bbcef73"
+    },
+    {
+      "name": "lithic-query-data",
+      "title": "Lithic Query Data",
+      "description": "Use when listing or searching sandbox data (transactions, cards, accounts, rule results). Keeps responses small and filtered.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false
+      },
+      "schemaFingerprint": "efddc7bd8bbcef73"
+    },
+    {
+      "name": "lithic-sandbox-setup",
+      "title": "Lithic Sandbox Setup",
+      "description": "Call once at the start of any Lithic sandbox task, before making API requests. Loads base URL, auth, unit conventions, and how to avoid oversized schema lookups.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false
+      },
+      "schemaFingerprint": "efddc7bd8bbcef73"
+    },
+    {
+      "name": "lithic-simulate-transaction",
+      "title": "Lithic Simulate Transaction",
+      "description": "Use whenever simulating card transactions in sandbox (authorize, clearing, void, return, advice). Simulate endpoints do not return the approval outcome, so this encodes the required verify step.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false
+      },
+      "schemaFingerprint": "efddc7bd8bbcef73"
+    },
+    {
+      "name": "search",
+      "title": "Search Documentation",
+      "description": "Searches through documentation with the given search query, returning a list of results with ID, title, and URL.",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "search query"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false
+      },
+      "schemaFingerprint": "75bbf5108beb6478"
+    },
+    {
+      "name": "search-endpoints",
+      "title": "Search API Endpoints",
+      "description": "Performs a deep search through paths, operations, and parameters to discover relevant API endpoints. Use this tool to find specific API capabilities, required parameters, or data models based on search keywords. Results can be passed directly into 'get-endpoint'.",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "pattern": {
+            "type": "string",
+            "description": "Search pattern (case-insensitive)"
+          }
+        },
+        "required": [
+          "pattern"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false
+      },
+      "schemaFingerprint": "b6566c5b07df4454"
+    }
+  ],
+  "toolCount": 10,
+  "fingerprint": "443200fc19421f4f",
+  "lastGood": {
+    "at": "2026-09-09T10:55:17.881Z",
+    "tools": [
+      {
+        "name": "execute-request",
+        "title": "Execute API Request",
+        "description": "Executes an API request with a given HAR request object.",
+        "inputSchema": {
+          "type": "object",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "properties": {
+            "harRequest": {
+              "type": "object",
+              "properties": {
+                "method": {
+                  "type": "string",
+                  "description": "options, get, head, patch, post, put, delete"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "full url to call"
+                },
+                "headers": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "value"
+                    ]
+                  }
+                },
+                "postData": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "mimeType": {
+                          "type": "string",
+                          "description": "e.g. application/json, text/plain"
+                        },
+                        "text": {
+                          "type": "string",
+                          "description": "Raw request body as a string"
+                        }
+                      },
+                      "required": [
+                        "mimeType",
+                        "text"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "mimeType": {
+                          "type": "string",
+                          "description": "e.g. multipart/form-data, application/x-www-form-urlencoded. Use multipart/form-data for form submissions."
+                        },
+                        "params": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "value": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name"
+                            ]
+                          },
+                          "description": "Form parameters. Use this instead of text for multipart/form-data and url-encoded requests."
+                        }
+                      },
+                      "required": [
+                        "mimeType",
+                        "params"
+                      ]
+                    }
+                  ]
+                },
+                "queryString": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "value"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "method",
+                "url"
+              ],
+              "description": "HAR request object"
+            }
+          },
+          "required": [
+            "harRequest"
+          ]
+        },
+        "outputSchema": null,
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "openWorldHint": true
+        },
+        "schemaFingerprint": "2076fae1e4e81359"
+      },
+      {
+        "name": "fetch",
+        "title": "Fetch Documentation Page",
+        "description": "Gets detailed content for documentation by ID returned from the `search` tool.",
+        "inputSchema": {
+          "type": "object",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "The ID of the documentation to retrieve. Must come from the `search` tool. Recipe IDs are prefixed with `recipe:`, reference page IDs with `ref:`."
+            }
+          },
+          "required": [
+            "id"
+          ]
+        },
+        "outputSchema": null,
+        "annotations": {
+          "readOnlyHint": true,
+          "openWorldHint": false
+        },
+        "schemaFingerprint": "9aca4b22fca560e8"
+      },
+      {
+        "name": "get-endpoint",
+        "title": "Get Endpoint Details",
+        "description": "Gets detailed information about a specific API endpoint, including security schemes and servers",
+        "inputSchema": {
+          "type": "object",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "properties": {
+            "path": {
+              "type": "string",
+              "description": "The API endpoint path (e.g. /api/v1/users)."
+            },
+            "method": {
+              "type": "string",
+              "description": "The HTTP method (e.g. GET, POST, PUT, DELETE)."
+            }
+          },
+          "required": [
+            "path",
+            "method"
+          ]
+        },
+        "outputSchema": null,
+        "annotations": {
+          "readOnlyHint": true,
+          "openWorldHint": false
+        },
+        "schemaFingerprint": "2ecc324a18ba3ee8"
+      },
+      {
+        "name": "list-endpoints",
+        "title": "List API Endpoints",
+        "description": "Lists all API paths and their HTTP methods with summaries, organized by path. Results can be passed directly into 'get-endpoint'.",
+        "inputSchema": {
+          "type": "object",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "properties": {}
+        },
+        "outputSchema": null,
+        "annotations": {
+          "readOnlyHint": true,
+          "openWorldHint": false
+        },
+        "schemaFingerprint": "93ab7499dc3c616f"
+      },
+      {
+        "name": "lithic-auth-rule-lifecycle",
+        "title": "Lithic Auth Rule Lifecycle",
+        "description": "Use when creating, editing, or testing Authorization Rules in sandbox. A newly created rule does nothing until it is promoted; this encodes the draft/promote lifecycle and how to confirm a rule takes effect.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null,
+        "annotations": {
+          "readOnlyHint": true,
+          "openWorldHint": false
+        },
+        "schemaFingerprint": "efddc7bd8bbcef73"
+      },
+      {
+        "name": "lithic-query-data",
+        "title": "Lithic Query Data",
+        "description": "Use when listing or searching sandbox data (transactions, cards, accounts, rule results). Keeps responses small and filtered.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null,
+        "annotations": {
+          "readOnlyHint": true,
+          "openWorldHint": false
+        },
+        "schemaFingerprint": "efddc7bd8bbcef73"
+      },
+      {
+        "name": "lithic-sandbox-setup",
+        "title": "Lithic Sandbox Setup",
+        "description": "Call once at the start of any Lithic sandbox task, before making API requests. Loads base URL, auth, unit conventions, and how to avoid oversized schema lookups.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null,
+        "annotations": {
+          "readOnlyHint": true,
+          "openWorldHint": false
+        },
+        "schemaFingerprint": "efddc7bd8bbcef73"
+      },
+      {
+        "name": "lithic-simulate-transaction",
+        "title": "Lithic Simulate Transaction",
+        "description": "Use whenever simulating card transactions in sandbox (authorize, clearing, void, return, advice). Simulate endpoints do not return the approval outcome, so this encodes the required verify step.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null,
+        "annotations": {
+          "readOnlyHint": true,
+          "openWorldHint": false
+        },
+        "schemaFingerprint": "efddc7bd8bbcef73"
+      },
+      {
+        "name": "search",
+        "title": "Search Documentation",
+        "description": "Searches through documentation with the given search query, returning a list of results with ID, title, and URL.",
+        "inputSchema": {
+          "type": "object",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "search query"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        },
+        "outputSchema": null,
+        "annotations": {
+          "readOnlyHint": true,
+          "openWorldHint": false
+        },
+        "schemaFingerprint": "75bbf5108beb6478"
+      },
+      {
+        "name": "search-endpoints",
+        "title": "Search API Endpoints",
+        "description": "Performs a deep search through paths, operations, and parameters to discover relevant API endpoints. Use this tool to find specific API capabilities, required parameters, or data models based on search keywords. Results can be passed directly into 'get-endpoint'.",
+        "inputSchema": {
+          "type": "object",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "properties": {
+            "pattern": {
+              "type": "string",
+              "description": "Search pattern (case-insensitive)"
+            }
+          },
+          "required": [
+            "pattern"
+          ]
+        },
+        "outputSchema": null,
+        "annotations": {
+          "readOnlyHint": true,
+          "openWorldHint": false
+        },
+        "schemaFingerprint": "b6566c5b07df4454"
+      }
+    ],
+    "fingerprint": "443200fc19421f4f",
+    "protocolVersion": null
+  },
+  "firstSeenAt": "2026-09-09T10:55:17.881Z",
+  "lastCheckedAt": "2026-09-09T10:55:17.881Z",
+  "lastOkAt": "2026-09-09T10:55:17.881Z",
+  "lastChangedAt": null,
+  "changeCount": 0
+}

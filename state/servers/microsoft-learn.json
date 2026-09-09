@@ -160,7 +160,7 @@
   "toolCount": 3,
   "fingerprint": "e051ed103dc648ab",
   "lastGood": {
-    "at": "2026-09-09T10:51:41.540Z",
+    "at": "2026-09-09T10:55:17.881Z",
     "tools": [
       {
         "name": "microsoft_code_sample_search",
@@ -314,8 +314,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-09T10:51:41.540Z",
-  "lastOkAt": "2026-09-09T10:51:41.540Z",
+  "lastCheckedAt": "2026-09-09T10:55:17.881Z",
+  "lastOkAt": "2026-09-09T10:55:17.881Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

@@ -1,0 +1,487 @@
+{
+  "id": "mercury-docs",
+  "name": "Mercury Docs",
+  "url": "https://docs.mercury.com/mcp",
+  "homepage": "https://mercury.com",
+  "transport": "streamable-http",
+  "status": "ok",
+  "error": null,
+  "protocolVersion": null,
+  "serverInfo": null,
+  "tools": [
+    {
+      "name": "execute-request",
+      "title": "Execute API Request",
+      "description": "Executes an API request with a given HAR request object.",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "harRequest": {
+            "type": "object",
+            "properties": {
+              "method": {
+                "type": "string",
+                "description": "options, get, head, patch, post, put, delete"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "description": "full url to call"
+              },
+              "headers": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "value"
+                  ]
+                }
+              },
+              "postData": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "mimeType": {
+                        "type": "string",
+                        "description": "e.g. application/json, text/plain"
+                      },
+                      "text": {
+                        "type": "string",
+                        "description": "Raw request body as a string"
+                      }
+                    },
+                    "required": [
+                      "mimeType",
+                      "text"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "mimeType": {
+                        "type": "string",
+                        "description": "e.g. multipart/form-data, application/x-www-form-urlencoded. Use multipart/form-data for form submissions."
+                      },
+                      "params": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name"
+                          ]
+                        },
+                        "description": "Form parameters. Use this instead of text for multipart/form-data and url-encoded requests."
+                      }
+                    },
+                    "required": [
+                      "mimeType",
+                      "params"
+                    ]
+                  }
+                ]
+              },
+              "queryString": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "value"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "method",
+              "url"
+            ],
+            "description": "HAR request object"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the OpenAPI spec. Use tool 'list-specs' or 'search-endpoints' to see available specs."
+          }
+        },
+        "required": [
+          "harRequest",
+          "title"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "openWorldHint": true
+      },
+      "schemaFingerprint": "7c6cb47bd1059e60"
+    },
+    {
+      "name": "get-endpoint",
+      "title": "Get Endpoint Details",
+      "description": "Gets detailed information about a specific API endpoint, including security schemes and servers",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "The API endpoint path (e.g. /api/v1/users)."
+          },
+          "method": {
+            "type": "string",
+            "description": "The HTTP method (e.g. GET, POST, PUT, DELETE)."
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the OpenAPI spec. Use tool 'list-specs' or 'search-endpoints' to see available specs."
+          }
+        },
+        "required": [
+          "path",
+          "method",
+          "title"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false
+      },
+      "schemaFingerprint": "b3ea3276a3eaf46c"
+    },
+    {
+      "name": "list-endpoints",
+      "title": "List API Endpoints",
+      "description": "Lists all API paths and their HTTP methods with summaries, organized by path. Results can be passed directly into 'get-endpoint'.",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title of the OpenAPI spec. Use tool 'list-specs' or 'search-endpoints' to see available specs."
+          }
+        },
+        "required": [
+          "title"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false
+      },
+      "schemaFingerprint": "7ec291467e49b261"
+    },
+    {
+      "name": "list-specs",
+      "title": "List OpenAPI Specs",
+      "description": "Lists all available OpenAPI specs. Use the title to select a spec.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false
+      },
+      "schemaFingerprint": "efddc7bd8bbcef73"
+    },
+    {
+      "name": "search-endpoints",
+      "title": "Search API Endpoints",
+      "description": "Performs a deep search through paths, operations, and parameters to discover relevant API endpoints. Use this tool to find specific API capabilities, required parameters, or data models based on search keywords. Results can be passed directly into 'get-endpoint'.",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "pattern": {
+            "type": "string",
+            "description": "Search pattern (case-insensitive)"
+          }
+        },
+        "required": [
+          "pattern"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false
+      },
+      "schemaFingerprint": "b6566c5b07df4454"
+    }
+  ],
+  "toolCount": 5,
+  "fingerprint": "78bcd13a1199d7d5",
+  "lastGood": {
+    "at": "2026-09-09T10:55:17.881Z",
+    "tools": [
+      {
+        "name": "execute-request",
+        "title": "Execute API Request",
+        "description": "Executes an API request with a given HAR request object.",
+        "inputSchema": {
+          "type": "object",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "properties": {
+            "harRequest": {
+              "type": "object",
+              "properties": {
+                "method": {
+                  "type": "string",
+                  "description": "options, get, head, patch, post, put, delete"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "full url to call"
+                },
+                "headers": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "value"
+                    ]
+                  }
+                },
+                "postData": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "mimeType": {
+                          "type": "string",
+                          "description": "e.g. application/json, text/plain"
+                        },
+                        "text": {
+                          "type": "string",
+                          "description": "Raw request body as a string"
+                        }
+                      },
+                      "required": [
+                        "mimeType",
+                        "text"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "mimeType": {
+                          "type": "string",
+                          "description": "e.g. multipart/form-data, application/x-www-form-urlencoded. Use multipart/form-data for form submissions."
+                        },
+                        "params": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "value": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name"
+                            ]
+                          },
+                          "description": "Form parameters. Use this instead of text for multipart/form-data and url-encoded requests."
+                        }
+                      },
+                      "required": [
+                        "mimeType",
+                        "params"
+                      ]
+                    }
+                  ]
+                },
+                "queryString": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "value"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "method",
+                "url"
+              ],
+              "description": "HAR request object"
+            },
+            "title": {
+              "type": "string",
+              "description": "Title of the OpenAPI spec. Use tool 'list-specs' or 'search-endpoints' to see available specs."
+            }
+          },
+          "required": [
+            "harRequest",
+            "title"
+          ]
+        },
+        "outputSchema": null,
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "openWorldHint": true
+        },
+        "schemaFingerprint": "7c6cb47bd1059e60"
+      },
+      {
+        "name": "get-endpoint",
+        "title": "Get Endpoint Details",
+        "description": "Gets detailed information about a specific API endpoint, including security schemes and servers",
+        "inputSchema": {
+          "type": "object",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "properties": {
+            "path": {
+              "type": "string",
+              "description": "The API endpoint path (e.g. /api/v1/users)."
+            },
+            "method": {
+              "type": "string",
+              "description": "The HTTP method (e.g. GET, POST, PUT, DELETE)."
+            },
+            "title": {
+              "type": "string",
+              "description": "Title of the OpenAPI spec. Use tool 'list-specs' or 'search-endpoints' to see available specs."
+            }
+          },
+          "required": [
+            "path",
+            "method",
+            "title"
+          ]
+        },
+        "outputSchema": null,
+        "annotations": {
+          "readOnlyHint": true,
+          "openWorldHint": false
+        },
+        "schemaFingerprint": "b3ea3276a3eaf46c"
+      },
+      {
+        "name": "list-endpoints",
+        "title": "List API Endpoints",
+        "description": "Lists all API paths and their HTTP methods with summaries, organized by path. Results can be passed directly into 'get-endpoint'.",
+        "inputSchema": {
+          "type": "object",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Title of the OpenAPI spec. Use tool 'list-specs' or 'search-endpoints' to see available specs."
+            }
+          },
+          "required": [
+            "title"
+          ]
+        },
+        "outputSchema": null,
+        "annotations": {
+          "readOnlyHint": true,
+          "openWorldHint": false
+        },
+        "schemaFingerprint": "7ec291467e49b261"
+      },
+      {
+        "name": "list-specs",
+        "title": "List OpenAPI Specs",
+        "description": "Lists all available OpenAPI specs. Use the title to select a spec.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null,
+        "annotations": {
+          "readOnlyHint": true,
+          "openWorldHint": false
+        },
+        "schemaFingerprint": "efddc7bd8bbcef73"
+      },
+      {
+        "name": "search-endpoints",
+        "title": "Search API Endpoints",
+        "description": "Performs a deep search through paths, operations, and parameters to discover relevant API endpoints. Use this tool to find specific API capabilities, required parameters, or data models based on search keywords. Results can be passed directly into 'get-endpoint'.",
+        "inputSchema": {
+          "type": "object",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "properties": {
+            "pattern": {
+              "type": "string",
+              "description": "Search pattern (case-insensitive)"
+            }
+          },
+          "required": [
+            "pattern"
+          ]
+        },
+        "outputSchema": null,
+        "annotations": {
+          "readOnlyHint": true,
+          "openWorldHint": false
+        },
+        "schemaFingerprint": "b6566c5b07df4454"
+      }
+    ],
+    "fingerprint": "78bcd13a1199d7d5",
+    "protocolVersion": null
+  },
+  "firstSeenAt": "2026-09-09T10:55:17.881Z",
+  "lastCheckedAt": "2026-09-09T10:55:17.881Z",
+  "lastOkAt": "2026-09-09T10:55:17.881Z",
+  "lastChangedAt": null,
+  "changeCount": 0
+}

@@ -1,0 +1,63 @@
+{
+  "id": "gumlet-docs",
+  "name": "Gumlet Docs",
+  "url": "https://docs.gumlet.com/mcp",
+  "homepage": "https://gumlet.com",
+  "transport": "streamable-http",
+  "status": "ok",
+  "error": null,
+  "protocolVersion": null,
+  "serverInfo": null,
+  "tools": [
+    {
+      "name": "search-documentation",
+      "title": null,
+      "description": "Search the available documentation for pages related to a user's query and return a list of related content matching the search criteria.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "question": {
+            "default": "",
+            "type": "string"
+          }
+        }
+      },
+      "outputSchema": null,
+      "annotations": null,
+      "schemaFingerprint": "33a181af57e0ae19"
+    }
+  ],
+  "toolCount": 1,
+  "fingerprint": "735f98312187b691",
+  "lastGood": {
+    "at": "2026-09-09T10:55:17.881Z",
+    "tools": [
+      {
+        "name": "search-documentation",
+        "title": null,
+        "description": "Search the available documentation for pages related to a user's query and return a list of related content matching the search criteria.",
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "question": {
+              "default": "",
+              "type": "string"
+            }
+          }
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "33a181af57e0ae19"
+      }
+    ],
+    "fingerprint": "735f98312187b691",
+    "protocolVersion": null
+  },
+  "firstSeenAt": "2026-09-09T10:55:17.881Z",
+  "lastCheckedAt": "2026-09-09T10:55:17.881Z",
+  "lastOkAt": "2026-09-09T10:55:17.881Z",
+  "lastChangedAt": null,
+  "changeCount": 0
+}
