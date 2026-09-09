@@ -3,6 +3,7 @@
   "name": "ReadMe Docs",
   "url": "https://docs.readme.com/mcp",
   "homepage": "https://readme.com",
+  "platform": "openapi-explorer",
   "transport": "streamable-http",
   "status": "ok",
   "error": null,
@@ -321,7 +322,7 @@
   "toolCount": 9,
   "fingerprint": "a8ab3273fb24d17b",
   "lastGood": {
-    "at": "2026-09-09T10:56:15.462Z",
+    "at": "2026-09-09T11:16:05.667Z",
     "tools": [
       {
         "name": "draft-changelog",
@@ -636,8 +637,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-09T10:56:15.462Z",
-  "lastOkAt": "2026-09-09T10:56:15.462Z",
+  "lastCheckedAt": "2026-09-09T11:16:05.667Z",
+  "lastOkAt": "2026-09-09T11:16:05.667Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

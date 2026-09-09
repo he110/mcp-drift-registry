@@ -3,6 +3,7 @@
   "name": "Chunkr Docs",
   "url": "https://docs.chunkr.ai/mcp",
   "homepage": "https://chunkr.ai",
+  "platform": "mintlify-docs",
   "transport": "streamable-http",
   "status": "ok",
   "error": null,
@@ -102,7 +103,7 @@
   "toolCount": 3,
   "fingerprint": "0fc23908359375a2",
   "lastGood": {
-    "at": "2026-09-09T10:56:15.462Z",
+    "at": "2026-09-09T11:16:05.667Z",
     "tools": [
       {
         "name": "query_docs_filesystem_chunkr",
@@ -198,8 +199,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-09T10:56:15.462Z",
-  "lastOkAt": "2026-09-09T10:56:15.462Z",
+  "lastCheckedAt": "2026-09-09T11:16:05.667Z",
+  "lastOkAt": "2026-09-09T11:16:05.667Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

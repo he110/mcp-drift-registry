@@ -3,6 +3,7 @@
   "name": "Browserbase",
   "url": "https://mcp.browserbase.com/mcp",
   "homepage": "https://browserbase.com",
+  "platform": null,
   "transport": "streamable-http",
   "status": "ok",
   "error": null,
@@ -160,7 +161,7 @@
   "toolCount": 6,
   "fingerprint": "4b547305ee1263bf",
   "lastGood": {
-    "at": "2026-09-09T10:56:15.462Z",
+    "at": "2026-09-09T11:16:05.667Z",
     "tools": [
       {
         "name": "act",
@@ -311,8 +312,8 @@
     "protocolVersion": "2025-06-18"
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-09T10:56:15.462Z",
-  "lastOkAt": "2026-09-09T10:56:15.462Z",
+  "lastCheckedAt": "2026-09-09T11:16:05.667Z",
+  "lastOkAt": "2026-09-09T11:16:05.667Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

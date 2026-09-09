@@ -3,6 +3,7 @@
   "name": "Hugging Face",
   "url": "https://huggingface.co/mcp",
   "homepage": "https://huggingface.co/settings/mcp",
+  "platform": null,
   "transport": "streamable-http",
   "status": "ok",
   "error": null,
@@ -1206,7 +1207,7 @@
   "toolCount": 4,
   "fingerprint": "869450943b354eaa",
   "lastGood": {
-    "at": "2026-09-09T10:56:15.462Z",
+    "at": "2026-09-09T11:16:05.667Z",
     "tools": [
       {
         "name": "hf_fs",
@@ -2396,8 +2397,8 @@
     "protocolVersion": "2025-06-18"
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-09T10:56:15.462Z",
-  "lastOkAt": "2026-09-09T10:56:15.462Z",
+  "lastCheckedAt": "2026-09-09T11:16:05.667Z",
+  "lastOkAt": "2026-09-09T11:16:05.667Z",
   "lastChangedAt": "2026-09-09T10:51:41.540Z",
   "changeCount": 1
 }

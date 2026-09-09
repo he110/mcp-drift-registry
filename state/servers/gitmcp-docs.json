@@ -3,6 +3,7 @@
   "name": "GitMCP (docs)",
   "url": "https://gitmcp.io/docs",
   "homepage": "https://gitmcp.io",
+  "platform": "gitmcp",
   "transport": "streamable-http",
   "status": "ok",
   "error": null,
@@ -155,7 +156,7 @@
   "toolCount": 5,
   "fingerprint": "d8dd5bda4e623a65",
   "lastGood": {
-    "at": "2026-09-09T10:56:15.462Z",
+    "at": "2026-09-09T11:16:05.667Z",
     "tools": [
       {
         "name": "fetch_generic_documentation",
@@ -301,8 +302,8 @@
     "protocolVersion": "2025-03-26"
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-09T10:56:15.462Z",
-  "lastOkAt": "2026-09-09T10:56:15.462Z",
+  "lastCheckedAt": "2026-09-09T11:16:05.667Z",
+  "lastOkAt": "2026-09-09T11:16:05.667Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

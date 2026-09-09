@@ -3,6 +3,7 @@
   "name": "Baseten Docs",
   "url": "https://docs.baseten.co/mcp",
   "homepage": "https://baseten.co",
+  "platform": "mintlify-docs",
   "transport": "streamable-http",
   "status": "ok",
   "error": null,
@@ -98,7 +99,7 @@
   "toolCount": 3,
   "fingerprint": "26e524c5dd9311af",
   "lastGood": {
-    "at": "2026-09-09T10:56:15.462Z",
+    "at": "2026-09-09T11:16:05.667Z",
     "tools": [
       {
         "name": "query_docs_filesystem_baseten",
@@ -190,8 +191,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-09T10:56:15.462Z",
-  "lastOkAt": "2026-09-09T10:56:15.462Z",
+  "lastCheckedAt": "2026-09-09T11:16:05.667Z",
+  "lastOkAt": "2026-09-09T11:16:05.667Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

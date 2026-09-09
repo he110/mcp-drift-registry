@@ -3,6 +3,7 @@
   "name": "Lithic Docs",
   "url": "https://docs.lithic.com/mcp",
   "homepage": "https://lithic.com",
+  "platform": "openapi-explorer",
   "transport": "streamable-http",
   "status": "ok",
   "error": null,
@@ -318,7 +319,7 @@
   "toolCount": 10,
   "fingerprint": "443200fc19421f4f",
   "lastGood": {
-    "at": "2026-09-09T10:56:15.462Z",
+    "at": "2026-09-09T11:16:05.667Z",
     "tools": [
       {
         "name": "execute-request",
@@ -630,8 +631,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-09T10:56:15.462Z",
-  "lastOkAt": "2026-09-09T10:56:15.462Z",
+  "lastCheckedAt": "2026-09-09T11:16:05.667Z",
+  "lastOkAt": "2026-09-09T11:16:05.667Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

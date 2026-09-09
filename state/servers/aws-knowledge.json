@@ -3,6 +3,7 @@
   "name": "AWS Knowledge",
   "url": "https://knowledge-mcp.global.api.aws",
   "homepage": "https://awslabs.github.io/mcp/",
+  "platform": null,
   "transport": "streamable-http",
   "status": "ok",
   "error": null,
@@ -182,7 +183,7 @@
   "toolCount": 5,
   "fingerprint": "030caf251233cf8d",
   "lastGood": {
-    "at": "2026-09-09T10:56:15.462Z",
+    "at": "2026-09-09T11:16:05.667Z",
     "tools": [
       {
         "name": "aws___get_regional_availability",
@@ -358,8 +359,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-09T10:56:15.462Z",
-  "lastOkAt": "2026-09-09T10:56:15.462Z",
+  "lastCheckedAt": "2026-09-09T11:16:05.667Z",
+  "lastOkAt": "2026-09-09T11:16:05.667Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

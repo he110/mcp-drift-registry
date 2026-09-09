@@ -3,6 +3,7 @@
   "name": "DeepWiki",
   "url": "https://mcp.deepwiki.com/mcp",
   "homepage": "https://deepwiki.com",
+  "platform": null,
   "transport": "streamable-http",
   "status": "ok",
   "error": null,
@@ -121,7 +122,7 @@
   "toolCount": 3,
   "fingerprint": "18cc2015befaea38",
   "lastGood": {
-    "at": "2026-09-09T10:56:15.462Z",
+    "at": "2026-09-09T11:16:05.667Z",
     "tools": [
       {
         "name": "ask_question",
@@ -236,8 +237,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-09T10:56:15.462Z",
-  "lastOkAt": "2026-09-09T10:56:15.462Z",
+  "lastCheckedAt": "2026-09-09T11:16:05.667Z",
+  "lastOkAt": "2026-09-09T11:16:05.667Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

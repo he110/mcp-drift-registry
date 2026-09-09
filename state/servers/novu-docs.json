@@ -3,6 +3,7 @@
   "name": "Novu Docs",
   "url": "https://docs.novu.co/mcp",
   "homepage": "https://novu.co",
+  "platform": "mintlify-docs",
   "transport": "streamable-http",
   "status": "ok",
   "error": null,
@@ -98,7 +99,7 @@
   "toolCount": 3,
   "fingerprint": "f7389a576b6259d5",
   "lastGood": {
-    "at": "2026-09-09T10:56:15.462Z",
+    "at": "2026-09-09T11:16:05.667Z",
     "tools": [
       {
         "name": "query_docs_filesystem_novu",
@@ -190,8 +191,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-09T10:56:15.462Z",
-  "lastOkAt": "2026-09-09T10:56:15.462Z",
+  "lastCheckedAt": "2026-09-09T11:16:05.667Z",
+  "lastOkAt": "2026-09-09T11:16:05.667Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

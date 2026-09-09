@@ -3,6 +3,7 @@
   "name": "Mercury Docs",
   "url": "https://docs.mercury.com/mcp",
   "homepage": "https://mercury.com",
+  "platform": "openapi-explorer",
   "transport": "streamable-http",
   "status": "ok",
   "error": null,
@@ -243,7 +244,7 @@
   "toolCount": 5,
   "fingerprint": "78bcd13a1199d7d5",
   "lastGood": {
-    "at": "2026-09-09T10:56:15.462Z",
+    "at": "2026-09-09T11:16:05.667Z",
     "tools": [
       {
         "name": "execute-request",
@@ -480,8 +481,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-09T10:56:15.462Z",
-  "lastOkAt": "2026-09-09T10:56:15.462Z",
+  "lastCheckedAt": "2026-09-09T11:16:05.667Z",
+  "lastOkAt": "2026-09-09T11:16:05.667Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

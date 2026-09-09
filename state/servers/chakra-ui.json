@@ -3,6 +3,7 @@
   "name": "Chakra UI",
   "url": "https://mcp.chakra-ui.com/mcp",
   "homepage": "https://chakra-ui.com/docs/get-started/ai/mcp-server",
+  "platform": null,
   "transport": "streamable-http",
   "status": "ok",
   "error": null,
@@ -453,7 +454,7 @@
   "toolCount": 6,
   "fingerprint": "345146b5ccab8ee7",
   "lastGood": {
-    "at": "2026-09-09T10:56:15.462Z",
+    "at": "2026-09-09T11:16:05.667Z",
     "tools": [
       {
         "name": "customize_theme",
@@ -892,8 +893,8 @@
     "protocolVersion": "2025-06-18"
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-09T10:56:15.462Z",
-  "lastOkAt": "2026-09-09T10:56:15.462Z",
+  "lastCheckedAt": "2026-09-09T11:16:05.667Z",
+  "lastOkAt": "2026-09-09T11:16:05.667Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

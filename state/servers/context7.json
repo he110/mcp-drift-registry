@@ -3,6 +3,7 @@
   "name": "Context7",
   "url": "https://mcp.context7.com/mcp",
   "homepage": "https://context7.com",
+  "platform": null,
   "transport": "streamable-http",
   "status": "ok",
   "error": null,
@@ -75,7 +76,7 @@
   "toolCount": 2,
   "fingerprint": "9a6f737773d0d09b",
   "lastGood": {
-    "at": "2026-09-09T10:56:15.462Z",
+    "at": "2026-09-09T11:16:05.667Z",
     "tools": [
       {
         "name": "query-docs",
@@ -144,8 +145,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-09T10:56:15.462Z",
-  "lastOkAt": "2026-09-09T10:56:15.462Z",
+  "lastCheckedAt": "2026-09-09T11:16:05.667Z",
+  "lastOkAt": "2026-09-09T11:16:05.667Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

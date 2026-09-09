@@ -3,6 +3,7 @@
   "name": "Merge Docs",
   "url": "https://docs.merge.dev/mcp",
   "homepage": "https://merge.dev",
+  "platform": "mintlify-search-only",
   "transport": "streamable-http",
   "status": "ok",
   "error": null,
@@ -44,7 +45,7 @@
   "toolCount": 1,
   "fingerprint": "57f8b52530b4c804",
   "lastGood": {
-    "at": "2026-09-09T10:56:15.462Z",
+    "at": "2026-09-09T11:16:05.667Z",
     "tools": [
       {
         "name": "searchDocs",
@@ -82,8 +83,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-09T10:56:15.462Z",
-  "lastOkAt": "2026-09-09T10:56:15.462Z",
+  "lastCheckedAt": "2026-09-09T11:16:05.667Z",
+  "lastOkAt": "2026-09-09T11:16:05.667Z",
   "lastChangedAt": null,
   "changeCount": 0
 }
