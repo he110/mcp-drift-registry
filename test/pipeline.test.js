@@ -21,7 +21,9 @@ import { parseRpc } from "../src/sources/mcp.js";
 import { httpJson } from "../src/lib/http.js";
 import { createServer } from "node:http";
 import { esc, inlineCode, isUnstable, platformFamilies, publish } from "../src/publish/render.js";
-import { noteFacts } from "../src/publish/note.js";
+import { noteFacts, SIGNATURE } from "../src/publish/note.js";
+import { fleetCensus } from "../src/publish/fleet.js";
+import { DIRECT, buildProvenance, describeProvenance, isObservation } from "../src/lib/provenance.js";
 import { Store } from "../src/lib/store.js";
 
 const AT = "2026-01-01T00:00:00.000Z";
@@ -961,4 +963,284 @@ test("the trial log line says what is still owed", () => {
   assert.equal(admits(record, record.lastProbeAt), false);
   assert.equal(describeProgress(record, record.lastProbeAt), `3/${ADMISSION_PROBES} ok, 24h/${ADMISSION_SPAN_MS / 3600000}h`);
   assert.equal(describeProgress(probeSeries(9, 6 * HOUR).record, AT), "admitted");
+});
+
+// --- note № 02: the fleet census --------------------------------------------
+//
+// This page names fifty-odd third-party vendors and states, for each of them,
+// which contract they serve. It is meant to be linked from somebody else's
+// issue tracker, where every claim on it can be checked in one curl. So the
+// tests here are aimed at the failures that would still render, still pass
+// every other test, and still be wrong in public: a tenant silently dropped, a
+// completeness claim that is not actually checked, a row we did not read from
+// the URL we say we read it from, and prose that keeps saying "four" after the
+// data has stopped saying four.
+
+/** One tenant of the hosted template: the signature tool, plus its search_*. */
+const tenant = (
+  id,
+  { optional = [], fp = `fp-${optional.join("-") || "base"}`, required = ["query"], additionalProperties = false, provenance, name = id } = {},
+) => ({
+  id,
+  name,
+  url: `https://${id}.example.invalid/mcp`,
+  status: "ok",
+  platform: "mintlify-docs",
+  ...(provenance ? { provenance } : {}),
+  tools: [
+    { name: `${SIGNATURE}${id}`, schemaFingerprint: `q-${id}` },
+    {
+      name: `search_${id}`,
+      schemaFingerprint: fp,
+      inputSchema: {
+        type: "object",
+        properties: Object.fromEntries(["query", ...optional].map((p) => [p, { type: "string" }])),
+        required,
+        additionalProperties,
+      },
+    },
+  ],
+});
+
+const provenanceOf = (id, over = {}) =>
+  buildProvenance({
+    declaredUrl: `https://${id}.example.invalid/mcp`,
+    at: AT,
+    trace: { finalUrl: `https://${id}.example.invalid/mcp`, hops: [] },
+    via: DIRECT,
+    envelope: "json-rpc",
+    ...over,
+  });
+
+test("the census groups by fingerprint and only members of the template are tenants", () => {
+  const f = fleetCensus([
+    tenant("a"),
+    tenant("b"),
+    tenant("c"),
+    tenant("d", { optional: ["version"] }),
+    tenant("e", { optional: ["version"] }),
+    tenant("f", { optional: ["language"] }),
+    tenant("g", { optional: ["language", "version"] }),
+    { id: "outsider", name: "Outsider", url: "https://outsider.example.invalid/mcp", tools: [{ name: "search", schemaFingerprint: "x" }] },
+  ]);
+
+  assert.equal(f.total, 7, "the outsider does not run the template and is not one of its tenants");
+  assert.equal(f.platform, "mintlify-docs", "the label is read off the members, not asserted about them");
+  assert.deepEqual(f.variants.map((v) => v.tenants), [3, 2, 1, 1], "largest variant first");
+  assert.deepEqual(f.variants[0].ids, ["a", "b", "c"]);
+  assert.deepEqual(f.optionalUnion, ["language", "version"]);
+  assert.deepEqual(f.invariants.required, ["query"]);
+  assert.equal(f.invariants.additionalProperties, false);
+  assert.deepEqual(f.crossProduct, { expected: 4, observed: 4, missing: [], collisions: [], complete: true });
+});
+
+test("a hole in the matrix is named, not rounded away", () => {
+  // Three of the four combinations of two switches. "Complete" is a claim the
+  // page makes in bold; it has to be false the moment it stops being true.
+  const f = fleetCensus([tenant("a"), tenant("d", { optional: ["version"] }), tenant("g", { optional: ["language", "version"] })]);
+
+  assert.equal(f.crossProduct.expected, 4);
+  assert.equal(f.crossProduct.observed, 3);
+  assert.deepEqual(f.crossProduct.missing, ["language"]);
+  assert.equal(f.crossProduct.complete, false);
+});
+
+test("two fingerprints accepting identical parameters collide, they are not a fifth combination", () => {
+  // The finding this exists to catch: two variants that a parameter list cannot
+  // tell apart. Counting them as separate cells of the matrix would let a
+  // complete-looking 2x2 be built out of five variants.
+  const f = fleetCensus([
+    tenant("a"),
+    tenant("b", { fp: "fp-base-but-different" }),
+    tenant("d", { optional: ["version"] }),
+    tenant("f", { optional: ["language"] }),
+    tenant("g", { optional: ["language", "version"] }),
+  ]);
+
+  assert.equal(f.variants.length, 5);
+  assert.deepEqual(f.crossProduct.missing, [], "every combination is present…");
+  assert.equal(f.crossProduct.collisions.length, 1, "…and one of them is served by two different schemas");
+  assert.deepEqual(f.crossProduct.collisions[0].optional, []);
+  assert.deepEqual(f.crossProduct.collisions[0].fingerprints.sort(), ["fp-base", "fp-base-but-different"]);
+  assert.equal(f.crossProduct.complete, false);
+});
+
+test("a tenant with no search tool, or with two, is recorded rather than quietly dropped", () => {
+  // Both cases mean "tenant -> variant is not a function", and both are
+  // invisible in a table that simply omits the row.
+  const mute = { ...tenant("mute"), tools: [{ name: `${SIGNATURE}mute`, schemaFingerprint: "q-mute" }] };
+  const twin = tenant("twin");
+  twin.tools.push({
+    name: "search_twin_legacy",
+    schemaFingerprint: "fp-legacy",
+    inputSchema: { type: "object", properties: { query: { type: "string" } }, required: ["query"], additionalProperties: false },
+  });
+
+  const f = fleetCensus([tenant("a"), mute, twin]);
+
+  assert.deepEqual(f.anomalies.noSearchTool, ["mute"]);
+  assert.deepEqual(f.anomalies.multipleSearchTools, ["twin"]);
+  assert.deepEqual(f.tenants.map((t) => t.id), ["a", "twin"]);
+  assert.equal(f.total, 2, "the mute tenant is out of the table and named above it, not missing from both");
+});
+
+test("a contract read from a URL we never declared is not vouched for", () => {
+  const clean = provenanceOf("a");
+  // A 308 preserves the method, so the HTTP layer follows it happily and a
+  // perfectly valid tools/list comes back — from a host this registry never
+  // declared. Publishing it under the declared vendor's name is the mistake.
+  const moved = buildProvenance({
+    declaredUrl: "https://b.example.invalid/mcp",
+    at: AT,
+    trace: {
+      finalUrl: "https://elsewhere.example.invalid/mcp",
+      hops: [{ status: 308, to: "https://elsewhere.example.invalid/mcp", preservesMethod: true }],
+    },
+    via: DIRECT,
+    envelope: "json-rpc",
+  });
+  const refused = buildProvenance({
+    declaredUrl: "https://c.example.invalid/mcp",
+    at: AT,
+    trace: { finalUrl: "https://c.example.invalid/mcp", hops: [{ status: 301, to: "https://c.example.invalid/docs", preservesMethod: false }] },
+    via: null,
+    envelope: null,
+  });
+
+  assert.equal(isObservation(clean), true);
+  assert.equal(moved.urlMatchesDeclared, false);
+  assert.equal(isObservation(moved), false, "a followed redirect still lands somewhere we did not declare");
+  assert.equal(refused.refused, "redirect-would-change-method");
+  assert.equal(isObservation(refused), false);
+  assert.match(describeProvenance(refused), /Refused\./);
+  assert.match(describeProvenance(moved), /not the declared/);
+
+  const f = fleetCensus([
+    tenant("a", { provenance: clean }),
+    tenant("b", { provenance: moved }),
+    tenant("c", { provenance: refused }),
+  ]);
+  assert.deepEqual(f.unvouched, ["b", "c"]);
+  assert.equal(f.provenance.recorded, 3);
+  assert.equal(f.provenance.offDeclared, 1);
+  assert.equal(f.provenance.refused, 1);
+});
+
+test("a record with no provenance is not silently promoted to a vouched one", () => {
+  // Every row written before the field existed carries none. "We do not know
+  // how this was read" must not read as "we read it properly".
+  const f = fleetCensus([tenant("a"), tenant("b")]);
+  assert.equal(f.provenance.recorded, 0);
+  assert.deepEqual(f.unvouched, [], "nor is it flagged as a defect — it is unknown, and says so");
+  assert.equal(describeProvenance(null), "No provenance recorded for this pulse.");
+});
+
+/** Publish a fleet into a throwaway directory and hand back the artefacts. */
+function publishFleet(servers, site = { url: "https://example.invalid", repo: "he110/mcp-drift-registry" }) {
+  const dir = mkdtempSync(join(tmpdir(), "drift-fleet-"));
+  const store = new Store(join(dir, "state"));
+  for (const s of servers) {
+    store.writeServer({ ...s, toolCount: s.tools.length, firstSeenAt: AT, lastCheckedAt: AT, changeCount: 0 });
+  }
+  const outDir = join(dir, "site");
+  publish({ store, outDir, at: AT, config: { site, servers: [] } });
+  const read = (p) => readFileSync(join(outDir, p), "utf8");
+  return { dir, read, json: (p) => JSON.parse(read(p)) };
+}
+
+test("the census prose cannot outlive its data: two variants never print four", () => {
+  // The one editorial rule this whole site rests on. Note № 01 derives every
+  // threshold-dependent word from the sample; Note № 02 has to do the same, or
+  // it becomes a page that was true on the day somebody typed it.
+  const { dir, read, json } = publishFleet([tenant("a"), tenant("b"), tenant("c", { optional: ["version"] })]);
+  try {
+    const page = read("notes/fleet.html");
+
+    assert.match(page, /3 tenants,<br><em>two contracts<\/em>/);
+    assert.match(page, /two distinct schema fingerprints<\/strong> across 3 tenants/);
+    assert.match(page, /Two variants, no remainder/);
+    assert.ok(!page.includes("four"), "the numeral is spelled from the count, never typed into the prose");
+    assert.match(page, /every variant requires <code>query<\/code> and every variant is closed/);
+
+    // The JSON published on the same pulse is the same measurement, not a second one.
+    const api = json("api/fleet.json");
+    assert.equal(api.total, 3);
+    assert.equal(api.variants.length, 2);
+    assert.equal(api.crossProduct.complete, true);
+    assert.deepEqual(api.optionalUnion, ["version"]);
+
+    // And it is reachable from everywhere Note № 01 is.
+    assert.match(read("index.html"), /notes\/fleet\.html/);
+    assert.match(read("sitemap.xml"), /notes\/fleet\.html/);
+    assert.match(read("notes/one-template.html"), /one-template/);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("an incomplete matrix changes the page, not just the JSON", () => {
+  const { dir, read } = publishFleet([
+    tenant("a"),
+    tenant("d", { optional: ["version"] }),
+    tenant("g", { optional: ["language", "version"] }),
+  ]);
+  try {
+    const page = read("notes/fleet.html");
+    assert.match(page, /Three variants, and a remainder/);
+    assert.match(page, /do <strong>not<\/strong> line up with the power set/);
+    assert.ok(!page.includes("no remainder"));
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("an unvouched row is marked on the census, not quietly listed as a contract", () => {
+  const { dir, read } = publishFleet([
+    tenant("a", { provenance: provenanceOf("a") }),
+    tenant("b", {
+      optional: ["version"],
+      provenance: buildProvenance({
+        declaredUrl: "https://b.example.invalid/mcp",
+        at: AT,
+        trace: {
+          finalUrl: "https://elsewhere.example.invalid/mcp",
+          hops: [{ status: 308, to: "https://elsewhere.example.invalid/mcp", preservesMethod: true }],
+        },
+        via: DIRECT,
+        envelope: "json-rpc",
+      }),
+    }),
+  ]);
+  try {
+    const page = read("notes/fleet.html");
+    assert.match(page, /class="flag" title="[^"]*">unvouched/);
+    assert.match(page, /<strong>1 row is not vouched for and is marked as such above\.<\/strong>/);
+    // Counts in the prose agree in number with themselves. A page that says
+    // "1 were read" is a page a reader stops believing on the next sentence.
+    assert.match(page, /1 was read from a URL other than the one declared/);
+    assert.ok(!page.includes("1 were read"));
+
+    // And the server page for it does not present the contract as an observation.
+    const server = read("servers/b.html");
+    assert.match(server, /notice--suspect/);
+    assert.match(server, /The URL read is not the URL declared/);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("a hostile tenant name and id reach the census escaped", () => {
+  const evil = '<script>alert(1)</script>';
+  const { dir, read } = publishFleet([
+    tenant("a"),
+    { ...tenant('evil"><script>alert(2)</script>', { optional: ["version"], name: evil }), url: "https://evil.example.invalid/mcp" },
+  ]);
+  try {
+    const page = read("notes/fleet.html");
+    assert.ok(!page.includes(evil), "a vendor-controlled name is not markup");
+    assert.ok(!page.includes("<script>alert(2)</script>"));
+    assert.match(page, /&lt;script&gt;alert\(1\)&lt;\/script&gt;/);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
 });
