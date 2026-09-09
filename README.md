@@ -19,6 +19,12 @@ against the previous snapshot.
 22 contract families, which is a ceiling and not a floor. Every figure on that page is
 regenerated from state each pulse, and every command on it is runnable.
 
+**Then look up the endpoint you actually call:**
+[51 tenants, four contracts](https://he110.github.io/mcp-drift-registry/notes/fleet.html)
+— the endpoints on that hosted template do not all serve the same `search_*` schema. One row
+per endpoint, with the parameters it accepts, published as `/api/fleet.json` and printable
+locally with `node bin/fleet.js`.
+
 ## What it catches that a changelog cannot
 
 **Silent drift** — the input schema moved while the human-readable description stayed
@@ -41,8 +47,13 @@ Everything is static, CORS-open, and needs no key or account.
 GET /api/registry.json          all servers, tool counts, fingerprints
 GET /api/events.json            the change stream, newest first
 GET /api/servers/<id>.json      one server: full contract + its history
+GET /api/fleet.json             the fleet census: endpoint -> schema variant
 GET /events.atom                the same stream as Atom
 ```
+
+Every record also carries its own provenance — the URL that actually answered, whether that
+is the URL we declared, any redirect in between, and which of the two contract paths read it.
+A row obtained over a path we will not vouch for is published as such rather than dropped.
 
 ## How it works
 
@@ -66,6 +77,7 @@ cron ─► tools/list ─► canonicalise ─► fingerprint ─► structural 
 node bin/pulse.js --dry-run   # collect and diff, write nothing
 node bin/pulse.js             # collect, diff, write state/, build site/
 node bin/pulse.js --publish-only
+node bin/fleet.js             # the fleet census from committed state, no network
 node --test test/
 ```
 

@@ -39,7 +39,7 @@ function spell(n) {
 }
 
 /** The tool-name signature of the large hosted docs template. */
-const SIGNATURE = "query_docs_filesystem_";
+export const SIGNATURE = "query_docs_filesystem_";
 
 export function noteFacts(servers) {
   const total = servers.length;

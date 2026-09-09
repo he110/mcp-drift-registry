@@ -3,6 +3,8 @@ import { dirname, join } from "node:path";
 import { STYLESHEET } from "./theme.js";
 import { esc, inlineCode } from "./html.js";
 import { noteBody } from "./note.js";
+import { fleetBody, fleetCensus } from "./fleet.js";
+import { describeProvenance, isObservation, summarizeProvenance } from "../lib/provenance.js";
 import { sanitize } from "../lib/store.js";
 
 export { esc, inlineCode };
@@ -39,6 +41,7 @@ export function publish({ store, outDir, config, at }) {
   write(join(outDir, "assets/style.css"), STYLESHEET);
   write(join(outDir, "index.html"), renderIndex(ctx));
   write(join(outDir, "notes/one-template.html"), renderNote(ctx));
+  write(join(outDir, "notes/fleet.html"), renderFleet(ctx));
   write(join(outDir, "events.atom"), renderAtom(ctx));
   write(join(outDir, "robots.txt"), `User-agent: *\nAllow: /\nSitemap: ${base}/sitemap.xml\n`);
   write(join(outDir, "sitemap.xml"), renderSitemap(ctx));
@@ -52,9 +55,11 @@ export function publish({ store, outDir, config, at }) {
     generatedAt: at,
     site: base,
     counts: counts(ctx),
+    provenance: summarizeProvenance(servers),
     servers: servers.map(summarize),
   });
   writeJson(join(outDir, "api/events.json"), { generatedAt: at, count: events.length, events: events.slice(0, 500) });
+  writeJson(join(outDir, "api/fleet.json"), { generatedAt: at, ...fleetCensus(servers) });
   writeJson(join(outDir, "api/meta.json"), { generatedAt: at, ...meta });
   for (const server of servers) {
     writeJson(join(outDir, "api/servers", `${sanitize(server.id)}.json`), {
@@ -65,6 +70,11 @@ export function publish({ store, outDir, config, at }) {
       stability: stability(server),
       flapCount: (server.reachability ?? []).length,
       platform: server.platform ?? null,
+      provenance: server.provenance ?? null,
+      // The one-line reading of the object above, so a consumer does not have
+      // to reimplement the interpretation to know what it is holding.
+      provenanceSummary: describeProvenance(server.provenance),
+      observed: server.provenance ? isObservation(server.provenance) : null,
       events: events.filter((e) => e.server === server.id).slice(0, 200),
     });
   }
@@ -104,6 +114,7 @@ function renderIndex(ctx) {
               : ""
           }. One template change there moves dozens of rows on the same day, and that is one event, not dozens.
           <a href="notes/one-template.html">How that was measured &rarr;</a>
+          <a href="notes/fleet.html">Which contract each of them serves &rarr;</a>
         </p>
         <div class="key">
           <div class="key__row"><span class="sev sev--breaking">breaking</span><span>a parameter or enum value disappeared, a type changed, or a field became required</span></div>
@@ -184,6 +195,7 @@ GET ${esc(base)}/api/servers/&lt;id&gt;.json</pre>
     </div>
     <div class="actions">
       <a class="btn" href="notes/one-template.html">Note № 01: the sample</a>
+      <a class="btn" href="notes/fleet.html">Note № 02: the fleet census</a>
       <a class="btn" href="events.atom">Atom feed</a>
       <a class="btn" href="api/registry.json">registry.json</a>
       <a class="btn btn--accent" href="${esc(issueUrl)}?title=Add+server%3A+&amp;body=Endpoint+URL%3A%0AWhy+it+belongs+in+the+registry%3A">Submit a server</a>
@@ -223,6 +235,31 @@ GET ${esc(base)}/api/servers/&lt;id&gt;.json</pre>
         }
       </div>
       <div class="panel">
+        <div class="panel__title">How the rows were read</div>
+        ${
+          c.provenance.recorded
+            ? `<p>${c.provenance.direct} of ${c.provenance.recorded} contracts came back from a direct <code>POST</code>;
+        ${c.provenance.handshake} needed a full <code>initialize</code> handshake. ${
+          c.provenance.sse ? `${c.provenance.sse} arrived as an SSE stream rather than a plain body. ` : ""
+        }${
+          c.provenance.redirected
+            ? `${c.provenance.redirected} went through a method-preserving redirect`
+            : "None went through a redirect"
+        }, and ${
+          c.provenance.offDeclared
+            ? `<strong>${c.provenance.offDeclared} ${c.provenance.offDeclared === 1 ? "was" : "were"} read from a URL other than the declared one</strong>`
+            : "every one was read from the URL declared here"
+        }.</p>
+        <p>${
+          c.provenance.refused
+            ? `<strong>${c.provenance.refused} endpoint${c.provenance.refused === 1 ? "" : "s"} answered with a redirect that would have turned the probe into a page request.</strong> Refused rather than followed: the record says so and carries no contract.`
+            : "A redirect that would change the method is refused, not followed — a page fetched instead of an endpoint is not an observation, and every record says which of the two it is."
+        }</p>`
+            : `<p>Provenance is recorded from the pulse that introduced it onward. Records written earlier carry
+        none, and say so rather than implying a method they never had.</p>`
+        }
+      </div>
+      <div class="panel">
         <div class="panel__title">Schedule</div>
         <p>Pulses are idempotent against the last committed snapshot, so a delayed or skipped run costs latency and nothing else. First pulse ${esc(shortDate(meta.firstRunAt))}.</p>
       </div>
@@ -254,6 +291,23 @@ function renderNote(ctx) {
     canonical: `${ctx.base}/notes/one-template.html`,
     assets: "../",
     body: noteBody(ctx, c),
+  });
+}
+
+/**
+ * The census is the same page discipline as the note: rendered from `ctx` on
+ * the pulse that produced the state, so the table and the ledger are the same
+ * measurement rendered twice rather than two measurements that agree today.
+ */
+function renderFleet(ctx) {
+  const f = fleetCensus(ctx.servers);
+  return page({
+    ctx,
+    title: `${f.total} tenants of one MCP template, ${f.variants.length} contracts — MCP Drift Registry`,
+    description: `Which schema variant each of the ${f.total} tenants of the ${f.platform ?? "shared"} MCP docs template is serving, by name, regenerated every pulse.`,
+    canonical: `${ctx.base}/notes/fleet.html`,
+    assets: "../",
+    body: fleetBody(ctx),
   });
 }
 
@@ -299,6 +353,7 @@ function renderServer(server, ctx) {
           endpoints in this registry. A change here is likely to appear on all of them at once — count it as one event.</p>`
         : ""
     }
+    ${renderProvenance(server)}
   </div>
 </header>
 
@@ -314,7 +369,8 @@ function renderServer(server, ctx) {
   <section>
     <div class="section__head">
       <h2><span class="num">02</span>Current contract</h2>
-      <p class="section__note">As returned by <code>tools/list</code> on the last successful pulse.</p>
+      <p class="section__note">As returned by <code>tools/list</code> on the last successful pulse.
+      ${esc(describeProvenance(server.provenance))}</p>
     </div>
     ${server.status !== "ok"
       ? `<p class="empty">Endpoint did not answer: ${esc(server.error ?? "unknown error")}</p>`
@@ -367,6 +423,36 @@ function renderEvent(e) {
       : ""}
   </div>
 </article>`;
+}
+
+/**
+ * How this record was obtained, on the page rather than in a log.
+ *
+ * The failure this answers to was not that the pipeline lacked a check. It was
+ * that a record which had come back from the wrong resource, over a redirect
+ * that silently turned the POST into a GET, looked exactly like every other
+ * record on the site. A human caught it an hour before it would have been used
+ * to name a vendor in public. The fix is not a better check — it is that the
+ * method is published beside the result, so the next instance of "we read
+ * something other than what we think we read" is visible to any reader rather
+ * than to whoever happens to audit it.
+ */
+function renderProvenance(server) {
+  const p = server.provenance;
+  if (!p) {
+    return `<p class="notice notice--method"><span class="stamp">Provenance</span> Not recorded for this
+      record. It predates the field and will carry one from the next pulse.</p>`;
+  }
+  const suspect = !isObservation(p);
+  return `<p class="notice${suspect ? " notice--suspect" : " notice--method"}">
+    <span class="stamp">${suspect ? "Not an observation" : "Provenance"}</span>
+    ${esc(describeProvenance(p))}
+    ${
+      p.urlMatchesDeclared === false
+        ? ` <strong>The URL read is not the URL declared</strong>, so anything below describes
+          <code>${esc(p.observedUrl ?? "")}</code> and not necessarily <code>${esc(p.declaredUrl ?? "")}</code>.`
+        : ""
+    }</p>`;
 }
 
 function renderLedgerRow(s, ctx) {
@@ -483,6 +569,7 @@ function renderSitemap(ctx) {
   const urls = [
     `${ctx.base}/`,
     `${ctx.base}/notes/one-template.html`,
+    `${ctx.base}/notes/fleet.html`,
     ...ctx.servers.map((s) => `${ctx.base}/servers/${sanitize(s.id)}.html`),
   ];
   return `<?xml version="1.0" encoding="utf-8"?>
@@ -506,6 +593,7 @@ function counts(ctx) {
   const families = platformFamilies(servers);
   return {
     servers: servers.length,
+    provenance: summarizeProvenance(servers),
     ...families,
     ok: servers.filter((s) => s.status === "ok" && !isUnstable(s)).length,
     unstable: unstable.length,
@@ -577,6 +665,11 @@ function summarize(s) {
     lastCheckedAt: s.lastCheckedAt,
     lastChangedAt: s.lastChangedAt,
     changeCount: s.changeCount ?? 0,
+    // How this row was obtained, beside the row itself. A consumer that wants
+    // to filter out anything read over a redirect can do it without a second
+    // request, and one that does not can at least see that we know.
+    provenance: s.provenance ?? null,
+    observed: s.provenance ? isObservation(s.provenance) : null,
     tools: (s.tools ?? []).map((t) => ({ name: t.name, schemaFingerprint: t.schemaFingerprint })),
   };
 }

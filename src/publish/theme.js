@@ -121,6 +121,29 @@ code, .mono { font-family: inherit; }
 }
 .notice strong { color: var(--ink); font-weight: 600; }
 .notice .flag { margin: 0 0.35rem 0 0; }
+
+/* How a record was read is routine metadata and is set as such: a hairline
+   rule, no colour, no alarm. It is on the page because it must be checkable,
+   not because it is news. */
+.notice--method { border-left-color: var(--rule); color: var(--ink-faint); }
+.notice--method code { color: var(--ink-soft); }
+.notice--method .stamp { color: var(--ink-faint); border-color: var(--rule); }
+
+/* "This is not an observation" is a defect in our own instrument, not a
+   breaking change in somebody's contract — so it must be impossible to miss
+   and must not borrow the vermilion reserved for contract damage. It gets the
+   hatching a clerk rules across a voided entry. */
+.notice--suspect {
+  border-left: 2px solid var(--ink);
+  color: var(--ink);
+  padding: 0.7rem 0.9rem;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent 0 6px,
+    rgba(23, 21, 15, 0.055) 6px 7px
+  );
+}
+.notice--suspect .stamp { color: var(--ink); border-color: var(--ink); }
 .masthead__grid { display: grid; gap: clamp(1.25rem, 4vw, 4rem); align-items: end; }
 @media (min-width: 62rem) {
   .masthead__grid { grid-template-columns: minmax(0, 1.35fr) minmax(16rem, 0.65fr); }
@@ -295,6 +318,54 @@ h2 .num {
   white-space: nowrap;
 }
 .ledger__row--quarantined .ledger__name a { color: var(--ink-soft); }
+
+/* --- census: a register, not a bulletin ---------------------------------- */
+/*
+   Fifty-one rows read at a reading measure. The ledger's rhythm is wrong here:
+   the ledger is scanned for the one row that moved, the census is looked up by
+   name and then read across. So the rows tighten, the header stays put while
+   the eye travels, and the only thing carrying weight is the answer the reader
+   came for — which of the variants this tenant serves.
+*/
+/* The one element allowed out of the reading measure. A register of fifty-odd
+   rows set to 46rem is cramped for no reason; a printed report would fold this
+   one table out wider than its own column, so this one does. */
+.census__spread {
+  width: min(var(--measure), calc(100vw - 2 * clamp(1rem, 4vw, 3rem)));
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+.census { font-size: 12.5px; margin-top: 1.4rem; }
+.census th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--paper);
+  padding-top: 0.7rem;
+}
+.census td { padding: 0.5rem 0.75rem 0.5rem 0; }
+.census .ledger__name { font-weight: 500; }
+.census .ledger__name a { text-decoration: none; border-bottom: 1px solid var(--rule); }
+.census .ledger__name a:hover { border-bottom-color: var(--ink); }
+
+/* The distinguishing cell. A tenant with no extra parameters is the majority
+   case and recedes to a dash; anything else is boxed, so a reader scrolling
+   the register sees the exceptions without reading a word. */
+.census__variant code {
+  display: inline-block;
+  font-size: 11px;
+  border: 1px solid var(--rule);
+  background: var(--paper-deep);
+  padding: 0.05rem 0.35rem;
+  margin: 0 0.25rem 0.1rem 0;
+}
+.census__none { color: var(--ink-faint); }
+
+/* Variant number, set as a call-number: the reader carries it back up to the
+   table in section 02 and nowhere else. */
+.census .ledger__num { color: var(--ink-faint); font-size: 11px; }
+.census .ledger__num::before { content: 'V'; letter-spacing: 0.1em; }
+.census thead .ledger__num::before { content: ''; }
 
 /* --- prose + panels ------------------------------------------------------ */
 
