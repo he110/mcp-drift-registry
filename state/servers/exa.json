@@ -80,7 +80,7 @@
   "toolCount": 2,
   "fingerprint": "ab68e01795563113",
   "lastGood": {
-    "at": "2026-09-09T10:55:17.881Z",
+    "at": "2026-09-09T10:56:15.462Z",
     "tools": [
       {
         "name": "web_fetch_exa",
@@ -154,8 +154,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-09T10:55:17.881Z",
-  "lastOkAt": "2026-09-09T10:55:17.881Z",
+  "lastCheckedAt": "2026-09-09T10:56:15.462Z",
+  "lastOkAt": "2026-09-09T10:56:15.462Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

@@ -98,7 +98,7 @@
   "toolCount": 3,
   "fingerprint": "d8a789a6db57a221",
   "lastGood": {
-    "at": "2026-09-09T10:55:17.881Z",
+    "at": "2026-09-09T10:56:15.462Z",
     "tools": [
       {
         "name": "query_docs_filesystem_helicone_oss_llm_observability",
@@ -190,8 +190,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-09T10:55:17.881Z",
-  "lastOkAt": "2026-09-09T10:55:17.881Z",
+  "lastCheckedAt": "2026-09-09T10:56:15.462Z",
+  "lastOkAt": "2026-09-09T10:56:15.462Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

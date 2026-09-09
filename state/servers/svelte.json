@@ -189,7 +189,7 @@
   "toolCount": 4,
   "fingerprint": "186bae06bc1b96ee",
   "lastGood": {
-    "at": "2026-09-09T10:55:17.881Z",
+    "at": "2026-09-09T10:56:15.462Z",
     "tools": [
       {
         "name": "get-documentation",
@@ -372,8 +372,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-09T10:55:17.881Z",
-  "lastOkAt": "2026-09-09T10:55:17.881Z",
+  "lastCheckedAt": "2026-09-09T10:56:15.462Z",
+  "lastOkAt": "2026-09-09T10:56:15.462Z",
   "lastChangedAt": null,
   "changeCount": 0
 }
