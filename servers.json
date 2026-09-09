@@ -188,7 +188,8 @@
       "name": "Dub Docs",
       "vendor": "Dub",
       "url": "https://dub.co/docs/mcp",
-      "homepage": "https://dub.co"
+      "homepage": "https://dub.co",
+      "platform": "mintlify-docs"
     },
     {
       "id": "dust-docs",
@@ -256,14 +257,16 @@
       "name": "GitMCP (docs)",
       "vendor": "GitMCP",
       "url": "https://gitmcp.io/docs",
-      "homepage": "https://gitmcp.io"
+      "homepage": "https://gitmcp.io",
+      "platform": "gitmcp"
     },
     {
       "id": "gitmcp-repo",
       "name": "GitMCP (repo mode)",
       "vendor": "GitMCP",
       "url": "https://gitmcp.io/modelcontextprotocol/servers",
-      "homepage": "https://gitmcp.io"
+      "homepage": "https://gitmcp.io",
+      "platform": "gitmcp"
     },
     {
       "id": "gumlet-docs",
@@ -440,7 +443,8 @@
       "name": "Novu Docs",
       "vendor": "Novu",
       "url": "https://docs.novu.co/mcp",
-      "homepage": "https://novu.co"
+      "homepage": "https://novu.co",
+      "platform": "mintlify-docs"
     },
     {
       "id": "perplexity-docs",
@@ -511,7 +515,8 @@
       "name": "Resend Docs",
       "vendor": "Resend",
       "url": "https://resend.com/docs/mcp",
-      "homepage": "https://resend.com/docs"
+      "homepage": "https://resend.com/docs",
+      "platform": "mintlify-docs"
     },
     {
       "id": "retell-docs",
@@ -557,14 +562,16 @@
       "name": "Together AI Docs",
       "vendor": "Together AI",
       "url": "https://docs.together.ai/mcp",
-      "homepage": "https://together.ai"
+      "homepage": "https://together.ai",
+      "platform": "mintlify-docs"
     },
     {
       "id": "trigger-docs",
       "name": "Trigger.dev Docs",
       "vendor": "Trigger.dev",
       "url": "https://docs.trigger.dev/mcp",
-      "homepage": "https://trigger.dev"
+      "homepage": "https://trigger.dev",
+      "platform": "mintlify-docs"
     },
     {
       "id": "turso-docs",
