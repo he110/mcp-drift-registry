@@ -144,7 +144,7 @@
   "toolCount": 5,
   "fingerprint": "aeb2e58da33afc98",
   "lastGood": {
-    "at": "2026-09-09T11:16:52.889Z",
+    "at": "2026-09-09T11:37:31.323Z",
     "tools": [
       {
         "name": "fetch",
@@ -281,8 +281,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-09T11:16:52.889Z",
-  "lastOkAt": "2026-09-09T11:16:52.889Z",
+  "lastCheckedAt": "2026-09-09T11:37:31.323Z",
+  "lastOkAt": "2026-09-09T11:37:31.323Z",
   "lastChangedAt": null,
   "changeCount": 0
 }
