@@ -12,6 +12,18 @@
     "name": "GitMCP",
     "version": "1.1.0"
   },
+  "provenance": {
+    "at": "2026-09-09T15:51:10.225Z",
+    "declaredUrl": "https://gitmcp.io/modelcontextprotocol/servers",
+    "observedUrl": "https://gitmcp.io/modelcontextprotocol/servers",
+    "urlMatchesDeclared": true,
+    "redirected": false,
+    "redirects": [],
+    "via": "initialize-handshake",
+    "envelope": "sse",
+    "methodChangingRedirect": false,
+    "refused": null
+  },
   "tools": [
     {
       "name": "fetch_generic_url_content",
@@ -137,7 +149,7 @@
   "toolCount": 4,
   "fingerprint": "fd0ead00efcfdb90",
   "lastGood": {
-    "at": "2026-09-09T12:09:23.845Z",
+    "at": "2026-09-09T15:51:10.225Z",
     "tools": [
       {
         "name": "fetch_generic_url_content",
@@ -264,8 +276,28 @@
     "protocolVersion": "2025-03-26"
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-09T12:09:23.845Z",
-  "lastOkAt": "2026-09-09T12:09:23.845Z",
+  "lastCheckedAt": "2026-09-09T15:51:10.225Z",
+  "lastOkAt": "2026-09-09T15:51:10.225Z",
   "lastChangedAt": null,
-  "changeCount": 0
+  "changeCount": 0,
+  "card": {
+    "id": "gitmcp-repo",
+    "cardUrl": "https://gitmcp.io/.well-known/mcp/server-card.json",
+    "at": "2026-09-09T15:51:10.225Z",
+    "status": "not_json",
+    "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON",
+    "card": null,
+    "provenance": {
+      "at": "2026-09-09T15:51:10.225Z",
+      "declaredUrl": "https://gitmcp.io/.well-known/mcp/server-card.json",
+      "observedUrl": "https://gitmcp.io/.well-known/mcp/server-card.json",
+      "urlMatchesDeclared": true,
+      "redirected": false,
+      "redirects": [],
+      "via": "well-known-get",
+      "envelope": "json",
+      "methodChangingRedirect": false,
+      "refused": null
+    }
+  }
 }

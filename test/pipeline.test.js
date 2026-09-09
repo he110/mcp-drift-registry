@@ -23,7 +23,9 @@ import { createServer } from "node:http";
 import { esc, inlineCode, isUnstable, platformFamilies, publish } from "../src/publish/render.js";
 import { noteFacts, SIGNATURE } from "../src/publish/note.js";
 import { fleetCensus } from "../src/publish/fleet.js";
-import { DIRECT, buildProvenance, describeProvenance, isObservation } from "../src/lib/provenance.js";
+import { DIRECT, WELL_KNOWN, buildProvenance, describeProvenance, isCardObservation, isObservation } from "../src/lib/provenance.js";
+import { readCard, cardUrlFor, OFFICIAL_SCHEMA } from "../src/sources/card.js";
+import { advertisedCensus, compareCard } from "../src/lib/advertised.js";
 import { Store } from "../src/lib/store.js";
 
 const AT = "2026-01-01T00:00:00.000Z";
@@ -1243,4 +1245,198 @@ test("a hostile tenant name and id reach the census escaped", () => {
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
+});
+
+
+// --- advertised versus served -----------------------------------------------
+//
+// The axis added in cycle 9. Its whole risk is category confusion: a static
+// disagreement between two documents is not drift, the two must never be able
+// to reach the same counter, and a card read badly must never be reported as a
+// vendor's defect. Every test below is about one of those three.
+
+const cardRead = (over = {}) => ({
+  id: "t",
+  cardUrl: "https://docs.example.com/.well-known/mcp/server-card.json",
+  status: "ok",
+  provenance: buildProvenance({
+    declaredUrl: "https://docs.example.com/.well-known/mcp/server-card.json",
+    at: AT,
+    trace: { finalUrl: "https://docs.example.com/.well-known/mcp/server-card.json", hops: [] },
+    via: WELL_KNOWN,
+    envelope: "json",
+  }),
+  card: readCard({ url: "https://docs.example.com/mcp", tools: [{ name: "search", description: "Search the docs.", inputSchema: tool().inputSchema }] }),
+  ...over,
+});
+
+const servedServer = (over = {}) => ({
+  id: "t",
+  status: "ok",
+  url: "https://docs.example.com/mcp",
+  platform: "hosted",
+  tools: [tool()],
+  provenance: buildProvenance({
+    declaredUrl: "https://docs.example.com/mcp",
+    at: AT,
+    trace: { finalUrl: "https://docs.example.com/mcp", hops: [] },
+    via: DIRECT,
+    envelope: "json-rpc",
+  }),
+  ...over,
+});
+
+test("a card is vouched for by the rule written for cards, not the one written for contracts", () => {
+  // The bug this pins down shipped and was caught in the same hour: cards are
+  // fetched with GET, `isObservation` demands one of the two *contract* paths,
+  // and so every card ever read came back unvouched — a census that quietly
+  // disowned all of its own evidence while still printing it.
+  const p = cardRead().provenance;
+  assert.equal(isObservation(p), false, "a GET is not a contract path, and must not pretend to be");
+  assert.equal(isCardObservation(p), true);
+  assert.equal(compareCard(cardRead(), servedServer()).vouched, true);
+});
+
+test("a card fetched off the declared host is not vouched for", () => {
+  const read = cardRead({
+    provenance: buildProvenance({
+      declaredUrl: "https://docs.example.com/.well-known/mcp/server-card.json",
+      at: AT,
+      trace: { finalUrl: "https://shared.host.invalid/.well-known/mcp/server-card.json", hops: [{ status: 308, to: "https://shared.host.invalid/.well-known/mcp/server-card.json", preservesMethod: true }] },
+      via: WELL_KNOWN,
+      envelope: "json",
+    }),
+  });
+  assert.equal(compareCard(read, servedServer()).vouched, false);
+});
+
+test("a tool served but not advertised is the finding; the reverse is a different finding", () => {
+  const server = servedServer({ tools: [tool(), tool({ name: "submit_feedback" })] });
+  const row = compareCard(cardRead(), server);
+  assert.equal(row.state, "diverges");
+  assert.deepEqual(
+    row.divergences.filter((d) => d.kind === "served_not_advertised").map((d) => d.tool),
+    ["submit_feedback"],
+  );
+  assert.equal(row.divergences.some((d) => d.kind === "advertised_not_served"), false);
+});
+
+test("a schema mismatch records which side said what, because the direction is the finding", () => {
+  const server = servedServer({
+    tools: [tool({ inputSchema: { ...tool().inputSchema, additionalProperties: false } })],
+  });
+  const d = compareCard(cardRead(), server).divergences.find((x) => x.kind === "schema_mismatch");
+  const change = d.changes.find((c) => c.path === "additionalProperties");
+  assert.equal(change.advertised, undefined, "the card omitted it");
+  assert.equal(change.served, "false", "the live endpoint declared it");
+});
+
+test("a card that declines to describe an input is not a card that describes it as empty", () => {
+  // `inputSchema: null` means the document said nothing. Comparing that against
+  // a real schema manufactures a mismatch out of an omission, and a census that
+  // does it reports the platform for our own parsing decision.
+  const read = cardRead({ card: readCard({ url: "https://docs.example.com/mcp", tools: [{ name: "search", description: "Search the docs." }] }) });
+  const row = compareCard(read, servedServer());
+  assert.equal(row.divergences.some((d) => d.kind === "schema_mismatch"), false);
+});
+
+test("a card naming a host other than the endpoint it sits beside is recorded as such", () => {
+  const read = cardRead({
+    card: readCard({ url: "https://tenant.internal-build.invalid/mcp", tools: [{ name: "search", description: "Search the docs.", inputSchema: tool().inputSchema }] }),
+  });
+  const d = compareCard(read, servedServer()).divergences.find((x) => x.kind === "endpoint_mismatch");
+  assert.deepEqual(d.advertised, ["https://tenant.internal-build.invalid/mcp"]);
+  assert.equal(d.served, "https://docs.example.com/mcp");
+});
+
+test("an official-schema card advertises a location, not a catalogue, and is not counted as a defect", () => {
+  const read = cardRead({
+    card: readCard({ $schema: OFFICIAL_SCHEMA, name: "com.readme/x", remotes: [{ type: "streamable-http", url: "https://docs.example.com/mcp" }] }),
+  });
+  const row = compareCard(read, servedServer());
+  assert.equal(row.state, "no_tools_advertised");
+  assert.equal(row.comparable, false);
+  assert.equal(row.official, true);
+});
+
+test("an unreadable card is our problem and an absent one is a fact, and they are not the same row", () => {
+  assert.equal(compareCard({ id: "t", status: "absent", card: null }, servedServer()).state, "no_card");
+  assert.equal(compareCard({ id: "t", status: "error", card: null }, servedServer()).state, "card_unreadable");
+  assert.equal(compareCard(undefined, servedServer()).state, "card_unknown", "no reading is not a claim about the vendor");
+  assert.equal(compareCard(cardRead(), servedServer({ status: "error", tools: [] })).state, "server_unreadable");
+});
+
+test("the divergence rate is taken over endpoints that publish a list, never over the fleet", () => {
+  // Thirty-nine endpoints that advertise nothing cannot dilute — or inflate —
+  // a statement about the ones that do. The headline is two numbers precisely
+  // so that it cannot be quoted as a percentage of anything else.
+  const servers = [
+    { ...servedServer({ id: "a" }), card: cardRead({ id: "a" }) },
+    { ...servedServer({ id: "b", tools: [tool(), tool({ name: "extra" })] }), card: cardRead({ id: "b" }) },
+    { ...servedServer({ id: "c" }), card: { id: "c", status: "absent", card: null } },
+  ];
+  const census = advertisedCensus(servers, AT);
+  assert.equal(census.total, 3);
+  assert.equal(census.comparable, 2);
+  assert.equal(census.diverging, 1);
+  assert.equal(census.states.no_card, 1);
+  assert.deepEqual(census.byPlatform, { hosted: 1 });
+});
+
+test("a divergence between two simultaneous documents never becomes a drift event", () => {
+  // The invariant the whole axis rests on. K5 asks whether contracts *moved*
+  // this month; a card disagreeing with its own endpoint is not movement, and
+  // forty such rows landing in the event stream would answer that question with
+  // a number describing one build pipeline. `buildEvents` is not given cards at
+  // all — this test exists so that stays true when somebody is tempted to pass
+  // them in for convenience.
+  const prev = { ...servedServer(), card: cardRead() };
+  const next = { ...servedServer(), card: cardRead({ card: readCard({ url: "https://elsewhere.invalid/mcp", tools: [] }) }) };
+  const events = buildEvents(prev, next, AT);
+  assert.deepEqual(events, [], "the card moved and the contract did not; nothing happened");
+});
+
+test("the census is reproducible from state alone, with the card it makes claims about", () => {
+  // The cycle-8 rule, applied to the new axis: do not cite an artefact as proof
+  // of something the artefact does not contain. A row asserting "this card omits
+  // a tool" is only checkable if the card travels with it.
+  const server = { ...servedServer({ tools: [tool(), tool({ name: "submit_feedback" })] }), card: cardRead() };
+  const row = advertisedCensus([server], AT).rows[0];
+  assert.equal(row.advertisedCount, 1);
+  assert.equal(row.servedCount, 2);
+  assert.equal(server.card.card.tools[0].name, "search", "the card itself is in the state the row is derived from");
+});
+
+test("a card path is derived from the origin, not glued onto the endpoint path", () => {
+  assert.equal(cardUrlFor("https://docs.example.com/mcp"), "https://docs.example.com/.well-known/mcp/server-card.json");
+  assert.equal(cardUrlFor("https://docs.example.com/docs/deep/mcp"), "https://docs.example.com/.well-known/mcp/server-card.json");
+  assert.equal(cardUrlFor("not a url"), null);
+});
+
+test("rows collected before provenance existed are neither vouched for nor faulted", () => {
+  // Three states, not two. `unvouched` means "read badly and we know it";
+  // unknown is its own list, because an empty complaint list beside no other
+  // number reads to a visitor as a clean bill of health for rows whose reading
+  // was never recorded.
+  const f = fleetCensus([tenant("a"), tenant("b")]);
+  assert.deepEqual(f.unvouched, []);
+  assert.deepEqual(f.unknownProvenance, ["a", "b"]);
+  // The dangerous shape is the mixed one: some rows read cleanly, some never
+  // recorded how they were read. With no third state the page prints "every row
+  // ... vouched for" over rows it cannot describe the reading of.
+  const clean = tenant("c", {
+    provenance: buildProvenance({
+      declaredUrl: "https://c.example.invalid/mcp",
+      at: AT,
+      trace: { finalUrl: "https://c.example.invalid/mcp", hops: [] },
+      via: DIRECT,
+      envelope: "json-rpc",
+    }),
+  });
+  const mixed = fleetCensus([clean, tenant("a")]);
+  assert.deepEqual(mixed.unvouched, []);
+  assert.deepEqual(mixed.unknownProvenance, ["a"]);
+  const page = publishFleet([clean, tenant("a")]).read("notes/fleet.html");
+  assert.ok(!page.includes("Every row on this page is a contract this registry actually read"));
+  assert.ok(page.includes("neither vouched for nor faulted"));
 });

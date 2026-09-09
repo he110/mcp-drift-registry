@@ -4,6 +4,7 @@ import { STYLESHEET } from "./theme.js";
 import { esc, inlineCode } from "./html.js";
 import { noteBody } from "./note.js";
 import { fleetBody, fleetCensus } from "./fleet.js";
+import { advertisedCensus } from "../lib/advertised.js";
 import { describeProvenance, isObservation, summarizeProvenance } from "../lib/provenance.js";
 import { sanitize } from "../lib/store.js";
 
@@ -60,6 +61,16 @@ export function publish({ store, outDir, config, at }) {
   });
   writeJson(join(outDir, "api/events.json"), { generatedAt: at, count: events.length, events: events.slice(0, 500) });
   writeJson(join(outDir, "api/fleet.json"), { generatedAt: at, ...fleetCensus(servers) });
+  // Published as data and nowhere else on purpose.
+  //
+  // What each endpoint says about itself versus what it serves is one finding
+  // with one cause — a card built at deploy time against a runtime that ships
+  // separately — and it currently has exactly one owner. A page of forty rows
+  // would turn a single vendor bug into the appearance of a corpus, which is
+  // the flattering mistake this registry is built to avoid making about other
+  // people. So the evidence is here, complete, citable and reproducible with
+  // `node bin/advertised.js`, and there is no headline number anywhere.
+  writeJson(join(outDir, "api/advertised.json"), { generatedAt: at, ...advertisedCensus(servers, at) });
   writeJson(join(outDir, "api/meta.json"), { generatedAt: at, ...meta });
   for (const server of servers) {
     writeJson(join(outDir, "api/servers", `${sanitize(server.id)}.json`), {
@@ -185,6 +196,7 @@ function renderIndex(ctx) {
         <p>Static, versionless, CORS-open. No key, no rate limit, no account.</p>
         <pre>GET ${esc(base)}/api/registry.json
 GET ${esc(base)}/api/events.json
+GET ${esc(base)}/api/advertised.json
 GET ${esc(base)}/api/servers/&lt;id&gt;.json</pre>
       </div>
       <div class="panel">

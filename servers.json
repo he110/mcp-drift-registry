@@ -21,7 +21,8 @@
       "name": "Alpaca Docs",
       "vendor": "Alpaca",
       "url": "https://docs.alpaca.markets/mcp",
-      "homepage": "https://alpaca.markets"
+      "homepage": "https://alpaca.markets",
+      "platform": "openapi-explorer"
     },
     {
       "id": "anchor-browser-docs",

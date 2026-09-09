@@ -4,6 +4,7 @@ import { dirname, join } from "node:path";
 import { Store, readJson, writeJson } from "../src/lib/store.js";
 import { mapLimit } from "../src/lib/http.js";
 import { collectMcpServer } from "../src/sources/mcp.js";
+import { collectServerCard } from "../src/sources/card.js";
 import { checkCanary } from "../src/sources/canary.js";
 import { buildEvents } from "../src/lib/events.js";
 import { trackReachability } from "../src/lib/flap.js";
@@ -40,6 +41,15 @@ async function main() {
   console.log(`pulse ${at} — ${config.servers.length} servers`);
 
   const results = await mapLimit(config.servers, 6, (s) => collectMcpServer(s, at));
+
+  // What each endpoint *says about itself*, read beside what it serves.
+  //
+  // Deliberately a second pass over the same list rather than a step inside the
+  // collector: the card is a different document fetched from a different path
+  // by a different method, and a failure to read it must not be able to turn a
+  // perfectly good contract observation into an error. The two reads meet only
+  // in the record, each carrying its own provenance.
+  const cards = await mapLimit(config.servers, 6, (s) => collectServerCard(s, at));
 
   const allEvents = [];
   let okCount = 0;
@@ -98,6 +108,11 @@ async function main() {
       // stays readable instead of touching all 79 files for nothing.
       ...(transitions.length ? { reachability: transitions } : {}),
       ...(unstable ? { stability: "unstable" } : {}),
+      // The self-description, kept whole. A census that says "this card omits a
+      // tool" is only checkable if the card it says it about is in the state
+      // the reader cloned — citing a fingerprint here would repeat exactly the
+      // gap that made `registry.json` useless as evidence for schema claims.
+      card: cards[index]?.ok ? cards[index].value : null,
     };
 
     if (next.status === "ok") okCount += 1;

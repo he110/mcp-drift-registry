@@ -9,6 +9,18 @@
   "error": null,
   "protocolVersion": null,
   "serverInfo": null,
+  "provenance": {
+    "at": "2026-09-09T15:51:10.225Z",
+    "declaredUrl": "https://docs.lithic.com/mcp",
+    "observedUrl": "https://docs.lithic.com/mcp",
+    "urlMatchesDeclared": true,
+    "redirected": false,
+    "redirects": [],
+    "via": "direct-post",
+    "envelope": "sse",
+    "methodChangingRedirect": false,
+    "refused": null
+  },
   "tools": [
     {
       "name": "execute-request",
@@ -319,7 +331,7 @@
   "toolCount": 10,
   "fingerprint": "443200fc19421f4f",
   "lastGood": {
-    "at": "2026-09-09T12:09:23.845Z",
+    "at": "2026-09-09T15:51:10.225Z",
     "tools": [
       {
         "name": "execute-request",
@@ -631,8 +643,43 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-09T12:09:23.845Z",
-  "lastOkAt": "2026-09-09T12:09:23.845Z",
+  "lastCheckedAt": "2026-09-09T15:51:10.225Z",
+  "lastOkAt": "2026-09-09T15:51:10.225Z",
   "lastChangedAt": null,
-  "changeCount": 0
+  "changeCount": 0,
+  "card": {
+    "id": "lithic-docs",
+    "cardUrl": "https://docs.lithic.com/.well-known/mcp/server-card.json",
+    "at": "2026-09-09T15:51:10.225Z",
+    "status": "ok",
+    "error": null,
+    "card": {
+      "schema": "https://static.modelcontextprotocol.io/schemas/v1/server-card.schema.json",
+      "name": "com.readme/lithic",
+      "version": "1.0",
+      "endpoints": [
+        "https://docs.lithic.com/mcp"
+      ],
+      "remotes": [
+        {
+          "type": "streamable-http",
+          "url": "https://docs.lithic.com/mcp"
+        }
+      ],
+      "tools": null,
+      "toolCount": null
+    },
+    "provenance": {
+      "at": "2026-09-09T15:51:10.225Z",
+      "declaredUrl": "https://docs.lithic.com/.well-known/mcp/server-card.json",
+      "observedUrl": "https://docs.lithic.com/.well-known/mcp/server-card.json",
+      "urlMatchesDeclared": true,
+      "redirected": false,
+      "redirects": [],
+      "via": "well-known-get",
+      "envelope": "json",
+      "methodChangingRedirect": false,
+      "refused": null
+    }
+  }
 }

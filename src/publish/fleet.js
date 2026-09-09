@@ -77,6 +77,16 @@ export function fleetCensus(servers, { signature = SIGNATURE } = {}) {
     // A tenant whose row was not read over a path we vouch for has no business
     // being quoted as that tenant's contract.
     unvouched: tenants.filter((t) => t.provenance && !isObservation(t.provenance)).map((t) => t.id),
+    // The third state, and the reason it needs its own name.
+    //
+    // `unvouched` deliberately means "we know this was read badly", and a record
+    // written before provenance existed is not that — it is unknown, which is a
+    // different claim. But the two collapse for the reader: an empty `unvouched`
+    // beside no other number reads as a clean bill of health, and a page that
+    // vouches for fifty rows it cannot describe the reading of is making exactly
+    // the assertion this field exists to prevent. So unknown is counted out loud
+    // rather than inferred from the absence of a complaint.
+    unknownProvenance: tenants.filter((t) => !t.provenance).map((t) => t.id),
   };
 }
 
@@ -260,7 +270,18 @@ node bin/fleet.js --json | jq '.tenants[] | select(.optional | length &gt; 0)'</
         ? "every one of them was read from the URL this registry declares"
         : `${f.provenance.offDeclared} ${plural(f.provenance.offDeclared, "was", "were")} read from a URL other than the one declared`
     }.
-    ${f.unvouched.length ? `<strong>${f.unvouched.length} ${plural(f.unvouched.length, "row is", "rows are")} not vouched for and ${plural(f.unvouched.length, "is", "are")} marked as such above.</strong>` : "Every row on this page is a contract this registry actually read over a path it will vouch for."}`
+    ${f.unvouched.length ? `<strong>${f.unvouched.length} ${plural(f.unvouched.length, "row is", "rows are")} not vouched for and ${plural(f.unvouched.length, "is", "are")} marked as such above.</strong>` : ""}
+    ${
+      f.unknownProvenance.length
+        // The sentence below is the strongest claim on the page, so it is not
+        // allowed to be printed on partial evidence. A row whose reading was
+        // never recorded cannot be vouched for and cannot be faulted either;
+        // saying so is shorter than the alternative and true.
+        ? `${f.unknownProvenance.length} ${plural(f.unknownProvenance.length, "row was", "rows were")} collected before provenance was recorded, so ${plural(f.unknownProvenance.length, "it is", "they are")} neither vouched for nor faulted here.`
+        : f.unvouched.length
+          ? ""
+          : "Every row on this page is a contract this registry actually read over a path it will vouch for."
+    }`
         : `Provenance for these rows is recorded from the next pulse onward; rows collected before it existed carry none.`
     }</p>
     <div class="actions">

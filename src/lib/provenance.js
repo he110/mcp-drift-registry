@@ -20,6 +20,9 @@
 export const DIRECT = "direct-post";
 export const HANDSHAKE = "initialize-handshake";
 
+/** How a self-description is read. Not a contract path: see `isCardObservation`. */
+export const WELL_KNOWN = "well-known-get";
+
 export function buildProvenance({ declaredUrl, at, trace = null, via = null, envelope = null }) {
   const hops = trace?.hops ?? [];
   const observedUrl = trace?.finalUrl ?? null;
@@ -64,6 +67,16 @@ export function isObservation(p) {
     p?.methodChangingRedirect !== true &&
     p?.urlMatchesDeclared !== false
   );
+}
+
+/** The one way a self-description can be read. A card is a document fetched
+ *  with GET, not a contract negotiated over JSON-RPC, so `isObservation` — which
+ *  demands one of the two contract paths — rejects every card ever read and
+ *  would silently mark the whole census unvouched. The conditions that actually
+ *  matter carry over unchanged: something was read, no redirect changed the
+ *  method, and the host that answered is the host we asked. */
+export function isCardObservation(p) {
+  return p?.via === WELL_KNOWN && p?.methodChangingRedirect !== true && p?.urlMatchesDeclared !== false;
 }
 
 /** One sentence, for a reader who wants to know what they are looking at. */
