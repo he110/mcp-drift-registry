@@ -13,6 +13,12 @@ This registry keeps the old schema. Every few hours it reads `tools/list` from a
 public servers, canonicalises each schema, fingerprints it, and records the difference
 against the previous snapshot.
 
+**Read the row count with its caveat first:**
+[79 servers is not 79 observations](https://he110.github.io/mcp-drift-registry/notes/one-template.html)
+— 65% of the tracked endpoints are one hosted template, and the whole sample resolves to
+22 contract families, which is a ceiling and not a floor. Every figure on that page is
+regenerated from state each pulse, and every command on it is runnable.
+
 ## What it catches that a changelog cannot
 
 **Silent drift** — the input schema moved while the human-readable description stayed

@@ -10,6 +10,7 @@ import { buildEvents } from "../src/lib/events.js";
 import { trackReachability, FLAP_THRESHOLD, FLAP_WINDOW_MS } from "../src/lib/flap.js";
 import { parseRpc } from "../src/sources/mcp.js";
 import { esc, inlineCode, isUnstable, platformFamilies, publish } from "../src/publish/render.js";
+import { noteFacts } from "../src/publish/note.js";
 import { Store } from "../src/lib/store.js";
 
 const AT = "2026-01-01T00:00:00.000Z";
@@ -523,6 +524,151 @@ test("the API publishes platform and stability for every server", () => {
 
     const index = readFileSync(join(outDir, "index.html"), "utf8");
     assert.match(index, /3 independent contract families/);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+// --- note № 01: the page that argues about the sample -----------------------
+
+const templated = (id, vendor, searchFp, feedbackFp = "feed-a", over = {}) => ({
+  id,
+  name: id,
+  url: `https://${vendor}.example.invalid/mcp`,
+  status: "ok",
+  tools: [
+    { name: `query_docs_filesystem_${vendor}`, schemaFingerprint: `q-${vendor}` },
+    { name: `search_${vendor}`, schemaFingerprint: searchFp },
+    { name: "submit_feedback", schemaFingerprint: feedbackFp },
+  ],
+  ...over,
+});
+
+test("the template is counted from tool names, not from our own labels", () => {
+  const f = noteFacts([
+    templated("a", "alpha", "s-1", "feed-a", { platform: null }),
+    templated("b", "bravo", "s-1", "feed-a", { platform: null }),
+    templated("c", "charlie", "s-2", "feed-b", { platform: null }),
+    { id: "d", name: "d", url: "https://other.example.invalid/mcp", tools: [{ name: "fetch", schemaFingerprint: "x" }] },
+  ]);
+
+  // Not one of the four carries a platform label; the signature finds three anyway.
+  assert.equal(f.total, 4);
+  assert.equal(f.templated, 3);
+  assert.equal(f.sharePct, 75);
+  assert.deepEqual(
+    f.strata.map((s) => s.servers),
+    [2, 1],
+    "strata are ordered by size so the modal one reads first",
+  );
+  assert.equal(f.feedback[0].servers, 2);
+});
+
+test("two endpoints on one host are reported as one deployment", () => {
+  const f = noteFacts([
+    { id: "twin-a", url: "https://one.example.invalid/docs", tools: [] },
+    { id: "twin-b", url: "https://one.example.invalid/repo", tools: [] },
+    { id: "solo", url: "https://two.example.invalid/mcp", tools: [] },
+  ]);
+  assert.equal(f.sharedHosts.length, 1);
+  assert.equal(f.sharedHosts[0].host, "one.example.invalid");
+  assert.deepEqual(f.sharedHosts[0].ids, ["twin-a", "twin-b"]);
+});
+
+test("a malformed url does not take the whole page down with it", () => {
+  const f = noteFacts([{ id: "bad", url: "not a url", tools: [] }, { id: "worse", url: null, tools: [] }]);
+  assert.deepEqual(f.sharedHosts, []);
+});
+
+test("the note cannot contradict the ledger it is drawn from", () => {
+  const dir = mkdtempSync(join(tmpdir(), "drift-note-"));
+  try {
+    const store = new Store(join(dir, "state"));
+    for (const s of [
+      templated("alpha-docs", "alpha", "s-1"),
+      templated("bravo-docs", "bravo", "s-1"),
+      templated("charlie-docs", "charlie", "s-2"),
+    ]) {
+      store.writeServer({ ...s, toolCount: s.tools.length, platform: "mintlify-docs", firstSeenAt: AT, lastCheckedAt: AT, changeCount: 0 });
+    }
+    store.writeServer({ ...server([tool()]), id: "lonely", name: "Lonely", firstSeenAt: AT, lastCheckedAt: AT, changeCount: 0 });
+
+    const outDir = join(dir, "site");
+    publish({
+      store,
+      outDir,
+      at: AT,
+      config: {
+        site: { title: "T", tagline: "t", url: "https://example.invalid", repo: "he110/mcp-drift-registry" },
+        servers: [],
+      },
+    });
+
+    const registry = JSON.parse(readFileSync(join(outDir, "api/registry.json"), "utf8"));
+    const note = readFileSync(join(outDir, "notes/one-template.html"), "utf8");
+
+    // The headline, the family count and the jq output are all the ledger's numbers.
+    assert.match(note, new RegExp(`${registry.counts.servers} servers is not`));
+    assert.match(note, new RegExp(`${registry.counts.platformFamilies} families, and that is a ceiling`));
+    assert.match(note, /3 of the 4 endpoints — 75% —/);
+    assert.match(note, /Two strata inside one template/);
+
+    // And it is reachable: a page nobody can navigate to is not published.
+    assert.match(readFileSync(join(outDir, "index.html"), "utf8"), /notes\/one-template\.html/);
+    assert.match(readFileSync(join(outDir, "sitemap.xml"), "utf8"), /notes\/one-template\.html/);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("a uniform template publishes no strata chart rather than a chart of one", () => {
+  const dir = mkdtempSync(join(tmpdir(), "drift-note-"));
+  try {
+    const store = new Store(join(dir, "state"));
+    for (const s of [templated("alpha-docs", "alpha", "same"), templated("bravo-docs", "bravo", "same")]) {
+      store.writeServer({ ...s, toolCount: s.tools.length, firstSeenAt: AT, lastCheckedAt: AT, changeCount: 0 });
+    }
+    const outDir = join(dir, "site");
+    publish({
+      store,
+      outDir,
+      at: AT,
+      config: { site: { url: "https://example.invalid", repo: "he110/mcp-drift-registry" }, servers: [] },
+    });
+
+    const note = readFileSync(join(outDir, "notes/one-template.html"), "utf8");
+    assert.ok(!note.includes("strata__bar"), "one bucket is not a distribution");
+    assert.match(note, /single schema fingerprint/);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("a hostile server id reaches the note escaped", () => {
+  const dir = mkdtempSync(join(tmpdir(), "drift-note-"));
+  try {
+    const store = new Store(join(dir, "state"));
+    const evil = "<script>alert(1)</script>";
+    for (const id of ["twin-a", "twin-b"]) {
+      store.writeServer({
+        ...server([tool()]),
+        id,
+        name: evil,
+        url: "https://one.example.invalid/" + id,
+        firstSeenAt: AT,
+        lastCheckedAt: AT,
+        changeCount: 0,
+      });
+    }
+    const outDir = join(dir, "site");
+    publish({
+      store,
+      outDir,
+      at: AT,
+      config: { site: { url: "https://example.invalid", repo: evil }, servers: [] },
+    });
+    const note = readFileSync(join(outDir, "notes/one-template.html"), "utf8");
+    assert.ok(!note.includes("<script>alert(1)</script>"));
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }

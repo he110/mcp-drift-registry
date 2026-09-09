@@ -1,7 +1,11 @@
 import { mkdirSync, writeFileSync, rmSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { STYLESHEET } from "./theme.js";
+import { esc, inlineCode } from "./html.js";
+import { noteBody } from "./note.js";
 import { sanitize } from "../lib/store.js";
+
+export { esc, inlineCode };
 
 /**
  * Publishes the whole surface area from one state directory: the site, the
@@ -34,6 +38,7 @@ export function publish({ store, outDir, config, at }) {
   write(join(outDir, ".nojekyll"), "");
   write(join(outDir, "assets/style.css"), STYLESHEET);
   write(join(outDir, "index.html"), renderIndex(ctx));
+  write(join(outDir, "notes/one-template.html"), renderNote(ctx));
   write(join(outDir, "events.atom"), renderAtom(ctx));
   write(join(outDir, "robots.txt"), `User-agent: *\nAllow: /\nSitemap: ${base}/sitemap.xml\n`);
   write(join(outDir, "sitemap.xml"), renderSitemap(ctx));
@@ -98,6 +103,7 @@ function renderIndex(ctx) {
               ? `, because ${c.largestPlatform.servers} of them are served by a single hosted platform (<code>${esc(c.largestPlatform.platform)}</code>)`
               : ""
           }. One template change there moves dozens of rows on the same day, and that is one event, not dozens.
+          <a href="notes/one-template.html">How that was measured &rarr;</a>
         </p>
         <div class="key">
           <div class="key__row"><span class="sev sev--breaking">breaking</span><span>a parameter or enum value disappeared, a type changed, or a field became required</span></div>
@@ -177,6 +183,7 @@ GET ${esc(base)}/api/servers/&lt;id&gt;.json</pre>
       </div>
     </div>
     <div class="actions">
+      <a class="btn" href="notes/one-template.html">Note № 01: the sample</a>
       <a class="btn" href="events.atom">Atom feed</a>
       <a class="btn" href="api/registry.json">registry.json</a>
       <a class="btn btn--accent" href="${esc(issueUrl)}?title=Add+server%3A+&amp;body=Endpoint+URL%3A%0AWhy+it+belongs+in+the+registry%3A">Submit a server</a>
@@ -230,6 +237,23 @@ GET ${esc(base)}/api/servers/&lt;id&gt;.json</pre>
     canonical: `${base}/`,
     assets: "",
     body,
+  });
+}
+
+/**
+ * The note is a page of the bulletin, not a blog: it argues about the sample
+ * the ledger is drawn from, so it is rendered from the same `ctx` on the same
+ * pulse and cannot fall out of step with the numbers it is arguing about.
+ */
+function renderNote(ctx) {
+  const c = counts(ctx);
+  return page({
+    ctx,
+    title: `${c.servers} servers is not ${c.servers} observations — MCP Drift Registry`,
+    description: `${c.servers} public MCP endpoints resolve to ${c.platformFamilies} independent contract families. What is actually behind the row count, measured every pulse.`,
+    canonical: `${ctx.base}/notes/one-template.html`,
+    assets: "../",
+    body: noteBody(ctx, c),
   });
 }
 
@@ -456,7 +480,11 @@ function atomContent(e) {
 }
 
 function renderSitemap(ctx) {
-  const urls = [`${ctx.base}/`, ...ctx.servers.map((s) => `${ctx.base}/servers/${sanitize(s.id)}.html`)];
+  const urls = [
+    `${ctx.base}/`,
+    `${ctx.base}/notes/one-template.html`,
+    ...ctx.servers.map((s) => `${ctx.base}/servers/${sanitize(s.id)}.html`),
+  ];
   return `<?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map((u) => `  <url><loc>${esc(u)}</loc><lastmod>${esc(ctx.at.slice(0, 10))}</lastmod></url>`).join("\n")}
@@ -551,20 +579,6 @@ function summarize(s) {
     changeCount: s.changeCount ?? 0,
     tools: (s.tools ?? []).map((t) => ({ name: t.name, schemaFingerprint: t.schemaFingerprint })),
   };
-}
-
-export function esc(value) {
-  return String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
-/** Summaries are written with `backticks`; render them as code, escaped. */
-export function inlineCode(text) {
-  return esc(text).replace(/`([^`]+)`/g, "<code>$1</code>");
 }
 
 function stripCode(text) {

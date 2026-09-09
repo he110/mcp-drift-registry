@@ -28,6 +28,7 @@ export const STYLESHEET = `
   --operational: #4a5b6b;
   --stamp: #b4361a;
   --measure: 74rem;
+  --measure-text: 46rem;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -349,6 +350,121 @@ pre {
 .tool__type { color: var(--ink-faint); }
 .req { color: var(--breaking); font-size: 9px; letter-spacing: 0.14em; }
 
+/* --- note: an offprint of the bulletin, set to a reading measure ---------- */
+
+.wrap--text { max-width: var(--measure-text); }
+
+.note__head {
+  border-bottom: 2px solid var(--ink);
+  padding: clamp(2.5rem, 7vw, 5rem) 0 1.6rem;
+}
+.note__kicker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.4rem;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.7rem;
+  margin-bottom: clamp(1.4rem, 4vw, 2.4rem);
+}
+.note__title {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(2.6rem, 8vw, 4.6rem);
+  line-height: 0.94;
+  letter-spacing: -0.015em;
+  margin: 0 0 1.4rem;
+}
+.note__title em { font-style: italic; color: var(--breaking); }
+
+/* A hanging rule down the standfirst: the one thing that says "insert". */
+.note__standfirst {
+  margin: 0 0 1.6rem;
+  padding-left: 1.1rem;
+  border-left: 2px solid var(--breaking);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  max-width: 58ch;
+}
+.note__meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 11px;
+  color: var(--ink-faint);
+}
+.note__meta span:last-child { max-width: 46ch; }
+
+.note section { padding: clamp(2rem, 5vw, 3.2rem) 0; }
+.note h2 { font-size: clamp(1.6rem, 4vw, 2.3rem); margin-bottom: 1.2rem; }
+.note p { margin: 0 0 1rem; color: var(--ink-soft); max-width: 68ch; }
+.note p strong { color: var(--ink); font-weight: 600; }
+.note pre { margin: 1.2rem 0; }
+.note .actions { margin-top: 1.8rem; }
+
+.note__list { list-style: none; margin: 1rem 0 1.2rem; padding: 0; }
+.note__list li {
+  display: flex;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+  padding: 0.45rem 0;
+  border-top: 1px solid var(--rule-hair);
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.note__list li:first-child { border-top: 1px solid var(--ink); }
+.note__list code { color: var(--ink); font-weight: 600; }
+
+/* --- figure: one measure, one ink, values direct-labelled ---------------- */
+
+.figure { margin: 1.6rem 0 1.8rem; }
+.figure__cap {
+  caption-side: bottom;
+  text-align: left;
+  font-size: 11px;
+  color: var(--ink-faint);
+  padding-top: 0.9rem;
+  max-width: 56ch;
+}
+.strata { width: 100%; border-collapse: separate; border-spacing: 0 2px; }
+.strata th {
+  text-align: left;
+  font-weight: 400;
+  font-size: 11px;
+  color: var(--ink-faint);
+  letter-spacing: 0.02em;
+  width: 10.5rem;
+  padding-right: 0.9rem;
+  white-space: nowrap;
+}
+.strata__cell {
+  width: 100%;
+  border-left: 1px solid var(--ink);
+  padding: 0 0.75rem 0 0;
+  line-height: 0;
+}
+.strata__bar {
+  display: inline-block;
+  height: 10px;
+  min-width: 3px;
+  background: var(--ink);
+  border-radius: 0 4px 4px 0;
+}
+.strata tr:hover .strata__bar { background: var(--breaking); }
+.strata__value {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+  color: var(--ink);
+  padding-left: 0.6rem;
+  white-space: nowrap;
+}
+
 /* --- footer -------------------------------------------------------------- */
 
 footer {
@@ -384,6 +500,7 @@ footer {
 
 @media (max-width: 44rem) {
   .event { grid-template-columns: 1fr; gap: 0.35rem; }
+  .strata th { width: 7.5rem; font-size: 10px; }
   .changes__kind { min-width: 8rem; }
   .ledger__hide { display: none; }
 }
