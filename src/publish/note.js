@@ -52,8 +52,8 @@ export function noteFacts(servers) {
     sharePct: Math.round(share * 100),
     // Threshold-dependent wording, resolved from the data rather than asserted.
     shareWord: share >= 0.5 ? "most of the registry" : "a large minority of the registry",
-    strata: tally(templated.map((s) => fingerprintOf(s, (n) => n.startsWith("search_")))),
-    feedback: tally(templated.map((s) => fingerprintOf(s, (n) => n === "submit_feedback"))),
+    strata: describe(tally(templated.map((s) => toolOf(s, (n) => n.startsWith("search_"))))),
+    feedback: tally(templated.map((s) => toolOf(s, (n) => n === "submit_feedback"))),
     // Endpoints are not deployments: two paths on one host are one thing.
     sharedHosts: sharedHosts(servers),
   };
@@ -63,21 +63,42 @@ function hasSignature(s) {
   return (s.tools ?? []).some((t) => String(t.name ?? "").startsWith(SIGNATURE));
 }
 
-function fingerprintOf(server, match) {
-  const tool = (server.tools ?? []).find((t) => match(String(t.name ?? "")));
-  return tool?.schemaFingerprint ?? null;
+function toolOf(server, match) {
+  return (server.tools ?? []).find((t) => match(String(t.name ?? ""))) ?? null;
 }
 
-/** Counts of each distinct value, most common first, nulls dropped. */
-function tally(values) {
-  const counts = new Map();
-  for (const v of values) {
-    if (!v) continue;
-    counts.set(v, (counts.get(v) ?? 0) + 1);
+/**
+ * Counts of each distinct fingerprint, most common first, keeping one tool per
+ * bucket. A bare hash says "these differ" and stops there; the reader wants to
+ * know what differs, and only the tool itself can say.
+ */
+function tally(tools) {
+  const buckets = new Map();
+  for (const tool of tools) {
+    const fp = tool?.schemaFingerprint;
+    if (!fp) continue;
+    const bucket = buckets.get(fp) ?? { value: fp, servers: 0, example: tool };
+    bucket.servers += 1;
+    buckets.set(fp, bucket);
   }
-  return [...counts.entries()]
-    .map(([value, servers]) => ({ value, servers }))
-    .sort((a, b) => b.servers - a.servers || a.value.localeCompare(b.value));
+  return [...buckets.values()].sort((a, b) => b.servers - a.servers || a.value.localeCompare(b.value));
+}
+
+/**
+ * What each stratum's schema actually accepts, and whether that alone tells it
+ * apart from the others. Two buckets with the same property list differ
+ * somewhere the property list does not reach — a description, a constraint —
+ * and saying so is the difference between a finding and a table of hashes.
+ */
+function describe(strata) {
+  const seen = new Map();
+  for (const s of strata) {
+    s.properties = Object.keys(s.example?.inputSchema?.properties ?? {}).sort();
+    const key = s.properties.join(",");
+    seen.set(key, (seen.get(key) ?? 0) + 1);
+  }
+  for (const s of strata) s.ambiguous = seen.get(s.properties.join(",")) > 1;
+  return strata;
 }
 
 /** Hosts serving more than one tracked endpoint — one deployment, many rows. */
@@ -241,10 +262,13 @@ function strataSection(f) {
   }
 
   const max = f.strata[0].servers;
+  const ambiguous = f.strata.filter((s) => s.ambiguous);
   const rows = f.strata
     .map(
       (s) => `      <tr>
-        <th scope="row"><code>${esc(s.value)}</code></th>
+        <th scope="row"><span class="strata__props">${
+          s.properties.length ? s.properties.map((p) => `<code>${esc(p)}</code>`).join("") : "<em>no parameters</em>"
+        }</span><span class="strata__fp">${esc(s.value)}</span></th>
         <td class="strata__cell"><span class="strata__bar" style="width:${((s.servers / max) * 100).toFixed(1)}%"></span></td>
         <td class="strata__value">${s.servers}</td>
       </tr>`,
@@ -259,18 +283,28 @@ function strataSection(f) {
 
     <figure class="figure">
       <table class="strata">
-        <caption class="figure__cap">Endpoints per distinct <code>search_*</code> schema fingerprint,
-        ${f.templated} templated endpoints, this pulse.</caption>
+        <caption class="figure__cap">Endpoints per distinct <code>search_*</code> input schema across the
+        ${f.templated} templated endpoints, this pulse. Each row lists the parameters that schema accepts,
+        under its fingerprint.${
+          ambiguous.length
+            ? ` ${ambiguous.length} rows accept the same parameters and still fingerprint differently — they diverge somewhere a parameter list does not reach.`
+            : ""
+        }</caption>
         <tbody>
 ${rows}
         </tbody>
       </table>
     </figure>
 
-    <p>We do not know what that is. It could be a template rollout caught mid-flight, or permanent
-    per-tenant divergence that will look identical next year. <strong>A single snapshot structurally cannot
-    distinguish those two.</strong> That is the entire argument for keeping the series instead of recounting:
-    in a few weeks the strata either converge or they do not, and then it is a fact rather than a shape.</p>
+    <p>The split is not noise. Most of the strata are the cross-product of a small number of optional
+    parameters that appear only where the tenant switched the matching feature on — documentation
+    versioning, localisation — and the remainder differ somewhere the parameter list does not reach at all:
+    a property description, a constraint like <code>additionalProperties</code>. One generator, one nominal
+    tool, and the contract still varies by tenant with no user, session or credential involved anywhere.</p>
+    <p>What a single pulse cannot say is whether that is a rollout caught mid-flight or permanent
+    divergence that will look identical next year. <strong>A single snapshot structurally cannot distinguish
+    those two.</strong> That is the entire argument for keeping the series instead of recounting: in a few
+    weeks the strata either converge or they do not, and then it is a fact rather than a shape.</p>
     <p>If you integrate against one vendor's docs MCP and assume the next one behaves the same because the
     tool has the same name, you are already wrong today — and a census taken today will not tell you that.</p>
   </section>`;

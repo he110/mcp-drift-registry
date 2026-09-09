@@ -531,14 +531,18 @@ test("the API publishes platform and stability for every server", () => {
 
 // --- note № 01: the page that argues about the sample -----------------------
 
-const templated = (id, vendor, searchFp, feedbackFp = "feed-a", over = {}) => ({
+const templated = (id, vendor, searchFp, feedbackFp = "feed-a", over = {}, props = ["query"]) => ({
   id,
   name: id,
   url: `https://${vendor}.example.invalid/mcp`,
   status: "ok",
   tools: [
     { name: `query_docs_filesystem_${vendor}`, schemaFingerprint: `q-${vendor}` },
-    { name: `search_${vendor}`, schemaFingerprint: searchFp },
+    {
+      name: `search_${vendor}`,
+      schemaFingerprint: searchFp,
+      inputSchema: { type: "object", properties: Object.fromEntries(props.map((p) => [p, { type: "string" }])) },
+    },
     { name: "submit_feedback", schemaFingerprint: feedbackFp },
   ],
   ...over,
@@ -562,6 +566,23 @@ test("the template is counted from tool names, not from our own labels", () => {
     "strata are ordered by size so the modal one reads first",
   );
   assert.equal(f.feedback[0].servers, 2);
+});
+
+test("a stratum reports what its schema accepts, not just that it differs", () => {
+  const f = noteFacts([
+    templated("a", "alpha", "s-1", "feed", {}, ["query"]),
+    templated("b", "bravo", "s-2", "feed", {}, ["query", "version"]),
+    // Same parameters, different fingerprint: it differs somewhere a parameter
+    // list cannot show, and the page has to say so rather than print two
+    // identical-looking rows.
+    templated("c", "charlie", "s-3", "feed", {}, ["query"]),
+  ]);
+  const byFp = Object.fromEntries(f.strata.map((s) => [s.value, s]));
+  assert.deepEqual(byFp["s-2"].properties, ["query", "version"]);
+  assert.equal(byFp["s-2"].ambiguous, false);
+  assert.equal(byFp["s-1"].ambiguous, true, "s-1 and s-3 accept the same parameters");
+  assert.equal(byFp["s-3"].ambiguous, true);
+  assert.deepEqual(byFp["s-1"].properties, ["query"]);
 });
 
 test("two endpoints on one host are reported as one deployment", () => {
@@ -612,6 +633,8 @@ test("the note cannot contradict the ledger it is drawn from", () => {
     assert.match(note, new RegExp(`${registry.counts.platformFamilies} families, and that is a ceiling`));
     assert.match(note, /3 of the 4 endpoints — 75% —/);
     assert.match(note, /Two strata inside one template/);
+    // The figure names the parameters; a table of bare hashes is not a finding.
+    assert.match(note, /strata__props/);
 
     // And it is reachable: a page nobody can navigate to is not published.
     assert.match(readFileSync(join(outDir, "index.html"), "utf8"), /notes\/one-template\.html/);

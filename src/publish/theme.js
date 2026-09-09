@@ -438,10 +438,16 @@ pre {
   font-size: 11px;
   color: var(--ink-faint);
   letter-spacing: 0.02em;
-  width: 10.5rem;
+  width: 17rem;
   padding-right: 0.9rem;
-  white-space: nowrap;
+  vertical-align: top;
+  line-height: 1.35;
 }
+.strata__props { display: block; color: var(--ink); white-space: nowrap; }
+.strata__props code { font-size: 11px; }
+.strata__props code + code::before { content: ', '; color: var(--ink-faint); }
+.strata__fp { display: block; font-size: 10px; color: var(--ink-faint); letter-spacing: 0.04em; }
+.strata__cell { vertical-align: top; padding-top: 2px; }
 .strata__cell {
   width: 100%;
   border-left: 1px solid var(--ink);
@@ -500,7 +506,7 @@ footer {
 
 @media (max-width: 44rem) {
   .event { grid-template-columns: 1fr; gap: 0.35rem; }
-  .strata th { width: 7.5rem; font-size: 10px; }
+  .strata th { width: 10.5rem; font-size: 10px; }
   .changes__kind { min-width: 8rem; }
   .ledger__hide { display: none; }
 }
