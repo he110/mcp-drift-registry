@@ -98,7 +98,7 @@
   "toolCount": 2,
   "fingerprint": "454352b9398b8c00",
   "lastGood": {
-    "at": "2026-09-09T11:37:31.323Z",
+    "at": "2026-09-09T11:49:23.034Z",
     "tools": [
       {
         "name": "migrate_pages_to_workers_guide",
@@ -189,8 +189,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-09T11:37:31.323Z",
-  "lastOkAt": "2026-09-09T11:37:31.323Z",
+  "lastCheckedAt": "2026-09-09T11:49:23.034Z",
+  "lastOkAt": "2026-09-09T11:49:23.034Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

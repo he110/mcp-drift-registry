@@ -45,7 +45,7 @@
   "toolCount": 1,
   "fingerprint": "57f8b52530b4c804",
   "lastGood": {
-    "at": "2026-09-09T11:37:31.323Z",
+    "at": "2026-09-09T11:49:23.034Z",
     "tools": [
       {
         "name": "searchDocs",
@@ -83,8 +83,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-09T11:37:31.323Z",
-  "lastOkAt": "2026-09-09T11:37:31.323Z",
+  "lastCheckedAt": "2026-09-09T11:49:23.034Z",
+  "lastOkAt": "2026-09-09T11:49:23.034Z",
   "lastChangedAt": null,
   "changeCount": 0
 }
