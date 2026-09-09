@@ -137,7 +137,7 @@
   "toolCount": 4,
   "fingerprint": "fd0ead00efcfdb90",
   "lastGood": {
-    "at": "2026-09-09T11:56:17.632Z",
+    "at": "2026-09-09T12:09:23.845Z",
     "tools": [
       {
         "name": "fetch_generic_url_content",
@@ -264,8 +264,8 @@
     "protocolVersion": "2025-03-26"
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-09T11:56:17.632Z",
-  "lastOkAt": "2026-09-09T11:56:17.632Z",
+  "lastCheckedAt": "2026-09-09T12:09:23.845Z",
+  "lastOkAt": "2026-09-09T12:09:23.845Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

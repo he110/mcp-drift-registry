@@ -99,7 +99,7 @@
   "toolCount": 3,
   "fingerprint": "7f89ee0733ac16b9",
   "lastGood": {
-    "at": "2026-09-09T11:56:17.632Z",
+    "at": "2026-09-09T12:09:23.845Z",
     "tools": [
       {
         "name": "query_docs_filesystem_mergent",
@@ -191,8 +191,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-09T11:56:17.632Z",
-  "lastOkAt": "2026-09-09T11:56:17.632Z",
+  "lastCheckedAt": "2026-09-09T12:09:23.845Z",
+  "lastOkAt": "2026-09-09T12:09:23.845Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

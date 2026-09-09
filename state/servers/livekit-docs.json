@@ -528,7 +528,7 @@
   "toolCount": 9,
   "fingerprint": "de8bd5a9a598fb28",
   "lastGood": {
-    "at": "2026-09-09T11:56:17.632Z",
+    "at": "2026-09-09T12:09:23.845Z",
     "tools": [
       {
         "name": "code_search",
@@ -1049,8 +1049,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-09T11:56:17.632Z",
-  "lastOkAt": "2026-09-09T11:56:17.632Z",
+  "lastCheckedAt": "2026-09-09T12:09:23.845Z",
+  "lastOkAt": "2026-09-09T12:09:23.845Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

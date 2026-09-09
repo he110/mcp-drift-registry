@@ -1207,7 +1207,7 @@
   "toolCount": 4,
   "fingerprint": "869450943b354eaa",
   "lastGood": {
-    "at": "2026-09-09T11:56:17.632Z",
+    "at": "2026-09-09T12:09:23.845Z",
     "tools": [
       {
         "name": "hf_fs",
@@ -2397,8 +2397,8 @@
     "protocolVersion": "2025-06-18"
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-09T11:56:17.632Z",
-  "lastOkAt": "2026-09-09T11:56:17.632Z",
+  "lastCheckedAt": "2026-09-09T12:09:23.845Z",
+  "lastOkAt": "2026-09-09T12:09:23.845Z",
   "lastChangedAt": "2026-09-09T10:51:41.540Z",
   "changeCount": 1
 }
