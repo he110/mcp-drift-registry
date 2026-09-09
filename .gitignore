@@ -1,3 +1,6 @@
 node_modules/
 site/
 .DS_Store
+
+# Scratch output from bin/probe.js — a working note, not a published record.
+probe-rejected.json
