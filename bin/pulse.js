@@ -8,6 +8,7 @@ import { checkCanary } from "../src/sources/canary.js";
 import { buildEvents } from "../src/lib/events.js";
 import { trackReachability } from "../src/lib/flap.js";
 import { abandoned, applyAdmissions, describeProgress, foldProbe } from "../src/lib/admission.js";
+import { buildProvenance } from "../src/lib/provenance.js";
 import { publish } from "../src/publish/render.js";
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -38,7 +39,7 @@ async function main() {
 
   console.log(`pulse ${at} — ${config.servers.length} servers`);
 
-  const results = await mapLimit(config.servers, 6, (s) => collectMcpServer(s));
+  const results = await mapLimit(config.servers, 6, (s) => collectMcpServer(s, at));
 
   const allEvents = [];
   let okCount = 0;
@@ -61,6 +62,7 @@ async function main() {
           fingerprint: null,
           protocolVersion: null,
           serverInfo: null,
+          provenance: buildProvenance({ declaredUrl: declared.url, at }),
         };
 
     const prev = store.readServer(next.id);
@@ -130,6 +132,7 @@ async function main() {
 
   const meta = store.readMeta();
   const canary = await checkCanary(meta.canary, at);
+  const origins = await probeOrigins(config, meta.origins ?? [], at);
   const nextMeta = {
     firstRunAt: meta.firstRunAt ?? at,
     lastRunAt: at,
@@ -138,12 +141,16 @@ async function main() {
     serversOk: okCount,
     serversUnstable: unstableCount,
     canary,
+    origins,
   };
 
   console.log(
     `  canary ${canary.healthy ? "healthy" : "UNHEALTHY"}` +
       (canary.error ? ` — ${canary.error}` : ` (last change ${canary.lastChangeAt})`),
   );
+  for (const o of origins) {
+    console.log(`  origin ${o.platform.padEnd(21)} ${o.status === "ok" ? "ok " : "ERR"} ${o.url}${o.error ? ` (${o.error.slice(0, 60)})` : ""} x${o.consecutive}`);
+  }
   console.log(`  ${allEvents.length} events this pulse` + (unstableCount ? ` — ${unstableCount} server(s) quarantined for flapping` : ""));
 
   if (DRY_RUN) {
@@ -179,7 +186,7 @@ async function runTrials(store, config, at) {
   if (onTrial.length === 0) return [];
   console.log(`  ${onTrial.length} candidate(s) on trial`);
 
-  const results = await mapLimit(onTrial, 6, (c) => collectMcpServer(c));
+  const results = await mapLimit(onTrial, 6, (c) => collectMcpServer(c, at));
   const admitted = [];
 
   for (const [index, result] of results.entries()) {
@@ -197,6 +204,44 @@ async function runTrials(store, config, at) {
 
   if (!DRY_RUN) store.writeCandidates(ledger);
   return admitted;
+}
+
+/**
+ * The hosting platforms themselves, probed by the same collector, kept out of
+ * the registry entirely.
+ *
+ * A platform that generates fifty tenants' contracts is not one of its own
+ * tenants: it gets no record under `state/servers/`, no event, no row and no
+ * place in any count. But "the generator's own endpoint could not be read while
+ * every endpoint it generates answered" is a fact about the fleet that no
+ * tenant's record contains, so it is recorded here — with a streak, so the page
+ * can say how long it has been true instead of implying it is permanent.
+ */
+async function probeOrigins(config, previous, at) {
+  const declared = config.origins ?? [];
+  if (declared.length === 0) return [];
+
+  const before = new Map(previous.map((o) => [o.platform, o]));
+  const results = await mapLimit(declared, 3, (o) => collectMcpServer(o, at));
+
+  return declared.map((origin, index) => {
+    const probe = results[index].ok
+      ? results[index].value
+      : { status: "error", error: String(results[index].error?.message ?? results[index].error).slice(0, 200), provenance: null };
+    const prev = before.get(origin.platform);
+    const same = prev?.status === probe.status;
+    return {
+      platform: origin.platform,
+      url: origin.url,
+      status: probe.status,
+      error: probe.error ?? null,
+      toolCount: probe.toolCount ?? 0,
+      at,
+      since: same ? (prev.since ?? at) : at,
+      consecutive: same ? (prev.consecutive ?? 1) + 1 : 1,
+      provenance: probe.provenance ?? null,
+    };
+  });
 }
 
 main().catch((err) => {

@@ -2,18 +2,27 @@
  * HTTP with a timeout and bounded retries. Deliberately thin: the pipeline must
  * survive a flaky source without a dependency tree.
  */
-export async function httpJson(url, { method = "GET", headers = {}, body, timeoutMs = 20000, retries = 2 } = {}) {
+export async function httpJson(url, { method = "GET", headers = {}, body, timeoutMs = 20000, retries = 2, trace = null } = {}) {
   let lastError;
   for (let attempt = 0; attempt <= retries; attempt++) {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), timeoutMs);
+    // A retry is a fresh request and gets a fresh trail. Accumulating across
+    // attempts would let a caller publish a redirect chain that no single
+    // request ever walked.
+    if (trace) {
+      trace.hops = [];
+      trace.finalUrl = null;
+      trace.finalStatus = null;
+    }
     try {
-      const res = await follow(url, { method, headers, body, signal: controller.signal });
+      const res = await follow(url, { method, headers, body, signal: controller.signal }, trace);
       const text = await res.text();
+      if (trace) trace.finalStatus = res.status;
       if (!res.ok) {
         throw new HttpError(`HTTP ${res.status}`, res.status, text.slice(0, 300));
       }
-      return { status: res.status, text, headers: res.headers };
+      return { status: res.status, text, headers: res.headers, url: trace?.finalUrl ?? url };
     } catch (err) {
       lastError = err;
       // A 4xx is an answer, not a hiccup, and so is a redirect. Retrying either
@@ -49,16 +58,23 @@ const MAX_HOPS = 3;
  * fix is to correct the declared URL, not to probe a different resource and
  * hope it is the same one.
  */
-async function follow(url, init) {
+async function follow(url, init, trace = null) {
   let target = url;
   for (let hop = 0; ; hop++) {
+    // Recorded before the fetch, not after: whatever happens next, the trail
+    // names the URL this process actually opened a connection to. Provenance
+    // that is reconstructed afterwards is provenance that can be wrong.
+    if (trace) trace.finalUrl = target;
     const res = await fetch(target, { ...init, redirect: "manual" });
     if (res.status < 300 || res.status >= 400) return res;
 
     const location = res.headers.get("location");
+    const preservesMethod = res.status === 307 || res.status === 308;
+    const to = location ? new URL(location, target).toString() : null;
+    if (trace) trace.hops.push({ status: res.status, from: target, to, preservesMethod });
+
     if (!location) throw new HttpError(`HTTP ${res.status} without a Location header`, res.status, target);
 
-    const preservesMethod = res.status === 307 || res.status === 308;
     const idempotent = init.method === "GET" || init.method === "HEAD" || init.method === undefined;
     if (!preservesMethod && !idempotent) {
       throw new HttpError(
@@ -68,8 +84,13 @@ async function follow(url, init) {
       );
     }
     if (hop >= MAX_HOPS) throw new HttpError(`more than ${MAX_HOPS} redirects`, res.status, target);
-    target = new URL(location, target).toString();
+    target = to;
   }
+}
+
+/** A fresh, empty trail. One per request; filled by the code that fetches. */
+export function newTrace(declaredUrl) {
+  return { declaredUrl, finalUrl: null, finalStatus: null, hops: [] };
 }
 
 export class HttpError extends Error {

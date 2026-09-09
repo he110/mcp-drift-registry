@@ -1,5 +1,6 @@
-import { httpJson, HttpError } from "../lib/http.js";
+import { httpJson, HttpError, newTrace } from "../lib/http.js";
 import { fingerprint } from "../lib/canonical.js";
+import { DIRECT, HANDSHAKE, buildProvenance } from "../lib/provenance.js";
 
 export const PROTOCOL_VERSION = "2025-06-18";
 const CLIENT_INFO = { name: "mcp-drift-registry", version: "0.1.0" };
@@ -18,7 +19,7 @@ const CLIENT_INFO = { name: "mcp-drift-registry", version: "0.1.0" };
  * Responses come back either as plain JSON or as a one-event SSE stream; both
  * shapes are parsed here so the rest of the pipeline never sees the transport.
  */
-export async function collectMcpServer(server) {
+export async function collectMcpServer(server, at = new Date().toISOString()) {
   const base = {
     id: server.id,
     name: server.name ?? server.id,
@@ -34,21 +35,22 @@ export async function collectMcpServer(server) {
 
   try {
     const direct = await callTools(server.url, null);
-    return ok(base, direct);
+    return ok(base, direct, at);
   } catch (err) {
-    if (!needsSession(err)) return failed(base, err);
+    if (!needsSession(err)) return failed(base, err, at, server.url);
   }
 
   try {
     const session = await initialize(server.url);
     const withSession = await callTools(server.url, session);
-    return ok(base, withSession, session.protocolVersion, session.serverInfo);
+    return ok(base, withSession, at, session.protocolVersion, session.serverInfo);
   } catch (err) {
-    return failed(base, err);
+    return failed(base, err, at, server.url);
   }
 }
 
-function ok(base, result, protocolVersion = null, serverInfo = null) {
+function ok(base, read, at, protocolVersion = null, serverInfo = null) {
+  const result = read.result;
   const tools = (result.tools ?? [])
     .map((t) => ({
       name: t.name,
@@ -67,13 +69,20 @@ function ok(base, result, protocolVersion = null, serverInfo = null) {
     error: null,
     protocolVersion: protocolVersion ?? result.protocolVersion ?? null,
     serverInfo: serverInfo ?? null,
+    provenance: buildProvenance({
+      declaredUrl: base.url,
+      at,
+      trace: read.trace,
+      via: read.via,
+      envelope: read.envelope,
+    }),
     tools,
     toolCount: tools.length,
     fingerprint: fingerprint(tools.map((t) => [t.name, t.description, t.inputSchema])),
   };
 }
 
-function failed(base, err) {
+function failed(base, err, at, declaredUrl) {
   return {
     ...base,
     status: err instanceof HttpError && err.status === 401 ? "auth_required" : "error",
@@ -83,6 +92,16 @@ function failed(base, err) {
     tools: [],
     toolCount: 0,
     fingerprint: null,
+    // A failure has provenance too, and it is the more interesting half: this
+    // is where a refused redirect or a non-JSON-RPC envelope gets named instead
+    // of disappearing into a one-line error string.
+    provenance: buildProvenance({
+      declaredUrl,
+      at,
+      trace: err?.trace ?? null,
+      via: null,
+      envelope: err?.envelope ?? null,
+    }),
   };
 }
 
@@ -97,14 +116,22 @@ function needsSession(err) {
 }
 
 async function initialize(url) {
+  const trace = newTrace(url);
   const res = await post(url, {
     jsonrpc: "2.0",
     id: 1,
     method: "initialize",
     params: { protocolVersion: PROTOCOL_VERSION, capabilities: {}, clientInfo: CLIENT_INFO },
+  }, null, trace).catch((err) => {
+    throw attach(err, trace);
   });
   const sessionId = res.headers.get("mcp-session-id");
-  const payload = parseRpc(res.text);
+  let payload;
+  try {
+    payload = parseRpc(res.text);
+  } catch (err) {
+    throw attach(err, trace);
+  }
   const session = {
     sessionId,
     protocolVersion: payload.protocolVersion ?? PROTOCOL_VERSION,
@@ -116,12 +143,32 @@ async function initialize(url) {
   return session;
 }
 
+/**
+ * One `tools/list` read, returned together with the trail it left.
+ *
+ * The trail is created here and handed to the HTTP layer, so `read.trace`
+ * describes the request that produced `read.result` and cannot describe any
+ * other one. That is the whole invariant: provenance and payload come back in
+ * the same object or not at all.
+ */
 async function callTools(url, session) {
-  const res = await post(url, { jsonrpc: "2.0", id: 2, method: "tools/list", params: {} }, session);
-  return parseRpc(res.text);
+  const trace = newTrace(url);
+  try {
+    const res = await post(url, { jsonrpc: "2.0", id: 2, method: "tools/list", params: {} }, session, trace);
+    const { result, envelope } = parseEnvelope(res.text);
+    return { result, envelope, trace, via: session ? HANDSHAKE : DIRECT };
+  } catch (err) {
+    throw attach(err, trace);
+  }
 }
 
-function post(url, body, session = null) {
+/** Carry the trail out with the failure; a refused request still has a method. */
+function attach(err, trace) {
+  if (err && typeof err === "object" && !err.trace) err.trace = trace;
+  return err;
+}
+
+function post(url, body, session = null, trace = null) {
   const headers = {
     "content-type": "application/json",
     accept: "application/json, text/event-stream",
@@ -129,7 +176,7 @@ function post(url, body, session = null) {
     "user-agent": "mcp-drift-registry/0.1 (+https://github.com/he110/mcp-drift-registry)",
   };
   if (session?.sessionId) headers["mcp-session-id"] = session.sessionId;
-  return httpJson(url, { method: "POST", headers, body: JSON.stringify(body), retries: 1 });
+  return httpJson(url, { method: "POST", headers, body: JSON.stringify(body), retries: 1, trace });
 }
 
 /**
@@ -137,24 +184,47 @@ function post(url, body, session = null) {
  * turns a JSON-RPC error into a thrown error so callers have one failure path.
  */
 export function parseRpc(text) {
+  return parseEnvelope(text).result;
+}
+
+/**
+ * The same parse, plus the shape of the envelope it came in.
+ *
+ * Callers need both: "a valid JSON-RPC result" and "an SSE stream carrying one"
+ * are equally acceptable and are not the same event, and when the parse is
+ * refused the reason is a property of the envelope, not of the payload. The
+ * refusal is tagged with what it actually was so the record can say so.
+ */
+export function parseEnvelope(text) {
   const trimmed = text.trim();
   let payload;
+  let envelope;
 
   if (trimmed.startsWith("event:") || trimmed.startsWith("data:")) {
     const dataLines = trimmed
       .split("\n")
       .filter((l) => l.startsWith("data:"))
       .map((l) => l.slice(5).trim());
-    if (dataLines.length === 0) throw new Error("SSE response carried no data frame");
+    if (dataLines.length === 0) throw tag(new Error("SSE response carried no data frame"), "sse");
+    envelope = "sse";
     payload = JSON.parse(dataLines.join(""));
   } else {
-    payload = JSON.parse(trimmed);
+    envelope = "json-rpc";
+    try {
+      payload = JSON.parse(trimmed);
+    } catch (err) {
+      throw tag(new Error(`response body is not JSON: ${String(err.message).slice(0, 80)}`), "not-json");
+    }
+  }
+
+  if (payload === null || typeof payload !== "object") {
+    throw tag(new Error("response body is not a JSON object"), "not-json-rpc");
   }
 
   if (payload.error) {
     const err = new Error(payload.error.message ?? "JSON-RPC error");
     err.detail = JSON.stringify(payload.error);
-    throw err;
+    throw tag(err, envelope);
   }
 
   // The envelope is checked, not assumed. A JSON-RPC response carries `result`
@@ -163,10 +233,15 @@ export function parseRpc(text) {
   // key, including a static discovery manifest served to a plain GET. That is
   // exactly how one such manifest entered the registry as a tool contract.
   if (payload.jsonrpc !== undefined && payload.jsonrpc !== "2.0") {
-    throw new Error(`not JSON-RPC 2.0: jsonrpc=${JSON.stringify(payload.jsonrpc)}`);
+    throw tag(new Error(`not JSON-RPC 2.0: jsonrpc=${JSON.stringify(payload.jsonrpc)}`), "not-json-rpc");
   }
   if (!Object.prototype.hasOwnProperty.call(payload, "result")) {
-    throw new Error("not a JSON-RPC response: no `result` member");
+    throw tag(new Error("not a JSON-RPC response: no `result` member"), "not-json-rpc");
   }
-  return payload.result;
+  return { result: payload.result, envelope };
+}
+
+function tag(err, envelope) {
+  err.envelope = envelope;
+  return err;
 }

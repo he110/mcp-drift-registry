@@ -6,6 +6,15 @@
     "url": "https://he110.github.io/mcp-drift-registry",
     "repo": "he110/mcp-drift-registry"
   },
+  "origins": [
+    {
+      "id": "mintlify-origin",
+      "name": "Mintlify (the generator itself)",
+      "platform": "mintlify-docs",
+      "url": "https://docs.mintlify.com/mcp",
+      "homepage": "https://mintlify.com"
+    }
+  ],
   "servers": [
     {
       "id": "alpaca-docs",
