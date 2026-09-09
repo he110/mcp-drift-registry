@@ -412,6 +412,8 @@ function counts(ctx) {
     unreachable: servers.filter((s) => s.status !== "ok").length,
     tools: servers.reduce((n, s) => n + (s.toolCount ?? 0), 0),
     events: events.length,
+    // Reachability events are operational noise about a host, not contract
+    // drift; counting them here would make the headline number unreadable.
     breaking: events.filter((e) => e.severity === "breaking").length,
     silent: events.filter((e) => e.silent).length,
   };

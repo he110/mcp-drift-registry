@@ -32,9 +32,36 @@
   ],
   "toolCount": 1,
   "fingerprint": "a6b33b20e918b4b4",
+  "lastGood": {
+    "at": "2026-09-09T10:51:41.540Z",
+    "tools": [
+      {
+        "name": "deploy-html",
+        "title": null,
+        "description": "Deploy HTML content to EdgeOne Pages, return the public URL",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "description": "HTML or text content to deploy. Provide complete HTML or text content you want to publish, and the system will return a public URL where your content can be accessed."
+            }
+          },
+          "required": [
+            "value"
+          ]
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "5523d679fbe3b22c"
+      }
+    ],
+    "fingerprint": "a6b33b20e918b4b4",
+    "protocolVersion": null
+  },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-09T10:33:58.625Z",
-  "lastOkAt": "2026-09-09T10:33:58.625Z",
+  "lastCheckedAt": "2026-09-09T10:51:41.540Z",
+  "lastOkAt": "2026-09-09T10:51:41.540Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

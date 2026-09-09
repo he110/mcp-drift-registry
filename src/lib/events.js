@@ -29,22 +29,61 @@ export function buildEvents(prev, next, at) {
   const wasOk = prev.status === "ok";
   const isOk = next.status === "ok";
   if (wasOk && !isOk) {
-    push({ type: "server_unreachable", severity: "breaking", summary: `${next.name} became unreachable: ${next.error}` });
+    // Reachability is an operational fact about a host, not a change to a
+    // contract. Filing it as `breaking` would let a sleeping free-tier demo
+    // inflate the one number this registry exists to report.
+    push({
+      type: "server_unreachable",
+      severity: "operational",
+      summary: `${next.name} became unreachable: ${next.error}`,
+    });
     return events; // never diff tools against a failed fetch
   }
   if (!isOk) return events;
   if (!wasOk) {
-    // Recovery from a failed fetch is a re-baseline, not a hundred additions:
-    // the previous snapshot holds no contract to diff against.
     push({
       type: "server_recovered",
-      severity: "additive",
-      summary: `${next.name} is reachable again — baseline re-established with ${plural(next.tools.length, "tool")}`,
+      severity: "operational",
+      summary: `${next.name} is reachable again`,
     });
+    // Downtime must not launder a contract change. The naive version re-based
+    // here and reported nothing, so a server that slept and woke up without a
+    // tool erased the removal from the record permanently — the registry would
+    // stay silent about exactly the event it exists to catch. Diff against the
+    // last snapshot that actually carried a contract instead.
+    const baseline = lastGoodContract(prev);
+    if (!baseline) {
+      push({
+        type: "server_baselined",
+        severity: "operational",
+        summary: `${next.name} baseline established with ${plural(next.tools.length, "tool")}`,
+      });
+      return events;
+    }
+    pushContractEvents(baseline, next, push);
     return events;
   }
 
-  // --- protocol / identity --------------------------------------------------
+  pushContractEvents(prev, next, push);
+  return events;
+}
+
+/**
+ * The last snapshot that actually carried a contract.
+ *
+ * A failed fetch overwrites `tools` with an empty array, so `prev` alone is not
+ * enough to diff against after any outage. Records written since this change
+ * carry `lastGood`; older ones are handled by falling back to the record itself
+ * when it was `ok`, so existing state stays readable without a migration.
+ */
+function lastGoodContract(prev) {
+  if (prev?.lastGood?.tools?.length) return prev.lastGood;
+  if (prev?.status === "ok" && prev.tools?.length) return prev;
+  return null;
+}
+
+/** Contract diff proper: protocol identity plus the tool set. */
+function pushContractEvents(prev, next, push) {
   if (prev.protocolVersion && next.protocolVersion && prev.protocolVersion !== next.protocolVersion) {
     push({
       type: "protocol_version_changed",
@@ -53,7 +92,6 @@ export function buildEvents(prev, next, at) {
     });
   }
 
-  // --- tools ----------------------------------------------------------------
   const prevTools = new Map((prev.tools ?? []).map((t) => [t.name, t]));
   const nextTools = new Map((next.tools ?? []).map((t) => [t.name, t]));
 
@@ -91,8 +129,6 @@ export function buildEvents(prev, next, at) {
       descriptionChanged: d.descriptionChanged,
     });
   }
-
-  return events;
 }
 
 function plural(n, word) {

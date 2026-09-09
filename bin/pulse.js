@@ -64,8 +64,19 @@ async function main() {
 
     // Establishing a baseline is not a change to the contract.
     const changed = events.some((e) => e.type !== "server_added");
+    // A failed fetch carries no tools, and overwriting the snapshot with it
+    // would erase the contract we need to diff against once the server comes
+    // back. Carry the last contract that actually arrived.
+    const lastGood =
+      next.status === "ok"
+        ? { at, tools: next.tools, fingerprint: next.fingerprint, protocolVersion: next.protocolVersion }
+        : (prev?.lastGood ?? (prev?.status === "ok" && prev.tools?.length
+            ? { at: prev.lastOkAt ?? prev.lastCheckedAt, tools: prev.tools, fingerprint: prev.fingerprint, protocolVersion: prev.protocolVersion }
+            : null));
+
     const record = {
       ...next,
+      lastGood,
       firstSeenAt: prev?.firstSeenAt ?? at,
       lastCheckedAt: at,
       lastOkAt: next.status === "ok" ? at : (prev?.lastOkAt ?? null),

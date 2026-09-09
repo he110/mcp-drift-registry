@@ -852,9 +852,856 @@
   ],
   "toolCount": 22,
   "fingerprint": "1be9de82fe97c6fd",
+  "lastGood": {
+    "at": "2026-09-09T10:51:41.540Z",
+    "tools": [
+      {
+        "name": "capture_screenshot_url",
+        "title": null,
+        "description": "Screenshot a page as base64 JPEG. Use when the page must be seen rather than read.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "format": "uri"
+            },
+            "firstScreenOnly": {
+              "type": "boolean",
+              "default": false,
+              "description": "Capture only the first screen instead of the full page. Faster."
+            },
+            "return_url": {
+              "type": "boolean",
+              "default": false,
+              "description": "Return URLs instead of base64 images."
+            }
+          },
+          "required": [
+            "url"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "4bc84c3e7ab6e677"
+      },
+      {
+        "name": "classify_text",
+        "title": null,
+        "description": "Classify texts into labels you supply, using Jina embeddings. Zero-shot: no training data needed.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "texts": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1,
+              "maxItems": 1024,
+              "description": "Texts to classify, up to 1024."
+            },
+            "labels": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 2,
+              "maxItems": 256,
+              "description": "Labels to classify into, e.g. ['positive','negative']."
+            }
+          },
+          "required": [
+            "texts",
+            "labels"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "55c78130a78abfcd"
+      },
+      {
+        "name": "deduplicate_images",
+        "title": null,
+        "description": "Select the top-k visually distinct images (URLs or base64) from a list, dropping near-duplicates.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "images": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1,
+              "maxItems": 200,
+              "description": "Images to deduplicate, up to 200. Each is an http(s) URL or raw base64."
+            },
+            "k": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "How many to keep. Omit to pick k automatically from diminishing returns."
+            }
+          },
+          "required": [
+            "images"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "aa1320222e77a155"
+      },
+      {
+        "name": "deduplicate_strings",
+        "title": null,
+        "description": "Select the top-k semantically distinct strings from a list, dropping near-duplicates.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "strings": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1,
+              "maxItems": 1000,
+              "description": "Strings to deduplicate, up to 1000."
+            },
+            "k": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "How many to keep. Omit to pick k automatically from diminishing returns."
+            }
+          },
+          "required": [
+            "strings"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "4a78a9d0c16a5d78"
+      },
+      {
+        "name": "expand_query",
+        "title": null,
+        "description": "Rewrite one query into several diverse queries, for broader search coverage.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "query"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "b592ecc51795b1d1"
+      },
+      {
+        "name": "extract_pdf",
+        "title": null,
+        "description": "Extract figures, tables and equations from a PDF as images, by arXiv id or URL.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "arXiv id, e.g. '2301.12345'. Give id or url."
+            },
+            "url": {
+              "type": "string",
+              "format": "uri",
+              "description": "PDF URL. Give id or url."
+            },
+            "max_edge": {
+              "type": "number",
+              "default": 1024,
+              "description": "Longest image edge in pixels, default 1024."
+            },
+            "type": {
+              "type": "string",
+              "description": "Comma-separated types to keep: figure, table, equation. Default all."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "e59285d34adcf10c"
+      },
+      {
+        "name": "guess_datetime_url",
+        "title": null,
+        "description": "Guess when a page was published or last updated, with a confidence score. Checks HTTP headers, metadata, Schema.org, visible dates, feeds and sitemaps.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          "required": [
+            "url"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "79ebcbbaedd8dab1"
+      },
+      {
+        "name": "parallel_read_url",
+        "title": null,
+        "description": "Read several URLs at once.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "urls": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "withAllLinks": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Also return every link on the page."
+                  },
+                  "withAllImages": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Also return every image on the page."
+                  },
+                  "question": {
+                    "type": "string",
+                    "description": "Return only the passages answering this question, instead of the full body."
+                  },
+                  "chunk_size": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 4096,
+                    "description": "Passage size in words, default 100. Needs `question`."
+                  },
+                  "topk": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 50,
+                    "description": "Passages to return, default 1. Needs `question`."
+                  }
+                },
+                "required": [
+                  "url"
+                ],
+                "additionalProperties": false
+              },
+              "maxItems": 5,
+              "description": "URLs to read, up to 5."
+            }
+          },
+          "required": [
+            "urls"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "83703b681b5af34b"
+      },
+      {
+        "name": "parallel_search_arxiv",
+        "title": null,
+        "description": "Run several arXiv searches at once. Give queries covering different research angles.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "searches": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string"
+                  },
+                  "num": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 100,
+                    "default": 30
+                  },
+                  "tbs": {
+                    "type": "string",
+                    "description": "Age limit: qdr:h, qdr:d, qdr:w, qdr:m, qdr:y (hour to year)."
+                  }
+                },
+                "required": [
+                  "query"
+                ],
+                "additionalProperties": false
+              },
+              "maxItems": 5,
+              "description": "Searches to run, up to 5."
+            }
+          },
+          "required": [
+            "searches"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "adaa29b3998c4e81"
+      },
+      {
+        "name": "parallel_search_ssrn",
+        "title": null,
+        "description": "Run several SSRN searches at once. Give queries covering different research angles.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "searches": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string"
+                  },
+                  "num": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 100,
+                    "default": 30
+                  },
+                  "tbs": {
+                    "type": "string",
+                    "description": "Age limit: qdr:h, qdr:d, qdr:w, qdr:m, qdr:y (hour to year)."
+                  }
+                },
+                "required": [
+                  "query"
+                ],
+                "additionalProperties": false
+              },
+              "maxItems": 5,
+              "description": "Searches to run, up to 5."
+            }
+          },
+          "required": [
+            "searches"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "adaa29b3998c4e81"
+      },
+      {
+        "name": "parallel_search_web",
+        "title": null,
+        "description": "Run several web searches at once. Give queries covering different angles of the topic; expand_query can generate them.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "searches": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string"
+                  },
+                  "num": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 100,
+                    "default": 30
+                  },
+                  "tbs": {
+                    "type": "string",
+                    "description": "Age limit: qdr:h, qdr:d, qdr:w, qdr:m, qdr:y (hour to year)."
+                  },
+                  "location": {
+                    "type": "string"
+                  },
+                  "gl": {
+                    "type": "string",
+                    "description": "Country code, e.g. 'de'."
+                  },
+                  "hl": {
+                    "type": "string",
+                    "description": "Language code, e.g. 'zh-cn'."
+                  }
+                },
+                "required": [
+                  "query"
+                ],
+                "additionalProperties": false
+              },
+              "maxItems": 5,
+              "description": "Searches to run, up to 5."
+            }
+          },
+          "required": [
+            "searches"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "e273789930b725dc"
+      },
+      {
+        "name": "primer",
+        "title": null,
+        "description": "Current time, user location and network environment for the session. Use before answering anything time- or location-dependent.",
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "7a014b717a77aac9"
+      },
+      {
+        "name": "read_url",
+        "title": null,
+        "description": "Fetch a URL (page or PDF) as clean markdown. Pass `question` to get only the passages answering it instead of the whole page - far cheaper than reading the full body into context.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uri"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "minItems": 1,
+                  "maxItems": 5
+                }
+              ],
+              "description": "Page or PDF URL, or up to 5 URLs to read in parallel."
+            },
+            "withAllLinks": {
+              "type": "boolean",
+              "description": "Also return every link on the page."
+            },
+            "withAllImages": {
+              "type": "boolean",
+              "description": "Also return every image on the page."
+            },
+            "question": {
+              "type": "string",
+              "description": "Return only the passages answering this question, instead of the full body. Omit for the whole page."
+            },
+            "chunk_size": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 4096,
+              "description": "Passage size in words, default 100. Larger gives more surrounding context, smaller pinpoints the answer. Comparable across scripts. Needs `question`."
+            },
+            "topk": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "description": "Passages to return, default 1. Needs `question`."
+            }
+          },
+          "required": [
+            "url"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "25712926e200cd34"
+      },
+      {
+        "name": "search_arxiv",
+        "title": null,
+        "description": "Search arXiv preprints (physics, maths, CS, quantitative biology and finance).",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1,
+                  "maxItems": 5
+                }
+              ]
+            },
+            "num": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 30
+            },
+            "tbs": {
+              "type": "string",
+              "description": "Age limit: qdr:h, qdr:d, qdr:w, qdr:m, qdr:y (hour to year)."
+            }
+          },
+          "required": [
+            "query"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "0278e0780947f622"
+      },
+      {
+        "name": "search_bibtex",
+        "title": null,
+        "description": "Find papers and return ready-to-use BibTeX entries. Searches DBLP and Semantic Scholar.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string"
+            },
+            "num": {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 50,
+              "default": 10
+            },
+            "year": {
+              "type": "number",
+              "description": "Earliest publication year."
+            },
+            "author": {
+              "type": "string",
+              "description": "Author surname."
+            }
+          },
+          "required": [
+            "query"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "f4172ce86b8d3668"
+      },
+      {
+        "name": "search_images",
+        "title": null,
+        "description": "Search the web for images. Returns base64 JPEGs by default.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string"
+            },
+            "num": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 30,
+              "default": 10
+            },
+            "return_url": {
+              "type": "boolean",
+              "default": false,
+              "description": "Return URLs and metadata instead of base64 images."
+            },
+            "tbs": {
+              "type": "string",
+              "description": "Age limit: qdr:h, qdr:d, qdr:w, qdr:m, qdr:y (hour to year)."
+            },
+            "location": {
+              "type": "string"
+            },
+            "gl": {
+              "type": "string",
+              "description": "Country code, e.g. 'de'."
+            },
+            "hl": {
+              "type": "string",
+              "description": "Language code, e.g. 'zh-cn'."
+            }
+          },
+          "required": [
+            "query"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "32a4ca8f4f1f68d9"
+      },
+      {
+        "name": "search_jina_blog",
+        "title": null,
+        "description": "Search Jina AI's news and blog at jina.ai/news: product announcements, model releases, technical write-ups.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1,
+                  "maxItems": 5
+                }
+              ]
+            },
+            "num": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 30
+            },
+            "tbs": {
+              "type": "string",
+              "description": "Age limit: qdr:h, qdr:d, qdr:w, qdr:m, qdr:y (hour to year)."
+            }
+          },
+          "required": [
+            "query"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "0278e0780947f622"
+      },
+      {
+        "name": "search_ssrn",
+        "title": null,
+        "description": "Search SSRN working papers (social science, economics, law, finance, management).",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1,
+                  "maxItems": 5
+                }
+              ]
+            },
+            "num": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 30
+            },
+            "tbs": {
+              "type": "string",
+              "description": "Age limit: qdr:h, qdr:d, qdr:w, qdr:m, qdr:y (hour to year)."
+            }
+          },
+          "required": [
+            "query"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "0278e0780947f622"
+      },
+      {
+        "name": "search_web",
+        "title": null,
+        "description": "Search the web. Returns titles, URLs and search-engine snippets.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1,
+                  "maxItems": 5
+                }
+              ]
+            },
+            "num": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 30
+            },
+            "tbs": {
+              "type": "string",
+              "description": "Age limit: qdr:h, qdr:d, qdr:w, qdr:m, qdr:y (hour to year)."
+            },
+            "location": {
+              "type": "string"
+            },
+            "gl": {
+              "type": "string",
+              "description": "Country code, e.g. 'de'."
+            },
+            "hl": {
+              "type": "string",
+              "description": "Language code, e.g. 'zh-cn'."
+            }
+          },
+          "required": [
+            "query"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "2899dfad78a2e585"
+      },
+      {
+        "name": "search_web_deep",
+        "title": null,
+        "description": "Search the web, then read each result page and return the passage that best answers the query. Use when the answer is in page text rather than in titles or snippets. Slower than search_web (2-20s).",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string"
+            },
+            "num": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10,
+              "default": 5,
+              "description": "Results to return, 1-10. Each is a fully-read page, so higher is slower."
+            },
+            "snippet_source": {
+              "type": "string",
+              "enum": [
+                "auto",
+                "content"
+              ],
+              "default": "auto",
+              "description": "'auto' keeps whichever is better, the page passage or the engine snippet. 'content' returns only page passages and omits unreadable pages, so you may get fewer than num."
+            }
+          },
+          "required": [
+            "query"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "7264a2d0c00bbf6a"
+      },
+      {
+        "name": "show_api_key",
+        "title": null,
+        "description": "Return the bearer token from MCP settings. For debugging.",
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "7a014b717a77aac9"
+      },
+      {
+        "name": "sort_by_relevance",
+        "title": null,
+        "description": "Rerank documents by relevance to a query, using Jina Reranker.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string"
+            },
+            "documents": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1,
+              "maxItems": 1024,
+              "description": "Documents to rank, up to 1024."
+            },
+            "top_n": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "required": [
+            "query",
+            "documents"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null,
+        "annotations": null,
+        "schemaFingerprint": "85bb3d8f281912b3"
+      }
+    ],
+    "fingerprint": "1be9de82fe97c6fd",
+    "protocolVersion": null
+  },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-09T10:33:58.625Z",
-  "lastOkAt": "2026-09-09T10:33:58.625Z",
+  "lastCheckedAt": "2026-09-09T10:51:41.540Z",
+  "lastOkAt": "2026-09-09T10:51:41.540Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

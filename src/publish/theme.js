@@ -25,6 +25,7 @@ export const STYLESHEET = `
   --breaking: #b4361a;
   --additive: #2c6249;
   --cosmetic: #7d7663;
+  --operational: #4a5b6b;
   --stamp: #b4361a;
   --measure: 74rem;
 }
@@ -198,6 +199,7 @@ h2 .num {
 .sev--breaking { color: var(--breaking); }
 .sev--additive { color: var(--additive); }
 .sev--cosmetic { color: var(--cosmetic); }
+.sev--operational { color: var(--operational); }
 
 /* The one thing a reader should remember. */
 .stamp {

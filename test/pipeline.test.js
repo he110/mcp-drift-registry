@@ -141,21 +141,22 @@ test("baseline of a single-tool server reads grammatically", () => {
   assert.match(events[0].summary, /1 tool\b/);
 });
 
-test("an unreachable server is breaking and stops the tool diff", () => {
+test("an unreachable server stops the tool diff and is not filed as breaking", () => {
   const prev = server([tool()]);
   const next = server([], { status: "error", error: "fetch failed", toolCount: 0 });
   const events = buildEvents(prev, next, AT);
   assert.equal(events.length, 1);
   assert.equal(events[0].type, "server_unreachable");
-  assert.equal(events[0].severity, "breaking");
+  assert.equal(events[0].severity, "operational");
 });
 
-test("recovery re-baselines instead of announcing every tool as new", () => {
+test("recovery does not announce every tool as new", () => {
   const prev = server([], { status: "error", error: "fetch failed", toolCount: 0 });
   const next = server([tool(), tool({ name: "fetch" })]);
-  const events = buildEvents(prev, next, AT);
-  assert.equal(events.length, 1);
-  assert.equal(events[0].type, "server_recovered");
+  const types = buildEvents(prev, next, AT).map((e) => e.type);
+  // No contract was ever recorded, so this is a baseline — not two additions.
+  assert.deepEqual(types, ["server_recovered", "server_baselined"]);
+  assert.ok(!types.includes("tool_added"));
 });
 
 test("removing a tool is breaking, adding one is additive", () => {
@@ -229,4 +230,68 @@ test("backticked names become code without letting markup through", () => {
   assert.ok(out.includes("<code>"));
   assert.ok(!out.includes("<script>"));
   assert.ok(out.includes("&lt;script&gt;"));
+});
+
+// --- outages must not launder a contract change -----------------------------
+//
+// The failure these cover is silent by construction: a server sleeps, a tool
+// disappears while it is down, and the naive implementation re-baselines on
+// recovery and reports nothing at all. The registry would stay quiet about
+// precisely the event it exists to catch.
+
+const down = (over = {}) => ({
+  id: "acme",
+  name: "Acme",
+  url: "https://example.invalid/mcp",
+  status: "error",
+  error: "HTTP 502",
+  protocolVersion: null,
+  tools: [],
+  toolCount: 0,
+  fingerprint: null,
+  ...over,
+});
+
+test("going unreachable is operational, not a breaking contract change", () => {
+  const [e] = buildEvents(server([tool()]), down(), AT);
+  assert.equal(e.type, "server_unreachable");
+  assert.equal(e.severity, "operational");
+});
+
+test("a tool removed during an outage is still reported on recovery", () => {
+  const before = server([tool(), tool({ name: "fetch" })]);
+  // What pulse.js persists while the server is down: no tools, contract kept.
+  const whileDown = down({
+    lastGood: { at: AT, tools: before.tools, fingerprint: before.fingerprint, protocolVersion: before.protocolVersion },
+  });
+  const after = server([tool()]);
+
+  const events = buildEvents(whileDown, after, AT);
+  const removal = events.find((e) => e.type === "tool_removed");
+
+  assert.ok(removal, "the removal must survive the outage");
+  assert.equal(removal.tool, "fetch");
+  assert.equal(removal.severity, "breaking");
+  assert.ok(events.some((e) => e.type === "server_recovered" && e.severity === "operational"));
+});
+
+test("recovery reports nothing extra when the contract is unchanged", () => {
+  const before = server([tool()]);
+  const whileDown = down({
+    lastGood: { at: AT, tools: before.tools, fingerprint: before.fingerprint, protocolVersion: before.protocolVersion },
+  });
+  const types = buildEvents(whileDown, server([tool()]), AT).map((e) => e.type);
+  assert.deepEqual(types, ["server_recovered"]);
+});
+
+test("a record predating lastGood still diffs against its own snapshot", () => {
+  // Existing state on disk has no `lastGood` key; it must not re-baseline.
+  const legacy = { ...server([tool(), tool({ name: "fetch" })]), status: "ok" };
+  const events = buildEvents(legacy, server([tool()]), AT);
+  assert.ok(events.some((e) => e.type === "tool_removed" && e.tool === "fetch"));
+});
+
+test("recovery with no contract ever recorded is a baseline, not a hundred additions", () => {
+  const types = buildEvents(down(), server([tool(), tool({ name: "fetch" })]), AT).map((e) => e.type);
+  assert.deepEqual(types, ["server_recovered", "server_baselined"]);
 });
