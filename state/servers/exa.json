@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-09-09T16:03:36.456Z",
+    "at": "2026-09-09T16:31:38.981Z",
     "declaredUrl": "https://mcp.exa.ai/mcp",
     "observedUrl": "https://mcp.exa.ai/mcp",
     "urlMatchesDeclared": true,
@@ -93,7 +93,7 @@
   "toolCount": 2,
   "fingerprint": "ab68e01795563113",
   "lastGood": {
-    "at": "2026-09-09T16:03:36.456Z",
+    "at": "2026-09-09T16:31:38.981Z",
     "tools": [
       {
         "name": "web_fetch_exa",
@@ -167,19 +167,20 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-09T16:03:36.456Z",
-  "lastOkAt": "2026-09-09T16:03:36.456Z",
+  "lastCheckedAt": "2026-09-09T16:31:38.981Z",
+  "lastOkAt": "2026-09-09T16:31:38.981Z",
   "lastChangedAt": null,
   "changeCount": 0,
   "card": {
     "id": "exa",
     "cardUrl": "https://mcp.exa.ai/.well-known/mcp/server-card.json",
-    "at": "2026-09-09T16:03:36.456Z",
+    "at": "2026-09-09T16:31:38.981Z",
+    "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-09-09T16:03:36.456Z",
+      "at": "2026-09-09T16:31:38.981Z",
       "declaredUrl": "https://mcp.exa.ai/.well-known/mcp/server-card.json",
       "observedUrl": "https://mcp.exa.ai/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
@@ -189,6 +190,8 @@
       "envelope": null,
       "methodChangingRedirect": false,
       "refused": null
-    }
+    },
+    "cardsUrl": "https://mcp.exa.ai/.well-known/mcp/server-cards.json",
+    "cardsStatus": "absent"
   }
 }

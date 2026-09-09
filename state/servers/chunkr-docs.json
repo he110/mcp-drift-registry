@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-09-09T16:03:36.456Z",
+    "at": "2026-09-09T16:31:38.981Z",
     "declaredUrl": "https://docs.chunkr.ai/mcp",
     "observedUrl": "https://docs.chunkr.ai/mcp",
     "urlMatchesDeclared": true,
@@ -115,7 +115,7 @@
   "toolCount": 3,
   "fingerprint": "0fc23908359375a2",
   "lastGood": {
-    "at": "2026-09-09T16:03:36.456Z",
+    "at": "2026-09-09T16:31:38.981Z",
     "tools": [
       {
         "name": "query_docs_filesystem_chunkr",
@@ -211,14 +211,15 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-09T16:03:36.456Z",
-  "lastOkAt": "2026-09-09T16:03:36.456Z",
+  "lastCheckedAt": "2026-09-09T16:31:38.981Z",
+  "lastOkAt": "2026-09-09T16:31:38.981Z",
   "lastChangedAt": null,
   "changeCount": 0,
   "card": {
     "id": "chunkr-docs",
     "cardUrl": "https://docs.chunkr.ai/.well-known/mcp/server-card.json",
-    "at": "2026-09-09T16:03:36.456Z",
+    "at": "2026-09-09T16:31:38.981Z",
+    "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
     "card": {
@@ -270,7 +271,7 @@
       "toolCount": 2
     },
     "provenance": {
-      "at": "2026-09-09T16:03:36.456Z",
+      "at": "2026-09-09T16:31:38.981Z",
       "declaredUrl": "https://docs.chunkr.ai/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.chunkr.ai/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,

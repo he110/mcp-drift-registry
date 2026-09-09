@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-09-09T16:03:36.456Z",
+    "at": "2026-09-09T16:31:38.981Z",
     "declaredUrl": "https://docs.cohere.com/mcp",
     "observedUrl": "https://docs.cohere.com/mcp",
     "urlMatchesDeclared": true,
@@ -57,7 +57,7 @@
   "toolCount": 1,
   "fingerprint": "492b77de8631d0a9",
   "lastGood": {
-    "at": "2026-09-09T16:03:36.456Z",
+    "at": "2026-09-09T16:31:38.981Z",
     "tools": [
       {
         "name": "searchDocs",
@@ -95,19 +95,20 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-09T16:03:36.456Z",
-  "lastOkAt": "2026-09-09T16:03:36.456Z",
+  "lastCheckedAt": "2026-09-09T16:31:38.981Z",
+  "lastOkAt": "2026-09-09T16:31:38.981Z",
   "lastChangedAt": null,
   "changeCount": 0,
   "card": {
     "id": "cohere-docs",
     "cardUrl": "https://docs.cohere.com/.well-known/mcp/server-card.json",
-    "at": "2026-09-09T16:03:36.456Z",
+    "at": "2026-09-09T16:31:38.981Z",
+    "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-09-09T16:03:36.456Z",
+      "at": "2026-09-09T16:31:38.981Z",
       "declaredUrl": "https://docs.cohere.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.cohere.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
@@ -117,6 +118,8 @@
       "envelope": null,
       "methodChangingRedirect": false,
       "refused": null
-    }
+    },
+    "cardsUrl": "https://docs.cohere.com/.well-known/mcp/server-cards.json",
+    "cardsStatus": "absent"
   }
 }
