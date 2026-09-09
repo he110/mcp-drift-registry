@@ -9,6 +9,18 @@
   "error": null,
   "protocolVersion": null,
   "serverInfo": null,
+  "provenance": {
+    "at": "2026-09-09T15:35:23.077Z",
+    "declaredUrl": "https://docs.readme.com/mcp",
+    "observedUrl": "https://docs.readme.com/mcp",
+    "urlMatchesDeclared": true,
+    "redirected": false,
+    "redirects": [],
+    "via": "direct-post",
+    "envelope": "sse",
+    "methodChangingRedirect": false,
+    "refused": null
+  },
   "tools": [
     {
       "name": "draft-changelog",
@@ -322,7 +334,7 @@
   "toolCount": 9,
   "fingerprint": "a8ab3273fb24d17b",
   "lastGood": {
-    "at": "2026-09-09T12:09:23.845Z",
+    "at": "2026-09-09T15:35:23.077Z",
     "tools": [
       {
         "name": "draft-changelog",
@@ -637,8 +649,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-09T12:09:23.845Z",
-  "lastOkAt": "2026-09-09T12:09:23.845Z",
+  "lastCheckedAt": "2026-09-09T15:35:23.077Z",
+  "lastOkAt": "2026-09-09T15:35:23.077Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

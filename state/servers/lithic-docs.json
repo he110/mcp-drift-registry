@@ -9,6 +9,18 @@
   "error": null,
   "protocolVersion": null,
   "serverInfo": null,
+  "provenance": {
+    "at": "2026-09-09T15:35:23.077Z",
+    "declaredUrl": "https://docs.lithic.com/mcp",
+    "observedUrl": "https://docs.lithic.com/mcp",
+    "urlMatchesDeclared": true,
+    "redirected": false,
+    "redirects": [],
+    "via": "direct-post",
+    "envelope": "sse",
+    "methodChangingRedirect": false,
+    "refused": null
+  },
   "tools": [
     {
       "name": "execute-request",
@@ -319,7 +331,7 @@
   "toolCount": 10,
   "fingerprint": "443200fc19421f4f",
   "lastGood": {
-    "at": "2026-09-09T12:09:23.845Z",
+    "at": "2026-09-09T15:35:23.077Z",
     "tools": [
       {
         "name": "execute-request",
@@ -631,8 +643,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-09T12:09:23.845Z",
-  "lastOkAt": "2026-09-09T12:09:23.845Z",
+  "lastCheckedAt": "2026-09-09T15:35:23.077Z",
+  "lastOkAt": "2026-09-09T15:35:23.077Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

@@ -9,6 +9,18 @@
   "error": null,
   "protocolVersion": null,
   "serverInfo": null,
+  "provenance": {
+    "at": "2026-09-09T15:35:23.077Z",
+    "declaredUrl": "https://mcp.svelte.dev/mcp",
+    "observedUrl": "https://mcp.svelte.dev/mcp",
+    "urlMatchesDeclared": true,
+    "redirected": false,
+    "redirects": [],
+    "via": "direct-post",
+    "envelope": "sse",
+    "methodChangingRedirect": false,
+    "refused": null
+  },
   "tools": [
     {
       "name": "get-documentation",
@@ -190,7 +202,7 @@
   "toolCount": 4,
   "fingerprint": "186bae06bc1b96ee",
   "lastGood": {
-    "at": "2026-09-09T12:09:23.845Z",
+    "at": "2026-09-09T15:35:23.077Z",
     "tools": [
       {
         "name": "get-documentation",
@@ -373,8 +385,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-09T12:09:23.845Z",
-  "lastOkAt": "2026-09-09T12:09:23.845Z",
+  "lastCheckedAt": "2026-09-09T15:35:23.077Z",
+  "lastOkAt": "2026-09-09T15:35:23.077Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

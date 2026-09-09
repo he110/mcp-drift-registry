@@ -9,6 +9,24 @@
   "error": null,
   "protocolVersion": null,
   "serverInfo": null,
+  "provenance": {
+    "at": "2026-09-09T15:35:23.077Z",
+    "declaredUrl": "https://docs.livekit.io/mcp",
+    "observedUrl": "https://docs.livekit.io/mcp/",
+    "urlMatchesDeclared": false,
+    "redirected": true,
+    "redirects": [
+      {
+        "status": 308,
+        "to": "https://docs.livekit.io/mcp/",
+        "preservesMethod": true
+      }
+    ],
+    "via": "direct-post",
+    "envelope": "sse",
+    "methodChangingRedirect": false,
+    "refused": null
+  },
   "tools": [
     {
       "name": "code_search",
@@ -528,7 +546,7 @@
   "toolCount": 9,
   "fingerprint": "de8bd5a9a598fb28",
   "lastGood": {
-    "at": "2026-09-09T12:09:23.845Z",
+    "at": "2026-09-09T15:35:23.077Z",
     "tools": [
       {
         "name": "code_search",
@@ -1049,8 +1067,8 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-09T12:09:23.845Z",
-  "lastOkAt": "2026-09-09T12:09:23.845Z",
+  "lastCheckedAt": "2026-09-09T15:35:23.077Z",
+  "lastOkAt": "2026-09-09T15:35:23.077Z",
   "lastChangedAt": null,
   "changeCount": 0
 }

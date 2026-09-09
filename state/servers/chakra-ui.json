@@ -17,6 +17,18 @@
       "tools": {}
     }
   },
+  "provenance": {
+    "at": "2026-09-09T15:35:23.077Z",
+    "declaredUrl": "https://mcp.chakra-ui.com/mcp",
+    "observedUrl": "https://mcp.chakra-ui.com/mcp",
+    "urlMatchesDeclared": true,
+    "redirected": false,
+    "redirects": [],
+    "via": "initialize-handshake",
+    "envelope": "sse",
+    "methodChangingRedirect": false,
+    "refused": null
+  },
   "tools": [
     {
       "name": "customize_theme",
@@ -454,7 +466,7 @@
   "toolCount": 6,
   "fingerprint": "345146b5ccab8ee7",
   "lastGood": {
-    "at": "2026-09-09T12:09:23.845Z",
+    "at": "2026-09-09T15:35:23.077Z",
     "tools": [
       {
         "name": "customize_theme",
@@ -893,8 +905,8 @@
     "protocolVersion": "2025-06-18"
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-09T12:09:23.845Z",
-  "lastOkAt": "2026-09-09T12:09:23.845Z",
+  "lastCheckedAt": "2026-09-09T15:35:23.077Z",
+  "lastOkAt": "2026-09-09T15:35:23.077Z",
   "lastChangedAt": null,
   "changeCount": 0
 }
