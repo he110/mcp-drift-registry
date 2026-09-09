@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-09-09T16:31:38.981Z",
+    "at": "2026-09-09T16:42:51.560Z",
     "declaredUrl": "https://docs.hoppscotch.io/mcp",
     "observedUrl": "https://docs.hoppscotch.io/mcp",
     "urlMatchesDeclared": true,
@@ -111,7 +111,7 @@
   "toolCount": 3,
   "fingerprint": "b20744d3fa30d253",
   "lastGood": {
-    "at": "2026-09-09T16:31:38.981Z",
+    "at": "2026-09-09T16:42:51.560Z",
     "tools": [
       {
         "name": "query_docs_filesystem_hoppscotch_documentation",
@@ -203,14 +203,14 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-09T16:31:38.981Z",
-  "lastOkAt": "2026-09-09T16:31:38.981Z",
+  "lastCheckedAt": "2026-09-09T16:42:51.560Z",
+  "lastOkAt": "2026-09-09T16:42:51.560Z",
   "lastChangedAt": null,
   "changeCount": 0,
   "card": {
     "id": "hoppscotch-docs",
     "cardUrl": "https://docs.hoppscotch.io/.well-known/mcp/server-card.json",
-    "at": "2026-09-09T16:31:38.981Z",
+    "at": "2026-09-09T16:42:51.560Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -259,7 +259,7 @@
       "toolCount": 2
     },
     "provenance": {
-      "at": "2026-09-09T16:31:38.981Z",
+      "at": "2026-09-09T16:42:51.560Z",
       "declaredUrl": "https://docs.hoppscotch.io/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.hoppscotch.io/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
