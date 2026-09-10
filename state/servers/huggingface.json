@@ -10,7 +10,7 @@
   "protocolVersion": "2025-06-18",
   "serverInfo": {
     "name": "huggingface.co/mcp",
-    "version": "0.4.18",
+    "version": "0.4.19",
     "title": "Hugging Face",
     "websiteUrl": "https://huggingface.co/mcp",
     "icons": [
@@ -20,7 +20,7 @@
     ]
   },
   "provenance": {
-    "at": "2026-09-10T16:28:30.807Z",
+    "at": "2026-09-10T20:54:58.589Z",
     "declaredUrl": "https://huggingface.co/mcp",
     "observedUrl": "https://huggingface.co/mcp",
     "urlMatchesDeclared": true,
@@ -35,7 +35,7 @@
     {
       "name": "hf_fs",
       "title": "Hugging Face Hub: Find, use and view models, datasets, spaces, buckets, papers, documentation and collections. Get daily papers reports, and browse trending content. ",
-      "description": "When to use: Hugging Face Hub models, datasets, Spaces, collections, papers, daily papers, today's trending models, current paper leaderboard, docs, and repository files.\n\nExamples:\n  {\"operations\":[{\"cmd\":\"ls\",\"args\":[\"hf://models/trending\",\"--limit\",\"10\"]}]}\n  {\"operations\":[{\"cmd\":\"ls\",\"args\":[\"hf://papers/trending\"]}]}\n  {\"operations\":[{\"cmd\":\"ls\",\"args\":[\"hf://papers/daily/latest\"]}]}\n\nUse hf_fs for Hugging Face Hub filesystem operations. Call it with operations, an array of {cmd, args} items; multiple operations may be submitted together.\n\nUsage:\n  {\"operations\":[{\"cmd\":\"ls\",\"args\":[\"hf://models/org/repo\"]}]}\n\nGrammar; each string below is one args array item:\n  ls     URI [--recursive] [--glob GLOB] [--type TYPE] [--sort SORT] [--limit N]\n  cat    URI [--offset N] [--max-bytes N]\n  attach URI [--max-bytes N]\n  stat   URI\n  find   URI [--name GLOB] [--path GLOB] [--type TYPE] [--limit N]\n  search URI [QUERY] [--type TYPE] [--sort SORT] [--tag TAG] [--kind mcp] [--limit N]\n\nCOMMAND = ls|cat|attach|stat|find|search.\nTYPE = file|dir|repo|bucket|collection|paper|link.\nSORT = createdAt|downloads|likes|lastModified|likes30d|trendingScore|mainSize|id|trending|upvotes.\nURI is a canonical hf:// URI. QUERY and GLOB are each one string.\n\nUse search for resource discovery, not repository-content search; ls for a known directory, find for recursive file discovery by name/path (not file contents), stat for filesystem metadata or an uncertain target type, cat for text contents, and attach for a complete JPEG, PNG, or WebP image. When the request gives an exact text-file URI, use cat directly; do not add ls or stat first. stat does not read the contents of JSON, Markdown, or other text files.\n\nSearch scopes: hf://models[/OWNER], hf://datasets[/OWNER], hf://spaces[/OWNER], hf://collections[/OWNER], hf://papers, and hf://docs[/...]. Repository and repository-file scopes are not supported: search a resource root or owner scope to discover resources; use find for file discovery within a repository or cat for a known text file. Paper and documentation search require QUERY. --tag (repeatable) and --kind are supported only on exactly hf://spaces, not owner scopes or other roots. The only valid --kind value is mcp, which selects MCP Spaces.\nUse ls hf://models/trending, hf://datasets/trending, hf://spaces/trending, or hf://papers/trending for trending listings.\nFor a named paper.md or metadata.json, use cat directly. Use ls on a paper only to discover an unnamed related resource.\nOmit --limit, --sort, and --type unless the request requires them. Limits and path-specific behavior are documented at hf://README.md. Issue one hf_fs call.",
+      "description": "When to use: Hugging Face Hub models, datasets, Spaces, collections, papers, daily papers, today's trending models, current paper leaderboard, docs, and repository files.\n\nExamples:\n  {\"operations\":[{\"cmd\":\"ls\",\"args\":[\"hf://models/trending\",\"--limit\",\"10\"]}]}\n  {\"operations\":[{\"cmd\":\"ls\",\"args\":[\"hf://papers/trending\"]}]}\n  {\"operations\":[{\"cmd\":\"ls\",\"args\":[\"hf://papers/daily/latest\"]}]}\n  {\"operations\":[{\"cmd\":\"cat\",\"args\":[\"hf://papers/2501.00001/paper.md\"]}]}\n\nUse hf_fs for Hugging Face Hub filesystem operations. Call it with operations, an array of {cmd, args} items; multiple operations may be submitted together.\n\nUsage:\n  {\"operations\":[{\"cmd\":\"ls\",\"args\":[\"hf://models/org/repo\"]}]}\n\nGrammar; each string below is one args array item:\n  ls     URI [--recursive] [--glob GLOB] [--type TYPE] [--sort SORT] [--limit N]\n  cat    URI [--offset N] [--max-bytes N]\n  attach URI [--max-bytes N]\n  stat   URI\n  find   URI [--name GLOB] [--path GLOB] [--type TYPE] [--limit N]\n  search URI [QUERY] [--type TYPE] [--sort SORT] [--tag TAG] [--kind mcp] [--limit N]\n\nCOMMAND = ls|cat|attach|stat|find|search.\nTYPE = file|dir|repo|bucket|collection|paper|link.\nSORT = createdAt|downloads|likes|lastModified|likes30d|trendingScore|mainSize|id|trending|upvotes.\nURI is a canonical hf:// URI. QUERY and GLOB are each one string.\n\nUse search for resource discovery, not repository-content search; ls for a known directory, find for recursive file discovery by name/path (not file contents), stat for filesystem metadata or an uncertain target type, cat for text contents, and attach for a complete JPEG, PNG, or WebP image. When the request gives an exact text-file URI, use cat directly; do not add ls or stat first. stat does not read the contents of JSON, Markdown, or other text files.\n\nSearch scopes: hf://models[/OWNER], hf://datasets[/OWNER], hf://spaces[/OWNER], hf://collections[/OWNER], hf://papers, and hf://docs[/...]. Repository and repository-file scopes are not supported: search a resource root or owner scope to discover resources; use find for file discovery within a repository or cat for a known text file. Paper and documentation search require QUERY. --tag (repeatable) and --kind are supported only on exactly hf://spaces, not owner scopes or other roots. The only valid --kind value is mcp, which selects MCP Spaces.\nUse ls hf://models/trending, hf://datasets/trending, hf://spaces/trending, or hf://papers/trending for trending listings.\nhf://papers/ID is a paper directory, not paper text. Use cat hf://papers/ID/paper.md for paper text and cat hf://papers/ID/metadata.json for metadata. No preliminary listing is needed for these known paths. Use ls hf://papers/ID to discover other resources.\nOmit --limit, --sort, and --type unless the request requires them. Limits and path-specific behavior are documented at hf://README.md. Issue one hf_fs call.",
       "inputSchema": {
         "type": "object",
         "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -1217,14 +1217,14 @@
     }
   ],
   "toolCount": 4,
-  "fingerprint": "869450943b354eaa",
+  "fingerprint": "456b2cf3832d9a3b",
   "lastGood": {
-    "at": "2026-09-10T16:28:30.807Z",
+    "at": "2026-09-10T20:54:58.589Z",
     "tools": [
       {
         "name": "hf_fs",
         "title": "Hugging Face Hub: Find, use and view models, datasets, spaces, buckets, papers, documentation and collections. Get daily papers reports, and browse trending content. ",
-        "description": "When to use: Hugging Face Hub models, datasets, Spaces, collections, papers, daily papers, today's trending models, current paper leaderboard, docs, and repository files.\n\nExamples:\n  {\"operations\":[{\"cmd\":\"ls\",\"args\":[\"hf://models/trending\",\"--limit\",\"10\"]}]}\n  {\"operations\":[{\"cmd\":\"ls\",\"args\":[\"hf://papers/trending\"]}]}\n  {\"operations\":[{\"cmd\":\"ls\",\"args\":[\"hf://papers/daily/latest\"]}]}\n\nUse hf_fs for Hugging Face Hub filesystem operations. Call it with operations, an array of {cmd, args} items; multiple operations may be submitted together.\n\nUsage:\n  {\"operations\":[{\"cmd\":\"ls\",\"args\":[\"hf://models/org/repo\"]}]}\n\nGrammar; each string below is one args array item:\n  ls     URI [--recursive] [--glob GLOB] [--type TYPE] [--sort SORT] [--limit N]\n  cat    URI [--offset N] [--max-bytes N]\n  attach URI [--max-bytes N]\n  stat   URI\n  find   URI [--name GLOB] [--path GLOB] [--type TYPE] [--limit N]\n  search URI [QUERY] [--type TYPE] [--sort SORT] [--tag TAG] [--kind mcp] [--limit N]\n\nCOMMAND = ls|cat|attach|stat|find|search.\nTYPE = file|dir|repo|bucket|collection|paper|link.\nSORT = createdAt|downloads|likes|lastModified|likes30d|trendingScore|mainSize|id|trending|upvotes.\nURI is a canonical hf:// URI. QUERY and GLOB are each one string.\n\nUse search for resource discovery, not repository-content search; ls for a known directory, find for recursive file discovery by name/path (not file contents), stat for filesystem metadata or an uncertain target type, cat for text contents, and attach for a complete JPEG, PNG, or WebP image. When the request gives an exact text-file URI, use cat directly; do not add ls or stat first. stat does not read the contents of JSON, Markdown, or other text files.\n\nSearch scopes: hf://models[/OWNER], hf://datasets[/OWNER], hf://spaces[/OWNER], hf://collections[/OWNER], hf://papers, and hf://docs[/...]. Repository and repository-file scopes are not supported: search a resource root or owner scope to discover resources; use find for file discovery within a repository or cat for a known text file. Paper and documentation search require QUERY. --tag (repeatable) and --kind are supported only on exactly hf://spaces, not owner scopes or other roots. The only valid --kind value is mcp, which selects MCP Spaces.\nUse ls hf://models/trending, hf://datasets/trending, hf://spaces/trending, or hf://papers/trending for trending listings.\nFor a named paper.md or metadata.json, use cat directly. Use ls on a paper only to discover an unnamed related resource.\nOmit --limit, --sort, and --type unless the request requires them. Limits and path-specific behavior are documented at hf://README.md. Issue one hf_fs call.",
+        "description": "When to use: Hugging Face Hub models, datasets, Spaces, collections, papers, daily papers, today's trending models, current paper leaderboard, docs, and repository files.\n\nExamples:\n  {\"operations\":[{\"cmd\":\"ls\",\"args\":[\"hf://models/trending\",\"--limit\",\"10\"]}]}\n  {\"operations\":[{\"cmd\":\"ls\",\"args\":[\"hf://papers/trending\"]}]}\n  {\"operations\":[{\"cmd\":\"ls\",\"args\":[\"hf://papers/daily/latest\"]}]}\n  {\"operations\":[{\"cmd\":\"cat\",\"args\":[\"hf://papers/2501.00001/paper.md\"]}]}\n\nUse hf_fs for Hugging Face Hub filesystem operations. Call it with operations, an array of {cmd, args} items; multiple operations may be submitted together.\n\nUsage:\n  {\"operations\":[{\"cmd\":\"ls\",\"args\":[\"hf://models/org/repo\"]}]}\n\nGrammar; each string below is one args array item:\n  ls     URI [--recursive] [--glob GLOB] [--type TYPE] [--sort SORT] [--limit N]\n  cat    URI [--offset N] [--max-bytes N]\n  attach URI [--max-bytes N]\n  stat   URI\n  find   URI [--name GLOB] [--path GLOB] [--type TYPE] [--limit N]\n  search URI [QUERY] [--type TYPE] [--sort SORT] [--tag TAG] [--kind mcp] [--limit N]\n\nCOMMAND = ls|cat|attach|stat|find|search.\nTYPE = file|dir|repo|bucket|collection|paper|link.\nSORT = createdAt|downloads|likes|lastModified|likes30d|trendingScore|mainSize|id|trending|upvotes.\nURI is a canonical hf:// URI. QUERY and GLOB are each one string.\n\nUse search for resource discovery, not repository-content search; ls for a known directory, find for recursive file discovery by name/path (not file contents), stat for filesystem metadata or an uncertain target type, cat for text contents, and attach for a complete JPEG, PNG, or WebP image. When the request gives an exact text-file URI, use cat directly; do not add ls or stat first. stat does not read the contents of JSON, Markdown, or other text files.\n\nSearch scopes: hf://models[/OWNER], hf://datasets[/OWNER], hf://spaces[/OWNER], hf://collections[/OWNER], hf://papers, and hf://docs[/...]. Repository and repository-file scopes are not supported: search a resource root or owner scope to discover resources; use find for file discovery within a repository or cat for a known text file. Paper and documentation search require QUERY. --tag (repeatable) and --kind are supported only on exactly hf://spaces, not owner scopes or other roots. The only valid --kind value is mcp, which selects MCP Spaces.\nUse ls hf://models/trending, hf://datasets/trending, hf://spaces/trending, or hf://papers/trending for trending listings.\nhf://papers/ID is a paper directory, not paper text. Use cat hf://papers/ID/paper.md for paper text and cat hf://papers/ID/metadata.json for metadata. No preliminary listing is needed for these known paths. Use ls hf://papers/ID to discover other resources.\nOmit --limit, --sort, and --type unless the request requires them. Limits and path-specific behavior are documented at hf://README.md. Issue one hf_fs call.",
         "inputSchema": {
           "type": "object",
           "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -2405,24 +2405,24 @@
         "schemaFingerprint": "9b1a1fac0f0e3715"
       }
     ],
-    "fingerprint": "869450943b354eaa",
+    "fingerprint": "456b2cf3832d9a3b",
     "protocolVersion": "2025-06-18"
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-10T16:28:30.807Z",
-  "lastOkAt": "2026-09-10T16:28:30.807Z",
-  "lastChangedAt": "2026-09-09T10:51:41.540Z",
-  "changeCount": 1,
+  "lastCheckedAt": "2026-09-10T20:54:58.589Z",
+  "lastOkAt": "2026-09-10T20:54:58.589Z",
+  "lastChangedAt": "2026-09-10T20:54:58.589Z",
+  "changeCount": 2,
   "card": {
     "id": "huggingface",
     "cardUrl": "https://huggingface.co/.well-known/mcp/server-card.json",
-    "at": "2026-09-10T16:28:30.807Z",
+    "at": "2026-09-10T20:54:58.589Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-09-10T16:28:30.807Z",
+      "at": "2026-09-10T20:54:58.589Z",
       "declaredUrl": "https://huggingface.co/.well-known/mcp/server-card.json",
       "observedUrl": "https://huggingface.co/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,

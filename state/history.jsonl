@@ -79,3 +79,4 @@
 {"type":"server_added","severity":"additive","summary":"Zapier Docs added to the registry — baseline recorded with 3 tools","id":"11b764a4ea54","at":"2026-09-09T10:55:17.881Z","server":"zapier-docs","serverName":"Zapier Docs"}
 {"type":"server_added","severity":"additive","summary":"ZenRows Docs added to the registry — baseline recorded with 3 tools","id":"2347e0b845fe","at":"2026-09-09T10:55:17.881Z","server":"zenrows-docs","serverName":"ZenRows Docs"}
 {"type":"server_added","severity":"additive","summary":"Trigger.dev Docs added to the registry — baseline recorded with 3 tools","id":"6495398cd598","at":"2026-09-09T11:54:07.335Z","server":"trigger-docs","serverName":"Trigger.dev Docs"}
+{"type":"tool_changed","severity":"cosmetic","tool":"hf_fs","silent":false,"summary":"tool `hf_fs`: description_changed","changes":[],"descriptionChanged":true,"id":"48d82f49bc84","at":"2026-09-10T20:54:58.589Z","server":"huggingface","serverName":"Hugging Face"}
