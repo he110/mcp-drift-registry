@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-09-10T04:49:46.781Z",
+    "at": "2026-09-10T11:26:26.196Z",
     "declaredUrl": "https://mcp.mermaidchart.com/mcp",
     "observedUrl": "https://mcp.mermaidchart.com/mcp",
     "urlMatchesDeclared": true,
@@ -1127,7 +1127,7 @@
   "toolCount": 25,
   "fingerprint": "712ac35479ceda6b",
   "lastGood": {
-    "at": "2026-09-10T04:49:46.781Z",
+    "at": "2026-09-10T11:26:26.196Z",
     "tools": [
       {
         "name": "create_issue",
@@ -2235,20 +2235,20 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-10T04:49:46.781Z",
-  "lastOkAt": "2026-09-10T04:49:46.781Z",
+  "lastCheckedAt": "2026-09-10T11:26:26.196Z",
+  "lastOkAt": "2026-09-10T11:26:26.196Z",
   "lastChangedAt": null,
   "changeCount": 0,
   "card": {
     "id": "mermaid-chart",
     "cardUrl": "https://mcp.mermaidchart.com/.well-known/mcp/server-card.json",
-    "at": "2026-09-10T04:49:46.781Z",
+    "at": "2026-09-10T11:26:26.196Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-09-10T04:49:46.781Z",
+      "at": "2026-09-10T11:26:26.196Z",
       "declaredUrl": "https://mcp.mermaidchart.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://mcp.mermaidchart.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,

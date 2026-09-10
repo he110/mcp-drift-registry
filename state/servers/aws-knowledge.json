@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-09-10T04:49:46.781Z",
+    "at": "2026-09-10T11:26:26.196Z",
     "declaredUrl": "https://knowledge-mcp.global.api.aws",
     "observedUrl": "https://knowledge-mcp.global.api.aws",
     "urlMatchesDeclared": true,
@@ -195,7 +195,7 @@
   "toolCount": 5,
   "fingerprint": "030caf251233cf8d",
   "lastGood": {
-    "at": "2026-09-10T04:49:46.781Z",
+    "at": "2026-09-10T11:26:26.196Z",
     "tools": [
       {
         "name": "aws___get_regional_availability",
@@ -371,14 +371,14 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-10T04:49:46.781Z",
-  "lastOkAt": "2026-09-10T04:49:46.781Z",
+  "lastCheckedAt": "2026-09-10T11:26:26.196Z",
+  "lastOkAt": "2026-09-10T11:26:26.196Z",
   "lastChangedAt": null,
   "changeCount": 0,
   "card": {
     "id": "aws-knowledge",
     "cardUrl": "https://knowledge-mcp.global.api.aws/.well-known/mcp/server-card.json",
-    "at": "2026-09-10T04:49:46.781Z",
+    "at": "2026-09-10T11:26:26.196Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -392,7 +392,7 @@
       "toolCount": null
     },
     "provenance": {
-      "at": "2026-09-10T04:49:46.781Z",
+      "at": "2026-09-10T11:26:26.196Z",
       "declaredUrl": "https://knowledge-mcp.global.api.aws/.well-known/mcp/server-card.json",
       "observedUrl": "https://github.com/awslabs/mcp/tree/main/src/aws-knowledge-mcp-server",
       "urlMatchesDeclared": false,
