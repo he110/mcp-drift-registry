@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-09-10T11:26:26.196Z",
+    "at": "2026-09-10T16:28:30.807Z",
     "declaredUrl": "https://mcp.context7.com/mcp",
     "observedUrl": "https://mcp.context7.com/mcp",
     "urlMatchesDeclared": true,
@@ -88,7 +88,7 @@
   "toolCount": 2,
   "fingerprint": "9a6f737773d0d09b",
   "lastGood": {
-    "at": "2026-09-10T11:26:26.196Z",
+    "at": "2026-09-10T16:28:30.807Z",
     "tools": [
       {
         "name": "query-docs",
@@ -157,20 +157,20 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-10T11:26:26.196Z",
-  "lastOkAt": "2026-09-10T11:26:26.196Z",
+  "lastCheckedAt": "2026-09-10T16:28:30.807Z",
+  "lastOkAt": "2026-09-10T16:28:30.807Z",
   "lastChangedAt": null,
   "changeCount": 0,
   "card": {
     "id": "context7",
     "cardUrl": "https://mcp.context7.com/.well-known/mcp/server-card.json",
-    "at": "2026-09-10T11:26:26.196Z",
+    "at": "2026-09-10T16:28:30.807Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-09-10T11:26:26.196Z",
+      "at": "2026-09-10T16:28:30.807Z",
       "declaredUrl": "https://mcp.context7.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://mcp.context7.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,

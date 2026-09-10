@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-09-10T11:26:26.196Z",
+    "at": "2026-09-10T16:28:30.807Z",
     "declaredUrl": "https://learn.microsoft.com/api/mcp",
     "observedUrl": "https://learn.microsoft.com/api/mcp",
     "urlMatchesDeclared": true,
@@ -173,7 +173,7 @@
   "toolCount": 3,
   "fingerprint": "e051ed103dc648ab",
   "lastGood": {
-    "at": "2026-09-10T11:26:26.196Z",
+    "at": "2026-09-10T16:28:30.807Z",
     "tools": [
       {
         "name": "microsoft_code_sample_search",
@@ -327,20 +327,20 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-10T11:26:26.196Z",
-  "lastOkAt": "2026-09-10T11:26:26.196Z",
+  "lastCheckedAt": "2026-09-10T16:28:30.807Z",
+  "lastOkAt": "2026-09-10T16:28:30.807Z",
   "lastChangedAt": null,
   "changeCount": 0,
   "card": {
     "id": "microsoft-learn",
     "cardUrl": "https://learn.microsoft.com/.well-known/mcp/server-card.json",
-    "at": "2026-09-10T11:26:26.196Z",
+    "at": "2026-09-10T16:28:30.807Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-09-10T11:26:26.196Z",
+      "at": "2026-09-10T16:28:30.807Z",
       "declaredUrl": "https://learn.microsoft.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://learn.microsoft.com/en-us/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": false,
