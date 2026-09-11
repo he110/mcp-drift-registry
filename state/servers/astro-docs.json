@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-09-11T04:46:44.478Z",
+    "at": "2026-09-11T11:28:19.957Z",
     "declaredUrl": "https://mcp.docs.astro.build/mcp",
     "observedUrl": "https://mcp.docs.astro.build/mcp",
     "urlMatchesDeclared": true,
@@ -48,7 +48,7 @@
   "toolCount": 1,
   "fingerprint": "6b20ffb7f6d44ad1",
   "lastGood": {
-    "at": "2026-09-11T04:46:44.478Z",
+    "at": "2026-09-11T11:28:19.957Z",
     "tools": [
       {
         "name": "search_astro_docs",
@@ -77,20 +77,20 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-11T04:46:44.478Z",
-  "lastOkAt": "2026-09-11T04:46:44.478Z",
+  "lastCheckedAt": "2026-09-11T11:28:19.957Z",
+  "lastOkAt": "2026-09-11T11:28:19.957Z",
   "lastChangedAt": null,
   "changeCount": 0,
   "card": {
     "id": "astro-docs",
     "cardUrl": "https://mcp.docs.astro.build/.well-known/mcp/server-card.json",
-    "at": "2026-09-11T04:46:44.478Z",
+    "at": "2026-09-11T11:28:19.957Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-09-11T04:46:44.478Z",
+      "at": "2026-09-11T11:28:19.957Z",
       "declaredUrl": "https://mcp.docs.astro.build/.well-known/mcp/server-card.json",
       "observedUrl": "https://mcp.docs.astro.build/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,

@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-09-11T04:46:44.478Z",
+    "at": "2026-09-11T11:28:19.957Z",
     "declaredUrl": "https://mcp.exa.ai/mcp",
     "observedUrl": "https://mcp.exa.ai/mcp",
     "urlMatchesDeclared": true,
@@ -72,10 +72,17 @@
           "numResults": {
             "type": "number",
             "description": "Number of search results to return (default: 10)."
+          },
+          "objective": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096,
+            "description": "Goal for this search turn; say which documents should rank first, which should be excluded, and what specific facts or figures to pull from them."
           }
         },
         "required": [
-          "query"
+          "query",
+          "objective"
         ],
         "additionalProperties": false,
         "$schema": "http://json-schema.org/draft-07/schema#"
@@ -87,13 +94,13 @@
         "openWorldHint": true,
         "idempotentHint": true
       },
-      "schemaFingerprint": "83626e8602e25181"
+      "schemaFingerprint": "ea70b6dbd4ca5363"
     }
   ],
   "toolCount": 2,
-  "fingerprint": "ab68e01795563113",
+  "fingerprint": "f54074486556ff38",
   "lastGood": {
-    "at": "2026-09-11T04:46:44.478Z",
+    "at": "2026-09-11T11:28:19.957Z",
     "tools": [
       {
         "name": "web_fetch_exa",
@@ -145,10 +152,17 @@
             "numResults": {
               "type": "number",
               "description": "Number of search results to return (default: 10)."
+            },
+            "objective": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096,
+              "description": "Goal for this search turn; say which documents should rank first, which should be excluded, and what specific facts or figures to pull from them."
             }
           },
           "required": [
-            "query"
+            "query",
+            "objective"
           ],
           "additionalProperties": false,
           "$schema": "http://json-schema.org/draft-07/schema#"
@@ -160,27 +174,27 @@
           "openWorldHint": true,
           "idempotentHint": true
         },
-        "schemaFingerprint": "83626e8602e25181"
+        "schemaFingerprint": "ea70b6dbd4ca5363"
       }
     ],
-    "fingerprint": "ab68e01795563113",
+    "fingerprint": "f54074486556ff38",
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-11T04:46:44.478Z",
-  "lastOkAt": "2026-09-11T04:46:44.478Z",
-  "lastChangedAt": null,
-  "changeCount": 0,
+  "lastCheckedAt": "2026-09-11T11:28:19.957Z",
+  "lastOkAt": "2026-09-11T11:28:19.957Z",
+  "lastChangedAt": "2026-09-11T11:28:19.957Z",
+  "changeCount": 1,
   "card": {
     "id": "exa",
     "cardUrl": "https://mcp.exa.ai/.well-known/mcp/server-card.json",
-    "at": "2026-09-11T04:46:44.478Z",
+    "at": "2026-09-11T11:28:19.957Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-09-11T04:46:44.478Z",
+      "at": "2026-09-11T11:28:19.957Z",
       "declaredUrl": "https://mcp.exa.ai/.well-known/mcp/server-card.json",
       "observedUrl": "https://mcp.exa.ai/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
