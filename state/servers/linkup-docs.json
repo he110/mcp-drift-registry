@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-09-11T16:33:10.334Z",
+    "at": "2026-09-11T21:01:07.094Z",
     "declaredUrl": "https://docs.linkup.so/mcp",
     "observedUrl": "https://docs.linkup.so/mcp",
     "urlMatchesDeclared": true,
@@ -111,7 +111,7 @@
   "toolCount": 3,
   "fingerprint": "ec0c5097604488bf",
   "lastGood": {
-    "at": "2026-09-11T16:33:10.334Z",
+    "at": "2026-09-11T21:01:07.094Z",
     "tools": [
       {
         "name": "query_docs_filesystem_linkup_api_documentation",
@@ -203,14 +203,14 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-11T16:33:10.334Z",
-  "lastOkAt": "2026-09-11T16:33:10.334Z",
+  "lastCheckedAt": "2026-09-11T21:01:07.094Z",
+  "lastOkAt": "2026-09-11T21:01:07.094Z",
   "lastChangedAt": null,
   "changeCount": 0,
   "card": {
     "id": "linkup-docs",
     "cardUrl": "https://docs.linkup.so/.well-known/mcp/server-card.json",
-    "at": "2026-09-11T16:33:10.334Z",
+    "at": "2026-09-11T21:01:07.094Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -259,7 +259,7 @@
       "toolCount": 2
     },
     "provenance": {
-      "at": "2026-09-11T16:33:10.334Z",
+      "at": "2026-09-11T21:01:07.094Z",
       "declaredUrl": "https://docs.linkup.so/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.linkup.so/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
