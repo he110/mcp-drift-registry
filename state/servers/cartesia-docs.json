@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-09-11T11:28:19.957Z",
+    "at": "2026-09-11T16:33:10.334Z",
     "declaredUrl": "https://docs.cartesia.ai/mcp",
     "observedUrl": "https://docs.cartesia.ai/mcp",
     "urlMatchesDeclared": true,
@@ -119,7 +119,7 @@
   "toolCount": 3,
   "fingerprint": "5c05f9e18c5c613a",
   "lastGood": {
-    "at": "2026-09-11T11:28:19.957Z",
+    "at": "2026-09-11T16:33:10.334Z",
     "tools": [
       {
         "name": "query_docs_filesystem_cartesia_docs",
@@ -219,14 +219,14 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-11T11:28:19.957Z",
-  "lastOkAt": "2026-09-11T11:28:19.957Z",
+  "lastCheckedAt": "2026-09-11T16:33:10.334Z",
+  "lastOkAt": "2026-09-11T16:33:10.334Z",
   "lastChangedAt": null,
   "changeCount": 0,
   "card": {
     "id": "cartesia-docs",
     "cardUrl": "https://docs.cartesia.ai/.well-known/mcp/server-card.json",
-    "at": "2026-09-11T11:28:19.957Z",
+    "at": "2026-09-11T16:33:10.334Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -242,7 +242,7 @@
       "toolCount": 0
     },
     "provenance": {
-      "at": "2026-09-11T11:28:19.957Z",
+      "at": "2026-09-11T16:33:10.334Z",
       "declaredUrl": "https://docs.cartesia.ai/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.cartesia.ai/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,

@@ -13,7 +13,7 @@
     "version": "1.1.0"
   },
   "provenance": {
-    "at": "2026-09-11T11:28:19.957Z",
+    "at": "2026-09-11T16:33:10.334Z",
     "declaredUrl": "https://gitmcp.io/docs",
     "observedUrl": "https://gitmcp.io/docs",
     "urlMatchesDeclared": true,
@@ -168,7 +168,7 @@
   "toolCount": 5,
   "fingerprint": "d8dd5bda4e623a65",
   "lastGood": {
-    "at": "2026-09-11T11:28:19.957Z",
+    "at": "2026-09-11T16:33:10.334Z",
     "tools": [
       {
         "name": "fetch_generic_documentation",
@@ -314,20 +314,20 @@
     "protocolVersion": "2025-03-26"
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-11T11:28:19.957Z",
-  "lastOkAt": "2026-09-11T11:28:19.957Z",
+  "lastCheckedAt": "2026-09-11T16:33:10.334Z",
+  "lastOkAt": "2026-09-11T16:33:10.334Z",
   "lastChangedAt": null,
   "changeCount": 0,
   "card": {
     "id": "gitmcp-docs",
     "cardUrl": "https://gitmcp.io/.well-known/mcp/server-card.json",
-    "at": "2026-09-11T11:28:19.957Z",
+    "at": "2026-09-11T16:33:10.334Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "not_json",
     "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON",
     "card": null,
     "provenance": {
-      "at": "2026-09-11T11:28:19.957Z",
+      "at": "2026-09-11T16:33:10.334Z",
       "declaredUrl": "https://gitmcp.io/.well-known/mcp/server-card.json",
       "observedUrl": "https://gitmcp.io/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,

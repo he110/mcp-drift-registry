@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-09-11T11:28:19.957Z",
+    "at": "2026-09-11T16:33:10.334Z",
     "declaredUrl": "https://mcp-on-edge.edgeone.site/mcp-server",
     "observedUrl": "https://mcp-on-edge.edgeone.site/mcp-server",
     "urlMatchesDeclared": true,
@@ -46,7 +46,7 @@
   "toolCount": 1,
   "fingerprint": "a6b33b20e918b4b4",
   "lastGood": {
-    "at": "2026-09-11T11:28:19.957Z",
+    "at": "2026-09-11T16:33:10.334Z",
     "tools": [
       {
         "name": "deploy-html",
@@ -73,20 +73,20 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-11T11:28:19.957Z",
-  "lastOkAt": "2026-09-11T11:28:19.957Z",
+  "lastCheckedAt": "2026-09-11T16:33:10.334Z",
+  "lastOkAt": "2026-09-11T16:33:10.334Z",
   "lastChangedAt": null,
   "changeCount": 0,
   "card": {
     "id": "edgeone-pages",
     "cardUrl": "https://mcp-on-edge.edgeone.site/.well-known/mcp/server-card.json",
-    "at": "2026-09-11T11:28:19.957Z",
+    "at": "2026-09-11T16:33:10.334Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-09-11T11:28:19.957Z",
+      "at": "2026-09-11T16:33:10.334Z",
       "declaredUrl": "https://mcp-on-edge.edgeone.site/.well-known/mcp/server-card.json",
       "observedUrl": "https://mcp-on-edge.edgeone.site/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
