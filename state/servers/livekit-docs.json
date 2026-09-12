@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-09-12T10:53:23.762Z",
+    "at": "2026-09-12T15:35:29.059Z",
     "declaredUrl": "https://docs.livekit.io/mcp",
     "observedUrl": "https://docs.livekit.io/mcp/",
     "urlMatchesDeclared": false,
@@ -546,7 +546,7 @@
   "toolCount": 9,
   "fingerprint": "de8bd5a9a598fb28",
   "lastGood": {
-    "at": "2026-09-12T10:53:23.762Z",
+    "at": "2026-09-12T15:35:29.059Z",
     "tools": [
       {
         "name": "code_search",
@@ -1067,20 +1067,20 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-12T10:53:23.762Z",
-  "lastOkAt": "2026-09-12T10:53:23.762Z",
+  "lastCheckedAt": "2026-09-12T15:35:29.059Z",
+  "lastOkAt": "2026-09-12T15:35:29.059Z",
   "lastChangedAt": null,
   "changeCount": 0,
   "card": {
     "id": "livekit-docs",
     "cardUrl": "https://docs.livekit.io/.well-known/mcp/server-card.json",
-    "at": "2026-09-12T10:53:23.762Z",
+    "at": "2026-09-12T15:35:29.059Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "not_json",
     "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON",
     "card": null,
     "provenance": {
-      "at": "2026-09-12T10:53:23.762Z",
+      "at": "2026-09-12T15:35:29.059Z",
       "declaredUrl": "https://docs.livekit.io/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.livekit.io/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
