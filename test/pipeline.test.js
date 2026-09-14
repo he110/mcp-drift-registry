@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
@@ -654,6 +654,30 @@ test("the note cannot contradict the ledger it is drawn from", () => {
     // And it is reachable: a page nobody can navigate to is not published.
     assert.match(readFileSync(join(outDir, "index.html"), "utf8"), /notes\/one-template\.html/);
     assert.match(readFileSync(join(outDir, "sitemap.xml"), "utf8"), /notes\/one-template\.html/);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("a frozen registry says so on every page, and an unfrozen one on none", () => {
+  const dir = mkdtempSync(join(tmpdir(), "drift-frozen-"));
+  try {
+    const store = new Store(join(dir, "state"));
+    store.writeServer({ ...server([tool()]), id: "lonely", name: "Lonely", firstSeenAt: AT, lastCheckedAt: AT, changeCount: 0 });
+    const site = { title: "T", tagline: "t", url: "https://example.invalid", repo: "he110/mcp-drift-registry" };
+    const pages = (outDir) =>
+      readdirSync(outDir, { recursive: true }).filter((f) => f.endsWith(".html")).map((f) => [f, readFileSync(join(outDir, f), "utf8")]);
+
+    const frozen = join(dir, "frozen");
+    publish({ store, outDir: frozen, at: AT, config: { site: { ...site, frozen: "2026-09-14" }, servers: [] } });
+    const frozenPages = pages(frozen);
+    // A reader arriving on a server page from search never sees the index.
+    assert.ok(frozenPages.some(([f]) => f.startsWith("servers")));
+    for (const [f, html] of frozenPages) assert.match(html, /Frozen 2026-09-14\./, f);
+
+    const live = join(dir, "live");
+    publish({ store, outDir: live, at: AT, config: { site, servers: [] } });
+    for (const [f, html] of pages(live)) assert.doesNotMatch(html, /class="frozen"/, f);
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }

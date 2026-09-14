@@ -4,7 +4,8 @@
     "title": "MCP Drift Registry",
     "tagline": "A deterministic record of how public MCP servers change their tool contracts.",
     "url": "https://he110.github.io/mcp-drift-registry",
-    "repo": "he110/mcp-drift-registry"
+    "repo": "he110/mcp-drift-registry",
+    "frozen": "2026-09-14"
   },
   "origins": [
     {

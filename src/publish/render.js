@@ -526,7 +526,7 @@ function page({ ctx, title, description, canonical, assets, body }) {
 <link rel="stylesheet" href="${assets}assets/style.css">
 </head>
 <body>
-${body}
+${ctx.site.frozen ? frozenBanner(ctx.site.frozen) : ""}${body}
 <div class="wrap">
   <footer>
     <span>Generated ${esc(shortDateTime(ctx.at))} · deterministic pipeline, no model in the loop</span>
@@ -535,6 +535,15 @@ ${body}
 </div>
 </body>
 </html>
+`;
+}
+
+// The cron keeps publishing after the project stops being tended. Without this
+// line a pulse that goes wrong unattended would still speak in our voice.
+function frozenBanner(since) {
+  return `<div class="frozen"><div class="wrap"><strong>Frozen ${esc(since)}.</strong> The pulse still runs and
+  this page still updates on its own, but nobody maintains it: no servers are added, no checks are built, and
+  nothing published here is reviewed.</div></div>
 `;
 }
 

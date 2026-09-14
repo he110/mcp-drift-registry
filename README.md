@@ -4,6 +4,10 @@ A deterministic record of how public MCP servers change their tool contracts.
 
 **→ [he110.github.io/mcp-drift-registry](https://he110.github.io/mcp-drift-registry)**
 
+> **Frozen 2026-09-14.** The pulse still runs and the data still updates on its own, but
+> nobody maintains it: no servers are added, no new checks are built, and nothing it
+> publishes is reviewed. Treat every figure as dated to the pulse that wrote it.
+
 MCP servers publish a tool contract over `tools/list` and change it whenever they like.
 There are no versions, no deprecation policy and no changelog feed. An agent that passed
 `limit` yesterday and gets an "unknown argument" error today has no artifact to consult:
@@ -16,7 +20,7 @@ against the previous snapshot.
 **Read the row count with its caveat first:**
 [79 servers is not 79 observations](https://he110.github.io/mcp-drift-registry/notes/one-template.html)
 — 65% of the tracked endpoints are one hosted template, and the whole sample resolves to
-22 contract families, which is a ceiling and not a floor. Every figure on that page is
+21 contract families, which is a ceiling and not a floor. Every figure on that page is
 regenerated from state each pulse, and every command on it is runnable.
 
 **Then look up the endpoint you actually call:**

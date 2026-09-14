@@ -126,6 +126,12 @@ code, .mono { font-family: inherit; }
    rule, no colour, no alarm. It is on the page because it must be checkable,
    not because it is news. */
 .notice--method { border-left-color: var(--rule); color: var(--ink-faint); }
+
+/* Maintenance status sits above every page, not on the index alone: a reader
+   who lands on a server page from search must learn that nobody tends this
+   record before they read a number on it. */
+.frozen { border-bottom: 1px solid var(--rule); padding: 0.6rem 0; font-size: 13px; line-height: 1.5; color: var(--ink-soft); }
+.frozen strong { color: var(--ink); font-weight: 600; }
 .notice--method code { color: var(--ink-soft); }
 .notice--method .stamp { color: var(--ink-faint); border-color: var(--rule); }
 
