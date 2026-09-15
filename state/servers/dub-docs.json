@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-09-15T17:04:12.577Z",
+    "at": "2026-09-15T21:25:32.568Z",
     "declaredUrl": "https://dub.co/docs/mcp",
     "observedUrl": "https://dub.co/docs/mcp",
     "urlMatchesDeclared": true,
@@ -84,7 +84,7 @@
           "path": {
             "type": "string",
             "minLength": 1,
-            "description": "The documentation page path the feedback is about (e.g., the page you were reading, such as `/quickstart`)."
+            "description": "The URL path of the documentation page the feedback is about (the page you were reading, without the `.mdx` extension)."
           },
           "feedback": {
             "type": "string",
@@ -105,13 +105,13 @@
         "idempotentHint": false,
         "openWorldHint": true
       },
-      "schemaFingerprint": "7faf8b71ae053b91"
+      "schemaFingerprint": "20eeaaefbd1b2f1d"
     }
   ],
   "toolCount": 3,
-  "fingerprint": "0454e859371a8f5a",
+  "fingerprint": "48ca3033acc29052",
   "lastGood": {
-    "at": "2026-09-15T17:04:12.577Z",
+    "at": "2026-09-15T21:25:32.568Z",
     "tools": [
       {
         "name": "query_docs_filesystem_dub",
@@ -175,7 +175,7 @@
             "path": {
               "type": "string",
               "minLength": 1,
-              "description": "The documentation page path the feedback is about (e.g., the page you were reading, such as `/quickstart`)."
+              "description": "The URL path of the documentation page the feedback is about (the page you were reading, without the `.mdx` extension)."
             },
             "feedback": {
               "type": "string",
@@ -196,27 +196,27 @@
           "idempotentHint": false,
           "openWorldHint": true
         },
-        "schemaFingerprint": "7faf8b71ae053b91"
+        "schemaFingerprint": "20eeaaefbd1b2f1d"
       }
     ],
-    "fingerprint": "0454e859371a8f5a",
+    "fingerprint": "48ca3033acc29052",
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-15T17:04:12.577Z",
-  "lastOkAt": "2026-09-15T17:04:12.577Z",
-  "lastChangedAt": "2026-09-15T17:04:12.577Z",
-  "changeCount": 1,
+  "lastCheckedAt": "2026-09-15T21:25:32.568Z",
+  "lastOkAt": "2026-09-15T21:25:32.568Z",
+  "lastChangedAt": "2026-09-15T21:25:32.568Z",
+  "changeCount": 2,
   "card": {
     "id": "dub-docs",
     "cardUrl": "https://dub.co/.well-known/mcp/server-card.json",
-    "at": "2026-09-15T17:04:12.577Z",
+    "at": "2026-09-15T21:25:32.568Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "not_json",
     "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON",
     "card": null,
     "provenance": {
-      "at": "2026-09-15T17:04:12.577Z",
+      "at": "2026-09-15T21:25:32.568Z",
       "declaredUrl": "https://dub.co/.well-known/mcp/server-card.json",
       "observedUrl": "https://dub.co/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
