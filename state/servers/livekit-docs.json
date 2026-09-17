@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-09-17T11:48:10.223Z",
+    "at": "2026-09-17T17:04:38.396Z",
     "declaredUrl": "https://docs.livekit.io/mcp",
     "observedUrl": "https://docs.livekit.io/mcp/",
     "urlMatchesDeclared": false,
@@ -546,7 +546,7 @@
   "toolCount": 9,
   "fingerprint": "de8bd5a9a598fb28",
   "lastGood": {
-    "at": "2026-09-17T11:48:10.223Z",
+    "at": "2026-09-17T17:04:38.396Z",
     "tools": [
       {
         "name": "code_search",
@@ -1067,31 +1067,31 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-17T11:48:10.223Z",
-  "lastOkAt": "2026-09-17T11:48:10.223Z",
+  "lastCheckedAt": "2026-09-17T17:04:38.396Z",
+  "lastOkAt": "2026-09-17T17:04:38.396Z",
   "lastChangedAt": null,
   "changeCount": 0,
   "card": {
     "id": "livekit-docs",
     "cardUrl": "https://docs.livekit.io/.well-known/mcp/server-card.json",
-    "at": "2026-09-17T11:48:10.223Z",
+    "at": "2026-09-17T17:04:38.396Z",
     "cardPath": "/.well-known/mcp/server-card.json",
-    "status": "not_json",
-    "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON",
+    "status": "absent",
+    "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-09-17T11:48:10.223Z",
+      "at": "2026-09-17T17:04:38.396Z",
       "declaredUrl": "https://docs.livekit.io/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.livekit.io/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
       "redirected": false,
       "redirects": [],
-      "via": "well-known-get",
-      "envelope": "json",
+      "via": null,
+      "envelope": null,
       "methodChangingRedirect": false,
       "refused": null
     },
     "cardsUrl": "https://docs.livekit.io/.well-known/mcp/server-cards.json",
-    "cardsStatus": "not_json"
+    "cardsStatus": "absent"
   }
 }
