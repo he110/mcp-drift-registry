@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-09-18T04:49:53.577Z",
+    "at": "2026-09-18T11:22:44.230Z",
     "declaredUrl": "https://docs.hyperbrowser.ai/mcp",
     "observedUrl": "https://www.hyperbrowser.ai/docs/mcp",
     "urlMatchesDeclared": false,
@@ -122,7 +122,7 @@
   "toolCount": 3,
   "fingerprint": "2ca6fdea39b39aa6",
   "lastGood": {
-    "at": "2026-09-18T04:49:53.577Z",
+    "at": "2026-09-18T11:22:44.230Z",
     "tools": [
       {
         "name": "query_docs_filesystem_hyperbrowser",
@@ -214,14 +214,14 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-18T04:49:53.577Z",
-  "lastOkAt": "2026-09-18T04:49:53.577Z",
+  "lastCheckedAt": "2026-09-18T11:22:44.230Z",
+  "lastOkAt": "2026-09-18T11:22:44.230Z",
   "lastChangedAt": "2026-09-15T21:25:32.568Z",
   "changeCount": 2,
   "card": {
     "id": "hyperbrowser-docs",
     "cardUrl": "https://docs.hyperbrowser.ai/.well-known/mcp/server-card.json",
-    "at": "2026-09-18T04:49:53.577Z",
+    "at": "2026-09-18T11:22:44.230Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -270,7 +270,7 @@
       "toolCount": 2
     },
     "provenance": {
-      "at": "2026-09-18T04:49:53.577Z",
+      "at": "2026-09-18T11:22:44.230Z",
       "declaredUrl": "https://docs.hyperbrowser.ai/.well-known/mcp/server-card.json",
       "observedUrl": "https://www.hyperbrowser.ai/docs/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": false,
