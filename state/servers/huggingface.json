@@ -20,7 +20,7 @@
     ]
   },
   "provenance": {
-    "at": "2026-09-19T11:06:02.114Z",
+    "at": "2026-09-19T15:55:43.312Z",
     "declaredUrl": "https://huggingface.co/mcp",
     "observedUrl": "https://huggingface.co/mcp",
     "urlMatchesDeclared": true,
@@ -1219,7 +1219,7 @@
   "toolCount": 4,
   "fingerprint": "456b2cf3832d9a3b",
   "lastGood": {
-    "at": "2026-09-19T11:06:02.114Z",
+    "at": "2026-09-19T15:55:43.312Z",
     "tools": [
       {
         "name": "hf_fs",
@@ -2409,8 +2409,8 @@
     "protocolVersion": "2025-06-18"
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-19T11:06:02.114Z",
-  "lastOkAt": "2026-09-19T11:06:02.114Z",
+  "lastCheckedAt": "2026-09-19T15:55:43.312Z",
+  "lastOkAt": "2026-09-19T15:55:43.312Z",
   "lastChangedAt": "2026-09-15T21:25:32.568Z",
   "changeCount": 4,
   "reachability": [
@@ -2426,13 +2426,13 @@
   "card": {
     "id": "huggingface",
     "cardUrl": "https://huggingface.co/.well-known/mcp/server-card.json",
-    "at": "2026-09-19T11:06:02.114Z",
+    "at": "2026-09-19T15:55:43.312Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-09-19T11:06:02.114Z",
+      "at": "2026-09-19T15:55:43.312Z",
       "declaredUrl": "https://huggingface.co/.well-known/mcp/server-card.json",
       "observedUrl": "https://huggingface.co/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
