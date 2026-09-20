@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-09-20T04:58:25.778Z",
+    "at": "2026-09-20T11:30:58.695Z",
     "declaredUrl": "https://mcp.firecrawl.dev/mcp",
     "observedUrl": "https://mcp.firecrawl.dev/mcp",
     "urlMatchesDeclared": true,
@@ -78,8 +78,7 @@
               }
             },
             "required": [
-              "prompt",
-              "mode"
+              "prompt"
             ],
             "additionalProperties": false
           },
@@ -134,6 +133,7 @@
             "type": "boolean"
           },
           "maxAge": {
+            "description": "Ignored: parse never reuses or stores indexed content.",
             "type": "number"
           },
           "proxy": {
@@ -144,17 +144,21 @@
             ]
           },
           "filePath": {
+            "description": "Phase 1 only: path to the local file on the caller/harness machine. Hosted MCP will not read or stat this path; it is used only to produce upload instructions.",
             "type": "string",
             "minLength": 1
           },
           "uploadRef": {
+            "description": "Phase 2 only: short-lived upload reference returned by phase 1 after the local PUT upload completes.",
             "type": "string",
             "minLength": 1
           },
           "contentType": {
+            "description": "Phase 1 MIME type override. If omitted, the server infers it from the file extension without reading the file.",
             "type": "string"
           },
           "declaredSizeBytes": {
+            "description": "Optional phase 1 size declaration. Hosted MCP does not stat the file; provide this only if the caller already knows it.",
             "type": "integer",
             "exclusiveMinimum": 0,
             "maximum": 9007199254740991
@@ -169,7 +173,7 @@
         "openWorldHint": false,
         "destructiveHint": false
       },
-      "schemaFingerprint": "dab11d667327c3ab"
+      "schemaFingerprint": "656131d02eed904b"
     },
     {
       "name": "firecrawl_scrape",
@@ -235,8 +239,7 @@
               }
             },
             "required": [
-              "prompt",
-              "mode"
+              "prompt"
             ],
             "additionalProperties": false
           },
@@ -382,7 +385,7 @@
         "openWorldHint": true,
         "destructiveHint": false
       },
-      "schemaFingerprint": "35aba86c122efc14"
+      "schemaFingerprint": "ccb624589fa45f86"
     },
     {
       "name": "firecrawl_search",
@@ -397,6 +400,7 @@
             "minLength": 1
           },
           "highlights": {
+            "description": "Return query-relevant highlights for each search result. Set to false to keep the original search snippets.",
             "type": "boolean"
           },
           "limit": {
@@ -447,11 +451,11 @@
               },
               "required": [
                 "type"
-              ],
-              "additionalProperties": false
+              ]
             }
           },
           "categories": {
+            "description": "Limit results to specific source types. `github` searches GitHub repositories, code, issues, and docs; `research` restricts ordinary web results to research-affiliated websites and returns page snippets, which is separate from the `firecrawl_research_*` tools that search paper abstracts and full text across biomedical (PubMed, bioRxiv, medRxiv) and arXiv literature; `pdf` searches PDF results; `developer` searches an index built for coding agents over repositories, GitHub issues, merged pull requests, repository READMEs, and curated documentation sites. `developer` returns hits in `data.web` with `category: \"developer\"`; the other categories also filter `data.web`.",
             "type": "array",
             "items": {
               "type": "string",
@@ -529,8 +533,7 @@
                   }
                 },
                 "required": [
-                  "prompt",
-                  "mode"
+                  "prompt"
                 ],
                 "additionalProperties": false
               },
@@ -679,13 +682,13 @@
         "openWorldHint": true,
         "destructiveHint": false
       },
-      "schemaFingerprint": "b846a86f5f233550"
+      "schemaFingerprint": "97f463ca5a56f67f"
     }
   ],
   "toolCount": 3,
-  "fingerprint": "eac47f340cf4d9f7",
+  "fingerprint": "35965e806f75a30f",
   "lastGood": {
-    "at": "2026-09-20T04:58:25.778Z",
+    "at": "2026-09-20T11:30:58.695Z",
     "tools": [
       {
         "name": "firecrawl_parse",
@@ -743,8 +746,7 @@
                 }
               },
               "required": [
-                "prompt",
-                "mode"
+                "prompt"
               ],
               "additionalProperties": false
             },
@@ -799,6 +801,7 @@
               "type": "boolean"
             },
             "maxAge": {
+              "description": "Ignored: parse never reuses or stores indexed content.",
               "type": "number"
             },
             "proxy": {
@@ -809,17 +812,21 @@
               ]
             },
             "filePath": {
+              "description": "Phase 1 only: path to the local file on the caller/harness machine. Hosted MCP will not read or stat this path; it is used only to produce upload instructions.",
               "type": "string",
               "minLength": 1
             },
             "uploadRef": {
+              "description": "Phase 2 only: short-lived upload reference returned by phase 1 after the local PUT upload completes.",
               "type": "string",
               "minLength": 1
             },
             "contentType": {
+              "description": "Phase 1 MIME type override. If omitted, the server infers it from the file extension without reading the file.",
               "type": "string"
             },
             "declaredSizeBytes": {
+              "description": "Optional phase 1 size declaration. Hosted MCP does not stat the file; provide this only if the caller already knows it.",
               "type": "integer",
               "exclusiveMinimum": 0,
               "maximum": 9007199254740991
@@ -834,7 +841,7 @@
           "openWorldHint": false,
           "destructiveHint": false
         },
-        "schemaFingerprint": "dab11d667327c3ab"
+        "schemaFingerprint": "656131d02eed904b"
       },
       {
         "name": "firecrawl_scrape",
@@ -900,8 +907,7 @@
                 }
               },
               "required": [
-                "prompt",
-                "mode"
+                "prompt"
               ],
               "additionalProperties": false
             },
@@ -1047,7 +1053,7 @@
           "openWorldHint": true,
           "destructiveHint": false
         },
-        "schemaFingerprint": "35aba86c122efc14"
+        "schemaFingerprint": "ccb624589fa45f86"
       },
       {
         "name": "firecrawl_search",
@@ -1062,6 +1068,7 @@
               "minLength": 1
             },
             "highlights": {
+              "description": "Return query-relevant highlights for each search result. Set to false to keep the original search snippets.",
               "type": "boolean"
             },
             "limit": {
@@ -1112,11 +1119,11 @@
                 },
                 "required": [
                   "type"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "categories": {
+              "description": "Limit results to specific source types. `github` searches GitHub repositories, code, issues, and docs; `research` restricts ordinary web results to research-affiliated websites and returns page snippets, which is separate from the `firecrawl_research_*` tools that search paper abstracts and full text across biomedical (PubMed, bioRxiv, medRxiv) and arXiv literature; `pdf` searches PDF results; `developer` searches an index built for coding agents over repositories, GitHub issues, merged pull requests, repository READMEs, and curated documentation sites. `developer` returns hits in `data.web` with `category: \"developer\"`; the other categories also filter `data.web`.",
               "type": "array",
               "items": {
                 "type": "string",
@@ -1194,8 +1201,7 @@
                     }
                   },
                   "required": [
-                    "prompt",
-                    "mode"
+                    "prompt"
                   ],
                   "additionalProperties": false
                 },
@@ -1344,27 +1350,27 @@
           "openWorldHint": true,
           "destructiveHint": false
         },
-        "schemaFingerprint": "b846a86f5f233550"
+        "schemaFingerprint": "97f463ca5a56f67f"
       }
     ],
-    "fingerprint": "eac47f340cf4d9f7",
+    "fingerprint": "35965e806f75a30f",
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-20T04:58:25.778Z",
-  "lastOkAt": "2026-09-20T04:58:25.778Z",
-  "lastChangedAt": "2026-09-20T04:58:25.778Z",
-  "changeCount": 1,
+  "lastCheckedAt": "2026-09-20T11:30:58.695Z",
+  "lastOkAt": "2026-09-20T11:30:58.695Z",
+  "lastChangedAt": "2026-09-20T11:30:58.695Z",
+  "changeCount": 2,
   "card": {
     "id": "firecrawl",
     "cardUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
-    "at": "2026-09-20T04:58:25.778Z",
+    "at": "2026-09-20T11:30:58.695Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-09-20T04:58:25.778Z",
+      "at": "2026-09-20T11:30:58.695Z",
       "declaredUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
       "observedUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
