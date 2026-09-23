@@ -1,18 +1,18 @@
 {
   "firstRunAt": "2026-09-09T10:24:48.004Z",
-  "lastRunAt": "2026-09-23T04:50:22.019Z",
-  "runs": 70,
+  "lastRunAt": "2026-09-23T11:44:43.010Z",
+  "runs": 71,
   "serversTotal": 79,
   "serversOk": 79,
   "serversUnstable": 0,
   "canary": {
     "url": "https://api.github.com/zen",
-    "lastCheckAt": "2026-09-23T04:50:22.019Z",
-    "lastChangeAt": "2026-09-23T04:50:22.019Z",
+    "lastCheckAt": "2026-09-23T11:44:43.010Z",
+    "lastChangeAt": "2026-09-23T11:44:43.010Z",
     "consecutiveNoChange": 0,
     "healthy": true,
     "error": null,
-    "fingerprint": "87662c76f3509dd2"
+    "fingerprint": "4b835cae67beb745"
   },
   "origins": [
     {
@@ -21,11 +21,11 @@
       "status": "error",
       "error": "HTTP 530: {\"type\":\"https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-1xxx-errors/error-1016/\",\"title\":\"Error 1016: Origin DNS error\",",
       "toolCount": 0,
-      "at": "2026-09-23T04:50:22.019Z",
+      "at": "2026-09-23T11:44:43.010Z",
       "since": "2026-09-09T15:51:10.225Z",
-      "consecutive": 57,
+      "consecutive": 58,
       "provenance": {
-        "at": "2026-09-23T04:50:22.019Z",
+        "at": "2026-09-23T11:44:43.010Z",
         "declaredUrl": "https://docs.mintlify.com/mcp",
         "observedUrl": "https://docs.mintlify.com/mcp",
         "urlMatchesDeclared": true,
