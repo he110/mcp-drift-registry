@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-09-23T21:33:29.487Z",
+    "at": "2026-09-24T04:58:06.979Z",
     "declaredUrl": "https://docs.hanko.io/mcp",
     "observedUrl": "https://docs.hanko.io/mcp",
     "urlMatchesDeclared": true,
@@ -111,7 +111,7 @@
   "toolCount": 3,
   "fingerprint": "06aa08a175a136a3",
   "lastGood": {
-    "at": "2026-09-23T21:33:29.487Z",
+    "at": "2026-09-24T04:58:06.979Z",
     "tools": [
       {
         "name": "query_docs_filesystem_hanko",
@@ -203,14 +203,14 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-23T21:33:29.487Z",
-  "lastOkAt": "2026-09-23T21:33:29.487Z",
+  "lastCheckedAt": "2026-09-24T04:58:06.979Z",
+  "lastOkAt": "2026-09-24T04:58:06.979Z",
   "lastChangedAt": "2026-09-15T21:25:32.568Z",
   "changeCount": 2,
   "card": {
     "id": "hanko-docs",
     "cardUrl": "https://docs.hanko.io/.well-known/mcp/server-card.json",
-    "at": "2026-09-23T21:33:29.487Z",
+    "at": "2026-09-24T04:58:06.979Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -259,7 +259,7 @@
       "toolCount": 2
     },
     "provenance": {
-      "at": "2026-09-23T21:33:29.487Z",
+      "at": "2026-09-24T04:58:06.979Z",
       "declaredUrl": "https://docs.hanko.io/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.hanko.io/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,

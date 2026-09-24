@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-09-23T21:33:29.487Z",
+    "at": "2026-09-24T04:58:06.979Z",
     "declaredUrl": "https://docs.alpaca.markets/mcp",
     "observedUrl": "https://docs.alpaca.markets/mcp",
     "urlMatchesDeclared": true,
@@ -42,6 +42,7 @@
       "outputSchema": null,
       "annotations": {
         "readOnlyHint": true,
+        "destructiveHint": false,
         "openWorldHint": false
       },
       "schemaFingerprint": "9aca4b22fca560e8"
@@ -76,6 +77,7 @@
       "outputSchema": null,
       "annotations": {
         "readOnlyHint": true,
+        "destructiveHint": false,
         "openWorldHint": false
       },
       "schemaFingerprint": "b3ea3276a3eaf46c"
@@ -100,6 +102,7 @@
       "outputSchema": null,
       "annotations": {
         "readOnlyHint": true,
+        "destructiveHint": false,
         "openWorldHint": false
       },
       "schemaFingerprint": "7ec291467e49b261"
@@ -124,6 +127,7 @@
       "outputSchema": null,
       "annotations": {
         "readOnlyHint": true,
+        "destructiveHint": false,
         "openWorldHint": false
       },
       "schemaFingerprint": "75bbf5108beb6478"
@@ -148,6 +152,7 @@
       "outputSchema": null,
       "annotations": {
         "readOnlyHint": true,
+        "destructiveHint": false,
         "openWorldHint": false
       },
       "schemaFingerprint": "b6566c5b07df4454"
@@ -156,7 +161,7 @@
   "toolCount": 5,
   "fingerprint": "aeb2e58da33afc98",
   "lastGood": {
-    "at": "2026-09-23T21:33:29.487Z",
+    "at": "2026-09-24T04:58:06.979Z",
     "tools": [
       {
         "name": "fetch",
@@ -178,6 +183,7 @@
         "outputSchema": null,
         "annotations": {
           "readOnlyHint": true,
+          "destructiveHint": false,
           "openWorldHint": false
         },
         "schemaFingerprint": "9aca4b22fca560e8"
@@ -212,6 +218,7 @@
         "outputSchema": null,
         "annotations": {
           "readOnlyHint": true,
+          "destructiveHint": false,
           "openWorldHint": false
         },
         "schemaFingerprint": "b3ea3276a3eaf46c"
@@ -236,6 +243,7 @@
         "outputSchema": null,
         "annotations": {
           "readOnlyHint": true,
+          "destructiveHint": false,
           "openWorldHint": false
         },
         "schemaFingerprint": "7ec291467e49b261"
@@ -260,6 +268,7 @@
         "outputSchema": null,
         "annotations": {
           "readOnlyHint": true,
+          "destructiveHint": false,
           "openWorldHint": false
         },
         "schemaFingerprint": "75bbf5108beb6478"
@@ -284,6 +293,7 @@
         "outputSchema": null,
         "annotations": {
           "readOnlyHint": true,
+          "destructiveHint": false,
           "openWorldHint": false
         },
         "schemaFingerprint": "b6566c5b07df4454"
@@ -293,14 +303,14 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-23T21:33:29.487Z",
-  "lastOkAt": "2026-09-23T21:33:29.487Z",
+  "lastCheckedAt": "2026-09-24T04:58:06.979Z",
+  "lastOkAt": "2026-09-24T04:58:06.979Z",
   "lastChangedAt": null,
   "changeCount": 0,
   "card": {
     "id": "alpaca-docs",
     "cardUrl": "https://docs.alpaca.markets/.well-known/mcp/server-card.json",
-    "at": "2026-09-23T21:33:29.487Z",
+    "at": "2026-09-24T04:58:06.979Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -321,7 +331,7 @@
       "toolCount": null
     },
     "provenance": {
-      "at": "2026-09-23T21:33:29.487Z",
+      "at": "2026-09-24T04:58:06.979Z",
       "declaredUrl": "https://docs.alpaca.markets/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.alpaca.markets/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
