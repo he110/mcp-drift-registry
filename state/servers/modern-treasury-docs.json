@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-09-24T17:16:15.963Z",
+    "at": "2026-09-24T21:34:17.293Z",
     "declaredUrl": "https://docs.moderntreasury.com/mcp",
     "observedUrl": "https://docs.moderntreasury.com/mcp",
     "urlMatchesDeclared": true,
@@ -260,7 +260,7 @@
   "toolCount": 5,
   "fingerprint": "78bcd13a1199d7d5",
   "lastGood": {
-    "at": "2026-09-24T17:16:15.963Z",
+    "at": "2026-09-24T21:34:17.293Z",
     "tools": [
       {
         "name": "execute-request",
@@ -501,14 +501,14 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-24T17:16:15.963Z",
-  "lastOkAt": "2026-09-24T17:16:15.963Z",
+  "lastCheckedAt": "2026-09-24T21:34:17.293Z",
+  "lastOkAt": "2026-09-24T21:34:17.293Z",
   "lastChangedAt": null,
   "changeCount": 0,
   "card": {
     "id": "modern-treasury-docs",
     "cardUrl": "https://docs.moderntreasury.com/.well-known/mcp/server-card.json",
-    "at": "2026-09-24T17:16:15.963Z",
+    "at": "2026-09-24T21:34:17.293Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -529,7 +529,7 @@
       "toolCount": null
     },
     "provenance": {
-      "at": "2026-09-24T17:16:15.963Z",
+      "at": "2026-09-24T21:34:17.293Z",
       "declaredUrl": "https://docs.moderntreasury.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.moderntreasury.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,

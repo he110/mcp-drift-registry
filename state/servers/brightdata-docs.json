@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-09-24T17:16:15.963Z",
+    "at": "2026-09-24T21:34:17.293Z",
     "declaredUrl": "https://docs.brightdata.com/mcp",
     "observedUrl": "https://docs.brightdata.com/mcp",
     "urlMatchesDeclared": true,
@@ -115,7 +115,7 @@
   "toolCount": 3,
   "fingerprint": "03dee4c7e71597a8",
   "lastGood": {
-    "at": "2026-09-24T17:16:15.963Z",
+    "at": "2026-09-24T21:34:17.293Z",
     "tools": [
       {
         "name": "query_docs_filesystem_bright_data_docs",
@@ -211,14 +211,14 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-24T17:16:15.963Z",
-  "lastOkAt": "2026-09-24T17:16:15.963Z",
+  "lastCheckedAt": "2026-09-24T21:34:17.293Z",
+  "lastOkAt": "2026-09-24T21:34:17.293Z",
   "lastChangedAt": "2026-09-23T17:08:38.491Z",
   "changeCount": 4,
   "card": {
     "id": "brightdata-docs",
     "cardUrl": "https://docs.brightdata.com/.well-known/mcp/server-card.json",
-    "at": "2026-09-24T17:16:15.963Z",
+    "at": "2026-09-24T21:34:17.293Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -271,7 +271,7 @@
       "toolCount": 2
     },
     "provenance": {
-      "at": "2026-09-24T17:16:15.963Z",
+      "at": "2026-09-24T21:34:17.293Z",
       "declaredUrl": "https://docs.brightdata.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.brightdata.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
