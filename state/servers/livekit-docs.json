@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-09-24T04:58:06.979Z",
+    "at": "2026-09-24T11:53:12.770Z",
     "declaredUrl": "https://docs.livekit.io/mcp",
     "observedUrl": "https://docs.livekit.io/mcp/",
     "urlMatchesDeclared": false,
@@ -546,7 +546,7 @@
   "toolCount": 9,
   "fingerprint": "67982de692341f09",
   "lastGood": {
-    "at": "2026-09-24T04:58:06.979Z",
+    "at": "2026-09-24T11:53:12.770Z",
     "tools": [
       {
         "name": "code_search",
@@ -1067,20 +1067,20 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-24T04:58:06.979Z",
-  "lastOkAt": "2026-09-24T04:58:06.979Z",
+  "lastCheckedAt": "2026-09-24T11:53:12.770Z",
+  "lastOkAt": "2026-09-24T11:53:12.770Z",
   "lastChangedAt": "2026-09-23T17:08:38.491Z",
   "changeCount": 1,
   "card": {
     "id": "livekit-docs",
     "cardUrl": "https://docs.livekit.io/.well-known/mcp/server-card.json",
-    "at": "2026-09-24T04:58:06.979Z",
+    "at": "2026-09-24T11:53:12.770Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-09-24T04:58:06.979Z",
+      "at": "2026-09-24T11:53:12.770Z",
       "declaredUrl": "https://docs.livekit.io/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.livekit.io/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,

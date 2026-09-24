@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-09-24T04:58:06.979Z",
+    "at": "2026-09-24T11:53:12.770Z",
     "declaredUrl": "https://mcp.firecrawl.dev/mcp",
     "observedUrl": "https://mcp.firecrawl.dev/mcp",
     "urlMatchesDeclared": true,
@@ -166,7 +166,171 @@
         },
         "additionalProperties": false
       },
-      "outputSchema": null,
+      "outputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "description": "Parsed document content, or the upload instructions for the hosted two-call flow.",
+        "type": "object",
+        "properties": {
+          "success": {
+            "description": "Whether the API call succeeded.",
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "description": "Error message or error object when the call did not succeed."
+          },
+          "warning": {
+            "description": "Non-fatal warning about the result.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "mode": {
+            "description": "Which phase of the hosted flow produced this response.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "message": {
+            "description": "Guidance for the next call.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "data": {
+            "description": "Parsed document content; can include `data.metadata.scrapeId` for parse feedback."
+          },
+          "upload": {
+            "description": "Hosted phase one: how to upload the local file.",
+            "type": "object",
+            "properties": {
+              "command": {
+                "description": "Local command that performs the upload. It carries no Firecrawl API key.",
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "method": {
+                "description": "HTTP method for the upload.",
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "headers": {
+                "description": "Headers the upload request must send."
+              },
+              "fields": {
+                "description": "Form fields the upload request must send, for a POST upload."
+              },
+              "uploadUrl": {
+                "description": "URL to upload the local file to.",
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "uploadRef": {
+                "description": "Reference to pass back on the second call.",
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "expiresAt": {
+                "description": "When the upload URL expires.",
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "maxSizeBytes": {
+                "description": "Largest file the upload URL accepts.",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "nextToolCall": {
+            "description": "Hosted phase one: the second `firecrawl_parse` call to make once the upload succeeds, as `{name, arguments}`."
+          },
+          "notes": {
+            "description": "Hosted phase one: constraints on completing the upload flow.",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "raw": {
+            "description": "Response body when it was not JSON.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
       "annotations": {
         "title": "Firecrawl file parsing",
         "readOnlyHint": true,
@@ -475,7 +639,278 @@
         },
         "additionalProperties": false
       },
-      "outputSchema": null,
+      "outputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "description": "A scraped document, or the Alexandria execution envelope when `alexandria` was passed.",
+        "type": "object",
+        "properties": {
+          "markdown": {
+            "description": "Page content as markdown.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "html": {
+            "description": "Processed HTML of the page.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "rawHtml": {
+            "description": "Unprocessed HTML of the page.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "summary": {
+            "description": "Summary of the page content.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "links": {
+            "description": "Links found on the page."
+          },
+          "screenshot": {
+            "description": "Screenshot of the page."
+          },
+          "images": {
+            "description": "Images found on the page."
+          },
+          "audio": {
+            "description": "Audio extracted from the page."
+          },
+          "video": {
+            "description": "Video extracted from the page."
+          },
+          "answer": {
+            "description": "Targeted answer to the question that was asked of the page.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "highlights": {
+            "description": "Highlighted passages from the page."
+          },
+          "pages": {
+            "description": "Physical PDF pages, when `parsers[].pages` is set."
+          },
+          "blocks": {
+            "description": "Typed PDF layout blocks, when `parsers[].blocks` is set."
+          },
+          "product": {
+            "description": "Product data extracted from the page."
+          },
+          "menu": {
+            "description": "Menu data extracted from the page."
+          },
+          "json": {
+            "description": "Structured data matching the requested JSON schema or prompt."
+          },
+          "attributes": {
+            "description": "Values collected by the requested attribute selectors."
+          },
+          "actions": {
+            "description": "Results of the browser actions that ran during the scrape."
+          },
+          "changeTracking": {
+            "description": "Change-tracking comparison against the previous scrape."
+          },
+          "branding": {
+            "description": "Branding data extracted from the page."
+          },
+          "metadata": {
+            "description": "Page metadata; authenticated responses can include `metadata.scrapeId` for scrape feedback."
+          },
+          "tools": {
+            "description": "Domain-matched Alexandria tools for the page, when `domainTools` is set."
+          },
+          "warning": {
+            "description": "Non-fatal warning about the result.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "success": {
+            "description": "Whether the API call succeeded.",
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "description": "Error message or error object when the call did not succeed."
+          },
+          "data": {
+            "description": "Alexandria mode: per-capability results in `data.alexandria`, each with `data`, `records`, or an `error`."
+          },
+          "requestId": {
+            "description": "Identifier of this logical execution; reuse it only for a retry of the identical payload.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "scrape_id": {
+            "description": "Identifier of the underlying scrape.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "receipt": {
+            "description": "Billing receipt for the execution."
+          },
+          "creditsCost": {
+            "description": "Credits this call consumed.",
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "delivery": {
+            "description": "`retained` when the full result stayed server-side instead of being inlined.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "responseBytes": {
+            "description": "Size of the full result in bytes.",
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "estimatedTokens": {
+            "description": "Estimated token cost of the full result.",
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "tokenEstimateMethod": {
+            "description": "How `estimatedTokens` was derived.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "inlineTokenBudget": {
+            "description": "Token budget above which a result is retained rather than inlined.",
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "workspaceId": {
+            "description": "Workspace holding a retained result, for inspection through virtual Bash.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "idleTtlSeconds": {
+            "description": "Seconds a retained workspace stays available while idle.",
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "message": {
+            "description": "Guidance that accompanies the result.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "nextTool": {
+            "description": "A follow-up tool call (`{name, arguments}`) that continues or inspects this result."
+          },
+          "feedbackTool": {
+            "description": "Pointer to the feedback tool for reporting how this result served the task."
+          }
+        },
+        "additionalProperties": false
+      },
       "annotations": {
         "title": "Firecrawl scrape",
         "readOnlyHint": false,
@@ -806,7 +1241,73 @@
         ],
         "additionalProperties": false
       },
-      "outputSchema": null,
+      "outputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "description": "Ranked search results grouped by source.",
+        "type": "object",
+        "properties": {
+          "success": {
+            "description": "Whether the API call succeeded.",
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "data": {
+            "description": "Ranked results grouped by source, such as `web`, `news`, `images`, and `alexandria`."
+          },
+          "error": {
+            "description": "Error message or error object when the call did not succeed."
+          },
+          "warning": {
+            "description": "Non-fatal warning about the result.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "id": {
+            "description": "Search identifier, for optional `firecrawl_search_feedback`.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "creditsUsed": {
+            "description": "Credits this search consumed.",
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "tools": {
+            "description": "Domain-matched Alexandria tools for the results."
+          },
+          "nextTool": {
+            "description": "A follow-up tool call that continues this search."
+          },
+          "feedbackTool": {
+            "description": "Pointer to the feedback tool for this search."
+          }
+        },
+        "additionalProperties": false
+      },
       "annotations": {
         "title": "Firecrawl web search",
         "readOnlyHint": true,
@@ -819,7 +1320,7 @@
   "toolCount": 3,
   "fingerprint": "15fe20267a7647b7",
   "lastGood": {
-    "at": "2026-09-24T04:58:06.979Z",
+    "at": "2026-09-24T11:53:12.770Z",
     "tools": [
       {
         "name": "firecrawl_parse",
@@ -965,7 +1466,171 @@
           },
           "additionalProperties": false
         },
-        "outputSchema": null,
+        "outputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "description": "Parsed document content, or the upload instructions for the hosted two-call flow.",
+          "type": "object",
+          "properties": {
+            "success": {
+              "description": "Whether the API call succeeded.",
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "error": {
+              "description": "Error message or error object when the call did not succeed."
+            },
+            "warning": {
+              "description": "Non-fatal warning about the result.",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "mode": {
+              "description": "Which phase of the hosted flow produced this response.",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "message": {
+              "description": "Guidance for the next call.",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "data": {
+              "description": "Parsed document content; can include `data.metadata.scrapeId` for parse feedback."
+            },
+            "upload": {
+              "description": "Hosted phase one: how to upload the local file.",
+              "type": "object",
+              "properties": {
+                "command": {
+                  "description": "Local command that performs the upload. It carries no Firecrawl API key.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "method": {
+                  "description": "HTTP method for the upload.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "headers": {
+                  "description": "Headers the upload request must send."
+                },
+                "fields": {
+                  "description": "Form fields the upload request must send, for a POST upload."
+                },
+                "uploadUrl": {
+                  "description": "URL to upload the local file to.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "uploadRef": {
+                  "description": "Reference to pass back on the second call.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "expiresAt": {
+                  "description": "When the upload URL expires.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "maxSizeBytes": {
+                  "description": "Largest file the upload URL accepts.",
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "additionalProperties": false
+            },
+            "nextToolCall": {
+              "description": "Hosted phase one: the second `firecrawl_parse` call to make once the upload succeeds, as `{name, arguments}`."
+            },
+            "notes": {
+              "description": "Hosted phase one: constraints on completing the upload flow.",
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "raw": {
+              "description": "Response body when it was not JSON.",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
         "annotations": {
           "title": "Firecrawl file parsing",
           "readOnlyHint": true,
@@ -1274,7 +1939,278 @@
           },
           "additionalProperties": false
         },
-        "outputSchema": null,
+        "outputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "description": "A scraped document, or the Alexandria execution envelope when `alexandria` was passed.",
+          "type": "object",
+          "properties": {
+            "markdown": {
+              "description": "Page content as markdown.",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "html": {
+              "description": "Processed HTML of the page.",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "rawHtml": {
+              "description": "Unprocessed HTML of the page.",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "summary": {
+              "description": "Summary of the page content.",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "links": {
+              "description": "Links found on the page."
+            },
+            "screenshot": {
+              "description": "Screenshot of the page."
+            },
+            "images": {
+              "description": "Images found on the page."
+            },
+            "audio": {
+              "description": "Audio extracted from the page."
+            },
+            "video": {
+              "description": "Video extracted from the page."
+            },
+            "answer": {
+              "description": "Targeted answer to the question that was asked of the page.",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "highlights": {
+              "description": "Highlighted passages from the page."
+            },
+            "pages": {
+              "description": "Physical PDF pages, when `parsers[].pages` is set."
+            },
+            "blocks": {
+              "description": "Typed PDF layout blocks, when `parsers[].blocks` is set."
+            },
+            "product": {
+              "description": "Product data extracted from the page."
+            },
+            "menu": {
+              "description": "Menu data extracted from the page."
+            },
+            "json": {
+              "description": "Structured data matching the requested JSON schema or prompt."
+            },
+            "attributes": {
+              "description": "Values collected by the requested attribute selectors."
+            },
+            "actions": {
+              "description": "Results of the browser actions that ran during the scrape."
+            },
+            "changeTracking": {
+              "description": "Change-tracking comparison against the previous scrape."
+            },
+            "branding": {
+              "description": "Branding data extracted from the page."
+            },
+            "metadata": {
+              "description": "Page metadata; authenticated responses can include `metadata.scrapeId` for scrape feedback."
+            },
+            "tools": {
+              "description": "Domain-matched Alexandria tools for the page, when `domainTools` is set."
+            },
+            "warning": {
+              "description": "Non-fatal warning about the result.",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "success": {
+              "description": "Whether the API call succeeded.",
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "error": {
+              "description": "Error message or error object when the call did not succeed."
+            },
+            "data": {
+              "description": "Alexandria mode: per-capability results in `data.alexandria`, each with `data`, `records`, or an `error`."
+            },
+            "requestId": {
+              "description": "Identifier of this logical execution; reuse it only for a retry of the identical payload.",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "scrape_id": {
+              "description": "Identifier of the underlying scrape.",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "receipt": {
+              "description": "Billing receipt for the execution."
+            },
+            "creditsCost": {
+              "description": "Credits this call consumed.",
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "delivery": {
+              "description": "`retained` when the full result stayed server-side instead of being inlined.",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "responseBytes": {
+              "description": "Size of the full result in bytes.",
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "estimatedTokens": {
+              "description": "Estimated token cost of the full result.",
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "tokenEstimateMethod": {
+              "description": "How `estimatedTokens` was derived.",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "inlineTokenBudget": {
+              "description": "Token budget above which a result is retained rather than inlined.",
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "workspaceId": {
+              "description": "Workspace holding a retained result, for inspection through virtual Bash.",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "idleTtlSeconds": {
+              "description": "Seconds a retained workspace stays available while idle.",
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "message": {
+              "description": "Guidance that accompanies the result.",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "nextTool": {
+              "description": "A follow-up tool call (`{name, arguments}`) that continues or inspects this result."
+            },
+            "feedbackTool": {
+              "description": "Pointer to the feedback tool for reporting how this result served the task."
+            }
+          },
+          "additionalProperties": false
+        },
         "annotations": {
           "title": "Firecrawl scrape",
           "readOnlyHint": false,
@@ -1605,7 +2541,73 @@
           ],
           "additionalProperties": false
         },
-        "outputSchema": null,
+        "outputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "description": "Ranked search results grouped by source.",
+          "type": "object",
+          "properties": {
+            "success": {
+              "description": "Whether the API call succeeded.",
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "data": {
+              "description": "Ranked results grouped by source, such as `web`, `news`, `images`, and `alexandria`."
+            },
+            "error": {
+              "description": "Error message or error object when the call did not succeed."
+            },
+            "warning": {
+              "description": "Non-fatal warning about the result.",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "id": {
+              "description": "Search identifier, for optional `firecrawl_search_feedback`.",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "creditsUsed": {
+              "description": "Credits this search consumed.",
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "tools": {
+              "description": "Domain-matched Alexandria tools for the results."
+            },
+            "nextTool": {
+              "description": "A follow-up tool call that continues this search."
+            },
+            "feedbackTool": {
+              "description": "Pointer to the feedback tool for this search."
+            }
+          },
+          "additionalProperties": false
+        },
         "annotations": {
           "title": "Firecrawl web search",
           "readOnlyHint": true,
@@ -1619,20 +2621,20 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-24T04:58:06.979Z",
-  "lastOkAt": "2026-09-24T04:58:06.979Z",
+  "lastCheckedAt": "2026-09-24T11:53:12.770Z",
+  "lastOkAt": "2026-09-24T11:53:12.770Z",
   "lastChangedAt": "2026-09-23T17:08:38.491Z",
   "changeCount": 6,
   "card": {
     "id": "firecrawl",
     "cardUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
-    "at": "2026-09-24T04:58:06.979Z",
+    "at": "2026-09-24T11:53:12.770Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-09-24T04:58:06.979Z",
+      "at": "2026-09-24T11:53:12.770Z",
       "declaredUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
       "observedUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
