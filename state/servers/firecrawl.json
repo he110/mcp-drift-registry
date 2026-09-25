@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-09-25T05:02:57.057Z",
+    "at": "2026-09-25T11:56:04.622Z",
     "declaredUrl": "https://mcp.firecrawl.dev/mcp",
     "observedUrl": "https://mcp.firecrawl.dev/mcp",
     "urlMatchesDeclared": true,
@@ -624,7 +624,7 @@
             ]
           },
           "toolDetail": {
-            "description": "URL domain discovery detail: summary by default, compact returns provider/capability/description, full includes contracts.",
+            "description": "URL mode only: domain discovery detail, summary by default; compact returns provider/capability/description, full includes contracts. Ignored with alexandria.",
             "type": "string",
             "enum": [
               "compact",
@@ -633,7 +633,7 @@
             ]
           },
           "domainTools": {
-            "description": "URL mode only: include domain-matched Alexandria tools for the page in tools on the returned document.",
+            "description": "URL mode only: include domain-matched Alexandria tools for the page in tools on the returned document. Ignored with alexandria.",
             "type": "boolean"
           }
         },
@@ -917,7 +917,7 @@
         "openWorldHint": true,
         "destructiveHint": false
       },
-      "schemaFingerprint": "b3bfb13b92ce379b"
+      "schemaFingerprint": "a7c45602e54fa39b"
     },
     {
       "name": "firecrawl_search",
@@ -1318,9 +1318,9 @@
     }
   ],
   "toolCount": 3,
-  "fingerprint": "74d4cb5208307b2e",
+  "fingerprint": "dd1ef78a867f81d9",
   "lastGood": {
-    "at": "2026-09-25T05:02:57.057Z",
+    "at": "2026-09-25T11:56:04.622Z",
     "tools": [
       {
         "name": "firecrawl_parse",
@@ -1924,7 +1924,7 @@
               ]
             },
             "toolDetail": {
-              "description": "URL domain discovery detail: summary by default, compact returns provider/capability/description, full includes contracts.",
+              "description": "URL mode only: domain discovery detail, summary by default; compact returns provider/capability/description, full includes contracts. Ignored with alexandria.",
               "type": "string",
               "enum": [
                 "compact",
@@ -1933,7 +1933,7 @@
               ]
             },
             "domainTools": {
-              "description": "URL mode only: include domain-matched Alexandria tools for the page in tools on the returned document.",
+              "description": "URL mode only: include domain-matched Alexandria tools for the page in tools on the returned document. Ignored with alexandria.",
               "type": "boolean"
             }
           },
@@ -2217,7 +2217,7 @@
           "openWorldHint": true,
           "destructiveHint": false
         },
-        "schemaFingerprint": "b3bfb13b92ce379b"
+        "schemaFingerprint": "a7c45602e54fa39b"
       },
       {
         "name": "firecrawl_search",
@@ -2617,24 +2617,24 @@
         "schemaFingerprint": "0730134a5843e9a1"
       }
     ],
-    "fingerprint": "74d4cb5208307b2e",
+    "fingerprint": "dd1ef78a867f81d9",
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-25T05:02:57.057Z",
-  "lastOkAt": "2026-09-25T05:02:57.057Z",
-  "lastChangedAt": "2026-09-25T05:02:57.057Z",
-  "changeCount": 7,
+  "lastCheckedAt": "2026-09-25T11:56:04.622Z",
+  "lastOkAt": "2026-09-25T11:56:04.622Z",
+  "lastChangedAt": "2026-09-25T11:56:04.622Z",
+  "changeCount": 8,
   "card": {
     "id": "firecrawl",
     "cardUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
-    "at": "2026-09-25T05:02:57.057Z",
+    "at": "2026-09-25T11:56:04.622Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-09-25T05:02:57.057Z",
+      "at": "2026-09-25T11:56:04.622Z",
       "declaredUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
       "observedUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
