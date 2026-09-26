@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-09-25T21:38:25.764Z",
+    "at": "2026-09-26T05:05:40.326Z",
     "declaredUrl": "https://docs.gumlet.com/mcp",
     "observedUrl": "https://docs.gumlet.com/mcp",
     "urlMatchesDeclared": true,
@@ -31,20 +31,23 @@
         "type": "object",
         "properties": {
           "question": {
-            "default": "",
-            "type": "string"
+            "type": "string",
+            "minLength": 1
           }
-        }
+        },
+        "required": [
+          "question"
+        ]
       },
       "outputSchema": null,
       "annotations": null,
-      "schemaFingerprint": "33a181af57e0ae19"
+      "schemaFingerprint": "62d2cfc50c3c578b"
     }
   ],
   "toolCount": 1,
-  "fingerprint": "735f98312187b691",
+  "fingerprint": "720c4a669e5f8013",
   "lastGood": {
-    "at": "2026-09-25T21:38:25.764Z",
+    "at": "2026-09-26T05:05:40.326Z",
     "tools": [
       {
         "name": "search-documentation",
@@ -55,34 +58,37 @@
           "type": "object",
           "properties": {
             "question": {
-              "default": "",
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             }
-          }
+          },
+          "required": [
+            "question"
+          ]
         },
         "outputSchema": null,
         "annotations": null,
-        "schemaFingerprint": "33a181af57e0ae19"
+        "schemaFingerprint": "62d2cfc50c3c578b"
       }
     ],
-    "fingerprint": "735f98312187b691",
+    "fingerprint": "720c4a669e5f8013",
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-09-25T21:38:25.764Z",
-  "lastOkAt": "2026-09-25T21:38:25.764Z",
-  "lastChangedAt": null,
-  "changeCount": 0,
+  "lastCheckedAt": "2026-09-26T05:05:40.326Z",
+  "lastOkAt": "2026-09-26T05:05:40.326Z",
+  "lastChangedAt": "2026-09-26T05:05:40.326Z",
+  "changeCount": 1,
   "card": {
     "id": "gumlet-docs",
     "cardUrl": "https://docs.gumlet.com/.well-known/mcp/server-card.json",
-    "at": "2026-09-25T21:38:25.764Z",
+    "at": "2026-09-26T05:05:40.326Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-09-25T21:38:25.764Z",
+      "at": "2026-09-26T05:05:40.326Z",
       "declaredUrl": "https://docs.gumlet.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.gumlet.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
