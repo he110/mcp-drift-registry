@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-09-30T22:20:47.382Z",
+    "at": "2026-10-01T06:03:28.749Z",
     "declaredUrl": "https://mcp.firecrawl.dev/mcp",
     "observedUrl": "https://mcp.firecrawl.dev/mcp",
     "urlMatchesDeclared": true,
@@ -24,7 +24,7 @@
   "tools": [
     {
       "name": "firecrawl_parse",
-      "title": null,
+      "title": "Firecrawl file parsing",
       "description": "\nParse one supported document into markdown, HTML, links, summary, targeted answers, or JSON matching a schema. Supported inputs include common HTML, PDF, Word, RTF, OpenDocument, and spreadsheet files; PDF parsing can be bounded with `pdfOptions.maxPages`.\n\nLocal MCP reads `filePath` from the server filesystem. Hosted MCP uses two calls: first provide `filePath` to receive upload instructions, upload locally, then call again with the returned `uploadRef`; do not send both fields together. Remote web URLs belong in `firecrawl_scrape`.\n\nSet `redactPII` to request redaction of personally identifiable information in the returned content. `zeroDataRetention` requires an eligible authenticated account; omit it for anonymous keyless use. Returns upload instructions for hosted phase one or parsed document content for the final call. Authenticated final responses can include a `data.metadata.scrapeId` for optional parse feedback.\n",
       "inputSchema": {
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -348,7 +348,7 @@
     },
     {
       "name": "firecrawl_scrape",
-      "title": null,
+      "title": "Firecrawl scrape",
       "description": "\nScrape one URL and return its content: markdown by default, or HTML, links, screenshots, branding data, a targeted answer, or JSON matching a supplied schema. Use it when the request identifies a page and needs its content or defined fields. Use `firecrawl_search` when additional web sources are needed; on an authenticated session, `firecrawl_map` lists a site's URLs and `firecrawl_crawl` collects a set of pages.\n\nFirecrawl may serve recently indexed content; set `maxAge: 0` for a live fetch or a smaller `maxAge` to bound staleness. A successful response does not by itself confirm the page is still current. Browser actions can change the live page when interactive actions are enabled. Authenticated responses can include a `metadata.scrapeId` for optional scrape feedback.\n\nOn an authenticated session with Alexandria access, `firecrawl_search` with `sources` unset and `firecrawl_find_tools` can discover providers for the same fields across several pages; a matching provider returns typed records in one call. Keyless sessions have no provider matches.\n\nAlexandria mode, on an authenticated session with Alexandria access: `alexandria` selects catalogued capability execution and is mutually exclusive with `url`.\n",
       "inputSchema": {
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -935,7 +935,7 @@
     },
     {
       "name": "firecrawl_search",
-      "title": null,
+      "title": "Firecrawl web search",
       "description": "\nSearch web, news, or image sources and return ranked results with query-relevant highlights. Each web result is a title, URL, and description; use `firecrawl_scrape` on a result URL when the excerpt is not enough.\n\nAuthenticated search also returns matching Alexandria data providers in data.tools (companies, people, jobs, finance and filings, public records and government spending, real estate, places and restaurants, retail and prices, package registries and developer data, news, research, and more). Prefer a provider over scraping pages when the task needs the same fields across several entities, exact figures or timestamps, provenance, or many records; use web results when they already answer the question. A search with sources: [\"web\"] omits semantic provider discovery; domainTools: true can still return website-matched tools. Web-only results use domainTools: false.\n\nOn an authenticated session, tool matches describe available capabilities; `firecrawl_find_tools` returns their contracts and `firecrawl_scrape` with an `alexandria` body executes a selected capability. Keyless sessions get no Alexandria matches in data.tools.\n\nFor a programming question, add `categories: [\"developer\"]`; its hits return in `data.web` with `category: \"developer\"`. `categories: [\"research\"]` restricts web results to research-affiliated websites; the `firecrawl_research_*` tools are a separate surface over paper abstracts and full text (PubMed, bioRxiv, medRxiv, arXiv). Query operators, domain filters, `categories`, `toolDetail` and `scrapeOptions` are described on their parameters. Returns source-type result groups and usage metadata. Authenticated responses can include an `id` for optional search feedback.\n",
       "inputSchema": {
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -1341,11 +1341,11 @@
   "toolCount": 3,
   "fingerprint": "f947d92cd88df41c",
   "lastGood": {
-    "at": "2026-09-30T22:20:47.382Z",
+    "at": "2026-10-01T06:03:28.749Z",
     "tools": [
       {
         "name": "firecrawl_parse",
-        "title": null,
+        "title": "Firecrawl file parsing",
         "description": "\nParse one supported document into markdown, HTML, links, summary, targeted answers, or JSON matching a schema. Supported inputs include common HTML, PDF, Word, RTF, OpenDocument, and spreadsheet files; PDF parsing can be bounded with `pdfOptions.maxPages`.\n\nLocal MCP reads `filePath` from the server filesystem. Hosted MCP uses two calls: first provide `filePath` to receive upload instructions, upload locally, then call again with the returned `uploadRef`; do not send both fields together. Remote web URLs belong in `firecrawl_scrape`.\n\nSet `redactPII` to request redaction of personally identifiable information in the returned content. `zeroDataRetention` requires an eligible authenticated account; omit it for anonymous keyless use. Returns upload instructions for hosted phase one or parsed document content for the final call. Authenticated final responses can include a `data.metadata.scrapeId` for optional parse feedback.\n",
         "inputSchema": {
           "$schema": "http://json-schema.org/draft-07/schema#",
@@ -1669,7 +1669,7 @@
       },
       {
         "name": "firecrawl_scrape",
-        "title": null,
+        "title": "Firecrawl scrape",
         "description": "\nScrape one URL and return its content: markdown by default, or HTML, links, screenshots, branding data, a targeted answer, or JSON matching a supplied schema. Use it when the request identifies a page and needs its content or defined fields. Use `firecrawl_search` when additional web sources are needed; on an authenticated session, `firecrawl_map` lists a site's URLs and `firecrawl_crawl` collects a set of pages.\n\nFirecrawl may serve recently indexed content; set `maxAge: 0` for a live fetch or a smaller `maxAge` to bound staleness. A successful response does not by itself confirm the page is still current. Browser actions can change the live page when interactive actions are enabled. Authenticated responses can include a `metadata.scrapeId` for optional scrape feedback.\n\nOn an authenticated session with Alexandria access, `firecrawl_search` with `sources` unset and `firecrawl_find_tools` can discover providers for the same fields across several pages; a matching provider returns typed records in one call. Keyless sessions have no provider matches.\n\nAlexandria mode, on an authenticated session with Alexandria access: `alexandria` selects catalogued capability execution and is mutually exclusive with `url`.\n",
         "inputSchema": {
           "$schema": "http://json-schema.org/draft-07/schema#",
@@ -2256,7 +2256,7 @@
       },
       {
         "name": "firecrawl_search",
-        "title": null,
+        "title": "Firecrawl web search",
         "description": "\nSearch web, news, or image sources and return ranked results with query-relevant highlights. Each web result is a title, URL, and description; use `firecrawl_scrape` on a result URL when the excerpt is not enough.\n\nAuthenticated search also returns matching Alexandria data providers in data.tools (companies, people, jobs, finance and filings, public records and government spending, real estate, places and restaurants, retail and prices, package registries and developer data, news, research, and more). Prefer a provider over scraping pages when the task needs the same fields across several entities, exact figures or timestamps, provenance, or many records; use web results when they already answer the question. A search with sources: [\"web\"] omits semantic provider discovery; domainTools: true can still return website-matched tools. Web-only results use domainTools: false.\n\nOn an authenticated session, tool matches describe available capabilities; `firecrawl_find_tools` returns their contracts and `firecrawl_scrape` with an `alexandria` body executes a selected capability. Keyless sessions get no Alexandria matches in data.tools.\n\nFor a programming question, add `categories: [\"developer\"]`; its hits return in `data.web` with `category: \"developer\"`. `categories: [\"research\"]` restricts web results to research-affiliated websites; the `firecrawl_research_*` tools are a separate surface over paper abstracts and full text (PubMed, bioRxiv, medRxiv, arXiv). Query operators, domain filters, `categories`, `toolDetail` and `scrapeOptions` are described on their parameters. Returns source-type result groups and usage metadata. Authenticated responses can include an `id` for optional search feedback.\n",
         "inputSchema": {
           "$schema": "http://json-schema.org/draft-07/schema#",
@@ -2663,20 +2663,20 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-09-30T22:20:47.382Z",
-  "lastOkAt": "2026-09-30T22:20:47.382Z",
+  "lastCheckedAt": "2026-10-01T06:03:28.749Z",
+  "lastOkAt": "2026-10-01T06:03:28.749Z",
   "lastChangedAt": "2026-09-27T05:23:33.373Z",
   "changeCount": 9,
   "card": {
     "id": "firecrawl",
     "cardUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
-    "at": "2026-09-30T22:20:47.382Z",
+    "at": "2026-10-01T06:03:28.749Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-09-30T22:20:47.382Z",
+      "at": "2026-10-01T06:03:28.749Z",
       "declaredUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
       "observedUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
