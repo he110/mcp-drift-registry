@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-10-02T05:46:12.880Z",
+    "at": "2026-10-02T12:43:59.342Z",
     "declaredUrl": "https://docs.pinecone.io/mcp",
     "observedUrl": "https://docs.pinecone.io/mcp",
     "urlMatchesDeclared": true,
@@ -115,7 +115,7 @@
   "toolCount": 3,
   "fingerprint": "3e662f6de10f969a",
   "lastGood": {
-    "at": "2026-10-02T05:46:12.880Z",
+    "at": "2026-10-02T12:43:59.342Z",
     "tools": [
       {
         "name": "query_docs_filesystem_pinecone_docs",
@@ -211,14 +211,14 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-10-02T05:46:12.880Z",
-  "lastOkAt": "2026-10-02T05:46:12.880Z",
+  "lastCheckedAt": "2026-10-02T12:43:59.342Z",
+  "lastOkAt": "2026-10-02T12:43:59.342Z",
   "lastChangedAt": "2026-10-01T22:44:30.290Z",
   "changeCount": 13,
   "card": {
     "id": "pinecone-docs",
     "cardUrl": "https://docs.pinecone.io/.well-known/mcp/server-card.json",
-    "at": "2026-10-02T05:46:12.880Z",
+    "at": "2026-10-02T12:43:59.342Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -271,7 +271,7 @@
       "toolCount": 2
     },
     "provenance": {
-      "at": "2026-10-02T05:46:12.880Z",
+      "at": "2026-10-02T12:43:59.342Z",
       "declaredUrl": "https://docs.pinecone.io/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.pinecone.io/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
