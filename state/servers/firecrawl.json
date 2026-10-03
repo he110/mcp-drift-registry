@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-10-03T11:44:49.308Z",
+    "at": "2026-10-03T16:26:36.704Z",
     "declaredUrl": "https://mcp.firecrawl.dev/mcp",
     "observedUrl": "https://mcp.firecrawl.dev/mcp",
     "urlMatchesDeclared": true,
@@ -1353,7 +1353,7 @@
   "toolCount": 3,
   "fingerprint": "e4e61dd36f1f4674",
   "lastGood": {
-    "at": "2026-10-03T11:44:49.308Z",
+    "at": "2026-10-03T16:26:36.704Z",
     "tools": [
       {
         "name": "firecrawl_parse",
@@ -2687,20 +2687,20 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-10-03T11:44:49.308Z",
-  "lastOkAt": "2026-10-03T11:44:49.308Z",
+  "lastCheckedAt": "2026-10-03T16:26:36.704Z",
+  "lastOkAt": "2026-10-03T16:26:36.704Z",
   "lastChangedAt": "2026-10-02T05:46:12.880Z",
   "changeCount": 10,
   "card": {
     "id": "firecrawl",
     "cardUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
-    "at": "2026-10-03T11:44:49.308Z",
+    "at": "2026-10-03T16:26:36.704Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-10-03T11:44:49.308Z",
+      "at": "2026-10-03T16:26:36.704Z",
       "declaredUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
       "observedUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
