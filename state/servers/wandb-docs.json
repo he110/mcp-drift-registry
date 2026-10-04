@@ -13,7 +13,7 @@
   "toolCount": 0,
   "fingerprint": null,
   "provenance": {
-    "at": "2026-10-04T05:59:28.534Z",
+    "at": "2026-10-04T12:27:52.633Z",
     "declaredUrl": "https://docs.wandb.ai/mcp",
     "observedUrl": "https://docs.wandb.ai/mcp",
     "urlMatchesDeclared": true,
@@ -127,7 +127,7 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-10-04T05:59:28.534Z",
+  "lastCheckedAt": "2026-10-04T12:27:52.633Z",
   "lastOkAt": "2026-09-30T12:42:22.262Z",
   "lastChangedAt": "2026-09-30T22:20:47.382Z",
   "changeCount": 4,
@@ -140,7 +140,7 @@
   "card": {
     "id": "wandb-docs",
     "cardUrl": "https://docs.wandb.ai/.well-known/mcp/server-card.json",
-    "at": "2026-10-04T05:59:28.534Z",
+    "at": "2026-10-04T12:27:52.633Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -156,7 +156,7 @@
       "toolCount": 0
     },
     "provenance": {
-      "at": "2026-10-04T05:59:28.534Z",
+      "at": "2026-10-04T12:27:52.633Z",
       "declaredUrl": "https://docs.wandb.ai/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.coreweave.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": false,
