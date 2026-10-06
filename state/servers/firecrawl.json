@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-10-06T00:06:47.086Z",
+    "at": "2026-10-06T06:27:49.308Z",
     "declaredUrl": "https://mcp.firecrawl.dev/mcp",
     "observedUrl": "https://mcp.firecrawl.dev/mcp",
     "urlMatchesDeclared": true,
@@ -349,7 +349,7 @@
     {
       "name": "firecrawl_scrape",
       "title": "Firecrawl scrape",
-      "description": "\nScrape one URL and return its content: markdown by default, or HTML, links, screenshots, branding data, a targeted answer, or JSON matching a supplied schema. Use it when the request identifies a page and needs its content or defined fields. Use `firecrawl_search` when additional web sources are needed; on an authenticated session, `firecrawl_map` lists a site's URLs and `firecrawl_crawl` collects a set of pages.\n\nFirecrawl may serve recently indexed content; set `maxAge: 0` for a live fetch or a smaller `maxAge` to bound staleness. A successful response does not by itself confirm the page is still current. Browser actions can change the live page when interactive actions are enabled. Authenticated responses can include a `metadata.scrapeId` for optional scrape feedback.\n\nOn an authenticated session with Alexandria access, `firecrawl_search` with `sources` unset and `firecrawl_find_tools` can discover providers for the same fields across several pages; a matching provider returns typed records in one call. Keyless sessions have no provider matches.\n\nAlexandria mode, on an authenticated session with Alexandria access: `alexandria` selects catalogued capability execution and is mutually exclusive with `url`.\n",
+      "description": "\nScrape one URL and return its content: markdown by default, or HTML, links, screenshots, branding data, a targeted answer, or JSON matching a supplied schema. Use it when the request identifies a page and needs its content or defined fields. Use `firecrawl_search` when additional web sources are needed; on an authenticated session, `firecrawl_map` lists a site's URLs and `firecrawl_crawl` collects a set of pages.\n\nFirecrawl may serve recently indexed content; set `maxAge: 0` for a live fetch or a smaller `maxAge` to bound staleness. A successful response does not by itself confirm the page is still current. A named browser profile loads saved session data without saving changes to it. Authenticated responses can include a `metadata.scrapeId` for optional scrape feedback.\n\nOn an authenticated session with Alexandria access, `firecrawl_search` with `sources` unset and `firecrawl_find_tools` can discover providers for the same fields across several pages; a matching provider returns typed records in one call. Keyless sessions have no provider matches.\n\nAlexandria mode, on an authenticated session with Alexandria access: `alexandria` selects catalogued capability execution and is mutually exclusive with `url`.\n",
       "inputSchema": {
         "$schema": "http://json-schema.org/draft-07/schema#",
         "type": "object",
@@ -529,13 +529,11 @@
             ]
           },
           "profile": {
+            "description": "Loads a saved browser profile without saving changes to it.",
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
-              },
-              "saveChanges": {
-                "type": "boolean"
               }
             },
             "required": [
@@ -931,7 +929,7 @@
         "openWorldHint": true,
         "destructiveHint": false
       },
-      "schemaFingerprint": "1110463b7ac397d9"
+      "schemaFingerprint": "4614c5d9efc8df5a"
     },
     {
       "name": "firecrawl_search",
@@ -1244,13 +1242,11 @@
                 ]
               },
               "profile": {
+                "description": "Loads a saved browser profile without saving changes to it.",
                 "type": "object",
                 "properties": {
                   "name": {
                     "type": "string"
-                  },
-                  "saveChanges": {
-                    "type": "boolean"
                   }
                 },
                 "required": [
@@ -1347,13 +1343,13 @@
         "openWorldHint": true,
         "destructiveHint": false
       },
-      "schemaFingerprint": "8c5760d3408fca65"
+      "schemaFingerprint": "1304f69608f20cf3"
     }
   ],
   "toolCount": 3,
-  "fingerprint": "e4e61dd36f1f4674",
+  "fingerprint": "7a6b26a795888063",
   "lastGood": {
-    "at": "2026-10-06T00:06:47.086Z",
+    "at": "2026-10-06T06:27:49.308Z",
     "tools": [
       {
         "name": "firecrawl_parse",
@@ -1682,7 +1678,7 @@
       {
         "name": "firecrawl_scrape",
         "title": "Firecrawl scrape",
-        "description": "\nScrape one URL and return its content: markdown by default, or HTML, links, screenshots, branding data, a targeted answer, or JSON matching a supplied schema. Use it when the request identifies a page and needs its content or defined fields. Use `firecrawl_search` when additional web sources are needed; on an authenticated session, `firecrawl_map` lists a site's URLs and `firecrawl_crawl` collects a set of pages.\n\nFirecrawl may serve recently indexed content; set `maxAge: 0` for a live fetch or a smaller `maxAge` to bound staleness. A successful response does not by itself confirm the page is still current. Browser actions can change the live page when interactive actions are enabled. Authenticated responses can include a `metadata.scrapeId` for optional scrape feedback.\n\nOn an authenticated session with Alexandria access, `firecrawl_search` with `sources` unset and `firecrawl_find_tools` can discover providers for the same fields across several pages; a matching provider returns typed records in one call. Keyless sessions have no provider matches.\n\nAlexandria mode, on an authenticated session with Alexandria access: `alexandria` selects catalogued capability execution and is mutually exclusive with `url`.\n",
+        "description": "\nScrape one URL and return its content: markdown by default, or HTML, links, screenshots, branding data, a targeted answer, or JSON matching a supplied schema. Use it when the request identifies a page and needs its content or defined fields. Use `firecrawl_search` when additional web sources are needed; on an authenticated session, `firecrawl_map` lists a site's URLs and `firecrawl_crawl` collects a set of pages.\n\nFirecrawl may serve recently indexed content; set `maxAge: 0` for a live fetch or a smaller `maxAge` to bound staleness. A successful response does not by itself confirm the page is still current. A named browser profile loads saved session data without saving changes to it. Authenticated responses can include a `metadata.scrapeId` for optional scrape feedback.\n\nOn an authenticated session with Alexandria access, `firecrawl_search` with `sources` unset and `firecrawl_find_tools` can discover providers for the same fields across several pages; a matching provider returns typed records in one call. Keyless sessions have no provider matches.\n\nAlexandria mode, on an authenticated session with Alexandria access: `alexandria` selects catalogued capability execution and is mutually exclusive with `url`.\n",
         "inputSchema": {
           "$schema": "http://json-schema.org/draft-07/schema#",
           "type": "object",
@@ -1862,13 +1858,11 @@
               ]
             },
             "profile": {
+              "description": "Loads a saved browser profile without saving changes to it.",
               "type": "object",
               "properties": {
                 "name": {
                   "type": "string"
-                },
-                "saveChanges": {
-                  "type": "boolean"
                 }
               },
               "required": [
@@ -2264,7 +2258,7 @@
           "openWorldHint": true,
           "destructiveHint": false
         },
-        "schemaFingerprint": "1110463b7ac397d9"
+        "schemaFingerprint": "4614c5d9efc8df5a"
       },
       {
         "name": "firecrawl_search",
@@ -2577,13 +2571,11 @@
                   ]
                 },
                 "profile": {
+                  "description": "Loads a saved browser profile without saving changes to it.",
                   "type": "object",
                   "properties": {
                     "name": {
                       "type": "string"
-                    },
-                    "saveChanges": {
-                      "type": "boolean"
                     }
                   },
                   "required": [
@@ -2680,27 +2672,27 @@
           "openWorldHint": true,
           "destructiveHint": false
         },
-        "schemaFingerprint": "8c5760d3408fca65"
+        "schemaFingerprint": "1304f69608f20cf3"
       }
     ],
-    "fingerprint": "e4e61dd36f1f4674",
+    "fingerprint": "7a6b26a795888063",
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-10-06T00:06:47.086Z",
-  "lastOkAt": "2026-10-06T00:06:47.086Z",
-  "lastChangedAt": "2026-10-02T05:46:12.880Z",
-  "changeCount": 10,
+  "lastCheckedAt": "2026-10-06T06:27:49.308Z",
+  "lastOkAt": "2026-10-06T06:27:49.308Z",
+  "lastChangedAt": "2026-10-06T06:27:49.308Z",
+  "changeCount": 11,
   "card": {
     "id": "firecrawl",
     "cardUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
-    "at": "2026-10-06T00:06:47.086Z",
+    "at": "2026-10-06T06:27:49.308Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-10-06T00:06:47.086Z",
+      "at": "2026-10-06T06:27:49.308Z",
       "declaredUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
       "observedUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
