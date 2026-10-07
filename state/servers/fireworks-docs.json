@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-10-06T18:26:08.865Z",
+    "at": "2026-10-07T06:06:54.376Z",
     "declaredUrl": "https://docs.fireworks.ai/mcp",
     "observedUrl": "https://docs.fireworks.ai/mcp",
     "urlMatchesDeclared": true,
@@ -111,7 +111,7 @@
   "toolCount": 3,
   "fingerprint": "ecdfa0c9b30f1df2",
   "lastGood": {
-    "at": "2026-10-06T18:26:08.865Z",
+    "at": "2026-10-07T06:06:54.376Z",
     "tools": [
       {
         "name": "query_docs_filesystem_fireworks_ai_docs",
@@ -203,14 +203,14 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-10-06T18:26:08.865Z",
-  "lastOkAt": "2026-10-06T18:26:08.865Z",
+  "lastCheckedAt": "2026-10-07T06:06:54.376Z",
+  "lastOkAt": "2026-10-07T06:06:54.376Z",
   "lastChangedAt": "2026-10-06T00:06:47.086Z",
   "changeCount": 3,
   "card": {
     "id": "fireworks-docs",
     "cardUrl": "https://docs.fireworks.ai/.well-known/mcp/server-card.json",
-    "at": "2026-10-06T18:26:08.865Z",
+    "at": "2026-10-07T06:06:54.376Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -259,7 +259,7 @@
       "toolCount": 2
     },
     "provenance": {
-      "at": "2026-10-06T18:26:08.865Z",
+      "at": "2026-10-07T06:06:54.376Z",
       "declaredUrl": "https://docs.fireworks.ai/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.fireworks.ai/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
