@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-10-08T13:37:41.609Z",
+    "at": "2026-10-08T23:24:29.776Z",
     "declaredUrl": "https://mcp.firecrawl.dev/mcp",
     "observedUrl": "https://mcp.firecrawl.dev/mcp",
     "urlMatchesDeclared": true,
@@ -934,7 +934,7 @@
     {
       "name": "firecrawl_search",
       "title": "Firecrawl web search",
-      "description": "\nSearch web, news, or image sources and return ranked results with query-relevant highlights. Each web result is a title, URL, and description; use `firecrawl_scrape` on a result URL when the excerpt is not enough.\n\nAuthenticated search also returns matching Alexandria data providers in data.tools (companies, people, jobs, finance and filings, public records and government spending, real estate, places and restaurants, retail and prices, package registries and developer data, news, research, and more). Prefer a provider over scraping pages when the task needs the same fields across several entities, exact figures or timestamps, provenance, or many records; use web results when they already answer the question. A search with sources: [\"web\"] omits semantic provider discovery; domainTools: true can still return website-matched tools. Web-only results use domainTools: false.\n\nOn an authenticated session, tool matches describe available capabilities; `firecrawl_find_tools` returns their contracts and `firecrawl_scrape` with an `alexandria` body executes a selected capability. Keyless sessions get no Alexandria matches in data.tools.\n\nFor a programming question, add `categories: [\"developer\"]`; its hits return in `data.web` with `category: \"developer\"`. For a legal or regulatory question, `categories: [\"gov\"]` returns hits in `data.web` with `category: \"gov\"` and cannot be combined with other categories; authenticated sessions also have `firecrawl_gov_search` as the dedicated tool. `categories: [\"research\"]` restricts web results to research-affiliated websites; the `firecrawl_research_*` tools are a separate surface over paper abstracts and full text (PubMed, bioRxiv, medRxiv, arXiv). Query operators, domain filters, `categories`, `toolDetail` and `scrapeOptions` are described on their parameters. Returns source-type result groups and usage metadata. Authenticated responses can include an `id` for optional search feedback.\n",
+      "description": "\nSearch web, news, or image sources and return ranked results with query-relevant highlights. Each web result is a title, URL, and description; use `firecrawl_scrape` on a result URL when the excerpt is not enough.\n\nAuthenticated search also returns matching Alexandria data providers in data.tools (companies, people, jobs, finance and filings, public records and government spending, real estate, places and restaurants, retail and prices, package registries and developer data, news, research, and more). Prefer a provider over scraping pages when the task needs the same fields across several entities, exact figures or timestamps, provenance, or many records; use web results when they already answer the question. A search with sources: [\"web\"] omits semantic provider discovery; domainTools: true can still return website-matched tools. Web-only results use domainTools: false.\n\nOn an authenticated session, tool matches describe available capabilities; `firecrawl_find_tools` returns their contracts and `firecrawl_scrape` with an `alexandria` body executes a selected capability. Keyless sessions get no Alexandria matches in data.tools.\n\nFor a programming question, add `categories: [\"developer\"]`; its hits return in `data.web` with `category: \"developer\"`. For a legal or regulatory question, `categories: [\"gov\"]` returns hits in `data.web` with `category: \"gov\"` and cannot be combined with other categories; authenticated sessions also have `firecrawl_gov_search` as the dedicated tool. Verify gov results' issuer, jurisdiction, status, and version before citing current law. `categories: [\"research\"]` restricts web results to research-affiliated websites; the `firecrawl_research_*` tools are a separate surface over paper abstracts and full text (PubMed, bioRxiv, medRxiv, arXiv). Query operators, domain filters, `categories`, `toolDetail` and `scrapeOptions` are described on their parameters. Returns source-type result groups and usage metadata. Authenticated responses can include an `id` for optional search feedback.\n",
       "inputSchema": {
         "$schema": "http://json-schema.org/draft-07/schema#",
         "type": "object",
@@ -1045,7 +1045,7 @@
             }
           },
           "categories": {
-            "description": "Limit results to specific source types. `research` restricts ordinary web results to research-affiliated websites and returns page snippets, which is separate from the `firecrawl_research_*` tools that search paper abstracts and full text across biomedical (PubMed, bioRxiv, medRxiv) and arXiv literature; `pdf` searches PDF results; `developer` searches an index built for coding agents over public repositories, GitHub issues, merged pull requests, repository READMEs, and code documentation; `gov` searches the Government Index of US federal, state, and local legal and regulatory sources, the index behind firecrawl_gov_search, and cannot be combined with other categories. `developer` and `gov` return hits in `data.web` with `category` set to their name; the other categories also filter `data.web`.",
+            "description": "Limit results to specific source types. `research` restricts ordinary web results to research-affiliated websites and returns page snippets, which is separate from the `firecrawl_research_*` tools that search paper abstracts and full text across biomedical (PubMed, bioRxiv, medRxiv) and arXiv literature; `pdf` searches PDF results; `developer` searches an index built for coding agents over public repositories, GitHub issues, merged pull requests, repository READMEs, and code documentation; `gov` searches the Government Index of US federal, state, and local legal and regulatory sources, the index behind firecrawl_gov_search, and cannot be combined with other categories; gov hits can include historical versions, bill text, agency guidance, and third-party reproductions, so verify the issuer, jurisdiction, enacted/effective status, and version before citing current governing law, clarify a missing jurisdiction or ambiguous as-of date, and use general search for non-US questions or missing coverage (no hits does not establish that no applicable law exists). `developer` and `gov` return hits in `data.web` with `category` set to their name; the other categories also filter `data.web`.",
             "type": "array",
             "items": {
               "type": "string",
@@ -1344,13 +1344,13 @@
         "openWorldHint": true,
         "destructiveHint": false
       },
-      "schemaFingerprint": "a2f30f09a1aacf0f"
+      "schemaFingerprint": "99ed6655cdb05093"
     }
   ],
   "toolCount": 3,
-  "fingerprint": "eb804309e8d1fb74",
+  "fingerprint": "63cb9de23b1b521c",
   "lastGood": {
-    "at": "2026-10-08T13:37:41.609Z",
+    "at": "2026-10-08T23:24:29.776Z",
     "tools": [
       {
         "name": "firecrawl_parse",
@@ -2264,7 +2264,7 @@
       {
         "name": "firecrawl_search",
         "title": "Firecrawl web search",
-        "description": "\nSearch web, news, or image sources and return ranked results with query-relevant highlights. Each web result is a title, URL, and description; use `firecrawl_scrape` on a result URL when the excerpt is not enough.\n\nAuthenticated search also returns matching Alexandria data providers in data.tools (companies, people, jobs, finance and filings, public records and government spending, real estate, places and restaurants, retail and prices, package registries and developer data, news, research, and more). Prefer a provider over scraping pages when the task needs the same fields across several entities, exact figures or timestamps, provenance, or many records; use web results when they already answer the question. A search with sources: [\"web\"] omits semantic provider discovery; domainTools: true can still return website-matched tools. Web-only results use domainTools: false.\n\nOn an authenticated session, tool matches describe available capabilities; `firecrawl_find_tools` returns their contracts and `firecrawl_scrape` with an `alexandria` body executes a selected capability. Keyless sessions get no Alexandria matches in data.tools.\n\nFor a programming question, add `categories: [\"developer\"]`; its hits return in `data.web` with `category: \"developer\"`. For a legal or regulatory question, `categories: [\"gov\"]` returns hits in `data.web` with `category: \"gov\"` and cannot be combined with other categories; authenticated sessions also have `firecrawl_gov_search` as the dedicated tool. `categories: [\"research\"]` restricts web results to research-affiliated websites; the `firecrawl_research_*` tools are a separate surface over paper abstracts and full text (PubMed, bioRxiv, medRxiv, arXiv). Query operators, domain filters, `categories`, `toolDetail` and `scrapeOptions` are described on their parameters. Returns source-type result groups and usage metadata. Authenticated responses can include an `id` for optional search feedback.\n",
+        "description": "\nSearch web, news, or image sources and return ranked results with query-relevant highlights. Each web result is a title, URL, and description; use `firecrawl_scrape` on a result URL when the excerpt is not enough.\n\nAuthenticated search also returns matching Alexandria data providers in data.tools (companies, people, jobs, finance and filings, public records and government spending, real estate, places and restaurants, retail and prices, package registries and developer data, news, research, and more). Prefer a provider over scraping pages when the task needs the same fields across several entities, exact figures or timestamps, provenance, or many records; use web results when they already answer the question. A search with sources: [\"web\"] omits semantic provider discovery; domainTools: true can still return website-matched tools. Web-only results use domainTools: false.\n\nOn an authenticated session, tool matches describe available capabilities; `firecrawl_find_tools` returns their contracts and `firecrawl_scrape` with an `alexandria` body executes a selected capability. Keyless sessions get no Alexandria matches in data.tools.\n\nFor a programming question, add `categories: [\"developer\"]`; its hits return in `data.web` with `category: \"developer\"`. For a legal or regulatory question, `categories: [\"gov\"]` returns hits in `data.web` with `category: \"gov\"` and cannot be combined with other categories; authenticated sessions also have `firecrawl_gov_search` as the dedicated tool. Verify gov results' issuer, jurisdiction, status, and version before citing current law. `categories: [\"research\"]` restricts web results to research-affiliated websites; the `firecrawl_research_*` tools are a separate surface over paper abstracts and full text (PubMed, bioRxiv, medRxiv, arXiv). Query operators, domain filters, `categories`, `toolDetail` and `scrapeOptions` are described on their parameters. Returns source-type result groups and usage metadata. Authenticated responses can include an `id` for optional search feedback.\n",
         "inputSchema": {
           "$schema": "http://json-schema.org/draft-07/schema#",
           "type": "object",
@@ -2375,7 +2375,7 @@
               }
             },
             "categories": {
-              "description": "Limit results to specific source types. `research` restricts ordinary web results to research-affiliated websites and returns page snippets, which is separate from the `firecrawl_research_*` tools that search paper abstracts and full text across biomedical (PubMed, bioRxiv, medRxiv) and arXiv literature; `pdf` searches PDF results; `developer` searches an index built for coding agents over public repositories, GitHub issues, merged pull requests, repository READMEs, and code documentation; `gov` searches the Government Index of US federal, state, and local legal and regulatory sources, the index behind firecrawl_gov_search, and cannot be combined with other categories. `developer` and `gov` return hits in `data.web` with `category` set to their name; the other categories also filter `data.web`.",
+              "description": "Limit results to specific source types. `research` restricts ordinary web results to research-affiliated websites and returns page snippets, which is separate from the `firecrawl_research_*` tools that search paper abstracts and full text across biomedical (PubMed, bioRxiv, medRxiv) and arXiv literature; `pdf` searches PDF results; `developer` searches an index built for coding agents over public repositories, GitHub issues, merged pull requests, repository READMEs, and code documentation; `gov` searches the Government Index of US federal, state, and local legal and regulatory sources, the index behind firecrawl_gov_search, and cannot be combined with other categories; gov hits can include historical versions, bill text, agency guidance, and third-party reproductions, so verify the issuer, jurisdiction, enacted/effective status, and version before citing current governing law, clarify a missing jurisdiction or ambiguous as-of date, and use general search for non-US questions or missing coverage (no hits does not establish that no applicable law exists). `developer` and `gov` return hits in `data.web` with `category` set to their name; the other categories also filter `data.web`.",
               "type": "array",
               "items": {
                 "type": "string",
@@ -2674,27 +2674,27 @@
           "openWorldHint": true,
           "destructiveHint": false
         },
-        "schemaFingerprint": "a2f30f09a1aacf0f"
+        "schemaFingerprint": "99ed6655cdb05093"
       }
     ],
-    "fingerprint": "eb804309e8d1fb74",
+    "fingerprint": "63cb9de23b1b521c",
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-10-08T13:37:41.609Z",
-  "lastOkAt": "2026-10-08T13:37:41.609Z",
-  "lastChangedAt": "2026-10-07T06:06:54.376Z",
-  "changeCount": 12,
+  "lastCheckedAt": "2026-10-08T23:24:29.776Z",
+  "lastOkAt": "2026-10-08T23:24:29.776Z",
+  "lastChangedAt": "2026-10-08T23:24:29.776Z",
+  "changeCount": 13,
   "card": {
     "id": "firecrawl",
     "cardUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
-    "at": "2026-10-08T13:37:41.609Z",
+    "at": "2026-10-08T23:24:29.776Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-10-08T13:37:41.609Z",
+      "at": "2026-10-08T23:24:29.776Z",
       "declaredUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
       "observedUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
