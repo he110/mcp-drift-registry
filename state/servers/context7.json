@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-10-09T13:27:51.266Z",
+    "at": "2026-10-09T22:42:33.748Z",
     "declaredUrl": "https://mcp.context7.com/mcp",
     "observedUrl": "https://mcp.context7.com/mcp",
     "urlMatchesDeclared": true,
@@ -25,7 +25,7 @@
     {
       "name": "query-docs",
       "title": "Query Documentation",
-      "description": "Retrieves and queries up-to-date documentation and code examples from Context7 for any programming library or framework.\n\nYou must call 'Resolve Context7 Library ID' tool first to obtain the exact Context7-compatible library ID required to use this tool, UNLESS the user explicitly provides a library ID in the format '/org/project' or '/org/project/version' in their query.\n\nDo not call this tool more than 3 times per question.",
+      "description": "Retrieves and queries up-to-date documentation and code examples from Context7 for any programming library or framework.\n\nYou must call 'Resolve Context7 Library ID' tool first to obtain the exact Context7-compatible library ID required to use this tool, UNLESS the user explicitly provides a library ID in the format '/org/project' or '/org/project/version' in their query.\n\nDo not call this tool more than 3 times per question.\n\nIf you know the programming language the user is working in, pass it as `language` so the results match their setup.",
       "inputSchema": {
         "type": "object",
         "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -37,6 +37,10 @@
           "query": {
             "type": "string",
             "description": "What to look up in the library's documentation, scoped to a single concept. Be specific and include relevant details, but keep each query to one topic — if the user's question spans multiple distinct concepts, make a separate call per concept instead of combining them, unless the question is about how the concepts interact. Good: 'How to set up authentication with JWT in Express.js' or 'React useEffect cleanup function examples'. Bad (too vague): 'auth' or 'hooks'. Bad (too broad): 'routing and auth and caching in Next.js'. The query is sent to the Context7 API for processing. Do not include any sensitive or confidential information such as API keys, passwords, credentials, personal data, or proprietary code in your query."
+          },
+          "language": {
+            "description": "Programming language the user is writing code in, such as 'Python', 'TypeScript', 'Go', or 'C#'. Ranks code examples in that language first. Leave it out when the language is unknown or does not apply.",
+            "type": "string"
           }
         },
         "required": [
@@ -51,7 +55,7 @@
         "openWorldHint": true,
         "idempotentHint": true
       },
-      "schemaFingerprint": "6b6c59ee65e0d7fc"
+      "schemaFingerprint": "08013ce73685baff"
     },
     {
       "name": "resolve-library-id",
@@ -86,14 +90,14 @@
     }
   ],
   "toolCount": 2,
-  "fingerprint": "9a6f737773d0d09b",
+  "fingerprint": "c5d78fe6dc8056e1",
   "lastGood": {
-    "at": "2026-10-09T13:27:51.266Z",
+    "at": "2026-10-09T22:42:33.748Z",
     "tools": [
       {
         "name": "query-docs",
         "title": "Query Documentation",
-        "description": "Retrieves and queries up-to-date documentation and code examples from Context7 for any programming library or framework.\n\nYou must call 'Resolve Context7 Library ID' tool first to obtain the exact Context7-compatible library ID required to use this tool, UNLESS the user explicitly provides a library ID in the format '/org/project' or '/org/project/version' in their query.\n\nDo not call this tool more than 3 times per question.",
+        "description": "Retrieves and queries up-to-date documentation and code examples from Context7 for any programming library or framework.\n\nYou must call 'Resolve Context7 Library ID' tool first to obtain the exact Context7-compatible library ID required to use this tool, UNLESS the user explicitly provides a library ID in the format '/org/project' or '/org/project/version' in their query.\n\nDo not call this tool more than 3 times per question.\n\nIf you know the programming language the user is working in, pass it as `language` so the results match their setup.",
         "inputSchema": {
           "type": "object",
           "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -105,6 +109,10 @@
             "query": {
               "type": "string",
               "description": "What to look up in the library's documentation, scoped to a single concept. Be specific and include relevant details, but keep each query to one topic — if the user's question spans multiple distinct concepts, make a separate call per concept instead of combining them, unless the question is about how the concepts interact. Good: 'How to set up authentication with JWT in Express.js' or 'React useEffect cleanup function examples'. Bad (too vague): 'auth' or 'hooks'. Bad (too broad): 'routing and auth and caching in Next.js'. The query is sent to the Context7 API for processing. Do not include any sensitive or confidential information such as API keys, passwords, credentials, personal data, or proprietary code in your query."
+            },
+            "language": {
+              "description": "Programming language the user is writing code in, such as 'Python', 'TypeScript', 'Go', or 'C#'. Ranks code examples in that language first. Leave it out when the language is unknown or does not apply.",
+              "type": "string"
             }
           },
           "required": [
@@ -119,7 +127,7 @@
           "openWorldHint": true,
           "idempotentHint": true
         },
-        "schemaFingerprint": "6b6c59ee65e0d7fc"
+        "schemaFingerprint": "08013ce73685baff"
       },
       {
         "name": "resolve-library-id",
@@ -153,24 +161,24 @@
         "schemaFingerprint": "ff2f303df2072ada"
       }
     ],
-    "fingerprint": "9a6f737773d0d09b",
+    "fingerprint": "c5d78fe6dc8056e1",
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-10-09T13:27:51.266Z",
-  "lastOkAt": "2026-10-09T13:27:51.266Z",
-  "lastChangedAt": null,
-  "changeCount": 0,
+  "lastCheckedAt": "2026-10-09T22:42:33.748Z",
+  "lastOkAt": "2026-10-09T22:42:33.748Z",
+  "lastChangedAt": "2026-10-09T22:42:33.748Z",
+  "changeCount": 1,
   "card": {
     "id": "context7",
     "cardUrl": "https://mcp.context7.com/.well-known/mcp/server-card.json",
-    "at": "2026-10-09T13:27:51.266Z",
+    "at": "2026-10-09T22:42:33.748Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-10-09T13:27:51.266Z",
+      "at": "2026-10-09T22:42:33.748Z",
       "declaredUrl": "https://mcp.context7.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://mcp.context7.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
