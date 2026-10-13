@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-10-13T00:46:43.187Z",
+    "at": "2026-10-13T14:18:26.673Z",
     "declaredUrl": "https://mcp.context7.com/mcp",
     "observedUrl": "https://mcp.context7.com/mcp",
     "urlMatchesDeclared": true,
@@ -32,7 +32,7 @@
         "properties": {
           "libraryId": {
             "type": "string",
-            "description": "Exact Context7-compatible library ID (e.g., '/mongodb/docs', '/vercel/next.js', '/supabase/supabase', '/vercel/next.js/v14.3.0-canary.87') retrieved from 'resolve-library-id' or directly from user query in the format '/org/project' or '/org/project/version'."
+            "description": "Exact Context7-compatible library ID (e.g., '/mongodb/docs', '/vercel/next.js', '/supabase/supabase', '/vercel/next.js/v16.2.9') retrieved from 'resolve-library-id' or directly from user query in the format '/org/project' or '/org/project/version'."
           },
           "query": {
             "type": "string",
@@ -55,7 +55,7 @@
         "openWorldHint": true,
         "idempotentHint": true
       },
-      "schemaFingerprint": "08013ce73685baff"
+      "schemaFingerprint": "6de42261733299e7"
     },
     {
       "name": "resolve-library-id",
@@ -90,9 +90,9 @@
     }
   ],
   "toolCount": 2,
-  "fingerprint": "c5d78fe6dc8056e1",
+  "fingerprint": "9cc0958d59b57f04",
   "lastGood": {
-    "at": "2026-10-13T00:46:43.187Z",
+    "at": "2026-10-13T14:18:26.673Z",
     "tools": [
       {
         "name": "query-docs",
@@ -104,7 +104,7 @@
           "properties": {
             "libraryId": {
               "type": "string",
-              "description": "Exact Context7-compatible library ID (e.g., '/mongodb/docs', '/vercel/next.js', '/supabase/supabase', '/vercel/next.js/v14.3.0-canary.87') retrieved from 'resolve-library-id' or directly from user query in the format '/org/project' or '/org/project/version'."
+              "description": "Exact Context7-compatible library ID (e.g., '/mongodb/docs', '/vercel/next.js', '/supabase/supabase', '/vercel/next.js/v16.2.9') retrieved from 'resolve-library-id' or directly from user query in the format '/org/project' or '/org/project/version'."
             },
             "query": {
               "type": "string",
@@ -127,7 +127,7 @@
           "openWorldHint": true,
           "idempotentHint": true
         },
-        "schemaFingerprint": "08013ce73685baff"
+        "schemaFingerprint": "6de42261733299e7"
       },
       {
         "name": "resolve-library-id",
@@ -161,24 +161,24 @@
         "schemaFingerprint": "ff2f303df2072ada"
       }
     ],
-    "fingerprint": "c5d78fe6dc8056e1",
+    "fingerprint": "9cc0958d59b57f04",
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-10-13T00:46:43.187Z",
-  "lastOkAt": "2026-10-13T00:46:43.187Z",
-  "lastChangedAt": "2026-10-09T22:42:33.748Z",
-  "changeCount": 1,
+  "lastCheckedAt": "2026-10-13T14:18:26.673Z",
+  "lastOkAt": "2026-10-13T14:18:26.673Z",
+  "lastChangedAt": "2026-10-13T14:18:26.673Z",
+  "changeCount": 2,
   "card": {
     "id": "context7",
     "cardUrl": "https://mcp.context7.com/.well-known/mcp/server-card.json",
-    "at": "2026-10-13T00:46:43.187Z",
+    "at": "2026-10-13T14:18:26.673Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-10-13T00:46:43.187Z",
+      "at": "2026-10-13T14:18:26.673Z",
       "declaredUrl": "https://mcp.context7.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://mcp.context7.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
