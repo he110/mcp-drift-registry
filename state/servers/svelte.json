@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-10-14T12:00:14.938Z",
+    "at": "2026-10-14T17:17:02.259Z",
     "declaredUrl": "https://mcp.svelte.dev/mcp",
     "observedUrl": "https://mcp.svelte.dev/mcp",
     "urlMatchesDeclared": true,
@@ -202,7 +202,7 @@
   "toolCount": 4,
   "fingerprint": "0c27e54c054b483c",
   "lastGood": {
-    "at": "2026-10-14T12:00:14.938Z",
+    "at": "2026-10-14T17:17:02.259Z",
     "tools": [
       {
         "name": "get-documentation",
@@ -385,20 +385,20 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-10-14T12:00:14.938Z",
-  "lastOkAt": "2026-10-14T12:00:14.938Z",
+  "lastCheckedAt": "2026-10-14T17:17:02.259Z",
+  "lastOkAt": "2026-10-14T17:17:02.259Z",
   "lastChangedAt": "2026-10-14T04:59:28.231Z",
   "changeCount": 1,
   "card": {
     "id": "svelte",
     "cardUrl": "https://mcp.svelte.dev/.well-known/mcp/server-card.json",
-    "at": "2026-10-14T12:00:14.938Z",
+    "at": "2026-10-14T17:17:02.259Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "not_json",
     "error": "Unexpected token '<', \"<!doctype \"... is not valid JSON",
     "card": null,
     "provenance": {
-      "at": "2026-10-14T12:00:14.938Z",
+      "at": "2026-10-14T17:17:02.259Z",
       "declaredUrl": "https://mcp.svelte.dev/.well-known/mcp/server-card.json",
       "observedUrl": "https://svelte.dev/docs/ai/overview",
       "urlMatchesDeclared": false,
