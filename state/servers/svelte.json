@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-10-13T22:50:12.112Z",
+    "at": "2026-10-14T04:59:28.231Z",
     "declaredUrl": "https://mcp.svelte.dev/mcp",
     "observedUrl": "https://mcp.svelte.dev/mcp",
     "urlMatchesDeclared": true,
@@ -147,7 +147,7 @@
                 "type": "number"
               }
             ],
-            "description": "The desired major svelte version as an integer (must be 4 or 5)...if possible read this from the package.json of the user project, otherwise use some hint from the wording (if the user asks for runes it wants version 5). Default to 5 in case of doubt."
+            "description": "The desired svelte version as a full semver string (e.g. \"5.16.0\", the major MUST be 4 or 5)...you MUST read this from the package.json of the user project (or from the installed node_modules/svelte/package.json) since some suggestions are only enabled for newer versions. If you can't find it use some hint from the wording (if the user asks for runes it wants version 5) and pass only the major. Default to 5 in case of doubt."
           },
           "async": {
             "type": "boolean",
@@ -196,13 +196,13 @@
         "readOnlyHint": true,
         "openWorldHint": false
       },
-      "schemaFingerprint": "58985309594bfa21"
+      "schemaFingerprint": "68c480074def9d19"
     }
   ],
   "toolCount": 4,
-  "fingerprint": "186bae06bc1b96ee",
+  "fingerprint": "0c27e54c054b483c",
   "lastGood": {
-    "at": "2026-10-13T22:50:12.112Z",
+    "at": "2026-10-14T04:59:28.231Z",
     "tools": [
       {
         "name": "get-documentation",
@@ -329,7 +329,7 @@
                   "type": "number"
                 }
               ],
-              "description": "The desired major svelte version as an integer (must be 4 or 5)...if possible read this from the package.json of the user project, otherwise use some hint from the wording (if the user asks for runes it wants version 5). Default to 5 in case of doubt."
+              "description": "The desired svelte version as a full semver string (e.g. \"5.16.0\", the major MUST be 4 or 5)...you MUST read this from the package.json of the user project (or from the installed node_modules/svelte/package.json) since some suggestions are only enabled for newer versions. If you can't find it use some hint from the wording (if the user asks for runes it wants version 5) and pass only the major. Default to 5 in case of doubt."
             },
             "async": {
               "type": "boolean",
@@ -378,27 +378,27 @@
           "readOnlyHint": true,
           "openWorldHint": false
         },
-        "schemaFingerprint": "58985309594bfa21"
+        "schemaFingerprint": "68c480074def9d19"
       }
     ],
-    "fingerprint": "186bae06bc1b96ee",
+    "fingerprint": "0c27e54c054b483c",
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-10-13T22:50:12.112Z",
-  "lastOkAt": "2026-10-13T22:50:12.112Z",
-  "lastChangedAt": null,
-  "changeCount": 0,
+  "lastCheckedAt": "2026-10-14T04:59:28.231Z",
+  "lastOkAt": "2026-10-14T04:59:28.231Z",
+  "lastChangedAt": "2026-10-14T04:59:28.231Z",
+  "changeCount": 1,
   "card": {
     "id": "svelte",
     "cardUrl": "https://mcp.svelte.dev/.well-known/mcp/server-card.json",
-    "at": "2026-10-13T22:50:12.112Z",
+    "at": "2026-10-14T04:59:28.231Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "not_json",
     "error": "Unexpected token '<', \"<!doctype \"... is not valid JSON",
     "card": null,
     "provenance": {
-      "at": "2026-10-13T22:50:12.112Z",
+      "at": "2026-10-14T04:59:28.231Z",
       "declaredUrl": "https://mcp.svelte.dev/.well-known/mcp/server-card.json",
       "observedUrl": "https://svelte.dev/docs/ai/overview",
       "urlMatchesDeclared": false,
