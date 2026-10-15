@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-10-14T21:45:39.677Z",
+    "at": "2026-10-15T04:47:43.511Z",
     "declaredUrl": "https://mcp.jina.ai/sse",
     "observedUrl": "https://mcp.jina.ai/sse",
     "urlMatchesDeclared": true,
@@ -248,8 +248,8 @@
           "num": {
             "type": "integer",
             "minimum": 1,
-            "maximum": 100,
-            "default": 30
+            "maximum": 10,
+            "default": 10
           },
           "tbs": {
             "type": "string",
@@ -264,7 +264,7 @@
       },
       "outputSchema": null,
       "annotations": null,
-      "schemaFingerprint": "0278e0780947f622"
+      "schemaFingerprint": "74b628b4d0884f17"
     },
     {
       "name": "search_images",
@@ -279,7 +279,7 @@
           "num": {
             "type": "integer",
             "minimum": 1,
-            "maximum": 30,
+            "maximum": 10,
             "default": 10
           },
           "return_url": {
@@ -311,7 +311,7 @@
       },
       "outputSchema": null,
       "annotations": null,
-      "schemaFingerprint": "32a4ca8f4f1f68d9"
+      "schemaFingerprint": "f755ce67122050fb"
     },
     {
       "name": "search_jina_blog",
@@ -381,8 +381,8 @@
           "num": {
             "type": "integer",
             "minimum": 1,
-            "maximum": 100,
-            "default": 30
+            "maximum": 10,
+            "default": 10
           },
           "tbs": {
             "type": "string",
@@ -397,7 +397,7 @@
       },
       "outputSchema": null,
       "annotations": null,
-      "schemaFingerprint": "0278e0780947f622"
+      "schemaFingerprint": "74b628b4d0884f17"
     },
     {
       "name": "search_web",
@@ -424,8 +424,8 @@
           "num": {
             "type": "integer",
             "minimum": 1,
-            "maximum": 100,
-            "default": 30
+            "maximum": 10,
+            "default": 10
           },
           "tbs": {
             "type": "string",
@@ -451,7 +451,7 @@
       },
       "outputSchema": null,
       "annotations": null,
-      "schemaFingerprint": "2899dfad78a2e585"
+      "schemaFingerprint": "4b85096815f704d0"
     },
     {
       "name": "sort_by_relevance",
@@ -490,9 +490,9 @@
     }
   ],
   "toolCount": 12,
-  "fingerprint": "66dbf9e0e25f1404",
+  "fingerprint": "ee7c31ed5c58e9c6",
   "lastGood": {
-    "at": "2026-10-14T21:45:39.677Z",
+    "at": "2026-10-15T04:47:43.511Z",
     "tools": [
       {
         "name": "capture_screenshot_url",
@@ -720,8 +720,8 @@
             "num": {
               "type": "integer",
               "minimum": 1,
-              "maximum": 100,
-              "default": 30
+              "maximum": 10,
+              "default": 10
             },
             "tbs": {
               "type": "string",
@@ -736,7 +736,7 @@
         },
         "outputSchema": null,
         "annotations": null,
-        "schemaFingerprint": "0278e0780947f622"
+        "schemaFingerprint": "74b628b4d0884f17"
       },
       {
         "name": "search_images",
@@ -751,7 +751,7 @@
             "num": {
               "type": "integer",
               "minimum": 1,
-              "maximum": 30,
+              "maximum": 10,
               "default": 10
             },
             "return_url": {
@@ -783,7 +783,7 @@
         },
         "outputSchema": null,
         "annotations": null,
-        "schemaFingerprint": "32a4ca8f4f1f68d9"
+        "schemaFingerprint": "f755ce67122050fb"
       },
       {
         "name": "search_jina_blog",
@@ -853,8 +853,8 @@
             "num": {
               "type": "integer",
               "minimum": 1,
-              "maximum": 100,
-              "default": 30
+              "maximum": 10,
+              "default": 10
             },
             "tbs": {
               "type": "string",
@@ -869,7 +869,7 @@
         },
         "outputSchema": null,
         "annotations": null,
-        "schemaFingerprint": "0278e0780947f622"
+        "schemaFingerprint": "74b628b4d0884f17"
       },
       {
         "name": "search_web",
@@ -896,8 +896,8 @@
             "num": {
               "type": "integer",
               "minimum": 1,
-              "maximum": 100,
-              "default": 30
+              "maximum": 10,
+              "default": 10
             },
             "tbs": {
               "type": "string",
@@ -923,7 +923,7 @@
         },
         "outputSchema": null,
         "annotations": null,
-        "schemaFingerprint": "2899dfad78a2e585"
+        "schemaFingerprint": "4b85096815f704d0"
       },
       {
         "name": "sort_by_relevance",
@@ -961,24 +961,24 @@
         "schemaFingerprint": "85bb3d8f281912b3"
       }
     ],
-    "fingerprint": "66dbf9e0e25f1404",
+    "fingerprint": "ee7c31ed5c58e9c6",
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-10-14T21:45:39.677Z",
-  "lastOkAt": "2026-10-14T21:45:39.677Z",
-  "lastChangedAt": "2026-09-19T04:42:47.616Z",
-  "changeCount": 1,
+  "lastCheckedAt": "2026-10-15T04:47:43.511Z",
+  "lastOkAt": "2026-10-15T04:47:43.511Z",
+  "lastChangedAt": "2026-10-15T04:47:43.511Z",
+  "changeCount": 2,
   "card": {
     "id": "jina",
     "cardUrl": "https://mcp.jina.ai/.well-known/mcp/server-card.json",
-    "at": "2026-10-14T21:45:39.677Z",
+    "at": "2026-10-15T04:47:43.511Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-10-14T21:45:39.677Z",
+      "at": "2026-10-15T04:47:43.511Z",
       "declaredUrl": "https://mcp.jina.ai/.well-known/mcp/server-card.json",
       "observedUrl": "https://mcp.jina.ai/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
