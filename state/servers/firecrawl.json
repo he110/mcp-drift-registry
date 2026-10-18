@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-10-17T20:40:22.391Z",
+    "at": "2026-10-18T04:40:20.318Z",
     "declaredUrl": "https://mcp.firecrawl.dev/mcp",
     "observedUrl": "https://mcp.firecrawl.dev/mcp",
     "urlMatchesDeclared": true,
@@ -648,6 +648,9 @@
             "maxLength": 1000
           }
         },
+        "required": [
+          "objective"
+        ],
         "additionalProperties": false
       },
       "outputSchema": {
@@ -934,7 +937,7 @@
         "openWorldHint": true,
         "destructiveHint": false
       },
-      "schemaFingerprint": "e210bcfcca83048b"
+      "schemaFingerprint": "e3d8c86536ecbe87"
     },
     {
       "name": "firecrawl_search",
@@ -1260,7 +1263,8 @@
           }
         },
         "required": [
-          "query"
+          "query",
+          "objective"
         ],
         "additionalProperties": false
       },
@@ -1343,13 +1347,13 @@
         "openWorldHint": true,
         "destructiveHint": false
       },
-      "schemaFingerprint": "80c96d14f7a40c0e"
+      "schemaFingerprint": "6745b15b44ae26ea"
     }
   ],
   "toolCount": 3,
-  "fingerprint": "ca54f65fdc8441a2",
+  "fingerprint": "1509ed0b6d577b4e",
   "lastGood": {
-    "at": "2026-10-17T20:40:22.391Z",
+    "at": "2026-10-18T04:40:20.318Z",
     "tools": [
       {
         "name": "firecrawl_parse",
@@ -1977,6 +1981,9 @@
               "maxLength": 1000
             }
           },
+          "required": [
+            "objective"
+          ],
           "additionalProperties": false
         },
         "outputSchema": {
@@ -2263,7 +2270,7 @@
           "openWorldHint": true,
           "destructiveHint": false
         },
-        "schemaFingerprint": "e210bcfcca83048b"
+        "schemaFingerprint": "e3d8c86536ecbe87"
       },
       {
         "name": "firecrawl_search",
@@ -2589,7 +2596,8 @@
             }
           },
           "required": [
-            "query"
+            "query",
+            "objective"
           ],
           "additionalProperties": false
         },
@@ -2672,27 +2680,27 @@
           "openWorldHint": true,
           "destructiveHint": false
         },
-        "schemaFingerprint": "80c96d14f7a40c0e"
+        "schemaFingerprint": "6745b15b44ae26ea"
       }
     ],
-    "fingerprint": "ca54f65fdc8441a2",
+    "fingerprint": "1509ed0b6d577b4e",
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-10-17T20:40:22.391Z",
-  "lastOkAt": "2026-10-17T20:40:22.391Z",
-  "lastChangedAt": "2026-10-17T04:35:15.618Z",
-  "changeCount": 18,
+  "lastCheckedAt": "2026-10-18T04:40:20.318Z",
+  "lastOkAt": "2026-10-18T04:40:20.318Z",
+  "lastChangedAt": "2026-10-18T04:40:20.318Z",
+  "changeCount": 19,
   "card": {
     "id": "firecrawl",
     "cardUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
-    "at": "2026-10-17T20:40:22.391Z",
+    "at": "2026-10-18T04:40:20.318Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-10-17T20:40:22.391Z",
+      "at": "2026-10-18T04:40:20.318Z",
       "declaredUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
       "observedUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
