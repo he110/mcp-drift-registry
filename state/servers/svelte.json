@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-10-19T13:27:29.911Z",
+    "at": "2026-10-19T22:24:56.999Z",
     "declaredUrl": "https://mcp.svelte.dev/mcp",
     "observedUrl": "https://mcp.svelte.dev/mcp",
     "urlMatchesDeclared": true,
@@ -60,8 +60,8 @@
     },
     {
       "name": "list-sections",
-      "title": "Lists all available Svelte 5 and SvelteKit documentation sections in a structured format. Each section includes a \"use_cases\" field that describes WHEN this documentation would be useful. You should carefully analyze the use_cases field to determine which sections are relevant for the user's query. The use_cases contain comma-separated keywords describing project types (e.g., \"e-commerce\", \"blog\"), features (e.g., \"authentication\", \"forms\"), components (e.g., \"slider\", \"modal\"), development stages (e.g., \"deployment\", \"testing\"), or \"always\" for fundamental concepts. Match these use_cases against the user's intent - for example, if building an e-commerce site, fetch sections with use_cases containing \"e-commerce\", \"product listings\", \"shopping cart\", etc. If building a slider, look for \"slider\", \"carousel\", \"animation\", etc. Returns sections as \"* title: [section_title], use_cases: [use_cases], path: [file_path]\". Always run list-sections FIRST for any Svelte query, then analyze ALL use_cases to identify relevant sections, and finally use get_documentation to fetch ALL relevant sections at once.",
-      "description": "Lists all available Svelte 5 and SvelteKit documentation sections in a structured format. Each section includes a \"use_cases\" field that describes WHEN this documentation would be useful. You should carefully analyze the use_cases field to determine which sections are relevant for the user's query. The use_cases contain comma-separated keywords describing project types (e.g., \"e-commerce\", \"blog\"), features (e.g., \"authentication\", \"forms\"), components (e.g., \"slider\", \"modal\"), development stages (e.g., \"deployment\", \"testing\"), or \"always\" for fundamental concepts. Match these use_cases against the user's intent - for example, if building an e-commerce site, fetch sections with use_cases containing \"e-commerce\", \"product listings\", \"shopping cart\", etc. If building a slider, look for \"slider\", \"carousel\", \"animation\", etc. Returns sections as \"* title: [section_title], use_cases: [use_cases], path: [file_path]\". Always run list-sections FIRST for any Svelte query, then analyze ALL use_cases to identify relevant sections, and finally use get_documentation to fetch ALL relevant sections at once.",
+      "title": "Lists all available Svelte 5 and SvelteKit documentation sections in a structured format. Each section includes a \"use_cases\" field that describes WHEN this documentation would be useful. You should carefully analyze the use_cases field to determine which sections are relevant for the user's query. The use_cases contain comma-separated keywords describing project types (e.g., \"e-commerce\", \"blog\"), features (e.g., \"authentication\", \"forms\"), components (e.g., \"slider\", \"modal\"), development stages (e.g., \"deployment\", \"testing\"), or \"always\" for fundamental concepts. Match these use_cases against the user's intent - for example, if building an e-commerce site, fetch sections with use_cases containing \"e-commerce\", \"product listings\", \"shopping cart\", etc. If building a slider, look for \"slider\", \"carousel\", \"animation\", etc. Returns sections as \"* title: [section_title], use_cases: [use_cases], path: [file_path]\". Always run list-sections FIRST for any Svelte query, then analyze ALL use_cases to identify relevant sections, and finally use get-documentation to fetch ALL relevant sections at once.",
+      "description": "Lists all available Svelte 5 and SvelteKit documentation sections in a structured format. Each section includes a \"use_cases\" field that describes WHEN this documentation would be useful. You should carefully analyze the use_cases field to determine which sections are relevant for the user's query. The use_cases contain comma-separated keywords describing project types (e.g., \"e-commerce\", \"blog\"), features (e.g., \"authentication\", \"forms\"), components (e.g., \"slider\", \"modal\"), development stages (e.g., \"deployment\", \"testing\"), or \"always\" for fundamental concepts. Match these use_cases against the user's intent - for example, if building an e-commerce site, fetch sections with use_cases containing \"e-commerce\", \"product listings\", \"shopping cart\", etc. If building a slider, look for \"slider\", \"carousel\", \"animation\", etc. Returns sections as \"* title: [section_title], use_cases: [use_cases], path: [file_path]\". Always run list-sections FIRST for any Svelte query, then analyze ALL use_cases to identify relevant sections, and finally use get-documentation to fetch ALL relevant sections at once.",
       "inputSchema": {
         "type": "object",
         "properties": {}
@@ -200,9 +200,9 @@
     }
   ],
   "toolCount": 4,
-  "fingerprint": "0c27e54c054b483c",
+  "fingerprint": "8a2595fa5e29788a",
   "lastGood": {
-    "at": "2026-10-19T13:27:29.911Z",
+    "at": "2026-10-19T22:24:56.999Z",
     "tools": [
       {
         "name": "get-documentation",
@@ -242,8 +242,8 @@
       },
       {
         "name": "list-sections",
-        "title": "Lists all available Svelte 5 and SvelteKit documentation sections in a structured format. Each section includes a \"use_cases\" field that describes WHEN this documentation would be useful. You should carefully analyze the use_cases field to determine which sections are relevant for the user's query. The use_cases contain comma-separated keywords describing project types (e.g., \"e-commerce\", \"blog\"), features (e.g., \"authentication\", \"forms\"), components (e.g., \"slider\", \"modal\"), development stages (e.g., \"deployment\", \"testing\"), or \"always\" for fundamental concepts. Match these use_cases against the user's intent - for example, if building an e-commerce site, fetch sections with use_cases containing \"e-commerce\", \"product listings\", \"shopping cart\", etc. If building a slider, look for \"slider\", \"carousel\", \"animation\", etc. Returns sections as \"* title: [section_title], use_cases: [use_cases], path: [file_path]\". Always run list-sections FIRST for any Svelte query, then analyze ALL use_cases to identify relevant sections, and finally use get_documentation to fetch ALL relevant sections at once.",
-        "description": "Lists all available Svelte 5 and SvelteKit documentation sections in a structured format. Each section includes a \"use_cases\" field that describes WHEN this documentation would be useful. You should carefully analyze the use_cases field to determine which sections are relevant for the user's query. The use_cases contain comma-separated keywords describing project types (e.g., \"e-commerce\", \"blog\"), features (e.g., \"authentication\", \"forms\"), components (e.g., \"slider\", \"modal\"), development stages (e.g., \"deployment\", \"testing\"), or \"always\" for fundamental concepts. Match these use_cases against the user's intent - for example, if building an e-commerce site, fetch sections with use_cases containing \"e-commerce\", \"product listings\", \"shopping cart\", etc. If building a slider, look for \"slider\", \"carousel\", \"animation\", etc. Returns sections as \"* title: [section_title], use_cases: [use_cases], path: [file_path]\". Always run list-sections FIRST for any Svelte query, then analyze ALL use_cases to identify relevant sections, and finally use get_documentation to fetch ALL relevant sections at once.",
+        "title": "Lists all available Svelte 5 and SvelteKit documentation sections in a structured format. Each section includes a \"use_cases\" field that describes WHEN this documentation would be useful. You should carefully analyze the use_cases field to determine which sections are relevant for the user's query. The use_cases contain comma-separated keywords describing project types (e.g., \"e-commerce\", \"blog\"), features (e.g., \"authentication\", \"forms\"), components (e.g., \"slider\", \"modal\"), development stages (e.g., \"deployment\", \"testing\"), or \"always\" for fundamental concepts. Match these use_cases against the user's intent - for example, if building an e-commerce site, fetch sections with use_cases containing \"e-commerce\", \"product listings\", \"shopping cart\", etc. If building a slider, look for \"slider\", \"carousel\", \"animation\", etc. Returns sections as \"* title: [section_title], use_cases: [use_cases], path: [file_path]\". Always run list-sections FIRST for any Svelte query, then analyze ALL use_cases to identify relevant sections, and finally use get-documentation to fetch ALL relevant sections at once.",
+        "description": "Lists all available Svelte 5 and SvelteKit documentation sections in a structured format. Each section includes a \"use_cases\" field that describes WHEN this documentation would be useful. You should carefully analyze the use_cases field to determine which sections are relevant for the user's query. The use_cases contain comma-separated keywords describing project types (e.g., \"e-commerce\", \"blog\"), features (e.g., \"authentication\", \"forms\"), components (e.g., \"slider\", \"modal\"), development stages (e.g., \"deployment\", \"testing\"), or \"always\" for fundamental concepts. Match these use_cases against the user's intent - for example, if building an e-commerce site, fetch sections with use_cases containing \"e-commerce\", \"product listings\", \"shopping cart\", etc. If building a slider, look for \"slider\", \"carousel\", \"animation\", etc. Returns sections as \"* title: [section_title], use_cases: [use_cases], path: [file_path]\". Always run list-sections FIRST for any Svelte query, then analyze ALL use_cases to identify relevant sections, and finally use get-documentation to fetch ALL relevant sections at once.",
         "inputSchema": {
           "type": "object",
           "properties": {}
@@ -381,24 +381,24 @@
         "schemaFingerprint": "68c480074def9d19"
       }
     ],
-    "fingerprint": "0c27e54c054b483c",
+    "fingerprint": "8a2595fa5e29788a",
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-10-19T13:27:29.911Z",
-  "lastOkAt": "2026-10-19T13:27:29.911Z",
-  "lastChangedAt": "2026-10-14T04:59:28.231Z",
-  "changeCount": 1,
+  "lastCheckedAt": "2026-10-19T22:24:56.999Z",
+  "lastOkAt": "2026-10-19T22:24:56.999Z",
+  "lastChangedAt": "2026-10-19T22:24:56.999Z",
+  "changeCount": 2,
   "card": {
     "id": "svelte",
     "cardUrl": "https://mcp.svelte.dev/.well-known/mcp/server-card.json",
-    "at": "2026-10-19T13:27:29.911Z",
+    "at": "2026-10-19T22:24:56.999Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "not_json",
     "error": "Unexpected token '<', \"<!doctype \"... is not valid JSON",
     "card": null,
     "provenance": {
-      "at": "2026-10-19T13:27:29.911Z",
+      "at": "2026-10-19T22:24:56.999Z",
       "declaredUrl": "https://mcp.svelte.dev/.well-known/mcp/server-card.json",
       "observedUrl": "https://svelte.dev/docs/ai/overview",
       "urlMatchesDeclared": false,
