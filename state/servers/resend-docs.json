@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-10-23T17:13:30.220Z",
+    "at": "2026-10-23T21:28:13.865Z",
     "declaredUrl": "https://resend.com/docs/mcp",
     "observedUrl": "https://resend.com/docs/mcp",
     "urlMatchesDeclared": true,
@@ -24,7 +24,7 @@
   "tools": [
     {
       "name": "query_docs_filesystem_resend",
-      "title": null,
+      "title": "Query documentation filesystem",
       "description": "Run a read-only shell-like query against a virtualized, in-memory filesystem rooted at `/` that contains ONLY the Resend documentation pages and OpenAPI specs. This is NOT a shell on any real machine — nothing runs on the user's computer, the server host, or any network. The filesystem is a sandbox backed by documentation chunks.\n\nThis is how you read documentation pages: there is no separate \"get page\" tool. To read a page, pass its `.mdx` path to `head` or `cat` — a page at the URL path `/some/page` lives at `/some/page.mdx`. To search the docs with exact keyword or regex matches, use `rg`. To understand the docs structure, use `tree` or `ls`.\n\n**Paths are specific to this site — never guess them.** Discover real paths with `tree / -L 2`, `ls /`, or the search tool before reading. If a path does not exist, that only means the guess was wrong; it does NOT mean the topic is undocumented — use `rg -il \"keyword\" /` to find where it is covered.\n\n**Workflow:** Start with the search tool for broad or conceptual queries like \"how to authenticate\" or \"rate limiting\". Use this tool when you need exact keyword/regex matching, structural exploration, or to read the full content of a specific page by path.\n\nSupported commands: rg (ripgrep), grep, find, tree, ls, cat, head, tail, stat, wc, sort, uniq, cut, sed, awk, jq, plus basic text utilities. No writes, no network, no process control. Run `--help` on any command for usage.\n\nEach call is STATELESS: the working directory always resets to `/` and no shell variables, aliases, or history carry over between calls. If you need to operate in a subdirectory, chain commands in one call with `&&` or pass absolute paths (e.g., `cd /some-directory && ls` or `ls /some-directory`). Do NOT assume that `cd` in one call affects the next call.\n\nExamples (replace the placeholder paths with real ones from `tree` or search):\n- `tree / -L 2` — see the top-level directory layout\n- `rg -il \"rate limit\" /` — find all files mentioning \"rate limit\"\n- `rg -C 3 \"apiKey\" /some-directory/` — show matches with 3 lines of context around each hit\n- `head -80 /some/page.mdx` — read the top 80 lines of a specific page\n- `head -80 /page-one.mdx /page-two.mdx /section/page-three.mdx` — read multiple pages in one call\n- `cat /some/page.mdx` — read a full page when you need everything\n- `cat /openapi/package.json | jq '.paths | keys'` — list OpenAPI endpoints\n\nOpenAPI specs for this site are mounted at: `/openapi/package.json`, `/openapi/pnpm-lock.yaml`, `/openapi/renovate.json`. Use them to answer questions about endpoints, request/response schemas, parameters, and authentication.\n\nOutput is truncated to 30KB per call. Prefer targeted `rg -C` or `head -N` over broad `cat` on large files. To read only the relevant sections of a large file, use `rg -C 3 \"pattern\" /path/file.mdx`. Batch multiple file reads into a single `head` or `cat` call whenever possible.\n\nWhen referencing pages in your response to the user, convert filesystem paths to URL paths by removing the `.mdx` extension. For example, `/some/page.mdx` becomes `/some/page`.",
       "inputSchema": {
         "type": "object",
@@ -41,6 +41,7 @@
       },
       "outputSchema": null,
       "annotations": {
+        "title": "Query documentation filesystem",
         "readOnlyHint": true,
         "destructiveHint": false,
         "idempotentHint": true,
@@ -67,6 +68,7 @@
       },
       "outputSchema": null,
       "annotations": {
+        "title": "Search documentation",
         "readOnlyHint": true,
         "destructiveHint": false,
         "idempotentHint": true,
@@ -100,6 +102,7 @@
       },
       "outputSchema": null,
       "annotations": {
+        "title": "Submit documentation feedback",
         "readOnlyHint": false,
         "destructiveHint": false,
         "idempotentHint": false,
@@ -111,11 +114,11 @@
   "toolCount": 3,
   "fingerprint": "133f81c82cd810ec",
   "lastGood": {
-    "at": "2026-10-23T17:13:30.220Z",
+    "at": "2026-10-23T21:28:13.865Z",
     "tools": [
       {
         "name": "query_docs_filesystem_resend",
-        "title": null,
+        "title": "Query documentation filesystem",
         "description": "Run a read-only shell-like query against a virtualized, in-memory filesystem rooted at `/` that contains ONLY the Resend documentation pages and OpenAPI specs. This is NOT a shell on any real machine — nothing runs on the user's computer, the server host, or any network. The filesystem is a sandbox backed by documentation chunks.\n\nThis is how you read documentation pages: there is no separate \"get page\" tool. To read a page, pass its `.mdx` path to `head` or `cat` — a page at the URL path `/some/page` lives at `/some/page.mdx`. To search the docs with exact keyword or regex matches, use `rg`. To understand the docs structure, use `tree` or `ls`.\n\n**Paths are specific to this site — never guess them.** Discover real paths with `tree / -L 2`, `ls /`, or the search tool before reading. If a path does not exist, that only means the guess was wrong; it does NOT mean the topic is undocumented — use `rg -il \"keyword\" /` to find where it is covered.\n\n**Workflow:** Start with the search tool for broad or conceptual queries like \"how to authenticate\" or \"rate limiting\". Use this tool when you need exact keyword/regex matching, structural exploration, or to read the full content of a specific page by path.\n\nSupported commands: rg (ripgrep), grep, find, tree, ls, cat, head, tail, stat, wc, sort, uniq, cut, sed, awk, jq, plus basic text utilities. No writes, no network, no process control. Run `--help` on any command for usage.\n\nEach call is STATELESS: the working directory always resets to `/` and no shell variables, aliases, or history carry over between calls. If you need to operate in a subdirectory, chain commands in one call with `&&` or pass absolute paths (e.g., `cd /some-directory && ls` or `ls /some-directory`). Do NOT assume that `cd` in one call affects the next call.\n\nExamples (replace the placeholder paths with real ones from `tree` or search):\n- `tree / -L 2` — see the top-level directory layout\n- `rg -il \"rate limit\" /` — find all files mentioning \"rate limit\"\n- `rg -C 3 \"apiKey\" /some-directory/` — show matches with 3 lines of context around each hit\n- `head -80 /some/page.mdx` — read the top 80 lines of a specific page\n- `head -80 /page-one.mdx /page-two.mdx /section/page-three.mdx` — read multiple pages in one call\n- `cat /some/page.mdx` — read a full page when you need everything\n- `cat /openapi/package.json | jq '.paths | keys'` — list OpenAPI endpoints\n\nOpenAPI specs for this site are mounted at: `/openapi/package.json`, `/openapi/pnpm-lock.yaml`, `/openapi/renovate.json`. Use them to answer questions about endpoints, request/response schemas, parameters, and authentication.\n\nOutput is truncated to 30KB per call. Prefer targeted `rg -C` or `head -N` over broad `cat` on large files. To read only the relevant sections of a large file, use `rg -C 3 \"pattern\" /path/file.mdx`. Batch multiple file reads into a single `head` or `cat` call whenever possible.\n\nWhen referencing pages in your response to the user, convert filesystem paths to URL paths by removing the `.mdx` extension. For example, `/some/page.mdx` becomes `/some/page`.",
         "inputSchema": {
           "type": "object",
@@ -132,6 +135,7 @@
         },
         "outputSchema": null,
         "annotations": {
+          "title": "Query documentation filesystem",
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
@@ -158,6 +162,7 @@
         },
         "outputSchema": null,
         "annotations": {
+          "title": "Search documentation",
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
@@ -191,6 +196,7 @@
         },
         "outputSchema": null,
         "annotations": {
+          "title": "Submit documentation feedback",
           "readOnlyHint": false,
           "destructiveHint": false,
           "idempotentHint": false,
@@ -203,14 +209,14 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-10-23T17:13:30.220Z",
-  "lastOkAt": "2026-10-23T17:13:30.220Z",
+  "lastCheckedAt": "2026-10-23T21:28:13.865Z",
+  "lastOkAt": "2026-10-23T21:28:13.865Z",
   "lastChangedAt": "2026-09-15T21:25:32.568Z",
   "changeCount": 2,
   "card": {
     "id": "resend-docs",
     "cardUrl": "https://resend.com/.well-known/mcp/server-card.json",
-    "at": "2026-10-23T17:13:30.220Z",
+    "at": "2026-10-23T21:28:13.865Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -226,7 +232,7 @@
       "toolCount": null
     },
     "provenance": {
-      "at": "2026-10-23T17:13:30.220Z",
+      "at": "2026-10-23T21:28:13.865Z",
       "declaredUrl": "https://resend.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://resend.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
