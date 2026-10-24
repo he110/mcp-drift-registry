@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-10-24T16:00:56.869Z",
+    "at": "2026-10-24T20:54:57.501Z",
     "declaredUrl": "https://docs.retellai.com/mcp",
     "observedUrl": "https://docs.retellai.com/mcp",
     "urlMatchesDeclared": true,
@@ -114,7 +114,7 @@
   "toolCount": 3,
   "fingerprint": "e89c9048380aa248",
   "lastGood": {
-    "at": "2026-10-24T16:00:56.869Z",
+    "at": "2026-10-24T20:54:57.501Z",
     "tools": [
       {
         "name": "query_docs_filesystem_retell_ai",
@@ -209,14 +209,14 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-10-24T16:00:56.869Z",
-  "lastOkAt": "2026-10-24T16:00:56.869Z",
+  "lastCheckedAt": "2026-10-24T20:54:57.501Z",
+  "lastOkAt": "2026-10-24T20:54:57.501Z",
   "lastChangedAt": "2026-10-20T04:57:13.399Z",
   "changeCount": 4,
   "card": {
     "id": "retell-docs",
     "cardUrl": "https://docs.retellai.com/.well-known/mcp/server-card.json",
-    "at": "2026-10-24T16:00:56.869Z",
+    "at": "2026-10-24T20:54:57.501Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -265,7 +265,7 @@
       "toolCount": 2
     },
     "provenance": {
-      "at": "2026-10-24T16:00:56.869Z",
+      "at": "2026-10-24T20:54:57.501Z",
       "declaredUrl": "https://docs.retellai.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.retellai.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
