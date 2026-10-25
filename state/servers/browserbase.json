@@ -13,7 +13,7 @@
     "version": "2a00798db3d64d9b8ac9e3fa7c82397441caf50e"
   },
   "provenance": {
-    "at": "2026-10-25T16:29:05.593Z",
+    "at": "2026-10-25T20:55:23.140Z",
     "declaredUrl": "https://mcp.browserbase.com/mcp",
     "observedUrl": "https://mcp.browserbase.com/mcp",
     "urlMatchesDeclared": true,
@@ -173,7 +173,7 @@
   "toolCount": 6,
   "fingerprint": "4b547305ee1263bf",
   "lastGood": {
-    "at": "2026-10-25T16:29:05.593Z",
+    "at": "2026-10-25T20:55:23.140Z",
     "tools": [
       {
         "name": "act",
@@ -324,20 +324,20 @@
     "protocolVersion": "2025-06-18"
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-10-25T16:29:05.593Z",
-  "lastOkAt": "2026-10-25T16:29:05.593Z",
+  "lastCheckedAt": "2026-10-25T20:55:23.140Z",
+  "lastOkAt": "2026-10-25T20:55:23.140Z",
   "lastChangedAt": null,
   "changeCount": 0,
   "card": {
     "id": "browserbase",
     "cardUrl": "https://mcp.browserbase.com/.well-known/mcp/server-card.json",
-    "at": "2026-10-25T16:29:05.593Z",
+    "at": "2026-10-25T20:55:23.140Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-10-25T16:29:05.593Z",
+      "at": "2026-10-25T20:55:23.140Z",
       "declaredUrl": "https://mcp.browserbase.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://mcp.browserbase.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
