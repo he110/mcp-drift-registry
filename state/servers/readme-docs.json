@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-10-26T04:54:33.377Z",
+    "at": "2026-10-26T13:12:18.554Z",
     "declaredUrl": "https://docs.readme.com/mcp",
     "observedUrl": "https://docs.readme.com/mcp",
     "urlMatchesDeclared": true,
@@ -273,32 +273,6 @@
       "schemaFingerprint": "efddc7bd8bbcef73"
     },
     {
-      "name": "plan-task",
-      "title": "Plan a Task",
-      "description": "Turn what the user wants to accomplish into a concise, sourced execution plan for an agent. Researches documentation and API specifications and returns a plain-text plan of ordered steps, dependencies, required inputs, endpoint details, and success checks. Reports missing inputs or insufficient evidence. Does not execute the plan. Do not include secrets in the intent.",
-      "inputSchema": {
-        "type": "object",
-        "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "properties": {
-          "intent": {
-            "type": "string",
-            "minLength": 1,
-            "description": "What the user wants to accomplish, including known context, constraints, and desired outcome."
-          }
-        },
-        "required": [
-          "intent"
-        ]
-      },
-      "outputSchema": null,
-      "annotations": {
-        "readOnlyHint": true,
-        "destructiveHint": false,
-        "openWorldHint": false
-      },
-      "schemaFingerprint": "ce12c90dcd7dcfd1"
-    },
-    {
       "name": "search",
       "title": "Search Documentation",
       "description": "Searches through documentation with the given search query, returning a list of results with ID, title, and URL.",
@@ -412,10 +386,10 @@
       "schemaFingerprint": "efddc7bd8bbcef73"
     }
   ],
-  "toolCount": 11,
-  "fingerprint": "43006a53c7c29c40",
+  "toolCount": 10,
+  "fingerprint": "d94e5ccdee6fafd3",
   "lastGood": {
-    "at": "2026-10-26T04:54:33.377Z",
+    "at": "2026-10-26T13:12:18.554Z",
     "tools": [
       {
         "name": "draft-changelog",
@@ -668,32 +642,6 @@
         "schemaFingerprint": "efddc7bd8bbcef73"
       },
       {
-        "name": "plan-task",
-        "title": "Plan a Task",
-        "description": "Turn what the user wants to accomplish into a concise, sourced execution plan for an agent. Researches documentation and API specifications and returns a plain-text plan of ordered steps, dependencies, required inputs, endpoint details, and success checks. Reports missing inputs or insufficient evidence. Does not execute the plan. Do not include secrets in the intent.",
-        "inputSchema": {
-          "type": "object",
-          "$schema": "https://json-schema.org/draft/2020-12/schema",
-          "properties": {
-            "intent": {
-              "type": "string",
-              "minLength": 1,
-              "description": "What the user wants to accomplish, including known context, constraints, and desired outcome."
-            }
-          },
-          "required": [
-            "intent"
-          ]
-        },
-        "outputSchema": null,
-        "annotations": {
-          "readOnlyHint": true,
-          "destructiveHint": false,
-          "openWorldHint": false
-        },
-        "schemaFingerprint": "ce12c90dcd7dcfd1"
-      },
-      {
         "name": "search",
         "title": "Search Documentation",
         "description": "Searches through documentation with the given search query, returning a list of results with ID, title, and URL.",
@@ -807,18 +755,18 @@
         "schemaFingerprint": "efddc7bd8bbcef73"
       }
     ],
-    "fingerprint": "43006a53c7c29c40",
+    "fingerprint": "d94e5ccdee6fafd3",
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-10-26T04:54:33.377Z",
-  "lastOkAt": "2026-10-26T04:54:33.377Z",
-  "lastChangedAt": "2026-10-19T22:24:56.999Z",
-  "changeCount": 2,
+  "lastCheckedAt": "2026-10-26T13:12:18.554Z",
+  "lastOkAt": "2026-10-26T13:12:18.554Z",
+  "lastChangedAt": "2026-10-26T13:12:18.554Z",
+  "changeCount": 3,
   "card": {
     "id": "readme-docs",
     "cardUrl": "https://docs.readme.com/.well-known/mcp/server-card.json",
-    "at": "2026-10-26T04:54:33.377Z",
+    "at": "2026-10-26T13:12:18.554Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -839,7 +787,7 @@
       "toolCount": null
     },
     "provenance": {
-      "at": "2026-10-26T04:54:33.377Z",
+      "at": "2026-10-26T13:12:18.554Z",
       "declaredUrl": "https://docs.readme.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.readme.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
