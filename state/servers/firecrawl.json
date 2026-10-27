@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-10-27T12:19:58.704Z",
+    "at": "2026-10-27T22:19:59.237Z",
     "declaredUrl": "https://mcp.firecrawl.dev/mcp",
     "observedUrl": "https://mcp.firecrawl.dev/mcp",
     "urlMatchesDeclared": true,
@@ -1284,7 +1284,7 @@
             ]
           },
           "data": {
-            "description": "Ranked results grouped by source, such as `web`, `news`, `images`, and `alexandria`."
+            "description": "Ranked results grouped by source, such as `web`, `news`, `images`, and `alexandria`. Each result carries its `source` and a 1-indexed `position` within that group; pass those pairs to `firecrawl_search_feedback`."
           },
           "error": {
             "description": "Error message or error object when the call did not succeed."
@@ -1353,7 +1353,7 @@
   "toolCount": 3,
   "fingerprint": "81bffd8c6311a08d",
   "lastGood": {
-    "at": "2026-10-27T12:19:58.704Z",
+    "at": "2026-10-27T22:19:59.237Z",
     "tools": [
       {
         "name": "firecrawl_parse",
@@ -2617,7 +2617,7 @@
               ]
             },
             "data": {
-              "description": "Ranked results grouped by source, such as `web`, `news`, `images`, and `alexandria`."
+              "description": "Ranked results grouped by source, such as `web`, `news`, `images`, and `alexandria`. Each result carries its `source` and a 1-indexed `position` within that group; pass those pairs to `firecrawl_search_feedback`."
             },
             "error": {
               "description": "Error message or error object when the call did not succeed."
@@ -2687,20 +2687,20 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-10-27T12:19:58.704Z",
-  "lastOkAt": "2026-10-27T12:19:58.704Z",
+  "lastCheckedAt": "2026-10-27T22:19:59.237Z",
+  "lastOkAt": "2026-10-27T22:19:59.237Z",
   "lastChangedAt": "2026-10-22T17:15:27.169Z",
   "changeCount": 23,
   "card": {
     "id": "firecrawl",
     "cardUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
-    "at": "2026-10-27T12:19:58.704Z",
+    "at": "2026-10-27T22:19:59.237Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-10-27T12:19:58.704Z",
+      "at": "2026-10-27T22:19:59.237Z",
       "declaredUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
       "observedUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
