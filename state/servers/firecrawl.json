@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-10-27T22:19:59.237Z",
+    "at": "2026-10-28T05:49:42.352Z",
     "declaredUrl": "https://mcp.firecrawl.dev/mcp",
     "observedUrl": "https://mcp.firecrawl.dev/mcp",
     "urlMatchesDeclared": true,
@@ -56,7 +56,7 @@
                 "propertyNames": {
                   "type": "string"
                 },
-                "additionalProperties": false
+                "additionalProperties": {}
               }
             },
             "additionalProperties": false
@@ -343,7 +343,7 @@
         "openWorldHint": false,
         "destructiveHint": false
       },
-      "schemaFingerprint": "656131d02eed904b"
+      "schemaFingerprint": "8804f34b5961d35f"
     },
     {
       "name": "firecrawl_scrape",
@@ -388,7 +388,7 @@
                 "propertyNames": {
                   "type": "string"
                 },
-                "additionalProperties": false
+                "additionalProperties": {}
               }
             },
             "additionalProperties": false
@@ -553,7 +553,7 @@
             "pattern": "^[A-Za-z0-9._:-]{1,128}$"
           },
           "alexandria": {
-            "description": "Catalogued Alexandria capability invocation, mutually exclusive with url. One {provider, capability, options} object or an array of 1-10, with contracts available through firecrawl_search or firecrawl_find_tools. Each call may include version to pin a published workflow; omitting it uses latest. Only requestId and timeout are supported alongside alexandria. The selected contract marks required inputs and any requiresOneOf groups (at least one member per group); it may include example.request/example.response and response.key (which may differ from records). Where pagination is declared, its fields govern paging with the same filters; catalogue next is separate from provider pagination. Returns per-capability results in data.alexandria with data, records, or an error with a code; individual capabilities can fail even when the outer response succeeds. Some providers require accepted terms; when a response reports a terms requirement, direct the user to the Firecrawl dashboard URL in that response.",
+            "description": "Catalogued Alexandria capability invocation, mutually exclusive with url. One {provider, capability, options} object or an array of 1-10, with contracts available through firecrawl_search or firecrawl_find_tools. Each call may include version to pin a published workflow; omitting it uses latest. Only requestId and timeout are supported alongside alexandria. The selected contract marks required inputs and any requiresOneOf groups (at least one member per group); it may include example.request/example.response and a key field under response (which may differ from records). Where pagination is declared, its fields govern paging with the same filters; catalogue next is separate from provider pagination. Returns per-capability results in data.alexandria with data, records, or an error with a code; individual capabilities can fail even when the outer response succeeds. Some providers require accepted terms; when a response reports a terms requirement, direct the user to the Firecrawl dashboard URL in that response.",
             "anyOf": [
               {
                 "type": "object",
@@ -937,7 +937,7 @@
         "openWorldHint": true,
         "destructiveHint": false
       },
-      "schemaFingerprint": "5d273395137d04c4"
+      "schemaFingerprint": "e9ae9a5cba401f75"
     },
     {
       "name": "firecrawl_search",
@@ -1099,7 +1099,7 @@
                     "propertyNames": {
                       "type": "string"
                     },
-                    "additionalProperties": false
+                    "additionalProperties": {}
                   }
                 },
                 "additionalProperties": false
@@ -1347,13 +1347,13 @@
         "openWorldHint": true,
         "destructiveHint": false
       },
-      "schemaFingerprint": "1365c7ac07df91d1"
+      "schemaFingerprint": "a6a05a40bc8237ef"
     }
   ],
   "toolCount": 3,
-  "fingerprint": "81bffd8c6311a08d",
+  "fingerprint": "85c2a986df463a31",
   "lastGood": {
-    "at": "2026-10-27T22:19:59.237Z",
+    "at": "2026-10-28T05:49:42.352Z",
     "tools": [
       {
         "name": "firecrawl_parse",
@@ -1389,7 +1389,7 @@
                   "propertyNames": {
                     "type": "string"
                   },
-                  "additionalProperties": false
+                  "additionalProperties": {}
                 }
               },
               "additionalProperties": false
@@ -1676,7 +1676,7 @@
           "openWorldHint": false,
           "destructiveHint": false
         },
-        "schemaFingerprint": "656131d02eed904b"
+        "schemaFingerprint": "8804f34b5961d35f"
       },
       {
         "name": "firecrawl_scrape",
@@ -1721,7 +1721,7 @@
                   "propertyNames": {
                     "type": "string"
                   },
-                  "additionalProperties": false
+                  "additionalProperties": {}
                 }
               },
               "additionalProperties": false
@@ -1886,7 +1886,7 @@
               "pattern": "^[A-Za-z0-9._:-]{1,128}$"
             },
             "alexandria": {
-              "description": "Catalogued Alexandria capability invocation, mutually exclusive with url. One {provider, capability, options} object or an array of 1-10, with contracts available through firecrawl_search or firecrawl_find_tools. Each call may include version to pin a published workflow; omitting it uses latest. Only requestId and timeout are supported alongside alexandria. The selected contract marks required inputs and any requiresOneOf groups (at least one member per group); it may include example.request/example.response and response.key (which may differ from records). Where pagination is declared, its fields govern paging with the same filters; catalogue next is separate from provider pagination. Returns per-capability results in data.alexandria with data, records, or an error with a code; individual capabilities can fail even when the outer response succeeds. Some providers require accepted terms; when a response reports a terms requirement, direct the user to the Firecrawl dashboard URL in that response.",
+              "description": "Catalogued Alexandria capability invocation, mutually exclusive with url. One {provider, capability, options} object or an array of 1-10, with contracts available through firecrawl_search or firecrawl_find_tools. Each call may include version to pin a published workflow; omitting it uses latest. Only requestId and timeout are supported alongside alexandria. The selected contract marks required inputs and any requiresOneOf groups (at least one member per group); it may include example.request/example.response and a key field under response (which may differ from records). Where pagination is declared, its fields govern paging with the same filters; catalogue next is separate from provider pagination. Returns per-capability results in data.alexandria with data, records, or an error with a code; individual capabilities can fail even when the outer response succeeds. Some providers require accepted terms; when a response reports a terms requirement, direct the user to the Firecrawl dashboard URL in that response.",
               "anyOf": [
                 {
                   "type": "object",
@@ -2270,7 +2270,7 @@
           "openWorldHint": true,
           "destructiveHint": false
         },
-        "schemaFingerprint": "5d273395137d04c4"
+        "schemaFingerprint": "e9ae9a5cba401f75"
       },
       {
         "name": "firecrawl_search",
@@ -2432,7 +2432,7 @@
                       "propertyNames": {
                         "type": "string"
                       },
-                      "additionalProperties": false
+                      "additionalProperties": {}
                     }
                   },
                   "additionalProperties": false
@@ -2680,27 +2680,27 @@
           "openWorldHint": true,
           "destructiveHint": false
         },
-        "schemaFingerprint": "1365c7ac07df91d1"
+        "schemaFingerprint": "a6a05a40bc8237ef"
       }
     ],
-    "fingerprint": "81bffd8c6311a08d",
+    "fingerprint": "85c2a986df463a31",
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-10-27T22:19:59.237Z",
-  "lastOkAt": "2026-10-27T22:19:59.237Z",
-  "lastChangedAt": "2026-10-22T17:15:27.169Z",
-  "changeCount": 23,
+  "lastCheckedAt": "2026-10-28T05:49:42.352Z",
+  "lastOkAt": "2026-10-28T05:49:42.352Z",
+  "lastChangedAt": "2026-10-28T05:49:42.352Z",
+  "changeCount": 24,
   "card": {
     "id": "firecrawl",
     "cardUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
-    "at": "2026-10-27T22:19:59.237Z",
+    "at": "2026-10-28T05:49:42.352Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-10-27T22:19:59.237Z",
+      "at": "2026-10-28T05:49:42.352Z",
       "declaredUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
       "observedUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
