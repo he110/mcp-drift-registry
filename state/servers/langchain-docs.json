@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-10-28T13:03:21.976Z",
+    "at": "2026-10-28T22:39:26.225Z",
     "declaredUrl": "https://docs.langchain.com/mcp",
     "observedUrl": "https://docs.langchain.com/mcp",
     "urlMatchesDeclared": true,
@@ -114,7 +114,7 @@
   "toolCount": 3,
   "fingerprint": "56ff8a447ef237b4",
   "lastGood": {
-    "at": "2026-10-28T13:03:21.976Z",
+    "at": "2026-10-28T22:39:26.225Z",
     "tools": [
       {
         "name": "query_docs_filesystem_docs_by_lang_chain",
@@ -209,14 +209,14 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-10-28T13:03:21.976Z",
-  "lastOkAt": "2026-10-28T13:03:21.976Z",
+  "lastCheckedAt": "2026-10-28T22:39:26.225Z",
+  "lastOkAt": "2026-10-28T22:39:26.225Z",
   "lastChangedAt": "2026-10-23T11:45:50.567Z",
   "changeCount": 23,
   "card": {
     "id": "langchain-docs",
     "cardUrl": "https://docs.langchain.com/.well-known/mcp/server-card.json",
-    "at": "2026-10-28T13:03:21.976Z",
+    "at": "2026-10-28T22:39:26.225Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -265,7 +265,7 @@
       "toolCount": 2
     },
     "provenance": {
-      "at": "2026-10-28T13:03:21.976Z",
+      "at": "2026-10-28T22:39:26.225Z",
       "declaredUrl": "https://docs.langchain.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.langchain.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,

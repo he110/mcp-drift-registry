@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-10-28T13:03:21.976Z",
+    "at": "2026-10-28T22:39:26.225Z",
     "declaredUrl": "https://docs.polymarket.com/mcp",
     "observedUrl": "https://docs.polymarket.com/mcp",
     "urlMatchesDeclared": true,
@@ -118,7 +118,7 @@
   "toolCount": 3,
   "fingerprint": "62add528b55b93da",
   "lastGood": {
-    "at": "2026-10-28T13:03:21.976Z",
+    "at": "2026-10-28T22:39:26.225Z",
     "tools": [
       {
         "name": "query_docs_filesystem_polymarket_documentation",
@@ -217,14 +217,14 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-10-28T13:03:21.976Z",
-  "lastOkAt": "2026-10-28T13:03:21.976Z",
+  "lastCheckedAt": "2026-10-28T22:39:26.225Z",
+  "lastOkAt": "2026-10-28T22:39:26.225Z",
   "lastChangedAt": "2026-10-26T22:43:31.962Z",
   "changeCount": 20,
   "card": {
     "id": "polymarket-docs",
     "cardUrl": "https://docs.polymarket.com/.well-known/mcp/server-card.json",
-    "at": "2026-10-28T13:03:21.976Z",
+    "at": "2026-10-28T22:39:26.225Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -277,7 +277,7 @@
       "toolCount": 2
     },
     "provenance": {
-      "at": "2026-10-28T13:03:21.976Z",
+      "at": "2026-10-28T22:39:26.225Z",
       "declaredUrl": "https://docs.polymarket.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.polymarket.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
