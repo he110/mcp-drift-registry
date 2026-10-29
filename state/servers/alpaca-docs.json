@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-10-28T22:39:26.225Z",
+    "at": "2026-10-29T05:54:12.005Z",
     "declaredUrl": "https://docs.alpaca.markets/mcp",
     "observedUrl": "https://docs.alpaca.markets/mcp",
     "urlMatchesDeclared": true,
@@ -32,7 +32,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "The ID of the documentation to retrieve. Must come from the `search` tool. Recipe IDs are prefixed with `recipe:`, reference page IDs with `ref:`."
+            "description": "The ID of the documentation to retrieve. Must come from the `search` tool. Recipe IDs are prefixed with `recipe:`, reference page IDs with `ref:`. For a link `/<directory>/<slug>` to a section the search tool does not cover, use `section:<directory>:<project>/<slug>`, with `<project>` taken from an ID this project already returned."
           }
         },
         "required": [
@@ -45,7 +45,7 @@
         "destructiveHint": false,
         "openWorldHint": false
       },
-      "schemaFingerprint": "9aca4b22fca560e8"
+      "schemaFingerprint": "5be2af52cb30314f"
     },
     {
       "name": "get-endpoint",
@@ -159,9 +159,9 @@
     }
   ],
   "toolCount": 5,
-  "fingerprint": "aeb2e58da33afc98",
+  "fingerprint": "43f627331fcde87a",
   "lastGood": {
-    "at": "2026-10-28T22:39:26.225Z",
+    "at": "2026-10-29T05:54:12.005Z",
     "tools": [
       {
         "name": "fetch",
@@ -173,7 +173,7 @@
           "properties": {
             "id": {
               "type": "string",
-              "description": "The ID of the documentation to retrieve. Must come from the `search` tool. Recipe IDs are prefixed with `recipe:`, reference page IDs with `ref:`."
+              "description": "The ID of the documentation to retrieve. Must come from the `search` tool. Recipe IDs are prefixed with `recipe:`, reference page IDs with `ref:`. For a link `/<directory>/<slug>` to a section the search tool does not cover, use `section:<directory>:<project>/<slug>`, with `<project>` taken from an ID this project already returned."
             }
           },
           "required": [
@@ -186,7 +186,7 @@
           "destructiveHint": false,
           "openWorldHint": false
         },
-        "schemaFingerprint": "9aca4b22fca560e8"
+        "schemaFingerprint": "5be2af52cb30314f"
       },
       {
         "name": "get-endpoint",
@@ -299,18 +299,18 @@
         "schemaFingerprint": "b6566c5b07df4454"
       }
     ],
-    "fingerprint": "aeb2e58da33afc98",
+    "fingerprint": "43f627331fcde87a",
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-10-28T22:39:26.225Z",
-  "lastOkAt": "2026-10-28T22:39:26.225Z",
-  "lastChangedAt": null,
-  "changeCount": 0,
+  "lastCheckedAt": "2026-10-29T05:54:12.005Z",
+  "lastOkAt": "2026-10-29T05:54:12.005Z",
+  "lastChangedAt": "2026-10-29T05:54:12.005Z",
+  "changeCount": 1,
   "card": {
     "id": "alpaca-docs",
     "cardUrl": "https://docs.alpaca.markets/.well-known/mcp/server-card.json",
-    "at": "2026-10-28T22:39:26.225Z",
+    "at": "2026-10-29T05:54:12.005Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -331,7 +331,7 @@
       "toolCount": null
     },
     "provenance": {
-      "at": "2026-10-28T22:39:26.225Z",
+      "at": "2026-10-29T05:54:12.005Z",
       "declaredUrl": "https://docs.alpaca.markets/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.alpaca.markets/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
