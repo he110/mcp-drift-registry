@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-10-29T05:54:12.005Z",
+    "at": "2026-10-29T13:10:41.660Z",
     "declaredUrl": "https://docs.mcp.cloudflare.com/mcp",
     "observedUrl": "https://docs.mcp.cloudflare.com/mcp",
     "urlMatchesDeclared": true,
@@ -105,7 +105,7 @@
   "toolCount": 2,
   "fingerprint": "454352b9398b8c00",
   "lastGood": {
-    "at": "2026-10-29T05:54:12.005Z",
+    "at": "2026-10-29T13:10:41.660Z",
     "tools": [
       {
         "name": "migrate_pages_to_workers_guide",
@@ -191,20 +191,20 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-10-29T05:54:12.005Z",
-  "lastOkAt": "2026-10-29T05:54:12.005Z",
+  "lastCheckedAt": "2026-10-29T13:10:41.660Z",
+  "lastOkAt": "2026-10-29T13:10:41.660Z",
   "lastChangedAt": null,
   "changeCount": 0,
   "card": {
     "id": "cloudflare-docs",
     "cardUrl": "https://docs.mcp.cloudflare.com/.well-known/mcp/server-card.json",
-    "at": "2026-10-29T05:54:12.005Z",
+    "at": "2026-10-29T13:10:41.660Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-10-29T05:54:12.005Z",
+      "at": "2026-10-29T13:10:41.660Z",
       "declaredUrl": "https://docs.mcp.cloudflare.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.mcp.cloudflare.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
