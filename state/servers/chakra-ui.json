@@ -18,7 +18,7 @@
     }
   },
   "provenance": {
-    "at": "2026-10-29T13:10:41.660Z",
+    "at": "2026-10-29T22:49:07.551Z",
     "declaredUrl": "https://mcp.chakra-ui.com/mcp",
     "observedUrl": "https://mcp.chakra-ui.com/mcp",
     "urlMatchesDeclared": true,
@@ -113,6 +113,7 @@
               "color-picker",
               "color-swatch",
               "combobox",
+              "command-palette",
               "container",
               "data-list",
               "date-input",
@@ -237,7 +238,7 @@
       },
       "outputSchema": null,
       "annotations": null,
-      "schemaFingerprint": "8bd5f9b45aaf28b0"
+      "schemaFingerprint": "bab74b68b92eb84d"
     },
     {
       "name": "get_component_props",
@@ -276,6 +277,7 @@
               "color-picker",
               "color-swatch",
               "combobox",
+              "command-palette",
               "container",
               "data-list",
               "date-input",
@@ -389,7 +391,7 @@
       },
       "outputSchema": null,
       "annotations": null,
-      "schemaFingerprint": "03c5f35364af889c"
+      "schemaFingerprint": "0dc00d57dab3969e"
     },
     {
       "name": "get_theme",
@@ -464,9 +466,9 @@
     }
   ],
   "toolCount": 6,
-  "fingerprint": "345146b5ccab8ee7",
+  "fingerprint": "05cd7eda64259a89",
   "lastGood": {
-    "at": "2026-10-29T13:10:41.660Z",
+    "at": "2026-10-29T22:49:07.551Z",
     "tools": [
       {
         "name": "customize_theme",
@@ -551,6 +553,7 @@
                 "color-picker",
                 "color-swatch",
                 "combobox",
+                "command-palette",
                 "container",
                 "data-list",
                 "date-input",
@@ -675,7 +678,7 @@
         },
         "outputSchema": null,
         "annotations": null,
-        "schemaFingerprint": "8bd5f9b45aaf28b0"
+        "schemaFingerprint": "bab74b68b92eb84d"
       },
       {
         "name": "get_component_props",
@@ -714,6 +717,7 @@
                 "color-picker",
                 "color-swatch",
                 "combobox",
+                "command-palette",
                 "container",
                 "data-list",
                 "date-input",
@@ -827,7 +831,7 @@
         },
         "outputSchema": null,
         "annotations": null,
-        "schemaFingerprint": "03c5f35364af889c"
+        "schemaFingerprint": "0dc00d57dab3969e"
       },
       {
         "name": "get_theme",
@@ -901,24 +905,24 @@
         "schemaFingerprint": "3025c2afd6e7476d"
       }
     ],
-    "fingerprint": "345146b5ccab8ee7",
+    "fingerprint": "05cd7eda64259a89",
     "protocolVersion": "2025-06-18"
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-10-29T13:10:41.660Z",
-  "lastOkAt": "2026-10-29T13:10:41.660Z",
-  "lastChangedAt": "2026-10-09T06:15:41.557Z",
-  "changeCount": 2,
+  "lastCheckedAt": "2026-10-29T22:49:07.551Z",
+  "lastOkAt": "2026-10-29T22:49:07.551Z",
+  "lastChangedAt": "2026-10-29T22:49:07.551Z",
+  "changeCount": 3,
   "card": {
     "id": "chakra-ui",
     "cardUrl": "https://mcp.chakra-ui.com/.well-known/mcp/server-card.json",
-    "at": "2026-10-29T13:10:41.660Z",
+    "at": "2026-10-29T22:49:07.551Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-10-29T13:10:41.660Z",
+      "at": "2026-10-29T22:49:07.551Z",
       "declaredUrl": "https://mcp.chakra-ui.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://mcp.chakra-ui.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
