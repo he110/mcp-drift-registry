@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-10-30T05:56:02.300Z",
+    "at": "2026-10-30T13:03:27.438Z",
     "declaredUrl": "https://docs.dust.tt/mcp",
     "observedUrl": "https://docs.dust.tt/mcp",
     "urlMatchesDeclared": true,
@@ -114,7 +114,7 @@
   "toolCount": 3,
   "fingerprint": "6605ca526ca2f6bf",
   "lastGood": {
-    "at": "2026-10-30T05:56:02.300Z",
+    "at": "2026-10-30T13:03:27.438Z",
     "tools": [
       {
         "name": "query_docs_filesystem_multiplayer_ai",
@@ -209,14 +209,14 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-10-30T05:56:02.300Z",
-  "lastOkAt": "2026-10-30T05:56:02.300Z",
+  "lastCheckedAt": "2026-10-30T13:03:27.438Z",
+  "lastOkAt": "2026-10-30T13:03:27.438Z",
   "lastChangedAt": "2026-10-23T17:13:30.220Z",
   "changeCount": 4,
   "card": {
     "id": "dust-docs",
     "cardUrl": "https://docs.dust.tt/.well-known/mcp/server-card.json",
-    "at": "2026-10-30T05:56:02.300Z",
+    "at": "2026-10-30T13:03:27.438Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -265,7 +265,7 @@
       "toolCount": 2
     },
     "provenance": {
-      "at": "2026-10-30T05:56:02.300Z",
+      "at": "2026-10-30T13:03:27.438Z",
       "declaredUrl": "https://docs.dust.tt/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.dust.tt/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,

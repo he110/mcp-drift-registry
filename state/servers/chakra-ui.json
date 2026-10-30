@@ -18,7 +18,7 @@
     }
   },
   "provenance": {
-    "at": "2026-10-30T05:56:02.300Z",
+    "at": "2026-10-30T13:03:27.438Z",
     "declaredUrl": "https://mcp.chakra-ui.com/mcp",
     "observedUrl": "https://mcp.chakra-ui.com/mcp",
     "urlMatchesDeclared": true,
@@ -468,7 +468,7 @@
   "toolCount": 6,
   "fingerprint": "05cd7eda64259a89",
   "lastGood": {
-    "at": "2026-10-30T05:56:02.300Z",
+    "at": "2026-10-30T13:03:27.438Z",
     "tools": [
       {
         "name": "customize_theme",
@@ -909,20 +909,20 @@
     "protocolVersion": "2025-06-18"
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-10-30T05:56:02.300Z",
-  "lastOkAt": "2026-10-30T05:56:02.300Z",
+  "lastCheckedAt": "2026-10-30T13:03:27.438Z",
+  "lastOkAt": "2026-10-30T13:03:27.438Z",
   "lastChangedAt": "2026-10-29T22:49:07.551Z",
   "changeCount": 3,
   "card": {
     "id": "chakra-ui",
     "cardUrl": "https://mcp.chakra-ui.com/.well-known/mcp/server-card.json",
-    "at": "2026-10-30T05:56:02.300Z",
+    "at": "2026-10-30T13:03:27.438Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-10-30T05:56:02.300Z",
+      "at": "2026-10-30T13:03:27.438Z",
       "declaredUrl": "https://mcp.chakra-ui.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://mcp.chakra-ui.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
