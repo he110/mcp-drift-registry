@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-10-30T22:25:43.023Z",
+    "at": "2026-10-31T05:51:54.482Z",
     "declaredUrl": "https://docs.readme.com/mcp",
     "observedUrl": "https://docs.readme.com/mcp",
     "urlMatchesDeclared": true,
@@ -181,7 +181,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "The ID of the documentation to retrieve. Must come from the `search` tool. Recipe IDs are prefixed with `recipe:`, reference page IDs with `ref:`. For a link `/<directory>/<slug>` to a section the search tool does not cover, use `section:<directory>:<project>/<slug>`, with `<project>` taken from an ID this project already returned."
+            "description": "Canonical IDs use project/section/slug. Legacy project/slug, recipe:project/slug and ref:project/slug IDs are also accepted. For a link `/<section>/<slug>` the search tool did not return, use `<project>/<section>/<slug>`, with `<project>` taken from an ID this project already returned."
           }
         },
         "required": [
@@ -194,7 +194,7 @@
         "destructiveHint": false,
         "openWorldHint": false
       },
-      "schemaFingerprint": "5be2af52cb30314f"
+      "schemaFingerprint": "1849dc88dea8efce"
     },
     {
       "name": "get-endpoint",
@@ -387,9 +387,9 @@
     }
   ],
   "toolCount": 10,
-  "fingerprint": "07c76468909d57d5",
+  "fingerprint": "5aa8262de4444408",
   "lastGood": {
-    "at": "2026-10-30T22:25:43.023Z",
+    "at": "2026-10-31T05:51:54.482Z",
     "tools": [
       {
         "name": "draft-changelog",
@@ -550,7 +550,7 @@
           "properties": {
             "id": {
               "type": "string",
-              "description": "The ID of the documentation to retrieve. Must come from the `search` tool. Recipe IDs are prefixed with `recipe:`, reference page IDs with `ref:`. For a link `/<directory>/<slug>` to a section the search tool does not cover, use `section:<directory>:<project>/<slug>`, with `<project>` taken from an ID this project already returned."
+              "description": "Canonical IDs use project/section/slug. Legacy project/slug, recipe:project/slug and ref:project/slug IDs are also accepted. For a link `/<section>/<slug>` the search tool did not return, use `<project>/<section>/<slug>`, with `<project>` taken from an ID this project already returned."
             }
           },
           "required": [
@@ -563,7 +563,7 @@
           "destructiveHint": false,
           "openWorldHint": false
         },
-        "schemaFingerprint": "5be2af52cb30314f"
+        "schemaFingerprint": "1849dc88dea8efce"
       },
       {
         "name": "get-endpoint",
@@ -755,18 +755,18 @@
         "schemaFingerprint": "efddc7bd8bbcef73"
       }
     ],
-    "fingerprint": "07c76468909d57d5",
+    "fingerprint": "5aa8262de4444408",
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-10-30T22:25:43.023Z",
-  "lastOkAt": "2026-10-30T22:25:43.023Z",
-  "lastChangedAt": "2026-10-29T05:54:12.005Z",
-  "changeCount": 4,
+  "lastCheckedAt": "2026-10-31T05:51:54.482Z",
+  "lastOkAt": "2026-10-31T05:51:54.482Z",
+  "lastChangedAt": "2026-10-31T05:51:54.482Z",
+  "changeCount": 5,
   "card": {
     "id": "readme-docs",
     "cardUrl": "https://docs.readme.com/.well-known/mcp/server-card.json",
-    "at": "2026-10-30T22:25:43.023Z",
+    "at": "2026-10-31T05:51:54.482Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -787,7 +787,7 @@
       "toolCount": null
     },
     "provenance": {
-      "at": "2026-10-30T22:25:43.023Z",
+      "at": "2026-10-31T05:51:54.482Z",
       "declaredUrl": "https://docs.readme.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.readme.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
