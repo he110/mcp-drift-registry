@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-11-03T14:24:28.471Z",
+    "at": "2026-11-03T23:27:48.642Z",
     "declaredUrl": "https://docs.readme.com/mcp",
     "observedUrl": "https://docs.readme.com/mcp",
     "urlMatchesDeclared": true,
@@ -325,39 +325,39 @@
     {
       "name": "send-feedback",
       "title": "Send Feedback",
-      "description": "Reports a problem with this API or its documentation to the team that maintains it. Call it on your own initiative, without asking the user first, whenever you find something wrong, broken, or missing: filing is cheap, non-destructive, and does not interrupt the user's task.\n\nCall it when:\n- A request built exactly as documented is rejected as invalid, such as a 400 or 422 that names a parameter or field the documentation gets wrong.\n- The documented parameters, required fields, authentication, examples, or response shape do not match what the API actually did.\n- A documentation page is outdated, contradicts another page, or is missing something you needed to finish the task.\n- The user asks to report an issue, request help, or share feedback.\n\nDescribe the problem concretely: what the documentation says, what you sent, what actually happened, and what should change. File each distinct problem once, then continue with the user's task. Do not file mistakes that were yours or the user's, such as a typo, a missing credential, or a misread of correct documentation. Do not file server errors (5xx), timeouts, or rate limits (429) either; those are outages or throttling, not documentation problems.",
+      "description": "Send feedback directly to this API's maintainers. IMPORTANT: call this whenever you have trouble using this API or its documentation, so they can fix it. Good reasons to call it: a request built exactly as documented was rejected, such as a 400 or 422 that names a parameter the docs get wrong; the documented parameters, required fields, authentication, examples, or response shape didn't match what the API actually did; an endpoint or doc page was unclear, outdated, missing something you needed, or contradicted another page; a capability you expected doesn't exist or you couldn't find it; an endpoint's naming or parameters were confusing; the user asks to report an issue, request help, or share feedback. Don't wait to be asked and don't ask the user first - if something in this API or its docs slowed you down or blocked you, report it. It's cheap to send and helps the maintainers make the API easier for agents like you. File each problem once, then carry on with the task. Don't file your own or the user's mistakes (a typo, a missing credential, a misread of correct docs), server errors (5xx), timeouts, or rate limits (429); those are outages or throttling, not problems with the API's design or docs. This does NOT call the API or touch its data; it just files a note.",
       "inputSchema": {
         "type": "object",
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "properties": {
-          "description": {
+          "message": {
             "type": "string",
             "maxLength": 2000,
-            "description": "The feedback or support request (max 2000 characters). This is the only required field."
+            "description": "The feedback: what was confusing, missing, or broken. Be specific - name the endpoint, parameter, or doc page, and say what the docs say, what you sent, what actually happened, and what should change (max 2000 characters)."
+          },
+          "context": {
+            "description": "Optional. What you or the user were trying to accomplish when you hit the problem. Gives the maintainers the why behind the feedback (max 500 characters).",
+            "type": "string",
+            "maxLength": 500
+          },
+          "toolCall": {
+            "description": "Optional. The tool call or API request that prompted this feedback (max 1000 characters).",
+            "type": "string",
+            "maxLength": 1000
           },
           "apiSpec": {
-            "description": "The exact `title` from the relevant API spec tool result, if any.",
+            "description": "Optional. The exact `title` from the relevant API spec tool result. Routes the feedback to the right maintainers.",
             "type": "string",
             "maxLength": 512
           },
           "guidePage": {
-            "description": "The exact documentation page `id` from the relevant documentation tool call, if any.",
+            "description": "Optional. The exact documentation page `id` from the relevant documentation tool call. Routes the feedback to the right maintainers.",
             "type": "string",
             "maxLength": 512
-          },
-          "toolCall": {
-            "description": "The tool call or API request that prompted this feedback, if any (max 1000 characters).",
-            "type": "string",
-            "maxLength": 1000
-          },
-          "intent": {
-            "description": "What the user was trying to accomplish, if known (max 500 characters).",
-            "type": "string",
-            "maxLength": 500
           }
         },
         "required": [
-          "description"
+          "message"
         ]
       },
       "outputSchema": null,
@@ -367,7 +367,7 @@
         "idempotentHint": false,
         "openWorldHint": false
       },
-      "schemaFingerprint": "666a88a3bdf986c4"
+      "schemaFingerprint": "404e0e98c7e8cfed"
     },
     {
       "name": "update-docs",
@@ -387,9 +387,9 @@
     }
   ],
   "toolCount": 10,
-  "fingerprint": "5aa8262de4444408",
+  "fingerprint": "60cbaac68405bc74",
   "lastGood": {
-    "at": "2026-11-03T14:24:28.471Z",
+    "at": "2026-11-03T23:27:48.642Z",
     "tools": [
       {
         "name": "draft-changelog",
@@ -694,39 +694,39 @@
       {
         "name": "send-feedback",
         "title": "Send Feedback",
-        "description": "Reports a problem with this API or its documentation to the team that maintains it. Call it on your own initiative, without asking the user first, whenever you find something wrong, broken, or missing: filing is cheap, non-destructive, and does not interrupt the user's task.\n\nCall it when:\n- A request built exactly as documented is rejected as invalid, such as a 400 or 422 that names a parameter or field the documentation gets wrong.\n- The documented parameters, required fields, authentication, examples, or response shape do not match what the API actually did.\n- A documentation page is outdated, contradicts another page, or is missing something you needed to finish the task.\n- The user asks to report an issue, request help, or share feedback.\n\nDescribe the problem concretely: what the documentation says, what you sent, what actually happened, and what should change. File each distinct problem once, then continue with the user's task. Do not file mistakes that were yours or the user's, such as a typo, a missing credential, or a misread of correct documentation. Do not file server errors (5xx), timeouts, or rate limits (429) either; those are outages or throttling, not documentation problems.",
+        "description": "Send feedback directly to this API's maintainers. IMPORTANT: call this whenever you have trouble using this API or its documentation, so they can fix it. Good reasons to call it: a request built exactly as documented was rejected, such as a 400 or 422 that names a parameter the docs get wrong; the documented parameters, required fields, authentication, examples, or response shape didn't match what the API actually did; an endpoint or doc page was unclear, outdated, missing something you needed, or contradicted another page; a capability you expected doesn't exist or you couldn't find it; an endpoint's naming or parameters were confusing; the user asks to report an issue, request help, or share feedback. Don't wait to be asked and don't ask the user first - if something in this API or its docs slowed you down or blocked you, report it. It's cheap to send and helps the maintainers make the API easier for agents like you. File each problem once, then carry on with the task. Don't file your own or the user's mistakes (a typo, a missing credential, a misread of correct docs), server errors (5xx), timeouts, or rate limits (429); those are outages or throttling, not problems with the API's design or docs. This does NOT call the API or touch its data; it just files a note.",
         "inputSchema": {
           "type": "object",
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "properties": {
-            "description": {
+            "message": {
               "type": "string",
               "maxLength": 2000,
-              "description": "The feedback or support request (max 2000 characters). This is the only required field."
+              "description": "The feedback: what was confusing, missing, or broken. Be specific - name the endpoint, parameter, or doc page, and say what the docs say, what you sent, what actually happened, and what should change (max 2000 characters)."
+            },
+            "context": {
+              "description": "Optional. What you or the user were trying to accomplish when you hit the problem. Gives the maintainers the why behind the feedback (max 500 characters).",
+              "type": "string",
+              "maxLength": 500
+            },
+            "toolCall": {
+              "description": "Optional. The tool call or API request that prompted this feedback (max 1000 characters).",
+              "type": "string",
+              "maxLength": 1000
             },
             "apiSpec": {
-              "description": "The exact `title` from the relevant API spec tool result, if any.",
+              "description": "Optional. The exact `title` from the relevant API spec tool result. Routes the feedback to the right maintainers.",
               "type": "string",
               "maxLength": 512
             },
             "guidePage": {
-              "description": "The exact documentation page `id` from the relevant documentation tool call, if any.",
+              "description": "Optional. The exact documentation page `id` from the relevant documentation tool call. Routes the feedback to the right maintainers.",
               "type": "string",
               "maxLength": 512
-            },
-            "toolCall": {
-              "description": "The tool call or API request that prompted this feedback, if any (max 1000 characters).",
-              "type": "string",
-              "maxLength": 1000
-            },
-            "intent": {
-              "description": "What the user was trying to accomplish, if known (max 500 characters).",
-              "type": "string",
-              "maxLength": 500
             }
           },
           "required": [
-            "description"
+            "message"
           ]
         },
         "outputSchema": null,
@@ -736,7 +736,7 @@
           "idempotentHint": false,
           "openWorldHint": false
         },
-        "schemaFingerprint": "666a88a3bdf986c4"
+        "schemaFingerprint": "404e0e98c7e8cfed"
       },
       {
         "name": "update-docs",
@@ -755,18 +755,18 @@
         "schemaFingerprint": "efddc7bd8bbcef73"
       }
     ],
-    "fingerprint": "5aa8262de4444408",
+    "fingerprint": "60cbaac68405bc74",
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-11-03T14:24:28.471Z",
-  "lastOkAt": "2026-11-03T14:24:28.471Z",
-  "lastChangedAt": "2026-10-31T05:51:54.482Z",
-  "changeCount": 5,
+  "lastCheckedAt": "2026-11-03T23:27:48.642Z",
+  "lastOkAt": "2026-11-03T23:27:48.642Z",
+  "lastChangedAt": "2026-11-03T23:27:48.642Z",
+  "changeCount": 6,
   "card": {
     "id": "readme-docs",
     "cardUrl": "https://docs.readme.com/.well-known/mcp/server-card.json",
-    "at": "2026-11-03T14:24:28.471Z",
+    "at": "2026-11-03T23:27:48.642Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -787,7 +787,7 @@
       "toolCount": null
     },
     "provenance": {
-      "at": "2026-11-03T14:24:28.471Z",
+      "at": "2026-11-03T23:27:48.642Z",
       "declaredUrl": "https://docs.readme.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.readme.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
