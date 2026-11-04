@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-11-04T06:33:54.299Z",
+    "at": "2026-11-04T19:49:58.682Z",
     "declaredUrl": "https://docs.livekit.io/mcp",
     "observedUrl": "https://docs.livekit.io/mcp/",
     "urlMatchesDeclared": false,
@@ -113,7 +113,7 @@
           },
           "context": {
             "type": "string",
-            "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+            "description": "Describe the user's task that this call supports, not the mechanics of the call. Used only for analytics. Never include credentials, tokens, or personal data. Example: \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
           }
         },
         "required": [
@@ -125,12 +125,12 @@
       },
       "outputSchema": null,
       "annotations": null,
-      "schemaFingerprint": "01d8906e811f5a90"
+      "schemaFingerprint": "a59f04442404f0fc"
     },
     {
       "name": "docs_search",
       "title": null,
-      "description": "Search the docs for a given query.\n      Paged results will be returned, showing page titles, hiearchical placement, and (sometimes) a snippet of the content.\n      You must then use the get_page tool with any provided URL to get the full page content (except for auto-generated SDK reference pages like /reference/client-sdk-js, which must be fetched from the web directly by URL). Python API reference pages (/reference/python/*) are supported natively.\n      The search index is not perfect, as it covers a large amount of content in many different programming languages.\n      Search should usually be used as a complement to browsing the docs directly, rather than as a replacement for it. To browse the docs directly, use the get_docs_overview and get_pages tools.\n      So examine the returned results critically and perform additional searches or fetch individual pages if necessary to find what you're looking for.",
+      "description": "Search the docs for a given query.\n      Paged results will be returned, showing page titles, hierarchical placement, and (sometimes) a snippet of the content.\n      You must then use the get_pages tool to get the full page content. get_pages accepts the URLs that search returns. The exception is auto-generated SDK reference pages like /reference/client-sdk-js, which must be fetched from the web directly by URL. Python API reference pages (/reference/python/*) are supported natively.\n      The search index is not perfect, as it covers a large amount of content in many different programming languages.\n      Search should usually be used as a complement to browsing the docs directly, rather than as a replacement for it. To browse the docs directly, use the get_docs_overview and get_pages tools.\n      So examine the returned results critically and perform additional searches or fetch individual pages if necessary to find what you're looking for.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -173,7 +173,7 @@
           },
           "context": {
             "type": "string",
-            "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+            "description": "Describe the user's task that this call supports, not the mechanics of the call. Used only for analytics. Never include credentials, tokens, or personal data. Example: \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
           }
         },
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -183,7 +183,7 @@
       },
       "outputSchema": null,
       "annotations": null,
-      "schemaFingerprint": "b9b8f984453553da"
+      "schemaFingerprint": "63228ad6b694e1e0"
     },
     {
       "name": "get_changelog",
@@ -279,7 +279,7 @@
           },
           "context": {
             "type": "string",
-            "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+            "description": "Describe the user's task that this call supports, not the mechanics of the call. Used only for analytics. Never include credentials, tokens, or personal data. Example: \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
           }
         },
         "required": [
@@ -290,7 +290,7 @@
       },
       "outputSchema": null,
       "annotations": null,
-      "schemaFingerprint": "37fa5d85fff093f0"
+      "schemaFingerprint": "f64fc9fa840efdeb"
     },
     {
       "name": "get_docs_overview",
@@ -320,7 +320,7 @@
           },
           "context": {
             "type": "string",
-            "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+            "description": "Describe the user's task that this call supports, not the mechanics of the call. Used only for analytics. Never include credentials, tokens, or personal data. Example: \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
           }
         },
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -330,7 +330,7 @@
       },
       "outputSchema": null,
       "annotations": null,
-      "schemaFingerprint": "94ae20338e46f05a"
+      "schemaFingerprint": "65f0655b973b962a"
     },
     {
       "name": "get_pages",
@@ -363,7 +363,7 @@
           },
           "context": {
             "type": "string",
-            "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+            "description": "Describe the user's task that this call supports, not the mechanics of the call. Used only for analytics. Never include credentials, tokens, or personal data. Example: \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
           }
         },
         "required": [
@@ -374,7 +374,7 @@
       },
       "outputSchema": null,
       "annotations": null,
-      "schemaFingerprint": "0e39b60ee7f7d232"
+      "schemaFingerprint": "a98631534a3f1a45"
     },
     {
       "name": "get_pricing_info",
@@ -400,7 +400,7 @@
           },
           "context": {
             "type": "string",
-            "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+            "description": "Describe the user's task that this call supports, not the mechanics of the call. Used only for analytics. Never include credentials, tokens, or personal data. Example: \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
           }
         },
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -410,7 +410,7 @@
       },
       "outputSchema": null,
       "annotations": null,
-      "schemaFingerprint": "59393feaa93ce888"
+      "schemaFingerprint": "3e968ac022f305a0"
     },
     {
       "name": "get_python_agent_example",
@@ -440,7 +440,7 @@
           },
           "context": {
             "type": "string",
-            "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+            "description": "Describe the user's task that this call supports, not the mechanics of the call. Used only for analytics. Never include credentials, tokens, or personal data. Example: \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
           }
         },
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -450,7 +450,7 @@
       },
       "outputSchema": null,
       "annotations": null,
-      "schemaFingerprint": "ac298bc1cd95c51d"
+      "schemaFingerprint": "1f6a3f8ba053178b"
     },
     {
       "name": "get_sdks",
@@ -476,7 +476,7 @@
           },
           "context": {
             "type": "string",
-            "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+            "description": "Describe the user's task that this call supports, not the mechanics of the call. Used only for analytics. Never include credentials, tokens, or personal data. Example: \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
           }
         },
         "$schema": "http://json-schema.org/draft-07/schema#",
@@ -486,7 +486,7 @@
       },
       "outputSchema": null,
       "annotations": null,
-      "schemaFingerprint": "59393feaa93ce888"
+      "schemaFingerprint": "3e968ac022f305a0"
     },
     {
       "name": "submit_docs_feedback",
@@ -529,7 +529,7 @@
           },
           "context": {
             "type": "string",
-            "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+            "description": "Describe the user's task that this call supports, not the mechanics of the call. Used only for analytics. Never include credentials, tokens, or personal data. Example: \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
           }
         },
         "required": [
@@ -540,13 +540,13 @@
       },
       "outputSchema": null,
       "annotations": null,
-      "schemaFingerprint": "5fcd75cd977c6fab"
+      "schemaFingerprint": "0b78f4cbe751bb63"
     }
   ],
   "toolCount": 9,
-  "fingerprint": "67982de692341f09",
+  "fingerprint": "bcbe7eee11963b5f",
   "lastGood": {
-    "at": "2026-11-04T06:33:54.299Z",
+    "at": "2026-11-04T19:49:58.682Z",
     "tools": [
       {
         "name": "code_search",
@@ -633,7 +633,7 @@
             },
             "context": {
               "type": "string",
-              "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+              "description": "Describe the user's task that this call supports, not the mechanics of the call. Used only for analytics. Never include credentials, tokens, or personal data. Example: \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
             }
           },
           "required": [
@@ -645,12 +645,12 @@
         },
         "outputSchema": null,
         "annotations": null,
-        "schemaFingerprint": "01d8906e811f5a90"
+        "schemaFingerprint": "a59f04442404f0fc"
       },
       {
         "name": "docs_search",
         "title": null,
-        "description": "Search the docs for a given query.\n      Paged results will be returned, showing page titles, hiearchical placement, and (sometimes) a snippet of the content.\n      You must then use the get_page tool with any provided URL to get the full page content (except for auto-generated SDK reference pages like /reference/client-sdk-js, which must be fetched from the web directly by URL). Python API reference pages (/reference/python/*) are supported natively.\n      The search index is not perfect, as it covers a large amount of content in many different programming languages.\n      Search should usually be used as a complement to browsing the docs directly, rather than as a replacement for it. To browse the docs directly, use the get_docs_overview and get_pages tools.\n      So examine the returned results critically and perform additional searches or fetch individual pages if necessary to find what you're looking for.",
+        "description": "Search the docs for a given query.\n      Paged results will be returned, showing page titles, hierarchical placement, and (sometimes) a snippet of the content.\n      You must then use the get_pages tool to get the full page content. get_pages accepts the URLs that search returns. The exception is auto-generated SDK reference pages like /reference/client-sdk-js, which must be fetched from the web directly by URL. Python API reference pages (/reference/python/*) are supported natively.\n      The search index is not perfect, as it covers a large amount of content in many different programming languages.\n      Search should usually be used as a complement to browsing the docs directly, rather than as a replacement for it. To browse the docs directly, use the get_docs_overview and get_pages tools.\n      So examine the returned results critically and perform additional searches or fetch individual pages if necessary to find what you're looking for.",
         "inputSchema": {
           "type": "object",
           "properties": {
@@ -693,7 +693,7 @@
             },
             "context": {
               "type": "string",
-              "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+              "description": "Describe the user's task that this call supports, not the mechanics of the call. Used only for analytics. Never include credentials, tokens, or personal data. Example: \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
             }
           },
           "$schema": "http://json-schema.org/draft-07/schema#",
@@ -703,7 +703,7 @@
         },
         "outputSchema": null,
         "annotations": null,
-        "schemaFingerprint": "b9b8f984453553da"
+        "schemaFingerprint": "63228ad6b694e1e0"
       },
       {
         "name": "get_changelog",
@@ -799,7 +799,7 @@
             },
             "context": {
               "type": "string",
-              "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+              "description": "Describe the user's task that this call supports, not the mechanics of the call. Used only for analytics. Never include credentials, tokens, or personal data. Example: \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
             }
           },
           "required": [
@@ -810,7 +810,7 @@
         },
         "outputSchema": null,
         "annotations": null,
-        "schemaFingerprint": "37fa5d85fff093f0"
+        "schemaFingerprint": "f64fc9fa840efdeb"
       },
       {
         "name": "get_docs_overview",
@@ -840,7 +840,7 @@
             },
             "context": {
               "type": "string",
-              "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+              "description": "Describe the user's task that this call supports, not the mechanics of the call. Used only for analytics. Never include credentials, tokens, or personal data. Example: \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
             }
           },
           "$schema": "http://json-schema.org/draft-07/schema#",
@@ -850,7 +850,7 @@
         },
         "outputSchema": null,
         "annotations": null,
-        "schemaFingerprint": "94ae20338e46f05a"
+        "schemaFingerprint": "65f0655b973b962a"
       },
       {
         "name": "get_pages",
@@ -883,7 +883,7 @@
             },
             "context": {
               "type": "string",
-              "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+              "description": "Describe the user's task that this call supports, not the mechanics of the call. Used only for analytics. Never include credentials, tokens, or personal data. Example: \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
             }
           },
           "required": [
@@ -894,7 +894,7 @@
         },
         "outputSchema": null,
         "annotations": null,
-        "schemaFingerprint": "0e39b60ee7f7d232"
+        "schemaFingerprint": "a98631534a3f1a45"
       },
       {
         "name": "get_pricing_info",
@@ -920,7 +920,7 @@
             },
             "context": {
               "type": "string",
-              "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+              "description": "Describe the user's task that this call supports, not the mechanics of the call. Used only for analytics. Never include credentials, tokens, or personal data. Example: \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
             }
           },
           "$schema": "http://json-schema.org/draft-07/schema#",
@@ -930,7 +930,7 @@
         },
         "outputSchema": null,
         "annotations": null,
-        "schemaFingerprint": "59393feaa93ce888"
+        "schemaFingerprint": "3e968ac022f305a0"
       },
       {
         "name": "get_python_agent_example",
@@ -960,7 +960,7 @@
             },
             "context": {
               "type": "string",
-              "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+              "description": "Describe the user's task that this call supports, not the mechanics of the call. Used only for analytics. Never include credentials, tokens, or personal data. Example: \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
             }
           },
           "$schema": "http://json-schema.org/draft-07/schema#",
@@ -970,7 +970,7 @@
         },
         "outputSchema": null,
         "annotations": null,
-        "schemaFingerprint": "ac298bc1cd95c51d"
+        "schemaFingerprint": "1f6a3f8ba053178b"
       },
       {
         "name": "get_sdks",
@@ -996,7 +996,7 @@
             },
             "context": {
               "type": "string",
-              "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+              "description": "Describe the user's task that this call supports, not the mechanics of the call. Used only for analytics. Never include credentials, tokens, or personal data. Example: \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
             }
           },
           "$schema": "http://json-schema.org/draft-07/schema#",
@@ -1006,7 +1006,7 @@
         },
         "outputSchema": null,
         "annotations": null,
-        "schemaFingerprint": "59393feaa93ce888"
+        "schemaFingerprint": "3e968ac022f305a0"
       },
       {
         "name": "submit_docs_feedback",
@@ -1049,7 +1049,7 @@
             },
             "context": {
               "type": "string",
-              "description": "Explain why you are calling this tool and how it fits the user's overall goal. Used only for analytics. Write 15-25 words in the third person, never first person. Never include credentials, tokens, or personal data. Example (18 words): \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
+              "description": "Describe the user's task that this call supports, not the mechanics of the call. Used only for analytics. Never include credentials, tokens, or personal data. Example: \"Adding a Python voice agent to an existing web app and checking which speech-to-text plugins support streaming transcription.\""
             }
           },
           "required": [
@@ -1060,27 +1060,27 @@
         },
         "outputSchema": null,
         "annotations": null,
-        "schemaFingerprint": "5fcd75cd977c6fab"
+        "schemaFingerprint": "0b78f4cbe751bb63"
       }
     ],
-    "fingerprint": "67982de692341f09",
+    "fingerprint": "bcbe7eee11963b5f",
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-11-04T06:33:54.299Z",
-  "lastOkAt": "2026-11-04T06:33:54.299Z",
-  "lastChangedAt": "2026-09-23T17:08:38.491Z",
-  "changeCount": 1,
+  "lastCheckedAt": "2026-11-04T19:49:58.682Z",
+  "lastOkAt": "2026-11-04T19:49:58.682Z",
+  "lastChangedAt": "2026-11-04T19:49:58.682Z",
+  "changeCount": 2,
   "card": {
     "id": "livekit-docs",
     "cardUrl": "https://docs.livekit.io/.well-known/mcp/server-card.json",
-    "at": "2026-11-04T06:33:54.299Z",
+    "at": "2026-11-04T19:49:58.682Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-11-04T06:33:54.299Z",
+      "at": "2026-11-04T19:49:58.682Z",
       "declaredUrl": "https://docs.livekit.io/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.livekit.io/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
