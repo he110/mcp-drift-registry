@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-11-06T19:28:19.615Z",
+    "at": "2026-11-07T06:06:13.669Z",
     "declaredUrl": "https://mcp.firecrawl.dev/mcp",
     "observedUrl": "https://mcp.firecrawl.dev/mcp",
     "urlMatchesDeclared": true,
@@ -934,6 +934,9 @@
           "feedbackTool": {
             "description": "Pointer to the feedback tool for reporting how this result served the task."
           },
+          "feedbackRefs": {
+            "description": "Retained results only: `[{provider, capability, feedbackRef}]` per call; pass a ref in `callRatings` of the feedback tool to rate that call."
+          },
           "agent_hints": {
             "description": "Optional response guidance from the Firecrawl API.",
             "type": "array",
@@ -1379,7 +1382,7 @@
   "toolCount": 3,
   "fingerprint": "847a66081cc57208",
   "lastGood": {
-    "at": "2026-11-06T19:28:19.615Z",
+    "at": "2026-11-07T06:06:13.669Z",
     "tools": [
       {
         "name": "firecrawl_parse",
@@ -2293,6 +2296,9 @@
             "feedbackTool": {
               "description": "Pointer to the feedback tool for reporting how this result served the task."
             },
+            "feedbackRefs": {
+              "description": "Retained results only: `[{provider, capability, feedbackRef}]` per call; pass a ref in `callRatings` of the feedback tool to rate that call."
+            },
             "agent_hints": {
               "description": "Optional response guidance from the Firecrawl API.",
               "type": "array",
@@ -2739,20 +2745,20 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-11-06T19:28:19.615Z",
-  "lastOkAt": "2026-11-06T19:28:19.615Z",
+  "lastCheckedAt": "2026-11-07T06:06:13.669Z",
+  "lastOkAt": "2026-11-07T06:06:13.669Z",
   "lastChangedAt": "2026-11-06T19:28:19.615Z",
   "changeCount": 27,
   "card": {
     "id": "firecrawl",
     "cardUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
-    "at": "2026-11-06T19:28:19.615Z",
+    "at": "2026-11-07T06:06:13.669Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-11-06T19:28:19.615Z",
+      "at": "2026-11-07T06:06:13.669Z",
       "declaredUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
       "observedUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
