@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-11-10T07:25:34.000Z",
+    "at": "2026-11-10T19:48:03.703Z",
     "declaredUrl": "https://docs.zapier.com/mcp",
     "observedUrl": "https://docs.zapier.com/mcp",
     "urlMatchesDeclared": true,
@@ -114,7 +114,7 @@
   "toolCount": 3,
   "fingerprint": "401d8b5b62ac59ef",
   "lastGood": {
-    "at": "2026-11-10T07:25:34.000Z",
+    "at": "2026-11-10T19:48:03.703Z",
     "tools": [
       {
         "name": "query_docs_filesystem_zapier",
@@ -209,14 +209,14 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-11-10T07:25:34.000Z",
-  "lastOkAt": "2026-11-10T07:25:34.000Z",
+  "lastCheckedAt": "2026-11-10T19:48:03.703Z",
+  "lastOkAt": "2026-11-10T19:48:03.703Z",
   "lastChangedAt": "2026-11-06T19:28:19.615Z",
   "changeCount": 10,
   "card": {
     "id": "zapier-docs",
     "cardUrl": "https://docs.zapier.com/.well-known/mcp/server-card.json",
-    "at": "2026-11-10T07:25:34.000Z",
+    "at": "2026-11-10T19:48:03.703Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -265,7 +265,7 @@
       "toolCount": 2
     },
     "provenance": {
-      "at": "2026-11-10T07:25:34.000Z",
+      "at": "2026-11-10T19:48:03.703Z",
       "declaredUrl": "https://docs.zapier.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.zapier.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,

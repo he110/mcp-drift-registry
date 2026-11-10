@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-11-10T07:25:34.000Z",
+    "at": "2026-11-10T19:48:03.703Z",
     "declaredUrl": "https://docs.crewai.com/mcp",
     "observedUrl": "https://docs.crewai.com/mcp",
     "urlMatchesDeclared": true,
@@ -122,7 +122,7 @@
   "toolCount": 3,
   "fingerprint": "9cc7bb5b20277d53",
   "lastGood": {
-    "at": "2026-11-10T07:25:34.000Z",
+    "at": "2026-11-10T19:48:03.703Z",
     "tools": [
       {
         "name": "query_docs_filesystem_crew_ai",
@@ -225,14 +225,14 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-11-10T07:25:34.000Z",
-  "lastOkAt": "2026-11-10T07:25:34.000Z",
+  "lastCheckedAt": "2026-11-10T19:48:03.703Z",
+  "lastOkAt": "2026-11-10T19:48:03.703Z",
   "lastChangedAt": "2026-11-09T06:44:40.077Z",
   "changeCount": 21,
   "card": {
     "id": "crewai-docs",
     "cardUrl": "https://docs.crewai.com/.well-known/mcp/server-card.json",
-    "at": "2026-11-10T07:25:34.000Z",
+    "at": "2026-11-10T19:48:03.703Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -289,7 +289,7 @@
       "toolCount": 2
     },
     "provenance": {
-      "at": "2026-11-10T07:25:34.000Z",
+      "at": "2026-11-10T19:48:03.703Z",
       "declaredUrl": "https://docs.crewai.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.crewai.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
