@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-11-09T22:26:44.437Z",
+    "at": "2026-11-10T07:25:34.000Z",
     "declaredUrl": "https://mcp.firecrawl.dev/mcp",
     "observedUrl": "https://mcp.firecrawl.dev/mcp",
     "urlMatchesDeclared": true,
@@ -815,6 +815,17 @@
               }
             ]
           },
+          "retryable": {
+            "description": "Whether resending the same request can succeed; set when the API refused before any provider ran.",
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "scrape_id": {
             "description": "Identifier of the underlying scrape.",
             "anyOf": [
@@ -1241,9 +1252,6 @@
               "storeInCache": {
                 "type": "boolean"
               },
-              "zeroDataRetention": {
-                "type": "boolean"
-              },
               "maxAge": {
                 "type": "number"
               },
@@ -1376,13 +1384,13 @@
         "openWorldHint": true,
         "destructiveHint": false
       },
-      "schemaFingerprint": "f3f291fa83fa1cd8"
+      "schemaFingerprint": "5fe24c91016f2098"
     }
   ],
   "toolCount": 3,
-  "fingerprint": "cee8b6e8a5d15782",
+  "fingerprint": "0652a0474d89bca9",
   "lastGood": {
-    "at": "2026-11-09T22:26:44.437Z",
+    "at": "2026-11-10T07:25:34.000Z",
     "tools": [
       {
         "name": "firecrawl_parse",
@@ -2177,6 +2185,17 @@
                 }
               ]
             },
+            "retryable": {
+              "description": "Whether resending the same request can succeed; set when the API refused before any provider ran.",
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
             "scrape_id": {
               "description": "Identifier of the underlying scrape.",
               "anyOf": [
@@ -2603,9 +2622,6 @@
                 "storeInCache": {
                   "type": "boolean"
                 },
-                "zeroDataRetention": {
-                  "type": "boolean"
-                },
                 "maxAge": {
                   "type": "number"
                 },
@@ -2738,27 +2754,27 @@
           "openWorldHint": true,
           "destructiveHint": false
         },
-        "schemaFingerprint": "f3f291fa83fa1cd8"
+        "schemaFingerprint": "5fe24c91016f2098"
       }
     ],
-    "fingerprint": "cee8b6e8a5d15782",
+    "fingerprint": "0652a0474d89bca9",
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-11-09T22:26:44.437Z",
-  "lastOkAt": "2026-11-09T22:26:44.437Z",
-  "lastChangedAt": "2026-11-08T06:10:36.566Z",
-  "changeCount": 28,
+  "lastCheckedAt": "2026-11-10T07:25:34.000Z",
+  "lastOkAt": "2026-11-10T07:25:34.000Z",
+  "lastChangedAt": "2026-11-10T07:25:34.000Z",
+  "changeCount": 29,
   "card": {
     "id": "firecrawl",
     "cardUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
-    "at": "2026-11-09T22:26:44.437Z",
+    "at": "2026-11-10T07:25:34.000Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-11-09T22:26:44.437Z",
+      "at": "2026-11-10T07:25:34.000Z",
       "declaredUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
       "observedUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
