@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-11-11T06:35:06.839Z",
+    "at": "2026-11-11T19:40:03.531Z",
     "declaredUrl": "https://docs.replit.com/mcp",
     "observedUrl": "https://docs.replit.com/mcp",
     "urlMatchesDeclared": true,
@@ -118,7 +118,7 @@
   "toolCount": 3,
   "fingerprint": "a82430f8e4c7cdb3",
   "lastGood": {
-    "at": "2026-11-11T06:35:06.839Z",
+    "at": "2026-11-11T19:40:03.531Z",
     "tools": [
       {
         "name": "query_docs_filesystem_replit",
@@ -217,14 +217,14 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-11-11T06:35:06.839Z",
-  "lastOkAt": "2026-11-11T06:35:06.839Z",
+  "lastCheckedAt": "2026-11-11T19:40:03.531Z",
+  "lastOkAt": "2026-11-11T19:40:03.531Z",
   "lastChangedAt": "2026-09-15T21:25:32.568Z",
   "changeCount": 1,
   "card": {
     "id": "replit-docs",
     "cardUrl": "https://docs.replit.com/.well-known/mcp/server-card.json",
-    "at": "2026-11-11T06:35:06.839Z",
+    "at": "2026-11-11T19:40:03.531Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -272,12 +272,35 @@
               "query"
             ]
           }
+        },
+        {
+          "name": "submit_feedback",
+          "description": "Report a problem with this documentation site so the docs team can fix it. Use when a documentation page is incorrect, outdated, confusing, incomplete, or has a broken example. This is for feedback about the documentation content itself — not for product support requests or feedback about this tool or assistant.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "description": "The URL path of the documentation page the feedback is about (the page you were reading, without the `.mdx` extension)."
+              },
+              "feedback": {
+                "type": "string",
+                "minLength": 1,
+                "description": "A clear description of the documentation issue or suggestion — what is incorrect, outdated, missing, or confusing."
+              }
+            },
+            "required": [
+              "path",
+              "feedback"
+            ]
+          }
         }
       ],
-      "toolCount": 2
+      "toolCount": 3
     },
     "provenance": {
-      "at": "2026-11-11T06:35:06.839Z",
+      "at": "2026-11-11T19:40:03.531Z",
       "declaredUrl": "https://docs.replit.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.replit.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,

@@ -13,7 +13,7 @@
   "toolCount": 0,
   "fingerprint": null,
   "provenance": {
-    "at": "2026-11-11T06:35:06.839Z",
+    "at": "2026-11-11T19:40:03.531Z",
     "declaredUrl": "https://docs.wandb.ai/mcp",
     "observedUrl": "https://docs.wandb.ai/mcp",
     "urlMatchesDeclared": true,
@@ -127,14 +127,14 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-11-11T06:35:06.839Z",
+  "lastCheckedAt": "2026-11-11T19:40:03.531Z",
   "lastOkAt": "2026-09-30T12:42:22.262Z",
   "lastChangedAt": "2026-09-30T22:20:47.382Z",
   "changeCount": 4,
   "card": {
     "id": "wandb-docs",
     "cardUrl": "https://docs.wandb.ai/.well-known/mcp/server-card.json",
-    "at": "2026-11-11T06:35:06.839Z",
+    "at": "2026-11-11T19:40:03.531Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -146,11 +146,35 @@
         "https://docs.coreweave.com/mcp"
       ],
       "remotes": null,
-      "tools": [],
-      "toolCount": 0
+      "tools": [
+        {
+          "name": "submit_feedback",
+          "description": "Report a problem with this documentation site so the docs team can fix it. Use when a documentation page is incorrect, outdated, confusing, incomplete, or has a broken example. This is for feedback about the documentation content itself — not for product support requests or feedback about this tool or assistant.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "description": "The URL path of the documentation page the feedback is about (the page you were reading, without the `.mdx` extension)."
+              },
+              "feedback": {
+                "type": "string",
+                "minLength": 1,
+                "description": "A clear description of the documentation issue or suggestion — what is incorrect, outdated, missing, or confusing."
+              }
+            },
+            "required": [
+              "path",
+              "feedback"
+            ]
+          }
+        }
+      ],
+      "toolCount": 1
     },
     "provenance": {
-      "at": "2026-11-11T06:35:06.839Z",
+      "at": "2026-11-11T19:40:03.531Z",
       "declaredUrl": "https://docs.wandb.ai/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.coreweave.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": false,

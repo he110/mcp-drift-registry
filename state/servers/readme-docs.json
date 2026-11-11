@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-11-11T06:35:06.839Z",
+    "at": "2026-11-11T19:40:03.531Z",
     "declaredUrl": "https://docs.readme.com/mcp",
     "observedUrl": "https://docs.readme.com/mcp",
     "urlMatchesDeclared": true,
@@ -389,7 +389,7 @@
   "toolCount": 10,
   "fingerprint": "60cbaac68405bc74",
   "lastGood": {
-    "at": "2026-11-11T06:35:06.839Z",
+    "at": "2026-11-11T19:40:03.531Z",
     "tools": [
       {
         "name": "draft-changelog",
@@ -759,14 +759,14 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-11-11T06:35:06.839Z",
-  "lastOkAt": "2026-11-11T06:35:06.839Z",
+  "lastCheckedAt": "2026-11-11T19:40:03.531Z",
+  "lastOkAt": "2026-11-11T19:40:03.531Z",
   "lastChangedAt": "2026-11-03T23:27:48.642Z",
   "changeCount": 6,
   "card": {
     "id": "readme-docs",
     "cardUrl": "https://docs.readme.com/.well-known/mcp/server-card.json",
-    "at": "2026-11-11T06:35:06.839Z",
+    "at": "2026-11-11T19:40:03.531Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -787,7 +787,7 @@
       "toolCount": null
     },
     "provenance": {
-      "at": "2026-11-11T06:35:06.839Z",
+      "at": "2026-11-11T19:40:03.531Z",
       "declaredUrl": "https://docs.readme.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.readme.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
