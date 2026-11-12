@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-11-11T19:40:03.531Z",
+    "at": "2026-11-12T07:19:24.509Z",
     "declaredUrl": "https://docs.chunkr.ai/mcp",
     "observedUrl": "https://docs.chunkr.ai/mcp",
     "urlMatchesDeclared": true,
@@ -118,7 +118,7 @@
   "toolCount": 3,
   "fingerprint": "e0cebf073509fc55",
   "lastGood": {
-    "at": "2026-11-11T19:40:03.531Z",
+    "at": "2026-11-12T07:19:24.509Z",
     "tools": [
       {
         "name": "query_docs_filesystem_chunkr",
@@ -217,14 +217,14 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-11-11T19:40:03.531Z",
-  "lastOkAt": "2026-11-11T19:40:03.531Z",
+  "lastCheckedAt": "2026-11-12T07:19:24.509Z",
+  "lastOkAt": "2026-11-12T07:19:24.509Z",
   "lastChangedAt": "2026-10-09T06:15:41.557Z",
   "changeCount": 3,
   "card": {
     "id": "chunkr-docs",
     "cardUrl": "https://docs.chunkr.ai/.well-known/mcp/server-card.json",
-    "at": "2026-11-11T19:40:03.531Z",
+    "at": "2026-11-12T07:19:24.509Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -272,12 +272,35 @@
               "query"
             ]
           }
+        },
+        {
+          "name": "submit_feedback",
+          "description": "Report a problem with this documentation site so the docs team can fix it. Use when a documentation page is incorrect, outdated, confusing, incomplete, or has a broken example. This is for feedback about the documentation content itself — not for product support requests or feedback about this tool or assistant.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "description": "The URL path of the documentation page the feedback is about (the page you were reading, without the `.mdx` extension)."
+              },
+              "feedback": {
+                "type": "string",
+                "minLength": 1,
+                "description": "A clear description of the documentation issue or suggestion — what is incorrect, outdated, missing, or confusing."
+              }
+            },
+            "required": [
+              "path",
+              "feedback"
+            ]
+          }
         }
       ],
-      "toolCount": 2
+      "toolCount": 3
     },
     "provenance": {
-      "at": "2026-11-11T19:40:03.531Z",
+      "at": "2026-11-12T07:19:24.509Z",
       "declaredUrl": "https://docs.chunkr.ai/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.chunkr.ai/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
