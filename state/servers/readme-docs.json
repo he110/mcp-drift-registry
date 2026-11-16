@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-11-15T18:55:23.488Z",
+    "at": "2026-11-16T06:40:12.850Z",
     "declaredUrl": "https://docs.readme.com/mcp",
     "observedUrl": "https://docs.readme.com/mcp",
     "urlMatchesDeclared": true,
@@ -182,6 +182,14 @@
           "id": {
             "type": "string",
             "description": "Canonical IDs use project/section/slug. Legacy project/slug, recipe:project/slug and ref:project/slug IDs are also accepted. For a link `/<section>/<slug>` the search tool did not return, use `<project>/<section>/<slug>`, with `<project>` taken from an ID this project already returned."
+          },
+          "format": {
+            "description": "Custom pages can be authored in HTML. `markdown` converts an HTML custom page to Markdown; omitted or `original` returns the page as authored.",
+            "type": "string",
+            "enum": [
+              "original",
+              "markdown"
+            ]
           }
         },
         "required": [
@@ -194,7 +202,7 @@
         "destructiveHint": false,
         "openWorldHint": false
       },
-      "schemaFingerprint": "1849dc88dea8efce"
+      "schemaFingerprint": "2ff5b73116177c22"
     },
     {
       "name": "get-endpoint",
@@ -387,9 +395,9 @@
     }
   ],
   "toolCount": 10,
-  "fingerprint": "60cbaac68405bc74",
+  "fingerprint": "684e78226f8892d8",
   "lastGood": {
-    "at": "2026-11-15T18:55:23.488Z",
+    "at": "2026-11-16T06:40:12.850Z",
     "tools": [
       {
         "name": "draft-changelog",
@@ -551,6 +559,14 @@
             "id": {
               "type": "string",
               "description": "Canonical IDs use project/section/slug. Legacy project/slug, recipe:project/slug and ref:project/slug IDs are also accepted. For a link `/<section>/<slug>` the search tool did not return, use `<project>/<section>/<slug>`, with `<project>` taken from an ID this project already returned."
+            },
+            "format": {
+              "description": "Custom pages can be authored in HTML. `markdown` converts an HTML custom page to Markdown; omitted or `original` returns the page as authored.",
+              "type": "string",
+              "enum": [
+                "original",
+                "markdown"
+              ]
             }
           },
           "required": [
@@ -563,7 +579,7 @@
           "destructiveHint": false,
           "openWorldHint": false
         },
-        "schemaFingerprint": "1849dc88dea8efce"
+        "schemaFingerprint": "2ff5b73116177c22"
       },
       {
         "name": "get-endpoint",
@@ -755,18 +771,18 @@
         "schemaFingerprint": "efddc7bd8bbcef73"
       }
     ],
-    "fingerprint": "60cbaac68405bc74",
+    "fingerprint": "684e78226f8892d8",
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-11-15T18:55:23.488Z",
-  "lastOkAt": "2026-11-15T18:55:23.488Z",
-  "lastChangedAt": "2026-11-03T23:27:48.642Z",
-  "changeCount": 6,
+  "lastCheckedAt": "2026-11-16T06:40:12.850Z",
+  "lastOkAt": "2026-11-16T06:40:12.850Z",
+  "lastChangedAt": "2026-11-16T06:40:12.850Z",
+  "changeCount": 7,
   "card": {
     "id": "readme-docs",
     "cardUrl": "https://docs.readme.com/.well-known/mcp/server-card.json",
-    "at": "2026-11-15T18:55:23.488Z",
+    "at": "2026-11-16T06:40:12.850Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -787,7 +803,7 @@
       "toolCount": null
     },
     "provenance": {
-      "at": "2026-11-15T18:55:23.488Z",
+      "at": "2026-11-16T06:40:12.850Z",
       "declaredUrl": "https://docs.readme.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.readme.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,

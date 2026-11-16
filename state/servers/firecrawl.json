@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-11-15T18:55:23.488Z",
+    "at": "2026-11-16T06:40:12.850Z",
     "declaredUrl": "https://mcp.firecrawl.dev/mcp",
     "observedUrl": "https://mcp.firecrawl.dev/mcp",
     "urlMatchesDeclared": true,
@@ -1266,6 +1266,12 @@
             },
             "additionalProperties": false
           },
+          "answerShowTitle": {
+            "description": "The exact title of one podcast show, never an episode's title, for Ultrasearch to look up in Particle's catalogue. Particle bills the lookup even when no show matches. Podcast lookups are not available on this server yet, so it is ignored.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
           "objective": {
             "description": "The user's underlying goal for this call, in one sentence: what they are ultimately trying to accomplish, not a restatement of the URL or query. Reuse it across related calls. Avoid sensitive information.",
             "type": "string",
@@ -1347,6 +1353,9 @@
           "feedbackTool": {
             "description": "Pointer to the feedback tool for this search."
           },
+          "answer": {
+            "description": "Ultrasearch: one Alexandria provider record answering the query, separate from the web results, with its route, provider, sources, attribution and credits (search, provider, pending, max_credits, stop_reason, cap_enforced: whether the cap was enforced when the provider was called, unresolved_requests: provider requests whose charge is not known yet)."
+          },
           "agent_hints": {
             "description": "Optional response guidance from the Firecrawl API.",
             "type": "array",
@@ -1367,13 +1376,13 @@
         "openWorldHint": true,
         "destructiveHint": false
       },
-      "schemaFingerprint": "61286707bdbfc292"
+      "schemaFingerprint": "61eb6f061ce0b8c5"
     }
   ],
   "toolCount": 3,
-  "fingerprint": "5410d514401ded00",
+  "fingerprint": "3233fe8bdb915b95",
   "lastGood": {
-    "at": "2026-11-15T18:55:23.488Z",
+    "at": "2026-11-16T06:40:12.850Z",
     "tools": [
       {
         "name": "firecrawl_parse",
@@ -2619,6 +2628,12 @@
               },
               "additionalProperties": false
             },
+            "answerShowTitle": {
+              "description": "The exact title of one podcast show, never an episode's title, for Ultrasearch to look up in Particle's catalogue. Particle bills the lookup even when no show matches. Podcast lookups are not available on this server yet, so it is ignored.",
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
             "objective": {
               "description": "The user's underlying goal for this call, in one sentence: what they are ultimately trying to accomplish, not a restatement of the URL or query. Reuse it across related calls. Avoid sensitive information.",
               "type": "string",
@@ -2700,6 +2715,9 @@
             "feedbackTool": {
               "description": "Pointer to the feedback tool for this search."
             },
+            "answer": {
+              "description": "Ultrasearch: one Alexandria provider record answering the query, separate from the web results, with its route, provider, sources, attribution and credits (search, provider, pending, max_credits, stop_reason, cap_enforced: whether the cap was enforced when the provider was called, unresolved_requests: provider requests whose charge is not known yet)."
+            },
             "agent_hints": {
               "description": "Optional response guidance from the Firecrawl API.",
               "type": "array",
@@ -2720,27 +2738,27 @@
           "openWorldHint": true,
           "destructiveHint": false
         },
-        "schemaFingerprint": "61286707bdbfc292"
+        "schemaFingerprint": "61eb6f061ce0b8c5"
       }
     ],
-    "fingerprint": "5410d514401ded00",
+    "fingerprint": "3233fe8bdb915b95",
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-11-15T18:55:23.488Z",
-  "lastOkAt": "2026-11-15T18:55:23.488Z",
-  "lastChangedAt": "2026-11-11T19:40:03.531Z",
-  "changeCount": 32,
+  "lastCheckedAt": "2026-11-16T06:40:12.850Z",
+  "lastOkAt": "2026-11-16T06:40:12.850Z",
+  "lastChangedAt": "2026-11-16T06:40:12.850Z",
+  "changeCount": 33,
   "card": {
     "id": "firecrawl",
     "cardUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
-    "at": "2026-11-15T18:55:23.488Z",
+    "at": "2026-11-16T06:40:12.850Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-11-15T18:55:23.488Z",
+      "at": "2026-11-16T06:40:12.850Z",
       "declaredUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
       "observedUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
