@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-11-16T06:40:12.850Z",
+    "at": "2026-11-16T22:13:05.433Z",
     "declaredUrl": "https://mcp.jina.ai/sse",
     "observedUrl": "https://mcp.jina.ai/sse",
     "urlMatchesDeclared": true,
@@ -100,7 +100,7 @@
           "url": {
             "type": "string",
             "format": "uri",
-            "description": "PDF URL. Give id or url."
+            "description": "PDF URL on arxiv.org, ssrn.com, openreview.net or aclanthology.org; other hosts are refused. Give id or url."
           },
           "max_edge": {
             "type": "number",
@@ -117,7 +117,7 @@
       },
       "outputSchema": null,
       "annotations": null,
-      "schemaFingerprint": "e59285d34adcf10c"
+      "schemaFingerprint": "88874a7977cb3f16"
     },
     {
       "name": "guess_datetime_url",
@@ -490,9 +490,9 @@
     }
   ],
   "toolCount": 12,
-  "fingerprint": "ee7c31ed5c58e9c6",
+  "fingerprint": "adaab9a3cf46686a",
   "lastGood": {
-    "at": "2026-11-16T06:40:12.850Z",
+    "at": "2026-11-16T22:13:05.433Z",
     "tools": [
       {
         "name": "capture_screenshot_url",
@@ -572,7 +572,7 @@
             "url": {
               "type": "string",
               "format": "uri",
-              "description": "PDF URL. Give id or url."
+              "description": "PDF URL on arxiv.org, ssrn.com, openreview.net or aclanthology.org; other hosts are refused. Give id or url."
             },
             "max_edge": {
               "type": "number",
@@ -589,7 +589,7 @@
         },
         "outputSchema": null,
         "annotations": null,
-        "schemaFingerprint": "e59285d34adcf10c"
+        "schemaFingerprint": "88874a7977cb3f16"
       },
       {
         "name": "guess_datetime_url",
@@ -961,24 +961,24 @@
         "schemaFingerprint": "85bb3d8f281912b3"
       }
     ],
-    "fingerprint": "ee7c31ed5c58e9c6",
+    "fingerprint": "adaab9a3cf46686a",
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-11-16T06:40:12.850Z",
-  "lastOkAt": "2026-11-16T06:40:12.850Z",
-  "lastChangedAt": "2026-10-15T04:47:43.511Z",
-  "changeCount": 2,
+  "lastCheckedAt": "2026-11-16T22:13:05.433Z",
+  "lastOkAt": "2026-11-16T22:13:05.433Z",
+  "lastChangedAt": "2026-11-16T22:13:05.433Z",
+  "changeCount": 3,
   "card": {
     "id": "jina",
     "cardUrl": "https://mcp.jina.ai/.well-known/mcp/server-card.json",
-    "at": "2026-11-16T06:40:12.850Z",
+    "at": "2026-11-16T22:13:05.433Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-11-16T06:40:12.850Z",
+      "at": "2026-11-16T22:13:05.433Z",
       "declaredUrl": "https://mcp.jina.ai/.well-known/mcp/server-card.json",
       "observedUrl": "https://mcp.jina.ai/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
