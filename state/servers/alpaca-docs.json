@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-11-16T22:13:05.433Z",
+    "at": "2026-11-17T08:01:02.828Z",
     "declaredUrl": "https://docs.alpaca.markets/mcp",
     "observedUrl": "https://docs.alpaca.markets/mcp",
     "urlMatchesDeclared": true,
@@ -169,7 +169,7 @@
   "toolCount": 5,
   "fingerprint": "19dc991e1b76e393",
   "lastGood": {
-    "at": "2026-11-16T22:13:05.433Z",
+    "at": "2026-11-17T08:01:02.828Z",
     "tools": [
       {
         "name": "fetch",
@@ -319,14 +319,14 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-11-16T22:13:05.433Z",
-  "lastOkAt": "2026-11-16T22:13:05.433Z",
+  "lastCheckedAt": "2026-11-17T08:01:02.828Z",
+  "lastOkAt": "2026-11-17T08:01:02.828Z",
   "lastChangedAt": "2026-11-16T06:40:12.850Z",
   "changeCount": 3,
   "card": {
     "id": "alpaca-docs",
     "cardUrl": "https://docs.alpaca.markets/.well-known/mcp/server-card.json",
-    "at": "2026-11-16T22:13:05.433Z",
+    "at": "2026-11-17T08:01:02.828Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -347,7 +347,7 @@
       "toolCount": null
     },
     "provenance": {
-      "at": "2026-11-16T22:13:05.433Z",
+      "at": "2026-11-17T08:01:02.828Z",
       "declaredUrl": "https://docs.alpaca.markets/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.alpaca.markets/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,

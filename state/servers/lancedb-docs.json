@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-11-16T22:13:05.433Z",
+    "at": "2026-11-17T08:01:02.828Z",
     "declaredUrl": "https://docs.lancedb.com/mcp",
     "observedUrl": "https://docs.lancedb.com/mcp",
     "urlMatchesDeclared": true,
@@ -118,7 +118,7 @@
   "toolCount": 3,
   "fingerprint": "30786f86b4c73a6f",
   "lastGood": {
-    "at": "2026-11-16T22:13:05.433Z",
+    "at": "2026-11-17T08:01:02.828Z",
     "tools": [
       {
         "name": "query_docs_filesystem_lance_db",
@@ -217,14 +217,14 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-11-16T22:13:05.433Z",
-  "lastOkAt": "2026-11-16T22:13:05.433Z",
+  "lastCheckedAt": "2026-11-17T08:01:02.828Z",
+  "lastOkAt": "2026-11-17T08:01:02.828Z",
   "lastChangedAt": "2026-11-14T06:34:26.516Z",
   "changeCount": 3,
   "card": {
     "id": "lancedb-docs",
     "cardUrl": "https://docs.lancedb.com/.well-known/mcp/server-card.json",
-    "at": "2026-11-16T22:13:05.433Z",
+    "at": "2026-11-17T08:01:02.828Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -300,7 +300,7 @@
       "toolCount": 3
     },
     "provenance": {
-      "at": "2026-11-16T22:13:05.433Z",
+      "at": "2026-11-17T08:01:02.828Z",
       "declaredUrl": "https://docs.lancedb.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.lancedb.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
