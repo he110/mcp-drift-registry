@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-11-18T20:37:55.009Z",
+    "at": "2026-11-19T07:33:08.852Z",
     "declaredUrl": "https://dub.co/docs/mcp",
     "observedUrl": "https://dub.co/docs/mcp",
     "urlMatchesDeclared": true,
@@ -114,7 +114,7 @@
   "toolCount": 3,
   "fingerprint": "d2be1f9a4bfcbdc0",
   "lastGood": {
-    "at": "2026-11-18T20:37:55.009Z",
+    "at": "2026-11-19T07:33:08.852Z",
     "tools": [
       {
         "name": "query_docs_filesystem_dub",
@@ -209,20 +209,20 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-11-18T20:37:55.009Z",
-  "lastOkAt": "2026-11-18T20:37:55.009Z",
+  "lastCheckedAt": "2026-11-19T07:33:08.852Z",
+  "lastOkAt": "2026-11-19T07:33:08.852Z",
   "lastChangedAt": "2026-11-14T06:34:26.516Z",
   "changeCount": 4,
   "card": {
     "id": "dub-docs",
     "cardUrl": "https://dub.co/.well-known/mcp/server-card.json",
-    "at": "2026-11-18T20:37:55.009Z",
+    "at": "2026-11-19T07:33:08.852Z",
     "cardPath": "/.well-known/mcp/server-card.json",
-    "status": "absent",
-    "error": "HTTP 404",
+    "status": "error",
+    "error": "HTTP 500",
     "card": null,
     "provenance": {
-      "at": "2026-11-18T20:37:55.009Z",
+      "at": "2026-11-19T07:33:08.852Z",
       "declaredUrl": "https://dub.co/.well-known/mcp/server-card.json",
       "observedUrl": "https://dub.co/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
@@ -234,6 +234,6 @@
       "refused": null
     },
     "cardsUrl": "https://dub.co/.well-known/mcp/server-cards.json",
-    "cardsStatus": "absent"
+    "cardsStatus": "error"
   }
 }
