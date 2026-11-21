@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-11-21T07:17:39.299Z",
+    "at": "2026-11-21T19:22:19.467Z",
     "declaredUrl": "https://mcp.firecrawl.dev/mcp",
     "observedUrl": "https://mcp.firecrawl.dev/mcp",
     "urlMatchesDeclared": true,
@@ -162,6 +162,12 @@
             "type": "integer",
             "exclusiveMinimum": 0,
             "maximum": 9007199254740991
+          },
+          "objective": {
+            "description": "The user's underlying goal in one sentence, not a restatement of this call's arguments. Reuse it across related calls. Firecrawl uses it to learn what agents need and improve its results. No personal data, secrets or the user's exact words.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 5000
           },
           "conversationId": {
             "description": "conversationId from any earlier Firecrawl tool result in this conversation; after parallel calls, any one of theirs. Omit only on the first call of a conversation; the result returns one to pass on every later call.",
@@ -352,7 +358,7 @@
         "openWorldHint": false,
         "destructiveHint": false
       },
-      "schemaFingerprint": "71d41e0fa32a1c7a"
+      "schemaFingerprint": "522156c20814d85e"
     },
     {
       "name": "firecrawl_scrape",
@@ -552,7 +558,7 @@
             "type": "boolean"
           },
           "objective": {
-            "description": "The user's underlying goal for this call, in one sentence: what they are ultimately trying to accomplish, not a restatement of the URL or query. Reuse it across related calls. Avoid sensitive information.",
+            "description": "The user's underlying goal in one sentence, not a restatement of this call's arguments. Reuse it across related calls. Firecrawl uses it to learn what agents need and improve its results. No personal data, secrets or the user's exact words.",
             "type": "string",
             "minLength": 1,
             "maxLength": 1000
@@ -871,7 +877,7 @@
         "openWorldHint": true,
         "destructiveHint": false
       },
-      "schemaFingerprint": "f190bca29839f8b7"
+      "schemaFingerprint": "2b93785d1bf5982e"
     },
     {
       "name": "firecrawl_search",
@@ -1187,7 +1193,7 @@
             "additionalProperties": false
           },
           "objective": {
-            "description": "The user's underlying goal for this call, in one sentence: what they are ultimately trying to accomplish, not a restatement of the URL or query. Reuse it across related calls. Avoid sensitive information.",
+            "description": "The user's underlying goal in one sentence, not a restatement of this call's arguments. Reuse it across related calls. Firecrawl uses it to learn what agents need and improve its results. No personal data, secrets or the user's exact words.",
             "type": "string",
             "minLength": 1,
             "maxLength": 5000
@@ -1290,13 +1296,13 @@
         "openWorldHint": true,
         "destructiveHint": false
       },
-      "schemaFingerprint": "61286707bdbfc292"
+      "schemaFingerprint": "cf5c67cc46c82998"
     }
   ],
   "toolCount": 3,
-  "fingerprint": "ad31184823491fe9",
+  "fingerprint": "b9caecd610aa1e2a",
   "lastGood": {
-    "at": "2026-11-21T07:17:39.299Z",
+    "at": "2026-11-21T19:22:19.467Z",
     "tools": [
       {
         "name": "firecrawl_parse",
@@ -1438,6 +1444,12 @@
               "type": "integer",
               "exclusiveMinimum": 0,
               "maximum": 9007199254740991
+            },
+            "objective": {
+              "description": "The user's underlying goal in one sentence, not a restatement of this call's arguments. Reuse it across related calls. Firecrawl uses it to learn what agents need and improve its results. No personal data, secrets or the user's exact words.",
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 5000
             },
             "conversationId": {
               "description": "conversationId from any earlier Firecrawl tool result in this conversation; after parallel calls, any one of theirs. Omit only on the first call of a conversation; the result returns one to pass on every later call.",
@@ -1628,7 +1640,7 @@
           "openWorldHint": false,
           "destructiveHint": false
         },
-        "schemaFingerprint": "71d41e0fa32a1c7a"
+        "schemaFingerprint": "522156c20814d85e"
       },
       {
         "name": "firecrawl_scrape",
@@ -1828,7 +1840,7 @@
               "type": "boolean"
             },
             "objective": {
-              "description": "The user's underlying goal for this call, in one sentence: what they are ultimately trying to accomplish, not a restatement of the URL or query. Reuse it across related calls. Avoid sensitive information.",
+              "description": "The user's underlying goal in one sentence, not a restatement of this call's arguments. Reuse it across related calls. Firecrawl uses it to learn what agents need and improve its results. No personal data, secrets or the user's exact words.",
               "type": "string",
               "minLength": 1,
               "maxLength": 1000
@@ -2147,7 +2159,7 @@
           "openWorldHint": true,
           "destructiveHint": false
         },
-        "schemaFingerprint": "f190bca29839f8b7"
+        "schemaFingerprint": "2b93785d1bf5982e"
       },
       {
         "name": "firecrawl_search",
@@ -2463,7 +2475,7 @@
               "additionalProperties": false
             },
             "objective": {
-              "description": "The user's underlying goal for this call, in one sentence: what they are ultimately trying to accomplish, not a restatement of the URL or query. Reuse it across related calls. Avoid sensitive information.",
+              "description": "The user's underlying goal in one sentence, not a restatement of this call's arguments. Reuse it across related calls. Firecrawl uses it to learn what agents need and improve its results. No personal data, secrets or the user's exact words.",
               "type": "string",
               "minLength": 1,
               "maxLength": 5000
@@ -2566,27 +2578,27 @@
           "openWorldHint": true,
           "destructiveHint": false
         },
-        "schemaFingerprint": "61286707bdbfc292"
+        "schemaFingerprint": "cf5c67cc46c82998"
       }
     ],
-    "fingerprint": "ad31184823491fe9",
+    "fingerprint": "b9caecd610aa1e2a",
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-11-21T07:17:39.299Z",
-  "lastOkAt": "2026-11-21T07:17:39.299Z",
-  "lastChangedAt": "2026-11-17T21:00:03.155Z",
-  "changeCount": 36,
+  "lastCheckedAt": "2026-11-21T19:22:19.467Z",
+  "lastOkAt": "2026-11-21T19:22:19.467Z",
+  "lastChangedAt": "2026-11-21T19:22:19.467Z",
+  "changeCount": 37,
   "card": {
     "id": "firecrawl",
     "cardUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
-    "at": "2026-11-21T07:17:39.299Z",
+    "at": "2026-11-21T19:22:19.467Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-11-21T07:17:39.299Z",
+      "at": "2026-11-21T19:22:19.467Z",
       "declaredUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
       "observedUrl": "https://mcp.firecrawl.dev/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,

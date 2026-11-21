@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-11-21T07:17:39.299Z",
+    "at": "2026-11-21T19:22:19.467Z",
     "declaredUrl": "https://mcp.jina.ai/sse",
     "observedUrl": "https://mcp.jina.ai/sse",
     "urlMatchesDeclared": true,
@@ -492,7 +492,7 @@
   "toolCount": 12,
   "fingerprint": "adaab9a3cf46686a",
   "lastGood": {
-    "at": "2026-11-21T07:17:39.299Z",
+    "at": "2026-11-21T19:22:19.467Z",
     "tools": [
       {
         "name": "capture_screenshot_url",
@@ -965,20 +965,20 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:24:48.004Z",
-  "lastCheckedAt": "2026-11-21T07:17:39.299Z",
-  "lastOkAt": "2026-11-21T07:17:39.299Z",
+  "lastCheckedAt": "2026-11-21T19:22:19.467Z",
+  "lastOkAt": "2026-11-21T19:22:19.467Z",
   "lastChangedAt": "2026-11-16T22:13:05.433Z",
   "changeCount": 3,
   "card": {
     "id": "jina",
     "cardUrl": "https://mcp.jina.ai/.well-known/mcp/server-card.json",
-    "at": "2026-11-21T07:17:39.299Z",
+    "at": "2026-11-21T19:22:19.467Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "absent",
     "error": "HTTP 404",
     "card": null,
     "provenance": {
-      "at": "2026-11-21T07:17:39.299Z",
+      "at": "2026-11-21T19:22:19.467Z",
       "declaredUrl": "https://mcp.jina.ai/.well-known/mcp/server-card.json",
       "observedUrl": "https://mcp.jina.ai/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
