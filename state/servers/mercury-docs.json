@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-11-25T08:43:51.024Z",
+    "at": "2026-11-25T21:46:03.711Z",
     "declaredUrl": "https://docs.mercury.com/mcp",
     "observedUrl": "https://docs.mercury.com/mcp",
     "urlMatchesDeclared": true,
@@ -156,6 +156,39 @@
       "schemaFingerprint": "7c6cb47bd1059e60"
     },
     {
+      "name": "fetch",
+      "title": "Fetch Documentation Page",
+      "description": "Gets detailed content for documentation by ID returned from the `search` tool.",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Canonical IDs use project/section/slug. Legacy project/slug, recipe:project/slug and ref:project/slug IDs are also accepted. For a link `/<section>/<slug>` the search tool did not return, use `<project>/<section>/<slug>`, with `<project>` taken from an ID this project already returned. A custom page link `/page/<slug>` maps to `<project>/custom_pages/<slug>`."
+          },
+          "format": {
+            "description": "Custom pages can be authored in HTML. `markdown` converts an HTML custom page to Markdown; omitted or `original` returns the page as authored.",
+            "type": "string",
+            "enum": [
+              "original",
+              "markdown"
+            ]
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "schemaFingerprint": "93b952461a542893"
+    },
+    {
       "name": "get-endpoint",
       "title": "Get Endpoint Details",
       "description": "Gets detailed information about a specific API endpoint, including security schemes and servers",
@@ -232,6 +265,31 @@
       "schemaFingerprint": "efddc7bd8bbcef73"
     },
     {
+      "name": "search",
+      "title": "Search Documentation",
+      "description": "Searches through documentation with the given search query, returning a list of results with ID, title, and URL.",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "search query"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      },
+      "outputSchema": null,
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "schemaFingerprint": "75bbf5108beb6478"
+    },
+    {
       "name": "search-endpoints",
       "title": "Search API Endpoints",
       "description": "Performs a deep search through paths, operations, and parameters to discover relevant API endpoints. Use this tool to find specific API capabilities, required parameters, or data models based on search keywords. Results can be passed directly into 'get-endpoint'.",
@@ -257,10 +315,10 @@
       "schemaFingerprint": "b6566c5b07df4454"
     }
   ],
-  "toolCount": 5,
-  "fingerprint": "78bcd13a1199d7d5",
+  "toolCount": 7,
+  "fingerprint": "81100dde9b6c39f5",
   "lastGood": {
-    "at": "2026-11-25T08:43:51.024Z",
+    "at": "2026-11-25T21:46:03.711Z",
     "tools": [
       {
         "name": "execute-request",
@@ -396,6 +454,39 @@
         "schemaFingerprint": "7c6cb47bd1059e60"
       },
       {
+        "name": "fetch",
+        "title": "Fetch Documentation Page",
+        "description": "Gets detailed content for documentation by ID returned from the `search` tool.",
+        "inputSchema": {
+          "type": "object",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Canonical IDs use project/section/slug. Legacy project/slug, recipe:project/slug and ref:project/slug IDs are also accepted. For a link `/<section>/<slug>` the search tool did not return, use `<project>/<section>/<slug>`, with `<project>` taken from an ID this project already returned. A custom page link `/page/<slug>` maps to `<project>/custom_pages/<slug>`."
+            },
+            "format": {
+              "description": "Custom pages can be authored in HTML. `markdown` converts an HTML custom page to Markdown; omitted or `original` returns the page as authored.",
+              "type": "string",
+              "enum": [
+                "original",
+                "markdown"
+              ]
+            }
+          },
+          "required": [
+            "id"
+          ]
+        },
+        "outputSchema": null,
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "openWorldHint": false
+        },
+        "schemaFingerprint": "93b952461a542893"
+      },
+      {
         "name": "get-endpoint",
         "title": "Get Endpoint Details",
         "description": "Gets detailed information about a specific API endpoint, including security schemes and servers",
@@ -472,6 +563,31 @@
         "schemaFingerprint": "efddc7bd8bbcef73"
       },
       {
+        "name": "search",
+        "title": "Search Documentation",
+        "description": "Searches through documentation with the given search query, returning a list of results with ID, title, and URL.",
+        "inputSchema": {
+          "type": "object",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "search query"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        },
+        "outputSchema": null,
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "openWorldHint": false
+        },
+        "schemaFingerprint": "75bbf5108beb6478"
+      },
+      {
         "name": "search-endpoints",
         "title": "Search API Endpoints",
         "description": "Performs a deep search through paths, operations, and parameters to discover relevant API endpoints. Use this tool to find specific API capabilities, required parameters, or data models based on search keywords. Results can be passed directly into 'get-endpoint'.",
@@ -497,18 +613,18 @@
         "schemaFingerprint": "b6566c5b07df4454"
       }
     ],
-    "fingerprint": "78bcd13a1199d7d5",
+    "fingerprint": "81100dde9b6c39f5",
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-11-25T08:43:51.024Z",
-  "lastOkAt": "2026-11-25T08:43:51.024Z",
-  "lastChangedAt": null,
-  "changeCount": 0,
+  "lastCheckedAt": "2026-11-25T21:46:03.711Z",
+  "lastOkAt": "2026-11-25T21:46:03.711Z",
+  "lastChangedAt": "2026-11-25T21:46:03.711Z",
+  "changeCount": 1,
   "card": {
     "id": "mercury-docs",
     "cardUrl": "https://docs.mercury.com/.well-known/mcp/server-card.json",
-    "at": "2026-11-25T08:43:51.024Z",
+    "at": "2026-11-25T21:46:03.711Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -529,7 +645,7 @@
       "toolCount": null
     },
     "provenance": {
-      "at": "2026-11-25T08:43:51.024Z",
+      "at": "2026-11-25T21:46:03.711Z",
       "declaredUrl": "https://docs.mercury.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.mercury.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,

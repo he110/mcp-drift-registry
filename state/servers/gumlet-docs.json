@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-11-25T08:43:51.024Z",
+    "at": "2026-11-25T21:46:03.711Z",
     "declaredUrl": "https://docs.gumlet.com/mcp",
     "observedUrl": "https://docs.gumlet.com/mcp",
     "urlMatchesDeclared": true,
@@ -53,7 +53,7 @@
   "toolCount": 1,
   "fingerprint": "720c4a669e5f8013",
   "lastGood": {
-    "at": "2026-11-25T08:43:51.024Z",
+    "at": "2026-11-25T21:46:03.711Z",
     "tools": [
       {
         "name": "search-documentation",
@@ -87,14 +87,14 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-11-25T08:43:51.024Z",
-  "lastOkAt": "2026-11-25T08:43:51.024Z",
+  "lastCheckedAt": "2026-11-25T21:46:03.711Z",
+  "lastOkAt": "2026-11-25T21:46:03.711Z",
   "lastChangedAt": "2026-10-15T04:47:43.511Z",
   "changeCount": 3,
   "card": {
     "id": "gumlet-docs",
     "cardUrl": "https://docs.gumlet.com/.well-known/mcp/server-card.json",
-    "at": "2026-11-25T08:43:51.024Z",
+    "at": "2026-11-25T21:46:03.711Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -108,7 +108,7 @@
       "toolCount": null
     },
     "provenance": {
-      "at": "2026-11-25T08:43:51.024Z",
+      "at": "2026-11-25T21:46:03.711Z",
       "declaredUrl": "https://docs.gumlet.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.gumlet.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
