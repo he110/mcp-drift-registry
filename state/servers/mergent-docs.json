@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-11-24T22:30:54.073Z",
+    "at": "2026-11-25T08:43:51.024Z",
     "declaredUrl": "https://docs.mergent.co/mcp",
     "observedUrl": "https://docs.mergent.co/mcp",
     "urlMatchesDeclared": true,
@@ -114,7 +114,7 @@
   "toolCount": 3,
   "fingerprint": "eb0d9b1d70f0a07a",
   "lastGood": {
-    "at": "2026-11-24T22:30:54.073Z",
+    "at": "2026-11-25T08:43:51.024Z",
     "tools": [
       {
         "name": "query_docs_filesystem_mergent",
@@ -209,14 +209,14 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-11-24T22:30:54.073Z",
-  "lastOkAt": "2026-11-24T22:30:54.073Z",
+  "lastCheckedAt": "2026-11-25T08:43:51.024Z",
+  "lastOkAt": "2026-11-25T08:43:51.024Z",
   "lastChangedAt": "2026-11-14T18:11:47.880Z",
   "changeCount": 2,
   "card": {
     "id": "mergent-docs",
     "cardUrl": "https://docs.mergent.co/.well-known/mcp/server-card.json",
-    "at": "2026-11-24T22:30:54.073Z",
+    "at": "2026-11-25T08:43:51.024Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -288,7 +288,7 @@
       "toolCount": 3
     },
     "provenance": {
-      "at": "2026-11-24T22:30:54.073Z",
+      "at": "2026-11-25T08:43:51.024Z",
       "declaredUrl": "https://docs.mergent.co/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.mergent.co/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
