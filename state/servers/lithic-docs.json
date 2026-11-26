@@ -10,7 +10,7 @@
   "protocolVersion": null,
   "serverInfo": null,
   "provenance": {
-    "at": "2026-11-25T21:46:03.711Z",
+    "at": "2026-11-26T08:28:32.704Z",
     "declaredUrl": "https://docs.lithic.com/mcp",
     "observedUrl": "https://docs.lithic.com/mcp",
     "urlMatchesDeclared": true,
@@ -348,7 +348,7 @@
   "toolCount": 10,
   "fingerprint": "de031522b005ff4e",
   "lastGood": {
-    "at": "2026-11-25T21:46:03.711Z",
+    "at": "2026-11-26T08:28:32.704Z",
     "tools": [
       {
         "name": "execute-request",
@@ -677,14 +677,14 @@
     "protocolVersion": null
   },
   "firstSeenAt": "2026-09-09T10:55:17.881Z",
-  "lastCheckedAt": "2026-11-25T21:46:03.711Z",
-  "lastOkAt": "2026-11-25T21:46:03.711Z",
+  "lastCheckedAt": "2026-11-26T08:28:32.704Z",
+  "lastOkAt": "2026-11-26T08:28:32.704Z",
   "lastChangedAt": "2026-11-23T07:47:48.532Z",
   "changeCount": 4,
   "card": {
     "id": "lithic-docs",
     "cardUrl": "https://docs.lithic.com/.well-known/mcp/server-card.json",
-    "at": "2026-11-25T21:46:03.711Z",
+    "at": "2026-11-26T08:28:32.704Z",
     "cardPath": "/.well-known/mcp/server-card.json",
     "status": "ok",
     "error": null,
@@ -705,7 +705,7 @@
       "toolCount": null
     },
     "provenance": {
-      "at": "2026-11-25T21:46:03.711Z",
+      "at": "2026-11-26T08:28:32.704Z",
       "declaredUrl": "https://docs.lithic.com/.well-known/mcp/server-card.json",
       "observedUrl": "https://docs.lithic.com/.well-known/mcp/server-card.json",
       "urlMatchesDeclared": true,
